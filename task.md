@@ -1,9 +1,9 @@
  Tasca | Responsalbe | Estat  
  ---| --- | ---
- Definir api | estevetarra | S 
+ Definir api | estevetarra | F 
  Definir estructura de BD | - | WR 
  Definir interface (bootstrap) | - | WR 
- Crear template server | - | WT 
+ Crear template server | estevetarra | S 
  Crear stub de API | - | WT 
  Crear stub de BD (pocs casos per testajar) | - | WT 
  Crear script d'instal·lació | - | WR 
