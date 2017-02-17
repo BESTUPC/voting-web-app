@@ -40,7 +40,7 @@ sends the vote
 
 
 
-###### /createPoll(userId,pollName,pollOptions,targetGrup,isPrivate,pollDeadline)
+###### /createPoll(userId,pollName,pollOptions,targetGroup,isPrivate,pollDeadline)
 creates a new Poll in the data base
 ```
 {
