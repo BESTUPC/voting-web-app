@@ -16,10 +16,16 @@
  Gestionar notificacion | - | WR 
  Crear pàgina estadístiques | - | WR 
 
-Estat
+##Estat
+
 Waiting for Responsible WR
+
 Waiting for other task WT
-Started ST
+
+Started S
+
 Stub ready SR
+
 Finished  F
+
 Debugged  D
