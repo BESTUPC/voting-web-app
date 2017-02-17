@@ -3,18 +3,18 @@
  Definir api | estevetarra | S 
  Definir estructura de BD | - | WR 
  Definir interface (bootstrap) | - | WR 
- Crear template server | - | WR 
- Crear stub de API | - | WR 
- Crear stub de BD (pocs casos per testajar) | - | WR 
+ Crear template server | - | WT 
+ Crear stub de API | - | WT 
+ Crear stub de BD (pocs casos per testajar) | - | WT 
  Crear script d'instal·lació | - | WR 
- Crear html static (sense connectar) | - | WR 
- Crear js de la pàgina | - | WR 
- Fer log in amb google | - | WR 
- Crear coockies | - | WR 
- Visualització de votacions | - | WR 
- Creació de votacions | - | WR 
- Gestionar notificacion | - | WR 
- Crear pàgina estadístiques | - | WR 
+ Crear html static (sense connectar) | - | WT 
+ Crear js de la pàgina | - | WT 
+ Fer log in amb google | - | WT 
+ Crear coockies | - | WT 
+ Visualització de votacions | - | WT 
+ Creació de votacions | - | WT 
+ Gestionar notificacion | - | WT 
+ Crear pàgina estadístiques | - | WT 
 
 ##Estat
 
