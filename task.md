@@ -1,4 +1,4 @@
- Tasca | Responsalbe | Estat  
+ Tasca | Responsable | Estat  
  ---| --- | ---
  Definir api | estevetarra | F 
  Definir estructura de BD | - | WR 
@@ -16,6 +16,10 @@
  Gestionar notificacion | - | WT 
  Crear pàgina estadístiques | - | WT 
 
+
+##How it works
+Agafeu qualsevol tasca que fiqui WR, editeu aquest arxiu i comenceu a fer-la. No afageu més d'una tasca i si necessiteu ajuda pregunteu per telegram :D
+
 ##Estat
 
 Waiting for Responsible WR
@@ -23,8 +27,6 @@ Waiting for Responsible WR
 Waiting for other task WT
 
 Started S
-
-Stub ready SR
 
 Finished  F
 
