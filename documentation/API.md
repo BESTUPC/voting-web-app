@@ -99,5 +99,13 @@ revoke a membership to a member
 ["full", "member"]
 ```
 
+###### /addUser(userId, newUser) *
+add a user with "all" grup to the DB, the second param is the mail of the second user
+```
+{
+    "status" : 0,
+}
+```
+
 
 ## \* Will require an authentication token

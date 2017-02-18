@@ -10,7 +10,6 @@ var url = 'mongodb://localhost:27017/votacions';
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   console.log("Connected successfully to server");
-
   db.close();
 });
 
@@ -119,4 +118,24 @@ app.get('/revokeMembership', function (req, res) {
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
+})
+
+app.get('/addUser', function (req, res) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+    var users = db.collection('users');
+    var user = {};
+    user['userid'] = req.query.newUser;
+    user['membership'] = ['all'];
+    users.insertMany([user], function(err, result) {
+      assert.equal(err, null);
+      console.log("Inserted a new user on the collection");
+      }
+    );
+    db.close();
+  });
+  var ret = {};
+  ret['status'] = 0;
+  res.json(ret);
 })
