@@ -8,7 +8,9 @@ given a user id return the polls he can vote
         "pollId" : 25487,
         "pollName" : "Bestie de la biSetmana",
         "pollOptions" : ["Esteve", "Iñigo", "Arnau"],
-        "pollDeadline" : 1487335573
+        "pollDeadline" : 1487335573,
+        "isPrivate" : 0,
+        "targetGroup" : "members"
     }
 ]
 ```
@@ -25,7 +27,9 @@ given a poll id return info of the poll
     "pollId" : 25487,
     "pollName" : "Bestie de la biSetmana",
     "pollOptions" : ["Esteve", "Iñigo", "Arnau"],
-    "pollDeadline" : 1487335573
+    "pollDeadline" : 1487335573,
+    "isPrivate" : 0,
+    "targetGroup" : "members"
 }
 
 ```
