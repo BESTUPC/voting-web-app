@@ -30,7 +30,7 @@ given a poll id return info of the poll
 
 ```
 
-###### /sendVote(userId,pollId,option)
+###### /sendVote(userId,pollId,option) *
 sends the vote
 ```
 {
@@ -40,15 +40,7 @@ sends the vote
 
 
 
-###### /createPoll(userId,pollName,pollOptions,targetGroup,isPrivate,pollDeadline)
-creates a new Poll in the data base
-```
-{
-    "status" : 0,
-}
-```
-
-###### /askWithdrawal(userId,pollId)
+###### /askWithdrawal(userId,pollId) *
 The user is asking for a withdrawal
 ```
 {
@@ -56,7 +48,7 @@ The user is asking for a withdrawal
 }
 ```
 
-###### /askPrivate(userId,pollId)
+###### /askPrivate(userId,pollId) *
 The user is asking for the poll to be private
 ```
 {
@@ -76,3 +68,32 @@ Given a poll id return the results if it's closed
      }
 ]
 ```
+
+###### /getMembership(userId)
+gets the membership of a member
+```
+["admin","full"]
+```
+
+### Only by admin users
+
+###### /createPoll(userId,pollName,pollOptions,targetGroup,isPrivate,pollDeadline) *
+creates a new Poll in the data base
+```
+{
+    "status" : 0,
+}
+```
+###### /addMembership(userId,newMembership) *
+add a membership to a member
+```
+["admin","full",member]
+```
+###### /revokeMembership(userId,newMembership) *
+revoke a membership to a member
+```
+["full"]
+```
+
+
+## \* Will require an authentification token
