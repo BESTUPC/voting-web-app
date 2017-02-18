@@ -3,10 +3,10 @@
  Definir api | estevetarra | F 
  Definir estructura de BD | - | WR 
  Definir interface (bootstrap) | - | WR 
- Crear template server | estevetarra | S 
- Crear stub de API | - | WT 
+ Crear template server | estevetarra | F 
+ Crear stub de API | estevetarra | S 
  Crear stub de BD (pocs casos per testajar) | - | WT 
- Crear script d'instal·lació | - | WR 
+ Crear script d'instal·lació | estevetarra | F 
  Crear html static (sense connectar) | - | WT 
  Crear js de la pàgina | - | WT 
  Fer log in amb google | - | WT 
