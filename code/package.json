@@ -1,0 +1,25 @@
+{
+  "name": "web-app-votacions-best",
+  "version": "1.0.0",
+  "description": "Web-App-Votacions-BEST",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/estevetarra/Web-App-Votacions-BEST.git"
+  },
+  "keywords": [
+    "BEST"
+  ],
+  "author": "BEST",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/estevetarra/Web-App-Votacions-BEST/issues"
+  },
+  "homepage": "https://github.com/estevetarra/Web-App-Votacions-BEST#readme",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
+}

@@ -1,5 +1,5 @@
 # API
- 
+
 ###### /getPolls(userId)
 given a user id return the polls he can vote
 ```
@@ -8,7 +8,7 @@ given a user id return the polls he can vote
         "pollId" : 25487,
         "pollName" : "Bestie de la biSetmana",
         "pollOptions" : ["Esteve", "Iñigo", "Arnau"],
-        "pollDeadline" : 1487335573 
+        "pollDeadline" : 1487335573
     }
 ]
 ```
@@ -25,12 +25,12 @@ given a poll id return info of the poll
     "pollId" : 25487,
     "pollName" : "Bestie de la biSetmana",
     "pollOptions" : ["Esteve", "Iñigo", "Arnau"],
-    "pollDeadline" : 1487335573 
+    "pollDeadline" : 1487335573
 }
 
 ```
 
-###### /sendVote(userId,pollId,option) *
+###### /sendVote(userId, pollId, option) *
 sends the vote
 ```
 {
@@ -40,7 +40,7 @@ sends the vote
 
 
 
-###### /askWithdrawal(userId,pollId) *
+###### /askWithdrawal(userId, pollId) *
 The user is asking for a withdrawal
 ```
 {
@@ -48,7 +48,7 @@ The user is asking for a withdrawal
 }
 ```
 
-###### /askPrivate(userId,pollId) *
+###### /askPrivate(userId, pollId) *
 The user is asking for the poll to be private
 ```
 {
@@ -72,28 +72,28 @@ Given a poll id return the results if it's closed
 ###### /getMembership(userId)
 gets the membership of a member
 ```
-["admin","full"]
+["admin", "full"]
 ```
 
 ### Only by admin users
 
-###### /createPoll(userId,pollName,pollOptions,targetGroup,isPrivate,pollDeadline) *
+###### /createPoll(userId, pollName, pollOptions, targetGroup, isPrivate, pollDeadline) *
 creates a new Poll in the data base
 ```
 {
     "status" : 0,
 }
 ```
-###### /addMembership(userId,newMembership) *
+###### /addMembership(userId, newMembership) *
 add a membership to a member
 ```
-["admin","full",member]
+["admin", "full", "member"]
 ```
-###### /revokeMembership(userId,newMembership) *
+###### /revokeMembership(userId, newMembership) *
 revoke a membership to a member
 ```
-["full"]
+["full", "member"]
 ```
 
 
-## \* Will require an authentification token
+## \* Will require an authentication token
