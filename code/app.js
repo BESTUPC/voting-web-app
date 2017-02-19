@@ -6,9 +6,13 @@ var assert = require('assert');
 // Connection URL
 var url = 'mongodb://localhost:27017/votacions';
 
-// Use connect method to connect to the server
+// Use connect method to connect to the server and creates unique indexes
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
+  db.collection('users').createIndex( { "userId" : 1}, { unique: true} );
+  db.collection('votes').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
+  db.collection('askWithdrawal').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
+  db.collection('askPrivate').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
   console.log("Connected successfully to server");
   db.close();
 });
@@ -126,7 +130,7 @@ app.get('/addUser', function (req, res) {
     console.log("Connected successfully to server");
     var users = db.collection('users');
     var user = {};
-    user['userid'] = req.query.newUser;
+    user['userId'] = req.query.newUser;
     user['membership'] = ['all'];
     users.insertMany([user], function(err, result) {
       assert.equal(err, null);

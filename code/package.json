@@ -21,6 +21,8 @@
   "homepage": "https://github.com/estevetarra/Web-App-Votacions-BEST#readme",
   "dependencies": {
     "express": "^4.14.1",
-    "mongodb": "^2.2.24"
+    "google-auth-library": "^0.10.0",
+    "mongodb": "^2.2.24",
+    "push.js": "0.0.12"
   }
 }
