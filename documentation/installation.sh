@@ -1,11 +1,41 @@
-#! /bin/bash
-sudo apt-get update
-curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-sudo apt-get install -y nodejs
-sudo apt-get install npm
-sudo apt-get install mongodb
-#sudo apt-get install -y build-essential
+#!/bin/bash -   
+#title          :installation.sh
+#description    :Script for installing the developing enviroment for BEST Barcelona WebApp
+#author         :Esteve Tarragó i Adrià Quesada
+#date           :20170218
+#version        :1.0
+#usage          :./installation.sh
+#notes          :       
+#bash_version   :4.3.42(1)-release
+#============================================================================
 
-#npm install
-#mkdir /data/db
-#sudo service mongod start
+#Variables
+OS=$(lsb_release -si)
+ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
+VER=$(lsb_release -sr)
+SCRIPT_ROOT=$(pwd)
+PROJECT_ROOT="$(dirname "$SCRIPT_ROOT")"
+
+install_debian() {
+	DEBIAN_PROGS="nodejs npm mongodb build-essential"
+	sudo apt-get update
+	curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+	sudo apt-get install -y $DEBIAN_PROGS
+}
+
+main() {
+	#create the db folder inside the project root
+	mkdir -p ""$PROJECT_ROOT"/db"
+
+	if [ "$OS" == "Ubuntu" ] || [ "$OS" == "Debian" ]  
+		then
+			install_debian
+	elif [ "$OS" == "Arch" ] || [ "$OS" == "ManjaroLinux" ] || [ "$OS" == "Antergos" ]
+        	then
+			install_arch
+	fi
+sudo systemctl start mongod;
+}
+
+#Call to main, start of the script
+main
