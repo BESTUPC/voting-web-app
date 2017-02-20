@@ -1,8 +1,8 @@
 # BD
 ## User
-**userid** | membership
- ---| ---
-"petter@best.com" | ["admin", "full", "all"]
+**userid** | email | name | membership
+ ---| --- | --- | ---
+ 102462623932080066899 | "petter@best.com"| "Petter Varlac" | ["admin", "full", "all"]
 
 ## votacions
 **_id** | pollName | pollOption | targetGroup | isPrivate | pollDeadline

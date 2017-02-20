@@ -20,6 +20,8 @@ node_modules
 *.log
 *.gz
 
+#pswd
+*.pswd
 
 # Coveralls
 coverage

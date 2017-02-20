@@ -1,7 +1,7 @@
 # API
 
-###### /getPolls(userId)
-given a user id return the polls he can vote
+###### /getPolls(idtoken)
+given a tokenid return the polls he can vote
 ```
  [
     {
@@ -14,8 +14,8 @@ given a user id return the polls he can vote
     }
 ]
 ```
-###### /getPollsId(userId)
-given a user id return the polls id he can vote
+###### /getPollsId(idtoken)
+given a tokenid return the polls id he can vote
 ```
 [224,228,229]
 ```
@@ -34,7 +34,7 @@ given a poll id return info of the poll
 
 ```
 
-###### /sendVote(userId, pollId, option) *
+###### /sendVote(idtoken, pollId, option)
 sends the vote
 ```
 {
@@ -44,7 +44,7 @@ sends the vote
 
 
 
-###### /askWithdrawal(userId, pollId) *
+###### /askWithdrawal(idtoken, pollId)
 The user is asking for a withdrawal
 ```
 {
@@ -52,7 +52,7 @@ The user is asking for a withdrawal
 }
 ```
 
-###### /askPrivate(userId, pollId) *
+###### /askPrivate(idtoken, pollId)
 The user is asking for the poll to be private
 ```
 {
@@ -81,31 +81,20 @@ gets the membership of a member
 
 ### Only by admin users
 
-###### /createPoll(userId, pollName, pollOptions, targetGroup, isPrivate, pollDeadline) *
+###### /createPoll(idtoken, pollName, pollOptions, targetGroup, isPrivate, pollDeadline)
 creates a new Poll in the data base
 ```
 {
     "status" : 0,
 }
 ```
-###### /addMembership(userId, newMembership) *
+###### /addMembership(idtoken, newMembership)
 add a membership to a member
 ```
 ["admin", "full", "member"]
 ```
-###### /revokeMembership(userId, newMembership) *
+###### /revokeMembership(idtoken, newMembership)
 revoke a membership to a member
 ```
 ["full", "member"]
 ```
-
-###### /addUser(userId, newUser) *
-add a user with "all" grup to the DB, the second param is the mail of the second user
-```
-{
-    "status" : 0,
-}
-```
-
-
-## \* Will require an authentication token
