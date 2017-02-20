@@ -13,15 +13,27 @@
 OS=$(lsb_release -si)
 ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
 VER=$(lsb_release -sr)
+RED='\033[0;41;30m'
+STD='\033[0;0;39m'
+
 SCRIPT_ROOT=$(pwd)
 PROJECT_ROOT="$(dirname "$SCRIPT_ROOT")"
 
 install_debian() {
+	echo -e "$RED Debian or Debian derivative OS distro detected, installing programs.. $STD"
 	DEBIAN_PROGS="nodejs npm mongodb build-essential"
 	sudo apt-get update
 	curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 	sudo apt-get install -y $DEBIAN_PROGS
 }
+
+install_arch() {
+	echo -e "$RED Arch or Arch derivative OS distro detected, installing programs.. $STD"
+	ARCH_PROGS="nodejs npm mongodb"
+	yaourt -Syu;
+	yaourt -S $ARCH_PROGS
+}
+
 
 main() {
 	#create the db folder inside the project root
