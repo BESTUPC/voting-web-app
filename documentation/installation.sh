@@ -36,8 +36,6 @@ install_arch() {
 
 
 main() {
-	#create the db folder inside the project root
-	mkdir -p ""$PROJECT_ROOT"/db"
 
 	if [ "$OS" == "Ubuntu" ] || [ "$OS" == "Debian" ]  
 		then
@@ -46,7 +44,7 @@ main() {
         	then
 			install_arch
 	fi
-sudo systemctl start mongod;
+mongod;
 }
 
 #Call to main, start of the script
