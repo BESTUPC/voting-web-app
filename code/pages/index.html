@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>WebApp Votacions BEST Barcelona</title>
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">WebApp Polls BEST Barcelona</a>
+                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -931,27 +931,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
-    <script src="js/cookie.js">  </script>
-    <script>
-        if (getCookie("idtoken") == ""){
-          window.location = "http://localhost:3000/login.html";
-        }
-        else{
-          //alert(getCookie("idtoken"))
-        }
-    </script>
-
-    <a href="#" onclick="signOut();">Sign out</a>
-    <script>
-      function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-          console.log('User signed out.');
-        });
-      }
-    </script>
-
 
 </body>
 
