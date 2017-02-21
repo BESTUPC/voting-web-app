@@ -3,3 +3,4 @@
 3. reiniciar ordinador
 4. npm install dintre la carpeta code per instalar els moduls
 5. copiar el arxiu googlecredentials.pswd (pinned message a telegram) a la carpeta code
+6. node app.js dintre la carpeta code per executar la app
