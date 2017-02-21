@@ -66,6 +66,10 @@ app.post('/getPolls', function (req, res) {
     var ret = [poll,poll,poll];
   //  res.json(ret);
   var token = req.body.idtoken;
+  if (token == "" ){
+    console.log("Token not defined");
+    return 1;
+  }
   client.verifyIdToken(
     token,
     CLIENT_ID,
@@ -76,20 +80,17 @@ app.post('/getPolls', function (req, res) {
         var users = db.collection('users');
         var user = {};
         user['userId'] = payload['sub'];
-        console.log(user['userId']);
         users.findOne({userId: user['userId']},{fields:{membership:1}}, function(err, document) {
-          console.log(document);
+          console.log('document:', document);
           var memberships = document['membership'];
           var votacions = db.collection('votacions');
-          console.log(memberships[0]);
-          var cursor = votacions.find({targetGroup : "all"});
-          console.log(cursor);
-        /*.toArray(function(err, docs) {
-            console.log(err);
+          votacions.find({targetGroup : "all"}).toArray(function (err, docs) {
+            if (err) throw err;
             console.log(docs);
-          });*/
+          });
+          db.close();
         });
-        db.close();
+
       });
     });
   });
