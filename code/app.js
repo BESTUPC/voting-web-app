@@ -64,7 +64,7 @@ app.post('/getPolls', function (req, res) {
     poll['description'] = "soc una poll random";
     poll['targetGroup'] = "members";
     var ret = [poll,poll,poll];
-    res.json(ret);
+  //  res.json(ret);
   var token = req.body.idtoken;
   client.verifyIdToken(
     token,
@@ -82,10 +82,12 @@ app.post('/getPolls', function (req, res) {
           var memberships = document['membership'];
           var votacions = db.collection('votacions');
           console.log(memberships[0]);
-          votacions.find({targetGroup: memberships[0]}).toArray(function(err, docs) {
+          var cursor = votacions.find({targetGroup : "all"});
+          console.log(cursor);
+        /*.toArray(function(err, docs) {
             console.log(err);
             console.log(docs);
-          });
+          });*/
         });
         db.close();
       });
