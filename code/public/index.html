@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<HTML>
+   <HEAD>
+
+   </HEAD>
+<BODY>
+  <h1> Hi </h1>
+  <script src="js/cookie.js">  </script>
+  <script>
+      if (getCookie("idtoken") == ""){
+        window.location = "http://localhost:3000/loggin.html";
+      }
+      else{
+        console.log((getCookie("idtoken")))
+=======
 <!DOCTYPE html>
 <html lang="en">
 
@@ -424,6 +440,7 @@
         auth2.signOut().then(function () {
           console.log('User signed out.');
         });
+>>>>>>> 4ec205e5cc59cfa7286490e858637d5db109b291
       }
     </script>
     
