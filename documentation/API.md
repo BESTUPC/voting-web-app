@@ -10,7 +10,9 @@ given a tokenid return the polls he can vote
         "pollOptions" : ["Esteve", "Iñigo", "Arnau"],
         "pollDeadline" : 1487335573,
         "isPrivate" : 0,
-        "targetGroup" : "members"
+        "targetGroup" : "members",
+        "descrpition" : "Qui vols que sigui el proxim Bestie de la biSetmana?",
+        "voted" : 0
     }
 ]
 ```

@@ -8,9 +8,9 @@ function onSignIn(googleUser) {
   };
   xhr.send('idtoken=' + id_token);
 
-  //la sessio caduca en 12 dies
-  setCookie("idtoken",id_token,12);
-  setCookie("profile",googleUser.getBasicProfile(),12);
+  //la sessio caduca en 300 dies
+  setCookie("idtoken",id_token,300);
+  setCookie("profile",googleUser.getBasicProfile(),300);
   window.location = "http://localhost:3000";
 }
 
