@@ -53,16 +53,48 @@ app.get('/', function (req, res) {
 })
 
 app.post('/getPolls', function (req, res) {
-  var poll = {};
-  poll['pollId'] = 254235;
-  poll['pollName'] = "Bestie de la biSetmana";
-  poll['pollOptions'] = ["Esteve", "Iñigo", "Arnau"];
-  poll ['pollDeadline'] = 1487335573;
-  poll['isPrivate'] = 0;
-  poll['targetGroup'] = "members";
-  var ret = [poll];
-  res.json(ret);
+
+    var poll = {};
+    poll['pollId'] = 254235;
+    poll['pollName'] = "Bestie de la biSetmana";
+    poll['pollOptions'] = ["Esteve", "Iñigo", "Arnau"];
+    poll ['pollDeadline'] = 1487335573;
+    poll['isPrivate'] = 0;
+    poll['voted'] = "Arnau";
+    poll['description'] = "soc una poll random";
+    poll['targetGroup'] = "members";
+    var ret = [poll,poll,poll];
+    res.json(ret);
+  var token = req.body.idtoken;
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(e, login) {
+      var payload = login.getPayload();
+      console.log(payload);
+      MongoClient.connect(url, function(err, db) {
+        var users = db.collection('users');
+        var user = {};
+        user['userId'] = payload['sub'];
+        console.log(user['userId']);
+        users.findOne({userId: user['userId']},{fields:{membership:1}}, function(err, document) {
+          console.log(document);
+          var memberships = document['membership'];
+          var votacions = db.collection('votacions');
+          console.log(memberships[0]);
+          votacions.find({targetGroup: memberships[0]}).toArray(function(err, docs) {
+            console.log(err);
+            console.log(docs);
+          });
+        });
+        db.close();
+      });
+    });
+  });
+/*
+
 })
+*/
 
 app.post('/getPollsId', function (req, res) {
   var ret = [224,228,229];
@@ -74,8 +106,10 @@ app.post('/getPollInfo', function (req, res) {
   poll['pollId'] = 254235;
   poll['pollName'] = "Bestie de la biSetmana";
   poll['pollOptions'] = ["Esteve", "Iñigo", "Arnau"];
-  poll ["pollDeadline"] = 1487335573;
+  poll ['pollDeadline'] = 1487335573;
   poll['isPrivate'] = 0;
+  poll['voted'] = "Arnau";
+  poll['description'] = "soc una poll random";
   poll['targetGroup'] = "members";
   var ret = poll;
   res.json(poll);
@@ -139,6 +173,7 @@ app.post('/revokeMembership', function (req, res) {
 
 app.post('/tokensignin', function (req, res) {
   var token = req.body.idtoken;
+  console.log(token);
   client.verifyIdToken(
     token,
     CLIENT_ID,

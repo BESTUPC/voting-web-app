@@ -1,5 +1,5 @@
 # BD
-## User
+## user
 **userid** | email | name | membership
  ---| --- | --- | ---
  102462623932080066899 | "petter@best.com"| "Petter Varlac" | ["admin", "full", "all"]
