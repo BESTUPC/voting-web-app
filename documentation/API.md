@@ -88,12 +88,12 @@ creates a new Poll in the data base
     "status" : 0,
 }
 ```
-###### /addMembership(idtoken, newMembership)
+###### /addMembership(idtoken, email, newMembership)
 add a membership to a member
 ```
 ["admin", "full", "member"]
 ```
-###### /revokeMembership(idtoken, newMembership)
+###### /revokeMembership(idtoken, email , newMembership)
 revoke a membership to a member
 ```
 ["full", "member"]
