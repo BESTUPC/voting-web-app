@@ -145,8 +145,15 @@ app.post('/getResults', function (req, res) {
 })
 
 app.post('/getMembership', function (req, res) {
-  var ret = ["admin","full"];
-  res.json(ret);
+  var user_ID = req.body.userId;
+  MongoClient.connect(url, function(err, db) {
+    var users = db.collection('users');
+    users.findOne({userId: user_ID}, function(err, ret) {
+      //console.log("Bernat: ", ret.membership);
+      res.json(ret.membership);
+    });
+    db.close();
+  });
 })
 
 app.post('/createPoll', function (req, res) {
