@@ -150,7 +150,6 @@ app.post('/getMembership', function (req, res) {
   MongoClient.connect(url, function(err, db) {
     var users = db.collection('users');
     users.findOne({userId: user_ID}, function(err, ret) {
-      //console.log("Bernat: ", ret.membership);
       res.json(ret.membership);
     });
     db.close();
@@ -164,8 +163,36 @@ app.post('/createPoll', function (req, res) {
 })
 
 app.post('/addMembership', function (req, res) {
-  var ret = ["admin","full","member"];
-  res.json(ret);
+  var token = req.body.idtoken;
+  console.log(token);
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(e, login) {
+      var payload = login.getPayload();
+      MongoClient.connect(url, function(err, db) {
+        var users = db.collection('users');
+        users.findOne({userId: payload['sub']}, function(err, ret) {
+          console.log("BERNAT");
+          var isadmin = false;
+          for(var i = 0; i < (ret.membership).length; ++i){
+            isadmin = (["admin"] == (ret.membership)[i]);
+          }
+          console.log(isadmin);
+          if (isadmin){
+            console.log("CACADELAGUAPA");
+            var email_user = req.body.email;
+            var membership_user = req.body.newMembership;
+            users.updateOne({email: email_user}, {membership: membership_user});
+            res.json(0);
+            console.log("CACADELAFEA");
+          }
+          else res.json(1);
+          db.close();
+        });
+
+      });
+    });
 })
 
 app.post('/revokeMembership', function (req, res) {
