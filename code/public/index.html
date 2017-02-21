@@ -433,11 +433,16 @@
         xhr.open('POST', 'http://localhost:3000/getPolls');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
-          //alert(xhr.responseText);
+          alert(xhr.responseText);
           pollList = JSON.parse(xhr.responseText)
           for(i in pollList){
             poll=pollList[i]
-            $('#pollListContent').append('<tr><td>'+poll.pollName+'</td><td></td><td></td></tr>')
+            var name=poll.pollName
+            var date = new Date(poll.pollDeadline*1000)
+            $('#pollListContent').append('<tr><td>'+poll.pollName+'</td><td></td><td>'+date.toLocaleString()+'</td></tr>')
+
+            // Will display time in 10:30:23 format
+            //var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
           }
         };
         xhr.send('idtoken=' + id_token);
