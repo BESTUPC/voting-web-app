@@ -53,7 +53,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/getPolls', function (req, res) {
-
+/* Stub
     var poll = {};
     poll['pollId'] = 254235;
     poll['pollName'] = "Bestie de la biSetmana";
@@ -64,7 +64,9 @@ app.post('/getPolls', function (req, res) {
     poll['description'] = "soc una poll random";
     poll['targetGroup'] = "members";
     var ret = [poll,poll,poll];
-  //  res.json(ret);
+    res.json(ret);
+    return 0;
+  */
   var token = req.body.idtoken;
   if (token == "" ){
     console.log("Token not defined");
@@ -74,6 +76,7 @@ app.post('/getPolls', function (req, res) {
     token,
     CLIENT_ID,
     function(e, login) {
+      if (e) throw e;
       var payload = login.getPayload();
       console.log(payload);
       MongoClient.connect(url, function(err, db) {
@@ -84,9 +87,9 @@ app.post('/getPolls', function (req, res) {
           console.log('document:', document);
           var memberships = document['membership'];
           var votacions = db.collection('votacions');
-          votacions.find({targetGroup : "all"}).toArray(function (err, docs) {
+          votacions.find({targetGroup : { $in: memberships }}).toArray(function (err, docs) {
             if (err) throw err;
-            console.log(docs);
+            res.json(docs);
           });
           db.close();
         });
@@ -164,11 +167,16 @@ app.post('/createPoll', function (req, res) {
 
 app.post('/addMembership', function (req, res) {
   var token = req.body.idtoken;
+  if (token == "" ){
+    console.log("Token not defined");
+    return 1;
+  }
   console.log(token);
   client.verifyIdToken(
     token,
     CLIENT_ID,
     function(e, login) {
+      if (e) throw e;
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
         var users = db.collection('users');
@@ -213,6 +221,10 @@ app.post('/revokeMembership', function (req, res) {
 app.post('/tokensignin', function (req, res) {
   var token = req.body.idtoken;
   console.log(token);
+  if (token == "" ){
+    console.log("Token not defined");
+    return 1;
+  }
   client.verifyIdToken(
     token,
     CLIENT_ID,

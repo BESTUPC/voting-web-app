@@ -10,11 +10,22 @@
  Crear html static (sense connectar) | - | WT
  Crear js de la pàgina | - | WT
  Fer log in amb google | - | WT
- Crear coockies | - | WT
+ Crear coockies | estevetarra | F
  Visualització de votacions | - | WT
  Creació de votacions | - | WT
  Gestionar notificacion | - | WT
  Crear pàgina estadístiques | - | WT
+
+ ## Back-End
+ Tasca | Responsable | Estat  
+ ---| --- | ---
+Implementar getPollsId | - | WR
+Implementar getPollInfo | - | WR
+Implementar sendVote | - | WR
+Implementar askWithdrawal | - | WR
+Implementar askPrivate | - | WR
+Implementar getResults | - | WR
+Implementar createPoll | - | WR
 
 
 ##How it works
