@@ -173,19 +173,28 @@ app.post('/addMembership', function (req, res) {
       MongoClient.connect(url, function(err, db) {
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
-          console.log("BERNAT");
           var isadmin = false;
-          for(var i = 0; i < (ret.membership).length; ++i){
-            isadmin = (["admin"] == (ret.membership)[i]);
+          var member_status = ret.membership;
+          for(var i = 0; i < member_status.length; ++i){
+            isadmin = (["admin"] == member_status[i]);
           }
-          console.log(isadmin);
           if (isadmin){
-            console.log("CACADELAGUAPA");
-            var email_user = req.body.email;
-            var membership_user = req.body.newMembership;
-            users.updateOne({email: email_user}, {membership: membership_user});
-            res.json(0);
-            console.log("CACADELAFEA");
+            var email_to_add = req.body.email;
+            var membership_to_add = req.body.newMembership;
+            console.log(membership_user);
+            users.findOne({email: email_user}, function(err, ret) {
+              var found = false;
+              var to_add_status=ret.membership;
+              for(var i = 0; i < to_add_status.length; ++i){
+                found = (to_add_status[i] == membership_to_add);
+              }
+              if(!found){
+                to_add_status.push(membership_to_add);
+                users.updateOne({email: email_user}, {membership: membership_user});
+                res.json(0);
+              }
+            });
+
           }
           else res.json(1);
           db.close();
