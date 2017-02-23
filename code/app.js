@@ -53,12 +53,12 @@ app.get('/', function (req, res) {
 })
 
 app.post('/getPolls', function (req, res) {
-/* Stub
+// Stub
     var poll = {};
     poll['pollId'] = 254235;
     poll['pollName'] = "Bestie de la biSetmana";
     poll['pollOptions'] = ["Esteve", "Iñigo", "Arnau"];
-    poll ['pollDeadline'] = 1487335573;
+    poll ['pollDeadline'] = 1487797757;
     poll['isPrivate'] = 0;
     poll['voted'] = "Arnau";
     poll['description'] = "soc una poll random";
@@ -66,7 +66,7 @@ app.post('/getPolls', function (req, res) {
     var ret = [poll,poll,poll];
     res.json(ret);
     return 0;
-  */
+  
   var token = req.body.idtoken;
   if (token == "" ){
     console.log("Token not defined");
