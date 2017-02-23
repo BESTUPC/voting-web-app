@@ -93,9 +93,9 @@ creates a new Poll in the data base
 ###### /addMembership(idtoken, email, newMembership)
 add a membership to a member
 ```
-    "successfull" : 0,
-    "not an admin" : 1,
-    "email not there" : 2
+    0 if successful
+    1 if idtoken does not belong to admin
+    2 if email not found
 ```
 ###### /revokeMembership(idtoken, email , newMembership)
 revoke a membership to a member

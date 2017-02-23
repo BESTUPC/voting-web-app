@@ -189,8 +189,7 @@ app.post('/addMembership', function (req, res) {
           if (isadmin){
             var email_to_add = req.body.email;
             var membership_to_add = req.body.newMembership;
-            console.log(membership_user);
-            users.findOne({email: email_user}, function(err, ret) {
+            users.findOne({email: email_to_add}, function(err, ret) {
               var found = false;
               var to_add_status=ret.membership;
               for(var i = 0; i < to_add_status.length; ++i){
@@ -198,14 +197,15 @@ app.post('/addMembership', function (req, res) {
               }
               if(!found){
                 to_add_status.push(membership_to_add);
-                users.updateOne({email: email_user}, {membership: membership_user});
+                users.updateOne({email: email_to_add}, {$set: {membership: to_add_status}});
                 res.json(0);
+                db.close();
               }
+              else db.close();
             });
 
           }
           else res.json(1);
-          db.close();
         });
 
       });
