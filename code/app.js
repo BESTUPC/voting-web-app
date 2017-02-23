@@ -197,7 +197,7 @@ app.post('/addMembership', function (req, res) {
               }
               if(!found){
                 to_add_status.push(membership_to_add);
-                users.updateOne({email: email_to_add}, {membership: membership_to_add});
+                users.updateOne({email: email_to_add}, {$set: {membership: to_add_status}});
                 res.json(0);
                 db.close();
               }
