@@ -68,7 +68,7 @@ Given a poll id return the results if it's closed
  [
      {
         "option" : Juanito,
-        "numberVotes" : 25,
+        "numberVotes" : 25, //millor un vector de tots els nombres, no?
         #null if private
         "autors" : ["Esteve", "Iñigo", "Arnau"]
      }
