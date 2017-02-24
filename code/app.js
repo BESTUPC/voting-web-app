@@ -249,9 +249,50 @@ app.post('/getMembership', function (req, res) {
 })
 
 app.post('/createPoll', function (req, res) {
-  var ret = {};
-  ret['status'] = 0;
-  res.json(ret);
+  var token = req.body.idtoken;
+  if (token == "" || token == undefined){
+    console.log("Token not defined");
+    return 1;
+  }
+  //console.log(token);
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(e, login) {
+      if (e) throw e;
+      var payload = login.getPayload();
+      MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var users = db.collection('users');
+        users.findOne({userId: payload['sub']}, function(err, ret) {
+          if(ret != null){
+            var isadmin = false;
+            var member_status = ret.membership;
+            for(var i = 0; i < member_status.length; ++i){
+              isadmin = (["admin"] == member_status[i]);
+            }
+            if (isadmin){
+              var poll = {};
+              poll['pollName'] = req.body.pollName;
+              poll['pollOptions'] = req.body.pollOptions;
+              poll['targetGroup'] = req.body.targetGroup;
+              poll['isPrivate'] = req.body.isPrivate;
+              poll['pollDeadline'] = req.body.pollDeadline;
+              poll['descrpition'] = req.body.descrpition;
+              db.collection('votacions').insertMany([poll], function () {});
+            }
+            else{
+              res.json(1);
+              db.close();
+            }
+          }
+          else{
+            res.json(2)
+            db.close();
+          }
+        });
+      });
+    });
 })
 
 app.post('/addMembership', function (req, res) {
