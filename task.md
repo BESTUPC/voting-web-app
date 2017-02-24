@@ -2,14 +2,14 @@
  ---| --- | ---
  Definir api | estevetarra | F
  Definir estructura de BD | estevetarra | F
- Definir interface (bootstrap) | - | WR
+ Definir interface (bootstrap) | quesito | F
  Crear template server | estevetarra | F
  Crear stub de API | estevetarra | F
- Crear stub de BD (pocs casos per testajar) | - | WR
- Crear script d'instal·lació | estevetarra | F
- Crear html static (sense connectar) | - | WT
+ Crear stub de BD (pocs casos per testajar) | estevetarra | F
+ Crear script d'instal·lació | quesito | F
+ Crear html static (sense connectar) | iñigo | F
  Crear js de la pàgina | - | WT
- Fer log in amb google | - | WT
+ Fer log in amb google | estevetarra | F
  Crear coockies | estevetarra | F
  Visualització de votacions | - | WT
  Creació de votacions | - | WT
@@ -17,6 +17,7 @@
  Crear pàgina estadístiques | - | WT
 
  ## Back-End
+ 
  Tasca | Responsable | Estat  
  ---| --- | ---
 Implementar getPollsId | - | WR

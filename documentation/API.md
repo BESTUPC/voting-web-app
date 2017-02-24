@@ -12,7 +12,7 @@ given a tokenid return the polls he can vote
         "isPrivate" : 0,
         "targetGroup" : "members",
         "descrpition" : "Qui vols que sigui el proxim Bestie de la biSetmana?",
-        "voted" : 0
+        "voted" : 1 //0 si no votat n si ha votat opcio n
     }
 ]
 ```
@@ -68,7 +68,7 @@ Given a poll id return the results if it's closed
  [
      {
         "option" : Juanito,
-        "numberVotes" : 25,
+        "numberVotes" : 25, //millor un vector de tots els nombres, no?
         #null if private
         "autors" : ["Esteve", "Iñigo", "Arnau"]
      }

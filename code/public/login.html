@@ -1,65 +1,113 @@
-<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
-<HTML>
-   <HEAD>
-     <script src="https://apis.google.com/js/platform.js" async defer></script>
-     <meta name="google-signin-client_id" content="260328757466-cmmgec2o5sfm626bl33o5h1dekrmvfir.apps.googleusercontent.com">
-   </HEAD>
+<!--per fer aixo he seguit la web: https://developers.google.com/identity/sign-in/web/build-button -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+   
+    <meta name="google-signin-client_id" content="260328757466-cmmgec2o5sfm626bl33o5h1dekrmvfir.apps.googleusercontent.com">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WebApp BEST Barcelona</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="./vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="./dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="./vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Animate  -->
+    <link href="./css/animate.css" rel="stylesheet" type="text/css">
 
 
 
-   <!DOCTYPE html>
-   <html lang="en">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-   <head>
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+      <script src="https://apis.google.com/js/api:client.js"></script>
+      <script>
+      var googleUser = {};
+      var startApp = function() {
+        gapi.load('auth2', function(){
+          // Retrieve the singleton for the GoogleAuth library and set up the client.
+          auth2 = gapi.auth2.init({
+            client_id: '260328757466-cmmgec2o5sfm626bl33o5h1dekrmvfir.apps.googleusercontent.com',
+            cookiepolicy: 'single_host_origin',
+            // Request scopes in addition to 'profile' and 'email'
+            //scope: 'additional_scope'
+          });
+          attachSignin(document.getElementById('customBtn'));
+        });
+      };
 
-       <meta charset="utf-8">
-       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-       <meta name="viewport" content="width=device-width, initial-scale=1">
-       <meta name="description" content="">
-       <meta name="author" content="">
+      function attachSignin(element) {
+        console.log(element.id);
+        auth2.attachClickHandler(element, {},
+            onSignIn, function(error) {
+              alert(JSON.stringify(error, undefined, 2));
+            });
+      }
+      </script>
+    
+</head>
 
-       <title>WebApp Votacions BEST Barcelona</title>
+<body>
 
-       <!-- Bootstrap Core CSS -->
-       <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <div id="wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4" ><img src="./images/best-barcelona-logo2.png" class="animated fadeInDown" width="100%"></div>
+          <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4" >
 
-       <!-- MetisMenu CSS -->
-       <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+            <button type="button" id ="customBtn" name="test-button" class="customGPlusSignIn btn btn-primary btn-success btn-lg btn-block animated fadeInUp"> LogIn with Google </button>
+            
+  <script>startApp();</script>
+            <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+          </div>
+          <div class="col-sm-4"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="./vendor/jquery/jquery.min.js"></script>
 
-       <!-- Custom CSS -->
-       <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Bootstrap Core JavaScript -->
+    <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
 
-       <!-- Morris Charts CSS -->
-       <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="./vendor/metisMenu/metisMenu.min.js"></script>
 
-       <!-- Custom Fonts -->
-       <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom Theme JavaScript -->
+    <script src="./dist/js/sb-admin-2.js"></script>
+    
+    <!-- Sign in script -->
+    <script src="js/signin.js"></script>
+    
+    <script src="js/signin.js">  </script>
 
-       <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-       <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-       <!--[if lt IE 9]>
-           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-       <![endif]-->
+</body>
 
-   </head>
-
-
-
-<BODY>
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  <script src="js/signin.js">  </script>
-  test
-  <!--
-  <a href="#" onclick="signOut();">Sign out</a>
-  <script>
-    function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
-    }
-  </script>
-  -->
-</BODY>
-</HTML>
+</html>
