@@ -435,7 +435,7 @@
           pollList = JSON.parse(xhr.responseText)
           for(i in pollList){
             poll=pollList[i]
-            var id=poll.pollId
+            var id=poll._id
             var name=poll.pollName
             var date = new Date(poll.pollDeadline*1000)
             //crea una nova fila amb el nom i la deadline
