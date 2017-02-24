@@ -126,28 +126,41 @@ app.post('/getPolls', function (req, res) {
       });
     });
   });
-/*
-
-})
-*/
-
-app.post('/getPollsId', function (req, res) {
-  var ret = [224,228,229];
-  res.json(ret);
-})
 
 app.post('/getPollInfo', function (req, res) {
-  var poll = {};
-  poll['pollId'] = 254235;
-  poll['pollName'] = "Bestie de la biSetmana";
-  poll['pollOptions'] = ["Esteve", "Iñigo", "Arnau"];
-  poll ['pollDeadline'] = 1487335573;
-  poll['isPrivate'] = 0;
-  poll['voted'] = "Arnau";
-  poll['description'] = "soc una poll random";
-  poll['targetGroup'] = "members";
-  var ret = poll;
-  res.json(poll);
+  var token = req.body.idtoken;
+  var ipollId = req.body.pollId;
+  if (token == "" ){
+    console.log("Token not defined");
+    return 1;
+  }
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(e, login) {
+      if (e) throw e;
+      var payload = login.getPayload();
+      console.log(payload);
+      MongoClient.connect(url, function(err, db)
+        {
+          db.collection('votacions').findOne({pollId : ipollId}, function (err, docs) 
+            {
+              if (err) throw err;
+              if(docs == null)
+              {
+                console.log('poll not found in db');
+                return 1;
+              }
+              db.collection('votes').findOne({pollId: ipollId , userId: payload['sub'] }, function(err, ret)
+                {
+                if (ret == null) docs['pollOption'] = "";
+                else docs['pollOption'] = ret.pollOption;
+                res.json(docs);
+                db.close();
+                });
+            });
+      });
+    });
 })
 
 app.post('/sendVote', function (req, res) {
