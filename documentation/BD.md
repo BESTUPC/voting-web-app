@@ -5,9 +5,9 @@
  102462623932080066899 | "petter@best.com"| "Petter Varlac" | ["admin", "full", "all"]
 
 ## votacions
-**_id** | pollName | pollOption | targetGroup | isPrivate | pollDeadline
+**_id** | pollName | pollOption | targetGroup | isPrivate | pollDeadline | description
  --- | --- | --- | --- | --- | ---
-3456789 | "Bestie de la biSetmana" | ["uno", "dos", "tres"] | "all" | 0 | 3234672825
+3456789 | "Bestie de la biSetmana" | ["uno", "dos", "tres"] | "all" | 0 | 3234672825 | "Si volen possar una descripcio"
 
 ## votes
 **pollId** | **userId** | pollOption
