@@ -371,18 +371,9 @@
         </nav>
 
         <div id="page-wrapper">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Deadline</th>
-                        </tr>
-                    </thead>
-                    <tbody id="pollListContent">
-                    </tbody>
-                </table>
-            </div>
+            
+            <p id="text"> </p>
+            
         </div>
         <!-- /#page-wrapper -->
 
@@ -427,28 +418,27 @@
     </script>
     
     <script>
+        function gup( name, url ) {
+            if (!url) url = location.href;
+            name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var regexS = "[\\?&]"+name+"=([^&#]*)";
+            var regex = new RegExp( regexS );
+            var results = regex.exec( url );
+            return results == null ? null : results[1];
+        }
+        pollId=gup('id')
+        //$('#text').append(pollId)
         id_token = getCookie("idtoken")
+        
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:3000/getPolls');
+        xhr.open('POST', 'http://localhost:3000/getPollInfo');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
-          pollList = JSON.parse(xhr.responseText)
-          for(i in pollList){
-            poll=pollList[i]
-            var id=poll.pollId
-            var name=poll.pollName
-            var date = new Date(poll.pollDeadline*1000)
-            //crea una nova fila amb el nom i la deadline
-            var row = $('<tr><td>'+name+'</td><td>'+date.toLocaleString()+'</td></tr>')
-                .attr('id','poll'+id) //afegeix link a la fila
-                .click(function(){
-                    window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4)
-                })
-                .css('background-color',(poll.voted==0?'White':'PaleGreen'))//fica blanc o verd depenent de si has votat o no
-            $('#pollListContent').append(row) //afegeix fila a la taula
-          }
+            poll = JSON.parse(xhr.responseText)
+            $('#text').append(xhr.responseText)
+          
         }
-        xhr.send('idtoken=' + id_token);
+        xhr.send('id=' + pollId);
     </script>
 
 
