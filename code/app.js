@@ -171,7 +171,7 @@ app.post('/addMembership', function (req, res) {
     console.log("Token not defined");
     return 1;
   }
-  console.log(token);
+  //console.log(token);
   client.verifyIdToken(
     token,
     CLIENT_ID,
