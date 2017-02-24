@@ -6,7 +6,7 @@
 
 ## votacions
 **_id** | pollName | pollOption | targetGroup | isPrivate | pollDeadline | description
- --- | --- | --- | --- | --- | ---
+ --- | --- | --- | --- | --- | --- | ---
 3456789 | "Bestie de la biSetmana" | ["uno", "dos", "tres"] | "all" | 0 | 3234672825 | "Si volen possar una descripcio"
 
 ## votes
