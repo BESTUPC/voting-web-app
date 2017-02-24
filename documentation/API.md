@@ -78,6 +78,7 @@ Given a poll id return the results if it's closed
 ###### /getMembership(userId)
 gets the membership of a member
 ```
+#null if userId not found
 ["admin", "full"]
 ```
 
@@ -93,8 +94,10 @@ creates a new Poll in the data base
 ###### /addMembership(idtoken, email, newMembership)
 adds a membership to a member
 ```
-    0 if successful
-    1 if idtoken does not belong to admin
+    #if successful
+    0
+    #else
+    1
 ```
 ###### /revokeMembership(idtoken, email , newMembership)
 revoke a membership to a member

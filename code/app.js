@@ -237,9 +237,12 @@ app.post('/getResults', function (req, res) {
 app.post('/getMembership', function (req, res) {
   var user_ID = req.body.userId;
   MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
     var users = db.collection('users');
     users.findOne({userId: user_ID}, function(err, ret) {
-      res.json(ret.membership);
+      if (err) throw err;
+      if (ret!= null) res.json(ret.membership);
+      else res.json(null);
     });
     db.close();
   });
@@ -253,7 +256,7 @@ app.post('/createPoll', function (req, res) {
 
 app.post('/addMembership', function (req, res) {
   var token = req.body.idtoken;
-  if (token == "" ){
+  if (token == "" || token == undefined){
     console.log("Token not defined");
     return 1;
   }
@@ -265,49 +268,60 @@ app.post('/addMembership', function (req, res) {
       if (e) throw e;
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
-          var isadmin = false;
-          var member_status = ret.membership;
-          for(var i = 0; i < member_status.length; ++i){
-            isadmin = (["admin"] == member_status[i]);
-          }
-          if (isadmin){
-            var email_to_add = req.body.email;
-            var membership_to_add = req.body.newMembership;
-            users.findOne({email: email_to_add}, function(err, ret) {
-              var found = false;
-              var to_add_status=ret.membership;
-              for(var i = 0; i < to_add_status.length; ++i){
-                found = (to_add_status[i] == membership_to_add);
-              }
-              if (!found){
-                to_add_status.push(membership_to_add);
-                users.updateOne({email: email_to_add}, {$set: {membership: to_add_status}});
-                res.json(0);
-                db.close();
-              }
-              else{
-                res.json(0);
-                db.close();
-              }
-            });
-
+          if(ret != null){
+            var isadmin = false;
+            var member_status = ret.membership;
+            for(var i = 0; i < member_status.length; ++i){
+              isadmin = (["admin"] == member_status[i]);
+            }
+            if (isadmin){
+              var email_to_add = req.body.email;
+              var membership_to_add = req.body.newMembership;
+              users.findOne({email: email_to_add}, function(err, ret) {
+                if(ret!= null){}
+                  var found = false;
+                  var to_add_status=ret.membership;
+                  for(var i = 0; i < to_add_status.length; ++i){
+                    found = (to_add_status[i] == membership_to_add);
+                  }
+                  if (!found){
+                    to_add_status.push(membership_to_add);
+                    users.updateOne({email: email_to_add}, {$set: {membership: to_add_status}});
+                    res.json(0);
+                    db.close();
+                  }
+                  else{
+                    res.json(4);
+                    db.close();
+                  }
+                }
+                else{
+                  res.json(3);
+                  db.close();
+                }
+              });
+            }
+            else{
+              res.json(1);
+              db.close();
+            }
           }
           else{
-            res.json(1);
+            res.json(2)
             db.close();
           }
         });
-
       });
     });
-})
+  })
 
 app.post('/revokeMembership', function (req, res) {
   var token = req.body.idtoken;
   if (token == "" ){
-    console.log("Token not defined");
+    console.log(token == "" || token == undefined);
     return 1;
   }
   //console.log(token);
@@ -318,6 +332,7 @@ app.post('/revokeMembership', function (req, res) {
       if (e) throw e;
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
           var isadmin = false;
@@ -356,7 +371,6 @@ app.post('/revokeMembership', function (req, res) {
             db.close();
           }
         });
-
       });
     });
 })
