@@ -280,25 +280,29 @@ app.post('/addMembership', function (req, res) {
             if (isadmin){
               var email_to_add = req.body.email;
               var membership_to_add = req.body.newMembership;
-              users.findOne({email: email_to_add}, function(err, ret) {
-                if(ret!= null){}
+              users.findOne({email: email_to_add}, function(err, ret)
+              {
+                if(ret!= null){
                   var found = false;
                   var to_add_status=ret.membership;
                   for(var i = 0; i < to_add_status.length; ++i){
                     found = (to_add_status[i] == membership_to_add);
                   }
-                  if (!found){
+                  if (!found)
+                  {
                     to_add_status.push(membership_to_add);
                     users.updateOne({email: email_to_add}, {$set: {membership: to_add_status}});
                     res.json(0);
                     db.close();
                   }
-                  else{
+                  else
+                  {
                     res.json(4);
                     db.close();
                   }
                 }
-                else{
+                else
+                {
                   res.json(3);
                   db.close();
                 }
