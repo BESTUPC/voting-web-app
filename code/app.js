@@ -105,12 +105,20 @@ app.post('/getPolls', function (req, res) {
         var user = {};
         user['userId'] = payload['sub'];
         users.findOne({userId: user['userId']},{fields:{membership:1}}, function(err, document) {
+          if(document == null) {
+            console.log('document not found on DB');
+            return 1;
+          }
           console.log('document:', document);
           var memberships = document['membership'];
           var votacions = db.collection('votacions');
           votacions.find({targetGroup : { $in: memberships }}).toArray(function (err, docs) {
             if (err) throw err;
-            res.json(docs);
+            db.collection('votes').findOne({pollId: docs._id , userId: user['userId'] }, function(err, ret) {
+              if (ret == null) docs['pollOption'] = "";
+              else docs['pollOption'] = ret.pollOption;
+              res.json(docs);
+            });
           });
           db.close();
         });
