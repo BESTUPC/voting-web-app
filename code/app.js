@@ -24,6 +24,40 @@ MongoClient.connect(url, function(err, db) {
   db.close();
 });
 
+//Create the stub, this should be deleted on the final version
+MongoClient.connect(url, function(err, db) {
+  var user = {};
+  user['userId'] = "102462623932080066899";
+  user['membership'] = ["admin", "full", "all"];
+  user['name'] = "Petter Varlac";
+  user['email'] = "petter@best.com";
+  db.collection('users').insertMany([user], function(err, result) {});
+  var votacio = {};
+  votacio['_id'] = "3456789";
+  votacio['pollName'] = "Bestie de la biSetmana";
+  votacio['pollOptions'] = ["Iñigo", "Quesito", "Bernat", "Laia"];
+  votacio['targetGroup'] = "all";
+  votacio['isPrivate'] = false;
+  votacio['pollDeadline'] = "3234672825";
+  votacio['description'] = "descripció ... why?";
+  db.collection('votacions').insertMany([votacio], function(err, result){});
+  var vote = {};
+  vote['pollId'] = "3456789";
+  vote['userId'] = "102462623932080066899";
+  vote['pollOption'] = "Bernat";
+  db.collection('votes').insertMany([vote], function(err, result){});
+  var withdrawal = {};
+  withdrawal['pollId'] = "3456789";
+  withdrawal['userId'] = "102462623932080066899";
+  db.collection('askWithdrawal').insertMany([withdrawal], function(err, result){});
+  var privat = {};
+  privat['pollId'] = "3456789";
+  privat['userId'] = "102462623932080066899";
+  db.collection('askPrivate').insertMany([privat], function(err, result){});
+  db.close();
+});
+
+
 //Creating the webserver
 var app = express();
 
@@ -53,22 +87,8 @@ app.get('/', function (req, res) {
 })
 
 app.post('/getPolls', function (req, res) {
-/* Stub
-    var poll = {};
-    poll['pollId'] = 254235;
-    poll['pollName'] = "Bestie de la biSetmana";
-    poll['pollOptions'] = ["Esteve", "Iñigo", "Arnau"];
-    poll ['pollDeadline'] = 1487335573;
-    poll['isPrivate'] = 0;
-    poll['voted'] = "Arnau";
-    poll['description'] = "soc una poll random";
-    poll['targetGroup'] = "members";
-    var ret = [poll,poll,poll];
-    res.json(ret);
-    return 0;
-  */
   var token = req.body.idtoken;
-  if (token == "" ){
+  if (token == "" || token == undefined){
     console.log("Token not defined");
     return 1;
   }
@@ -84,12 +104,20 @@ app.post('/getPolls', function (req, res) {
         var user = {};
         user['userId'] = payload['sub'];
         users.findOne({userId: user['userId']},{fields:{membership:1}}, function(err, document) {
+          if(document == null) {
+            console.log('document not found on DB');
+            return 1;
+          }
           console.log('document:', document);
           var memberships = document['membership'];
           var votacions = db.collection('votacions');
           votacions.find({targetGroup : { $in: memberships }}).toArray(function (err, docs) {
             if (err) throw err;
-            res.json(docs);
+            db.collection('votes').findOne({pollId: docs._id , userId: user['userId'] }, function(err, ret) {
+              if (ret == null) docs['pollOption'] = "";
+              else docs['pollOption'] = ret.pollOption;
+              res.json(docs);
+            });
           });
           db.close();
         });
@@ -97,28 +125,43 @@ app.post('/getPolls', function (req, res) {
       });
     });
   });
-/*
-
-})
-*/
-
-app.post('/getPollsId', function (req, res) {
-  var ret = [224,228,229];
-  res.json(ret);
-})
 
 app.post('/getPollInfo', function (req, res) {
-  var poll = {};
-  poll['pollId'] = 254235;
-  poll['pollName'] = "Bestie de la biSetmana";
-  poll['pollOptions'] = ["Esteve", "Iñigo", "Arnau"];
-  poll ['pollDeadline'] = 1487335573;
-  poll['isPrivate'] = 0;
-  poll['voted'] = "Arnau";
-  poll['description'] = "soc una poll random";
-  poll['targetGroup'] = "members";
-  var ret = poll;
-  res.json(poll);
+  var token = req.body.idtoken;
+  var ipollId = req.body.pollId;
+  console.log(token)
+  console.log(ipollId)
+  if (token == "" || token == undefined){
+    console.log("Token not defined");
+    return 1;
+  }
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(e, login) {
+      if (e) throw e;
+      var payload = login.getPayload();
+      console.log(payload);
+      MongoClient.connect(url, function(err, db)
+        {
+          db.collection('votacions').findOne({_id : ipollId}, function (err, docs)
+            {
+              if (err) throw err;
+              if(docs == null)
+              {
+                console.log('poll not found in db');
+                return 1;
+              }
+              db.collection('votes').findOne({pollId: ipollId , userId: payload['sub'] }, function(err, ret)
+                {
+                if (ret == null) docs['pollOption'] = "";
+                else docs['pollOption'] = ret.pollOption;
+                res.json(docs);
+                db.close();
+                });
+            });
+        });
+    });
 })
 
 app.post('/sendVote', function (req, res) {
