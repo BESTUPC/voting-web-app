@@ -17,6 +17,7 @@
  Crear pàgina estadístiques | - | WT
 
  ## Back-End
+ 
  Tasca | Responsable | Estat  
  ---| --- | ---
 Implementar getPollsId | - | WR
