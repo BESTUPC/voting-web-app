@@ -89,7 +89,7 @@ app.get('/', function (req, res) {
 app.post('/getPolls', function (req, res) {
 // Stub
   var token = req.body.idtoken;
-  if (token == "" ){
+  if (token == "" || token == undefined){
     console.log("Token not defined");
     return 1;
   }
@@ -130,7 +130,9 @@ app.post('/getPolls', function (req, res) {
 app.post('/getPollInfo', function (req, res) {
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
-  if (token == "" ){
+  console.log(token)
+  console.log(ipollId)
+  if (token == "" || token == undefined){
     console.log("Token not defined");
     return 1;
   }
@@ -159,7 +161,7 @@ app.post('/getPollInfo', function (req, res) {
                 db.close();
                 });
             });
-      });
+        });
     });
 })
 

@@ -438,7 +438,7 @@
             $('#text').append(xhr.responseText)
           
         }
-        xhr.send('id=' + pollId);
+        xhr.send('pollId=' + pollId + '&idtoken=' + id_token);
     </script>
 
 
