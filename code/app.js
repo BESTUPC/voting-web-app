@@ -18,6 +18,10 @@ MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   db.collection('users').createIndex( { "userId" : 1}, { unique: true} );
   db.collection('votes').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
+<<<<<<< HEAD
+=======
+  //db.collection('votacions').createIndex( { "_id" : 1}, { unique: true} );
+>>>>>>> c199a7e714177f2248ef22866764b3ac75ecde9b
   db.collection('askWithdrawal').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
   db.collection('askPrivate').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
   console.log("Connected successfully to server");
@@ -122,18 +126,104 @@ app.post('/getPollInfo', function (req, res) {
 })
 
 app.post('/sendVote', function (req, res) {
+  var token = req.body.idtoken;
+  var ipollId = req.body.pollId;
+  var ioption = req.body.option;
+  if (token == "" || token == undefined){
+    console.log("Token not defined");
+    return 1;
+  }
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(e, login) {
+      if (e) throw e;
+      var payload = login.getPayload();
+      MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var vote = {};
+        vote['userId'] =
+        db.collection('votes').update({userId : payload['sub'], pollId : ipollId}, { $set: {option: ioption}}, {upsert: true} );
+        db.close();
+      })
+  })
   var ret = {};
   ret['status'] = 0;
   res.json(ret);
 })
 
+function inFunc(targetGroup, targets) {
+  for (var i in targets ) if ( i == targetGroup) return true;
+  return false;
+}
+
+//millor guardar-ho a la db?
+function cens(targetGroup) {
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    db.collection('users').count({ $where: function() { return inFunc(targetGroup,this.membership)} }, null,function(err, count) {
+      return count;
+    });
+  })
+}
+
+function notifyWithdrawal(){};
+
 app.post('/askWithdrawal', function (req, res) {
+  var token = req.body.idtoken;
+  var ipollId = req.body.pollId;
+  if (token == "" || token == undefined){
+    console.log("Token not defined");
+    return 1;
+  }
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(e, login) {
+      if (e) throw e;
+      var payload = login.getPayload();
+      MongoClient.connect(url, function(err, db) {
+        db.collection('askWithdrawal').insertMany([{userId : payload['sub'], pollId : ipollId}], function () {});
+        db.collection('askWithdrawal').count({pollId : ipollId},null,function(err, count) {
+          var targetGroup = db.collection('votacions').findOne({pollId : ipollId},{ targetGroup: 1}).targetGroup;
+          if (count/cens(targetGroup) > 0.4) notifyWithdrawal();
+          db.close();
+
+        });
+
+      })
+  })
+
   var ret = {};
   ret['status'] = 0;
   res.json(ret);
 })
 
 app.post('/askPrivate', function (req, res) {
+  var token = req.body.idtoken;
+  var ipollId = req.body.pollId;
+  if (token == "" || token == undefined){
+    console.log("Token not defined");
+    return 1;
+  }
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(e, login) {
+      if (e) throw e;
+      var payload = login.getPayload();
+      console.log(payload);
+      MongoClient.connect(url, function(err, db) {
+        db.collection('askPrivate').insertMany([{userId : payload['sub'], pollId : ipollId}], function () {});
+        var howMany = db.collection('askPrivate').count({pollId : ipollId},null,function(err, count) {
+          var targetGroup = db.collection('askPrivate').findOne({pollId : ipollId},{ targetGroup: 1}).targetGroup;
+          if (count/cens(targetGroup) > 0.2) notifyWithdrawal();
+          db.close();
+
+        });
+      })
+  })
+
   var ret = {};
   ret['status'] = 0;
   res.json(ret);
@@ -253,7 +343,7 @@ app.post('/revokeMembership', function (req, res) {
               if(found){
 
                 to_remove_status.splice(i, 1);
-              
+
                 users.updateOne({email: email_to_remove}, {$set: {membership: to_remove_status}});
                 res.json(0);
                 db.close();
