@@ -143,7 +143,7 @@ app.post('/getPollInfo', function (req, res) {
       console.log(payload);
       MongoClient.connect(url, function(err, db)
         {
-          db.collection('votacions').findOne({pollId : ipollId}, function (err, docs) 
+          db.collection('votacions').findOne({_id : ipollId}, function (err, docs) 
             {
               if (err) throw err;
               if(docs == null)
