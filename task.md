@@ -17,14 +17,13 @@
  Crear pàgina estadístiques | - | WT
 
  ## Back-End
- 
+
  Tasca | Responsable | Estat  
  ---| --- | ---
-Implementar getPollsId | - | WR
-Implementar getPollInfo | - | WR
-Implementar sendVote | - | WR
-Implementar askWithdrawal | - | WR
-Implementar askPrivate | - | WR
+Implementar getPollInfo | estevetarra | F
+Implementar sendVote | estevetarra | F
+Implementar askWithdrawal | estevetarra | F
+Implementar askPrivate | estevetarra | F
 Implementar getResults | - | WR
 Implementar createPoll | - | WR
 
