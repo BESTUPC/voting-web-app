@@ -12,7 +12,7 @@ given a tokenid return the polls he can vote
         "isPrivate" : 0,
         "targetGroup" : "members",
         "descrpition" : "Qui vols que sigui el proxim Bestie de la biSetmana?",
-        "voted" : 1 //0 si no votat n si ha votat opcio n
+        "voted" : 0
     }
 ]
 ```
@@ -68,7 +68,7 @@ Given a poll id return the results if it's closed
  [
      {
         "option" : Juanito,
-        "numberVotes" : 25, //millor un vector de tots els nombres, no?
+        "numberVotes" : 25,
         #null if private
         "autors" : ["Esteve", "Iñigo", "Arnau"]
      }
@@ -91,14 +91,15 @@ creates a new Poll in the data base
 }
 ```
 ###### /addMembership(idtoken, email, newMembership)
-add a membership to a member
+adds a membership to a member
 ```
     0 if successful
     1 if idtoken does not belong to admin
-    2 if email not found
 ```
 ###### /revokeMembership(idtoken, email , newMembership)
 revoke a membership to a member
 ```
-["full", "member"]
+    0 if successful
+    1 if idtoken does not belong to admin
+    2 if "newMembership" value not found in email's account
 ```
