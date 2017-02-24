@@ -17,7 +17,7 @@ var url = 'mongodb://localhost:27017/votacions';
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   db.collection('users').createIndex( { "userId" : 1}, { unique: true} );
-  db.collection('votes').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});.
+  db.collection('votes').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
   db.collection('votacions').createIndex( { "_id" : 1}, { unique: true} );
   db.collection('askWithdrawal').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
   db.collection('askPrivate').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
@@ -146,7 +146,7 @@ app.post('/getPollInfo', function (req, res) {
       console.log(payload);
       MongoClient.connect(url, function(err, db)
         {
-          db.collection('votacions').findOne({_id : ipollId}, function (err, docs) 
+          db.collection('votacions').findOne({_id : ipollId}, function (err, docs)
             {
               if (err) throw err;
               if(docs == null)
