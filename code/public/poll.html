@@ -371,9 +371,23 @@
         </nav>
 
         <div id="page-wrapper">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header" id="pollName"></h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5" id="pollOptions">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5" style="text-align: right" id="pollOptions">
+                    <button type="button" id="vote" class="btn btn-primary btn-lg" style="margin: 10px">Send vote</button>
+                </div>
+            </div>
             
             <p id="text"> </p>
-            
         </div>
         <!-- /#page-wrapper -->
 
@@ -427,7 +441,6 @@
             return results == null ? null : results[1];
         }
         pollId=gup('id')
-        //$('#text').append(pollId)
         id_token = getCookie("idtoken")
         
         var xhr = new XMLHttpRequest();
@@ -435,8 +448,47 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             poll = JSON.parse(xhr.responseText)
-            $('#text').append(xhr.responseText)
-          
+            //$('#text').append(xhr.responseText)
+            pollOptions=poll.pollOptions
+            //poll.pollOption='Bernat' //DEBUG
+            selectedOption=pollOptions.indexOf(poll.pollOption) //find index of pollOption
+            //$('#text').append(selectedOption) //DEBUG
+            pollName=poll.pollName 
+            $('#pollName').append(pollName) //Add pollName to html
+            for (i in pollOptions){    //For all poll options
+                pollOption=pollOptions[i]
+                var button=$('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
+                    .append(' '+pollOption) //add option name to button
+                    .attr('pos',i) //save position of this polloption in the button
+                    .click(function(){
+                        $(this).blur() //remove foucs
+                        ind=$(this).attr('pos') //get position of this clicked option from the html
+                        if(selectedOption!=ind){ //do nothing if it's already selected
+                            $(this).removeClass('btn-default').addClass('btn-primary')//change color to primary
+                            $(this).find('i').addClass('fa fa-check') //add check icon
+                            if(selectedOption!=-1){ //if there was another selected option
+                                $(this).parent().find("[pos='"+selectedOption+"']") //find the previously selected option
+                                    .removeClass('btn-primary').addClass('btn-default') //change its color
+                                    .find('i').removeClass('fa fa-check') //remove its check icon
+                            }
+                            selectedOption=ind //update selected option variable
+                        }
+                    })
+                if (i==selectedOption){ //If button we are going to add was already selected 
+                    button.removeClass('btn-default').addClass('btn-primary') //change its color
+                        .find('i').addClass('fa fa-check') //add check icon
+                }
+                $('#pollOptions').append(button) //we add the button to the list of buttons
+            }
+            $('#vote').click(function(){
+                $(this).blur() //loose focus
+                if (selectedOption==-1){
+                    alert('No option selected')
+                }
+                else{
+                    alert(pollOptions[selectedOption])
+                }
+            })
         }
         xhr.send('pollId=' + pollId + '&idtoken=' + id_token);
     </script>
