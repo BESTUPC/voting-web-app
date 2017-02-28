@@ -10,7 +10,8 @@ function onSignIn(googleUser) {
 
   //la sessio caduca en 300 dies
   setCookie("idtoken",id_token,300);
-  setCookie("profile",googleUser.getBasicProfile(),300);
+  setCookie("profile",JSON.stringify(googleUser.getBasicProfile()),300);
+  //alert(JSON.stringify(googleUser.getBasicProfile()))
   window.location = "http://localhost:3000";
 }
 
