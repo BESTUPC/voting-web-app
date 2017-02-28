@@ -68,6 +68,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+//What file to return when acces to '/'
 app.get('/', function (req, res) {
   var options = {
     root: __dirname + '/public/',
@@ -86,6 +87,7 @@ app.get('/', function (req, res) {
  });
 })
 
+//API calls start here
 app.post('/getPolls', function (req, res) {
   var token = req.body.idtoken;
   if (token == "" || token == undefined){
@@ -269,6 +271,8 @@ app.post('/askPrivate', function (req, res) {
 })
 
 app.post('/getResults', function (req, res) {
+  var ipollId = req.body.pollId;
+  if (Math.floor(Date.now() / 1000) )
   var option = {};
   option['option'] = "Juanito";
   option['numberVotes'] = 25;
@@ -463,7 +467,6 @@ app.post('/revokeMembership', function (req, res) {
     });
 })
 
-
 app.post('/tokensignin', function (req, res) {
   var token = req.body.idtoken;
   console.log(token);
@@ -489,6 +492,10 @@ app.post('/tokensignin', function (req, res) {
     });
 })
 
+
+//API calls end here
+
+//Definig the port in which will run our app
 app.listen(3000, function () {
   console.log('App listening on port 3000!')
 })

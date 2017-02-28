@@ -12,14 +12,9 @@ given a tokenid return the polls he can vote
         "isPrivate" : 0,
         "targetGroup" : "members",
         "descrpition" : "Qui vols que sigui el proxim Bestie de la biSetmana?",
-        "voted" : 0
+        "option" : "Arnau"
     }
 ]
-```
-###### /getPollsId(idtoken)
-given a tokenid return the polls id he can vote
-```
-[224,228,229]
 ```
 
 ###### /getPollInfo(pollId)
@@ -31,7 +26,9 @@ given a poll id return info of the poll
     "pollOptions" : ["Esteve", "Iñigo", "Arnau"],
     "pollDeadline" : 1487335573,
     "isPrivate" : 0,
-    "targetGroup" : "members"
+    "targetGroup" : "members",
+    "descrpition" : "Qui vols que sigui el proxim Bestie de la biSetmana?",
+    "option": "Arnau"
 }
 
 ```
