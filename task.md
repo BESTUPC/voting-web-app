@@ -26,6 +26,9 @@ Implementar askWithdrawal | estevetarra | F
 Implementar askPrivate | estevetarra | F
 Implementar getResults | - | WR
 Implementar createPoll | - | WR
+Implementar getMembership | berni | F
+Implementar addMemberhsip | berni | F
+Implementar revokeMemberhsip | berni | F
 
 
 ##How it works
