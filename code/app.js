@@ -151,7 +151,10 @@ app.post('/getPolls', function (req, res) {
               }
               if (ret == null) docs['pollOption'] = "";
               else docs['pollOption'] = ret.pollOption;
-              res.json(docs);
+              var ret = {}
+              ret.status = 0;
+              ret.polls=docs
+              res.json(ret);
             });
           });
         });

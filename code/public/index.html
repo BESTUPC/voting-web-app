@@ -113,7 +113,7 @@
     xhr.onload = function() {
       result = JSON.parse(xhr.responseText)
       if (result.status!='0'){
-        alert(xhr.responseText)
+        alert('RESPONSETEXT: '+xhr.responseText)
         return 0
       }
       pollList=result.polls
