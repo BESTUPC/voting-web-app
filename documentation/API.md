@@ -3,8 +3,11 @@
 ###### /getPolls(idtoken)
 given a tokenid return the polls he can vote
 ```
- [
-    {
+ {
+   "status" : 0,
+   "polls" :    [
+      {
+        "status" : 0,
         "pollId" : 25487,
         "pollName" : "Bestie de la biSetmana",
         "pollOptions" : ["Esteve", "Iñigo", "Arnau"],
@@ -13,14 +16,16 @@ given a tokenid return the polls he can vote
         "targetGroup" : "members",
         "descrpition" : "Qui vols que sigui el proxim Bestie de la biSetmana?",
         "option" : "Arnau"
-    }
-]
+      }
+    ]
+}
 ```
 
 ###### /getPollInfo(pollId)
 given a poll id return info of the poll
 ```
 {
+    "status" : 0,
     "pollId" : 25487,
     "pollName" : "Bestie de la biSetmana",
     "pollOptions" : ["Esteve", "Iñigo", "Arnau"],
@@ -62,21 +67,28 @@ The user is asking for the poll to be private
 ###### /getResults(pollId)
 Given a poll id return the results if it's closed
 ```
- [
-     {
+{
+"status" : 0,
+"polls" : [
+      {
+
         "option" : Juanito,
         "numberVotes" : 25,
         #null if private
         "autors" : ["Esteve", "Iñigo", "Arnau"]
-     }
-]
+      }
+     ]
+   }
 ```
 
 ###### /getMembership(userId)
 gets the membership of a member
 ```
 #null if userId not found
-["admin", "full"]
+{
+  "status" : 0,  
+  "membership" : ["admin", "full"]
+}
 ```
 
 ### Only by admin users
@@ -91,10 +103,7 @@ creates a new Poll in the data base
 ###### /addMembership(idtoken, email, newMembership)
 adds a membership to a member
 ```
-    #if successful
-    0
-    #else
-    1
+    "status" : 0
 ```
 ###### /revokeMembership(idtoken, email , newMembership)
 revoke a membership to a member
@@ -103,3 +112,20 @@ revoke a membership to a member
     1 if idtoken does not belong to admin
     2 if "newMembership" value not found in email's account
 ```
+
+
+## Errors
+```
+{
+    "status" : 1,
+    "message" : "I have an error"
+}
+```
+
+status code | meaning
+--- | ---
+0 | everything is alright, don't worry
+1 | problems with the DB
+2 | problems with google API
+3 | user not allowed
+4 | other shit
