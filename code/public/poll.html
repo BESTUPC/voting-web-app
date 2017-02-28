@@ -46,17 +46,17 @@
         <div id="page-wrapper">
             <div class="container">
             <div class="modal fade" id="errorModal" role="dialog">
-                <div class="modal-dialog">
+                <div class="modal-dialog" >
                     <!-- Modal content-->
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header" id=header-box-errorModal>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Error</h4>
+                            <h4 class="modal-title" id="modal-title-text">Error</h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" id=body-box-errorModal>
                             <p id="modal-text"></p>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer" id=footer-box-errorModal>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -130,6 +130,21 @@
             var results = regex.exec( url );
             return results == null ? null : results[1];
         }
+        function error( title, message ) {
+            $('#modal-title-text').text(title)
+			$('#modal-text').text(message)
+            $('#header-box-errorModal').css('background-color','rgb(241,103,103)')
+			$('#footer-box-errorModal').css('background-color','rgb(241,103,103)')
+			$('#errorModal').modal('show')
+        }
+		function success( title, message ) {
+            $('#modal-title-text').text(title)
+			$('#modal-text').text(message)
+            $('#header-box-errorModal').css('background-color','rgb(190,215,70)')
+			$('#footer-box-errorModal').css('background-color','rgb(190,215,70)')
+			$('#errorModal').modal('show')
+        }
+		
         pollId=gup('id')
         id_token = getCookie("idtoken")
 
@@ -139,8 +154,8 @@
         xhr.open('POST', 'http://localhost:3000/getPollInfo');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
+            //$('#text').append(xhr.responseText)
             poll = JSON.parse(xhr.responseText)
-            // $('#text').append(xhr.responseText)
             pollOptions=poll.pollOptions
             //poll.pollOption='Bernat' //DEBUG
             selectedOption=pollOptions.indexOf(poll.pollOption) //find index of pollOption
@@ -175,11 +190,10 @@
             $('#vote').click(function(){
                 $(this).blur() //loose focus
                 if (selectedOption==-1){
-                    $('#modal-text').text('No option selected')
-                    $('#errorModal').modal('show')
+                    error( 'Error', 'No option selected' ) 
                 }
                 else{
-                    alert(pollOptions[selectedOption])
+					success('Vote sent successfully!','You have voted '+pollOptions[selectedOption])
                 }
             })
         }
