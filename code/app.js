@@ -90,22 +90,38 @@ app.get('/', function (req, res) {
 //API calls start here
 app.post('/getPolls', function (req, res) {
   var token = req.body.idtoken;
-  if (token == "" || token == undefined){
-    console.log("Token not defined");
-    return 1;
-  }
   client.verifyIdToken(
     token,
     CLIENT_ID,
     function(e, login) {
-      if (e) throw e;
+      if (e) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = e;
+        res.json(ret);
+        return ret;
+      }
       var payload = login.getPayload();
       console.log(payload);
       MongoClient.connect(url, function(err, db) {
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err;
+          res.json(ret);
+          return ret;
+        }
         var users = db.collection('users');
         var user = {};
         user['userId'] = payload['sub'];
         users.findOne({userId: user['userId']},{fields:{membership:1}}, function(err, document) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err;
+            res.json(ret);
+            return ret;
+          }
           if(document == null) {
             console.log('document not found on DB');
             return 1;
@@ -114,8 +130,21 @@ app.post('/getPolls', function (req, res) {
           var memberships = document['membership'];
           var votacions = db.collection('votacions');
           votacions.find({targetGroup : { $in: memberships }}).toArray(function (err, docs) {
-            if (err) throw err;
+            if (err) {
+              var ret = {}
+              ret.status = 1;
+              ret.message = err;
+              res.json(ret);
+              return ret;
+            }
             db.collection('votes').findOne({pollId: docs._id , userId: user['userId'] }, function(err, ret) {
+              if (err) {
+                var ret = {}
+                ret.status = 1;
+                ret.message = err;
+                res.json(ret);
+                return ret;
+              }
               if (ret == null) docs['pollOption'] = "";
               else docs['pollOption'] = ret.pollOption;
               res.json(docs);
@@ -131,24 +160,30 @@ app.post('/getPolls', function (req, res) {
 app.post('/getPollInfo', function (req, res) {
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
-  console.log(token)
-  console.log(ipollId)
-  if (token == "" || token == undefined){
-    console.log("Token not defined");
-    return 1;
-  }
   client.verifyIdToken(
     token,
     CLIENT_ID,
-    function(e, login) {
-      if (e) throw e;
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = err;
+        res.json(ret);
+        return ret;
+      }
       var payload = login.getPayload();
       console.log(payload);
       MongoClient.connect(url, function(err, db)
         {
           db.collection('votacions').findOne({_id : ipollId}, function (err, docs)
             {
-              if (err) throw err;
+              if (err) {
+                var ret = {}
+                ret.status = 1;
+                ret.message = err;
+                res.json(ret);
+                return ret;
+              }
               if(docs == null)
               {
                 console.log('poll not found in db');
@@ -156,6 +191,13 @@ app.post('/getPollInfo', function (req, res) {
               }
               db.collection('votes').findOne({pollId: ipollId , userId: payload['sub'] }, function(err, ret)
                 {
+                  if (err) {
+                    var ret = {}
+                    ret.status = 1;
+                    ret.message = err;
+                    res.json(ret);
+                    return ret;
+                  }
                 if (ret == null) docs['pollOption'] = "";
                 else docs['pollOption'] = ret.pollOption;
                 res.json(docs);
@@ -170,15 +212,17 @@ app.post('/sendVote', function (req, res) {
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
   var ioption = req.body.option;
-  if (token == "" || token == undefined){
-    console.log("Token not defined");
-    return 1;
-  }
   client.verifyIdToken(
     token,
     CLIENT_ID,
-    function(e, login) {
-      if (e) throw e;
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 1;
+        ret.message = err;
+        res.json(ret);
+        return ret;
+      }
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
         if (err) throw err;
@@ -201,8 +245,14 @@ function inFunc(targetGroup, targets) {
 //millor guardar-ho a la db?
 function cens(targetGroup) {
   MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    db.collection('users').count({ $where: function() { return inFunc(targetGroup,this.membership)} }, null,function(err, count) {
+    if (err) {
+      var ret = {}
+      ret.status = 1;
+      ret.message = err;
+      res.json(ret);
+      return ret;
+    }
+      db.collection('users').count({ $where: function() { return inFunc(targetGroup,this.membership)} }, null,function(err, count) {
       return count;
     });
   })
@@ -213,19 +263,28 @@ function notifyWithdrawal(){};
 app.post('/askWithdrawal', function (req, res) {
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
-  if (token == "" || token == undefined){
-    console.log("Token not defined");
-    return 1;
-  }
   client.verifyIdToken(
     token,
     CLIENT_ID,
-    function(e, login) {
-      if (e) throw e;
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = err;
+        res.json(ret);
+        return ret;
+      }
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
         db.collection('askWithdrawal').insertMany([{userId : payload['sub'], pollId : ipollId}], function () {});
         db.collection('askWithdrawal').count({pollId : ipollId},null,function(err, count) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err;
+            res.json(ret);
+            return ret;
+          }
           var targetGroup = db.collection('votacions').findOne({pollId : ipollId},{ targetGroup: 1}).targetGroup;
           if (count/cens(targetGroup) > 0.4) notifyWithdrawal();
           db.close();
@@ -243,20 +302,29 @@ app.post('/askWithdrawal', function (req, res) {
 app.post('/askPrivate', function (req, res) {
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
-  if (token == "" || token == undefined){
-    console.log("Token not defined");
-    return 1;
-  }
   client.verifyIdToken(
     token,
     CLIENT_ID,
-    function(e, login) {
-      if (e) throw e;
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = err;
+        res.json(ret);
+        return ret;
+      }
       var payload = login.getPayload();
       console.log(payload);
       MongoClient.connect(url, function(err, db) {
         db.collection('askPrivate').insertMany([{userId : payload['sub'], pollId : ipollId}], function () {});
         var howMany = db.collection('askPrivate').count({pollId : ipollId},null,function(err, count) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err;
+            res.json(ret);
+            return ret;
+          }
           var targetGroup = db.collection('askPrivate').findOne({pollId : ipollId},{ targetGroup: 1}).targetGroup;
           if (count/cens(targetGroup) > 0.2) notifyWithdrawal();
           db.close();
@@ -284,10 +352,22 @@ app.post('/getResults', function (req, res) {
 app.post('/getMembership', function (req, res) {
   var user_ID = req.body.userId;
   MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
+    if (err) {
+      var ret = {}
+      ret.status = 1;
+      ret.message = err;
+      res.json(ret);
+      return ret;
+    }
     var users = db.collection('users');
     users.findOne({userId: user_ID}, function(err, ret) {
-      if (err) throw err;
+      if (err) {
+        var ret = {}
+        ret.status = 1;
+        ret.message = err;
+        res.json(ret);
+        return ret;
+      }
       if (ret!= null) res.json(ret.membership);
       else res.json(null);
     });
@@ -297,21 +377,35 @@ app.post('/getMembership', function (req, res) {
 
 app.post('/createPoll', function (req, res) {
   var token = req.body.idtoken;
-  if (token == "" || token == undefined){
-    console.log("Token not defined");
-    return 1;
-  }
-  //console.log(token);
   client.verifyIdToken(
     token,
     CLIENT_ID,
-    function(e, login) {
-      if (e) throw e;
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = err;
+        res.json(ret);
+        return ret;
+      }
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err;
+          res.json(ret);
+          return ret;
+        }
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err;
+            res.json(ret);
+            return ret;
+          }
           if(ret != null){
             var isadmin = false;
             var member_status = ret.membership;
@@ -344,21 +438,36 @@ app.post('/createPoll', function (req, res) {
 
 app.post('/addMembership', function (req, res) {
   var token = req.body.idtoken;
-  if (token == "" || token == undefined){
-    console.log("Token not defined");
-    return 1;
-  }
   //console.log(token);
   client.verifyIdToken(
     token,
     CLIENT_ID,
-    function(e, login) {
-      if (e) throw e;
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = err;
+        res.json(ret);
+        return ret;
+      }
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err;
+          res.json(ret);
+          return ret;
+        }
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err;
+            res.json(ret);
+            return ret;
+          }
           if(ret != null){
             var isadmin = false;
             var member_status = ret.membership;
@@ -412,21 +521,35 @@ app.post('/addMembership', function (req, res) {
 
 app.post('/revokeMembership', function (req, res) {
   var token = req.body.idtoken;
-  if (token == "" ){
-    console.log(token == "" || token == undefined);
-    return 1;
-  }
-  //console.log(token);
   client.verifyIdToken(
     token,
     CLIENT_ID,
-    function(e, login) {
-      if (e) throw e;
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = err;
+        res.json(ret);
+        return ret;
+      }
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err;
+          res.json(ret);
+          return ret;
+        }
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err;
+            res.json(ret);
+            return ret;
+          }
           var isadmin = false;
           var member_status = ret.membership;
           for(var i = 0; i < member_status.length; ++i){
@@ -436,6 +559,13 @@ app.post('/revokeMembership', function (req, res) {
             var email_to_remove = req.body.email;
             var membership_to_remove = req.body.newMembership;
             users.findOne({email: email_to_remove}, function(err, ret) {
+              if (err) {
+                var ret = {}
+                ret.status = 1;
+                ret.message = err;
+                res.json(ret);
+                return ret;
+              }
               var found = false;
               var to_remove_status=ret.membership;
               var i;
@@ -470,16 +600,26 @@ app.post('/revokeMembership', function (req, res) {
 app.post('/tokensignin', function (req, res) {
   var token = req.body.idtoken;
   console.log(token);
-  if (token == "" ){
-    console.log("Token not defined");
-    return 1;
-  }
   client.verifyIdToken(
     token,
     CLIENT_ID,
-    function(e, login) {
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = err;
+        res.json(ret);
+        return ret;
+      }
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err;
+          res.json(ret);
+          return ret;
+        }
         var users = db.collection('users');
         var user = {};
         user['userId'] = payload['sub'];
