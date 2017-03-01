@@ -1,4 +1,4 @@
-var express = require('express')
+ var express = require('express')
 var MongoClient = require('mongodb').MongoClient
 var assert = require('assert');
 var fs = require('fs');
@@ -206,6 +206,7 @@ app.post('/getPollInfo', function (req, res) {
                   }
                 if (ret == null) docs['pollOption'] = "";
                 else docs['pollOption'] = ret.pollOption;
+                docs['status'] = 0;
                 res.json(docs);
                 db.close();
                 });
@@ -374,6 +375,7 @@ app.post('/getMembership', function (req, res) {
         res.json(ret);
         return ret;
       }
+      ret.status = 0;
       if (ret!= null) res.json(ret.membership);
       else res.json(null);
 
@@ -496,6 +498,14 @@ app.post('/addMembership', function (req, res) {
                   {
                     to_add_status.push(membership_to_add);
                     users.updateOne({email: email_to_add}, {$set: {membership: to_add_status}});
+                    Push.create("New memberhsip added:", {
+                      body: membership_to_add,
+                      timeout: 4000,
+                      onClick: function () {
+                        window.focus();
+                        this.close();
+                      }
+                    });
                     res.json(0);
                     db.close();
                   }
