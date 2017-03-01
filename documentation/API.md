@@ -103,7 +103,10 @@ creates a new Poll in the data base
 ###### /addMembership(idtoken, email, newMembership)
 adds a membership to a member
 ```
+#null if users not found
+{
     "status" : 0
+}
 ```
 ###### /revokeMembership(idtoken, email , newMembership)
 revoke a membership to a member

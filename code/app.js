@@ -375,10 +375,11 @@ app.post('/getMembership', function (req, res) {
         res.json(ret);
         return ret;
       }
-      ret.status = 0;
-      if (ret!= null) res.json(ret.membership);
+      var ret_final = {}
+      ret_final.status = 0;
+      ret_final.membership = ret.membership;
+      if (ret!= null) res.json(ret_final);
       else res.json(null);
-
       db.close();
     });
   });
@@ -488,6 +489,13 @@ app.post('/addMembership', function (req, res) {
               var membership_to_add = req.body.newMembership;
               users.findOne({email: email_to_add}, function(err, ret)
               {
+                if (err){
+                  var ret = {}
+                  ret.status = 1;
+                  ret.message = err.toString();
+                  res.json(ret);
+                  return ret;
+                }
                 if(ret!= null){
                   var found = false;
                   var to_add_status=ret.membership;
@@ -498,37 +506,38 @@ app.post('/addMembership', function (req, res) {
                   {
                     to_add_status.push(membership_to_add);
                     users.updateOne({email: email_to_add}, {$set: {membership: to_add_status}});
-                    Push.create("New memberhsip added:", {
-                      body: membership_to_add,
-                      timeout: 4000,
-                      onClick: function () {
-                        window.focus();
-                        this.close();
-                      }
-                    });
-                    res.json(0);
+                    var ret = {}
+                    ret.status = 0;
+                    ret.message = "";
+                    res.json(ret);
                     db.close();
                   }
                   else
                   {
-                    res.json(4);
+                    console.log("SHIT");
+                    res.json(null);
                     db.close();
                   }
                 }
                 else
                 {
-                  res.json(3);
+                  console.log("PEE");
+                  res.json(null);
                   db.close();
                 }
               });
             }
             else{
-              res.json(1);
+              var ret = {}
+              ret.status = 3;
+              ret.message = "Not an admin"
+              res.json(ret);
               db.close();
             }
           }
           else{
-            res.json(2)
+            console.log("SPUNK");
+            res.json(null)
             db.close();
           }
         });
