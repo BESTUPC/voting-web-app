@@ -122,7 +122,8 @@ app.post('/getPolls', function (req, res) {
             res.json(ret);
             return ret;
           }
-          if(document == null) {
+          if(document == null)
+          {
             console.log('document not found on DB');
             return 1;
           }
@@ -133,24 +134,29 @@ app.post('/getPolls', function (req, res) {
             if (err) {
               var ret = {}
               ret.status = 1;
-              ret.message = err;
+              ret.message = "" + err;
               res.json(ret);
               return ret;
             }
             db.collection('votes').findOne({pollId: docs._id , userId: user['userId'] }, function(err, ret) {
-              if (err) {
+              if (err)
+              {
                 var ret = {}
                 ret.status = 1;
                 ret.message = err;
                 res.json(ret);
                 return ret;
+                db.close();
+
               }
               if (ret == null) docs['pollOption'] = "";
               else docs['pollOption'] = ret.pollOption;
-              res.json(docs);
+              var ret = {}
+              ret.status = 0;
+              ret.polls=docs
+              res.json(ret);
             });
           });
-          db.close();
         });
 
       });
@@ -370,8 +376,9 @@ app.post('/getMembership', function (req, res) {
       }
       if (ret!= null) res.json(ret.membership);
       else res.json(null);
+
+      db.close();
     });
-    db.close();
   });
 })
 
