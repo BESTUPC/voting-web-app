@@ -111,9 +111,11 @@ adds a membership to a member
 ###### /revokeMembership(idtoken, email , newMembership)
 revoke a membership to a member
 ```
-    0 if successful
-    1 if idtoken does not belong to admin
-    2 if "newMembership" value not found in email's account
+#null if users not found
+{
+    "status" : 0
+}
+
 ```
 
 

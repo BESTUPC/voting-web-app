@@ -514,8 +514,10 @@ app.post('/addMembership', function (req, res) {
                   }
                   else
                   {
-
-                    res.json(null);
+                    var ret_else = {}
+                    ret_else.status = 4;
+                    ret_else.message = "Already had newMembership";
+                    res.json(ret_else);
                     db.close();
                   }
                 }
@@ -536,7 +538,7 @@ app.post('/addMembership', function (req, res) {
             }
           }
           else{
-            
+
             res.json(null)
             db.close();
           }
@@ -556,6 +558,7 @@ app.post('/revokeMembership', function (req, res) {
         ret.status = 2;
         ret.message = err.toString();
         res.json(ret);
+        db.close();
         return ret;
       }
       var payload = login.getPayload();
@@ -564,7 +567,9 @@ app.post('/revokeMembership', function (req, res) {
           var ret = {}
           ret.status = 1;
           ret.message = err.toString();
+
           res.json(ret);
+          db.close();
           return ret;
         }
         var users = db.collection('users');
@@ -573,50 +578,76 @@ app.post('/revokeMembership', function (req, res) {
             var ret = {}
             ret.status = 1;
             ret.message = err.toString();
+
             res.json(ret);
+            db.close();
             return ret;
           }
-          var isadmin = false;
-          var member_status = ret.membership;
-          for(var i = 0; i < member_status.length; ++i){
-            isadmin = (["admin"] == member_status[i]);
-          }
-          if (isadmin){
-            var email_to_remove = req.body.email;
-            var membership_to_remove = req.body.newMembership;
-            users.findOne({email: email_to_remove}, function(err, ret) {
-              if (err) {
-                var ret = {}
-                ret.status = 1;
-                ret.message = err.toString();
-                res.json(ret);
-                return ret;
-              }
-              var found = false;
-              var to_remove_status=ret.membership;
-              var i;
-              for(i = 0; (i < to_remove_status.length); ++i){
-                found = (to_remove_status[i] == membership_to_remove);
-                if (found) break;
-              }
-              if(found){
+          if(ret == null){
 
-                to_remove_status.splice(i, 1);
-
-                users.updateOne({email: email_to_remove}, {$set: {membership: to_remove_status}});
-                res.json(0);
-                db.close();
-              }
-              else{
-                res.json(2);
-                db.close();
-              }
-            });
-
+            res.json(null);
+            db.close();
           }
           else{
-            res.json(1);
-            db.close();
+            var isadmin = false;
+            var member_status = ret.membership;
+            for(var i = 0; i < member_status.length; ++i){
+              isadmin = (["admin"] == member_status[i]);
+            }
+            if (isadmin){
+              var email_to_remove = req.body.email;
+              var membership_to_remove = req.body.newMembership;
+              users.findOne({email: email_to_remove}, function(err, ret) {
+                if (err) {
+                  var ret = {}
+                  ret.status = 1;
+                  ret.message = err.toString();
+
+                  res.json(ret);
+                  db.close();
+                  return ret;
+                }
+                if(ret == null){
+
+                  res.json(null);
+                  db.close();
+                }
+                else{
+                  var found = false;
+                  var to_remove_status=ret.membership;
+                  var i;
+                  for(i = 0; (i < to_remove_status.length); ++i){
+                    found = (to_remove_status[i] == membership_to_remove);
+                    if (found) break;
+                  }
+                  if(found){
+
+                    to_remove_status.splice(i, 1);
+
+                    users.updateOne({email: email_to_remove}, {$set: {membership: to_remove_status}});
+                    var ret= {}
+                    ret.status = 0;
+                    res.json(ret);
+                    db.close();
+                  }
+                  else{
+                    var ret = {}
+                    ret.status = 4;
+                    ret.message = "Didn't find newMembership"
+                    res.json(ret);
+                    db.close();
+                  }
+                }
+              });
+
+            }
+            else{
+              var ret = {}
+              ret.status = 3;
+              ret.message = "User not admin"
+              res.json(ret);
+              db.close();
+            }
           }
         });
       });
