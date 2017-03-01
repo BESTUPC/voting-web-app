@@ -514,14 +514,14 @@ app.post('/addMembership', function (req, res) {
                   }
                   else
                   {
-                    console.log("SHIT");
+
                     res.json(null);
                     db.close();
                   }
                 }
                 else
                 {
-                  console.log("PEE");
+
                   res.json(null);
                   db.close();
                 }
@@ -536,7 +536,7 @@ app.post('/addMembership', function (req, res) {
             }
           }
           else{
-            console.log("SPUNK");
+            
             res.json(null)
             db.close();
           }
