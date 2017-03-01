@@ -1,4 +1,4 @@
-var express = require('express')
+ var express = require('express')
 var MongoClient = require('mongodb').MongoClient
 var assert = require('assert');
 var fs = require('fs');
@@ -489,6 +489,14 @@ app.post('/addMembership', function (req, res) {
                   {
                     to_add_status.push(membership_to_add);
                     users.updateOne({email: email_to_add}, {$set: {membership: to_add_status}});
+                    Push.create("New memberhsip added:", {
+                      body: membership_to_add,
+                      timeout: 4000,
+                      onClick: function () {
+                        window.focus();
+                        this.close();
+                      }
+                    });
                     res.json(0);
                     db.close();
                   }
