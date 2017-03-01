@@ -113,7 +113,8 @@
     xhr.onload = function() {
       result = JSON.parse(xhr.responseText)
       if (result.status!='0'){
-        alert(xhr.responseText)
+        //alert('RESPONSETEXT: '+xhr.responseText)
+        window.location="http://localhost:3000/login.html"
         return 0
       }
       pollList=result.polls
