@@ -206,6 +206,7 @@ app.post('/getPollInfo', function (req, res) {
                   }
                 if (ret == null) docs['pollOption'] = "";
                 else docs['pollOption'] = ret.pollOption;
+                docs['status'] = 0;
                 res.json(docs);
                 db.close();
                 });
@@ -374,6 +375,7 @@ app.post('/getMembership', function (req, res) {
         res.json(ret);
         return ret;
       }
+      ret.status = 0;
       if (ret!= null) res.json(ret.membership);
       else res.json(null);
 
