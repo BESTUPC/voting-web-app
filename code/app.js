@@ -97,7 +97,7 @@ app.post('/getPolls', function (req, res) {
       if (e) {
         var ret = {}
         ret.status = 2;
-        ret.message = e;
+        ret.message = e.toString();
         res.json(ret);
         return ret;
       }
@@ -107,7 +107,7 @@ app.post('/getPolls', function (req, res) {
         if (err) {
           var ret = {}
           ret.status = 1;
-          ret.message = err;
+          ret.message = err.toString();
           res.json(ret);
           return ret;
         }
@@ -118,7 +118,7 @@ app.post('/getPolls', function (req, res) {
           if (err) {
             var ret = {}
             ret.status = 1;
-            ret.message = err;
+            ret.message = err.toString();
             res.json(ret);
             return ret;
           }
@@ -134,7 +134,7 @@ app.post('/getPolls', function (req, res) {
             if (err) {
               var ret = {}
               ret.status = 1;
-              ret.message = "" + err;
+              ret.message = err.toString();
               res.json(ret);
               return ret;
             }
@@ -143,7 +143,7 @@ app.post('/getPolls', function (req, res) {
               {
                 var ret = {}
                 ret.status = 1;
-                ret.message = err;
+                ret.message = err.toString();
                 res.json(ret);
                 return ret;
                 db.close();
@@ -173,7 +173,7 @@ app.post('/getPollInfo', function (req, res) {
       if (err) {
         var ret = {}
         ret.status = 2;
-        ret.message = err;
+        ret.message = err.toString();
         res.json(ret);
         return ret;
       }
@@ -186,7 +186,7 @@ app.post('/getPollInfo', function (req, res) {
               if (err) {
                 var ret = {}
                 ret.status = 1;
-                ret.message = err;
+                ret.message = err.toString();
                 res.json(ret);
                 return ret;
               }
@@ -200,7 +200,7 @@ app.post('/getPollInfo', function (req, res) {
                   if (err) {
                     var ret = {}
                     ret.status = 1;
-                    ret.message = err;
+                    ret.message = err.toString();
                     res.json(ret);
                     return ret;
                   }
@@ -226,7 +226,7 @@ app.post('/sendVote', function (req, res) {
       if (err) {
         var ret = {}
         ret.status = 1;
-        ret.message = err;
+        ret.message = err.toString();
         res.json(ret);
         return ret;
       }
@@ -255,7 +255,7 @@ function cens(targetGroup) {
     if (err) {
       var ret = {}
       ret.status = 1;
-      ret.message = err;
+      ret.message = err.toString();
       res.json(ret);
       return ret;
     }
@@ -277,7 +277,7 @@ app.post('/askWithdrawal', function (req, res) {
       if (err) {
         var ret = {}
         ret.status = 2;
-        ret.message = err;
+        ret.message = err.toString();
         res.json(ret);
         return ret;
       }
@@ -288,7 +288,7 @@ app.post('/askWithdrawal', function (req, res) {
           if (err) {
             var ret = {}
             ret.status = 1;
-            ret.message = err;
+            ret.message = err.toString();
             res.json(ret);
             return ret;
           }
@@ -316,7 +316,7 @@ app.post('/askPrivate', function (req, res) {
       if (err) {
         var ret = {}
         ret.status = 2;
-        ret.message = err;
+        ret.message = err.toString();
         res.json(ret);
         return ret;
       }
@@ -328,7 +328,7 @@ app.post('/askPrivate', function (req, res) {
           if (err) {
             var ret = {}
             ret.status = 1;
-            ret.message = err;
+            ret.message = err.toString();
             res.json(ret);
             return ret;
           }
@@ -362,7 +362,7 @@ app.post('/getMembership', function (req, res) {
     if (err) {
       var ret = {}
       ret.status = 1;
-      ret.message = err;
+      ret.message = err.toString();
       res.json(ret);
       return ret;
     }
@@ -371,7 +371,7 @@ app.post('/getMembership', function (req, res) {
       if (err) {
         var ret = {}
         ret.status = 1;
-        ret.message = err;
+        ret.message = err.toString();
         res.json(ret);
         return ret;
       }
@@ -393,7 +393,7 @@ app.post('/createPoll', function (req, res) {
       if (err) {
         var ret = {}
         ret.status = 2;
-        ret.message = err;
+        ret.message = err.toString();
         res.json(ret);
         return ret;
       }
@@ -402,7 +402,7 @@ app.post('/createPoll', function (req, res) {
         if (err) {
           var ret = {}
           ret.status = 1;
-          ret.message = err;
+          ret.message = err.toString();
           res.json(ret);
           return ret;
         }
@@ -411,7 +411,7 @@ app.post('/createPoll', function (req, res) {
           if (err) {
             var ret = {}
             ret.status = 1;
-            ret.message = err;
+            ret.message = err.toString();
             res.json(ret);
             return ret;
           }
@@ -455,7 +455,7 @@ app.post('/addMembership', function (req, res) {
       if (err) {
         var ret = {}
         ret.status = 2;
-        ret.message = err;
+        ret.message = err.toString();
         res.json(ret);
         return ret;
       }
@@ -464,7 +464,7 @@ app.post('/addMembership', function (req, res) {
         if (err) {
           var ret = {}
           ret.status = 1;
-          ret.message = err;
+          ret.message = err.toString();
           res.json(ret);
           return ret;
         }
@@ -473,7 +473,7 @@ app.post('/addMembership', function (req, res) {
           if (err) {
             var ret = {}
             ret.status = 1;
-            ret.message = err;
+            ret.message = err.toString();
             res.json(ret);
             return ret;
           }
@@ -545,7 +545,7 @@ app.post('/revokeMembership', function (req, res) {
       if (err) {
         var ret = {}
         ret.status = 2;
-        ret.message = err;
+        ret.message = err.toString();
         res.json(ret);
         return ret;
       }
@@ -554,7 +554,7 @@ app.post('/revokeMembership', function (req, res) {
         if (err) {
           var ret = {}
           ret.status = 1;
-          ret.message = err;
+          ret.message = err.toString();
           res.json(ret);
           return ret;
         }
@@ -563,7 +563,7 @@ app.post('/revokeMembership', function (req, res) {
           if (err) {
             var ret = {}
             ret.status = 1;
-            ret.message = err;
+            ret.message = err.toString();
             res.json(ret);
             return ret;
           }
@@ -579,7 +579,7 @@ app.post('/revokeMembership', function (req, res) {
               if (err) {
                 var ret = {}
                 ret.status = 1;
-                ret.message = err;
+                ret.message = err.toString();
                 res.json(ret);
                 return ret;
               }
@@ -624,7 +624,7 @@ app.post('/tokensignin', function (req, res) {
       if (err) {
         var ret = {}
         ret.status = 2;
-        ret.message = err;
+        ret.message = err.toString();
         res.json(ret);
         return ret;
       }
@@ -633,7 +633,7 @@ app.post('/tokensignin', function (req, res) {
         if (err) {
           var ret = {}
           ret.status = 1;
-          ret.message = err;
+          ret.message = err.toString()  ;
           res.json(ret);
           return ret;
         }
