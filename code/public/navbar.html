@@ -1,4 +1,7 @@
 <!-- Navigation -->
+<head>
+  <meta name="google-signin-client_id" content="260328757466-cmmgec2o5sfm626bl33o5h1dekrmvfir">
+</head>
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
       <div class="">
         <button type="button" id="navbar-toggle" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,7 +26,26 @@
                   <span class="pull-right text-muted" id="membership" style="display:block">
                   </span>
                 </div>
-                <button type="button" class="btn btn-primary  ">Sign out</button>
+                <button type="button" class="btn btn-primary" onclick="signOut()">Sign out</button>
+
+                <script>
+                //http://stackoverflow.com/questions/30945798/html-php-google-single-sign-on-signout-will-throw-cannot-read-property-getauth
+                function signOut() {
+                  var auth2 = gapi.auth2.getAuthInstance();
+                  //si fem aixo fem torna a donar els permisos
+                  //auth2.disconnect();
+                  auth2.signOut().then(function () {
+                    window.location = "http://localhost:3000/login.html";
+                  });
+                }
+
+                function onLoad() {
+                  gapi.load('auth2', function() {
+                    gapi.auth2.init();
+                  });
+                }
+                </script>
+                <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
               </a>
             </li>
           </ul>
@@ -33,7 +55,7 @@
       <!-- /.navbar-header -->
 
       <ul class="nav navbar-top-links navbar-right">
-        
+
       </ul>
       <!-- /.navbar-top-links -->
 

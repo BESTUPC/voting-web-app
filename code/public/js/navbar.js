@@ -5,8 +5,9 @@ function initNavBar(profile){
     xhrNav.open('POST', 'http://localhost:3000/getMembership');
     xhrNav.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhrNav.onload = function() {
-        membership=JSON.parse(xhrNav.responseText)
-        membership.sort()
+        var response=JSON.parse(xhrNav.responseText);
+				var membership = response.membership;
+        membership.sort();
         var isAdmin = 0
         for (i in membership){
         	role=membership[i]
