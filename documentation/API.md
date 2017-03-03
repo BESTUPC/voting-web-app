@@ -67,6 +67,7 @@ The user is asking for the poll to be private
 ###### /getResults(pollId)
 Given a poll id return the results if it's closed
 ```
+#null if pollId not found
 {
 "status" : 0,
 "polls" : [
