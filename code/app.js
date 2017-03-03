@@ -347,13 +347,77 @@ app.post('/askPrivate', function (req, res) {
 
 app.post('/getResults', function (req, res) {
   var ipollId = req.body.pollId;
-  if (Math.floor(Date.now() / 1000) )
-  var option = {};
-  option['option'] = "Juanito";
-  option['numberVotes'] = 25;
-  option['autors'] = ["Quesito", "Berni", "Adolfo"];
-  var ret = [option,option];
-  res.json(ret);
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      var ret = {}
+      ret.status = 1;
+      ret.message = err.toString();
+      res.json(ret);
+      return ret;
+    }
+    var votes = db.collection('votes');
+    var votacions = db.collection('votacions');
+    votacions.findOne({_id: ipollId}, function(err, ret) {
+      if (err) {
+        var ret = {}
+        ret.status = 1;
+        ret.message = err.toString();
+        res.json(ret);
+        db.close();
+        return ret;
+      }
+      if (ret == null){ res.json(null); db.close();}
+      else{
+        var private = ret.isPrivate;
+        var poll = {}
+        poll.option = ret.pollOptions;
+        if (!private){
+          votes.find({pollId: ipollId}, {userId: 1, _id: 0}).toArray(function(err, vots){
+            if(err){
+              var ret = {}
+              ret.status = 1;
+              ret.message = err.toString();
+              res.json(ret);
+              db.close();
+              return ret;
+            }
+            else{
+              console.log("SHIT");
+              poll.numberVotes = vots.length;
+              console.log("numberVotes: ", poll.numberVotes);
+              poll.autors = vots;
+              var ret = {};
+              ret.status = 0;
+              ret.polls = poll;
+              res.json(ret);
+              db.close();
+            }
+          });
+        }
+        else{
+          votes.count({pollId: ipollId}, function(err, count) {
+            if(err){
+              var ret = {}
+              ret.status = 1;
+              ret.message = err.toString();
+              res.json(ret);
+              db.close();
+              return ret;
+            }
+            else{
+              poll.numberVotes = count;
+              poll.autors = null;
+              var ret = {};
+              ret.status = 0;
+              ret.polls = poll;
+              res.json(ret);
+              db.close();
+            }
+          });
+        }
+      }
+    });
+  });
 })
 
 app.post('/getMembership', function (req, res) {
