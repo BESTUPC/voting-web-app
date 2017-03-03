@@ -100,6 +100,23 @@ creates a new Poll in the data base
     "status" : 0,
 }
 ```
+###### /getUsers(idtoken)
+gets a list of all users in the db
+```
+{
+    "status" : 0,  
+    "users" : [{"Iñigo","ignigomoreno@gmail.com"},{"Esteve","estevetarra@gmail.com"}]
+}
+```
+###### /getUserMembership(idtoken, email)
+gets a user's membership
+```
+#null if users not found
+{
+  "status" : 0,  
+  "membership" : ["admin", "full"]
+}
+```
 ###### /addMembership(idtoken, email, newMembership)
 adds a membership to a member
 ```
