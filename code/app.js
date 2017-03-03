@@ -357,6 +357,7 @@ app.post('/getResults', function (req, res) {
     }
     var votes = db.collection('votes');
     var votacions = db.collection('votacions');
+    var users = db.collection('users');
     votacions.findOne({_id: ipollId}, function(err, ret) {
       if (err) {
         var ret = {}
@@ -372,7 +373,7 @@ app.post('/getResults', function (req, res) {
         var poll = {}
         poll.option = ret.pollOptions;
         if (!private){
-          votes.find({pollId: ipollId}, {userId: 1, _id: 0}).toArray(function(err, vots){
+          votes.find({pollId: ipollId}).toArray(function(err, vots){
             if(err){
               var ret = {}
               ret.status = 1;
@@ -382,15 +383,41 @@ app.post('/getResults', function (req, res) {
               return ret;
             }
             else{
-              console.log("SHIT");
+
               poll.numberVotes = vots.length;
-              console.log("numberVotes: ", poll.numberVotes);
-              poll.autors = vots;
-              var ret = {};
-              ret.status = 0;
-              ret.polls = poll;
-              res.json(ret);
-              db.close();
+
+              var noms = [];
+              var got_names = 0;
+              for(var i = 0; i < vots.length; ++i){
+
+                var user_id = vots[i].userId;
+
+                users.findOne({userId: user_id}, function(err, res){
+                  if(err){
+                    var ret = {}
+                    ret.status = 1;
+                    ret.message = err.toString();
+                    res.json(ret);
+                    db.close();
+                    return ret;
+                  }
+                  if(res != null){
+                    console.log(res.name, "     ", noms.length);
+                    noms.push(res.name);
+                    console.log(noms.length);
+                  }
+                  else console.log("SHIT");
+                  if(i == vots.length -1) got_names = 1;
+                });
+              }
+              if(got_names == 1){
+                poll.autors = noms;
+                var ret = {}
+                ret.status = 0;
+                ret.polls = poll;
+                res.json(ret);
+                db.close();
+              }
             }
           });
         }
