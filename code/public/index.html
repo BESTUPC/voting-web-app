@@ -122,20 +122,18 @@
       pollList=result.polls
       for(i in pollList){
         //alert(JSON.stringify(pollList[i]))
-        for (var j=0; j<100; j++){
-          poll=pollList[i]
-          var id=poll._id
-          var name=poll.pollName+' '+j
-          var date_ms = poll.pollDeadline*1000+j*1000*60*60*10*24-58*365*24*60*60*1000
-          //crea una nova fila amb el nom i la deadline
-          var row = $('<tr><td>'+name+'</td><td>'+date_ms.toString()+'</td></tr>')
-              .attr('id','poll'+id) //afegeix link a la fila
-              .click(function(){
-                window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4)
-              })
-              .css('background-color',(poll.pollOption==''?'White':'#B7E797'))//fica blanc o verd depenent de si has votat o no
-          $('#pollListContent').append(row) //afegeix fila a la taula
-        }
+        poll=pollList[i]
+        var id=poll._id
+        var name=poll.pollName
+        var date_ms = poll.pollDeadline*1000
+        //crea una nova fila amb el nom i la deadline
+        var row = $('<tr><td>'+name+'</td><td>'+date_ms.toString()+'</td></tr>')
+            .attr('id','poll'+id) //afegeix link a la fila
+            .click(function(){
+              window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4)
+            })
+            .css('background-color',(poll.pollOption==''?'White':'#B7E797'))//fica blanc o verd depenent de si has votat o no
+        $('#pollListContent').append(row) //afegeix fila a la taula
       }
       
       var table = $('#pollListTable').DataTable({
