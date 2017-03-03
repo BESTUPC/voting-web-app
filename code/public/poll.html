@@ -59,7 +59,7 @@
                             <p id="modal-text"></p>
                         </div>
                         <div class="modal-footer" id=footer-box-errorModal>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" id="modalButton" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-5" style="text-align: right" id="pollOptions">
+                <div class="col-lg-5" style="text-align: right">
                     <button type="button" id="vote" class="btn btn-primary btn-lg" style="margin: 10px">Send vote</button>
                 </div>
             </div>
@@ -212,6 +212,17 @@
                     }
                     xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&option=' + pollOptions[selectedOption]);
                 }
+            })
+            $('body').keypress(function(e){
+                alert(e.keyCode)
+                if(e.keyCode==13){
+                    if( $('#errorModal').hasClass('in') ){
+                        $('#modalButton').click()
+                    }
+                    else{
+                        $('#vote').click()
+                    }
+                } //TODO MAYBE: Numeros per seleccionar vot
             })
         }
         xhr.send('pollId=' + pollId + '&idtoken=' + id_token);
