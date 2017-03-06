@@ -389,10 +389,8 @@ app.post('/getResults', function (req, res) {
               var noms = [];
               var got_names = 0;
               for(var i = 0; i < vots.length; ++i){
-
                 var user_id = vots[i].userId;
-
-                users.findOne({userId: user_id}, function(err, res){
+                users.findOne({userId: user_id}, function(err, user){
                   if(err){
                     var ret = {}
                     ret.status = 1;
@@ -401,22 +399,26 @@ app.post('/getResults', function (req, res) {
                     db.close();
                     return ret;
                   }
-                  if(res != null){
-                    console.log(res.name, "     ", noms.length);
-                    noms.push(res.name);
-                    console.log(noms.length);
+                  if(user != null){
+                    noms.push(user.name);
                   }
-                  else console.log("SHIT");
-                  if(i == vots.length -1) got_names = 1;
+                  if(noms.length == vots.length){
+                    poll.autors = noms;
+                    var ret = {}
+                    ret.status = 0;
+                    ret.polls = poll;
+                    res.json(ret);
+                    db.close();
+                  }
+                  else if( i == vots.length-1){
+                    poll.autors = noms;
+                    var ret = {}
+                    ret.status = 1;
+                    ret.polls = poll;
+                    res.json(ret);
+                    db.close();
+                  }
                 });
-              }
-              if(got_names == 1){
-                poll.autors = noms;
-                var ret = {}
-                ret.status = 0;
-                ret.polls = poll;
-                res.json(ret);
-                db.close();
               }
             }
           });
