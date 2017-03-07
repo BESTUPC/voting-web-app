@@ -522,7 +522,7 @@ app.post('/createPoll', function (req, res) {
             var isadmin = false;
             var member_status = ret.membership;
             for(var i = 0; i < member_status.length; ++i){
-              isadmin = (["admin"] == member_status[i]);
+              if (["admin"] == member_status[i]) isadmin=true;
             }
             if (isadmin){
               var poll = {};
@@ -585,7 +585,7 @@ app.post('/closePoll', function (req, res) {
             var isadmin = false;
             var member_status = ret.membership;
             for(var i = 0; i < member_status.length; ++i){
-              isadmin = (["admin"] == member_status[i]);
+              if (["admin"] == member_status[i]) isadmin=true;
             }
             if (isadmin){
               db.collection('votacions').updateOne({pollId: ipollId}, {$set: {state: "closed"}});
@@ -640,7 +640,7 @@ app.post('/addMembership', function (req, res) {
             var isadmin = false;
             var member_status = ret.membership;
             for(var i = 0; i < member_status.length; ++i){
-              isadmin = (["admin"] == member_status[i]);
+              if (["admin"] == member_status[i]) isadmin=true;
             }
             if (isadmin){
               var email_to_add = req.body.email;
@@ -750,7 +750,7 @@ app.post('/revokeMembership', function (req, res) {
             var isadmin = false;
             var member_status = ret.membership;
             for(var i = 0; i < member_status.length; ++i){
-              isadmin = (["admin"] == member_status[i]);
+              if (["admin"] == member_status[i]) isadmin=true;
             }
             if (isadmin){
               var email_to_remove = req.body.email;
