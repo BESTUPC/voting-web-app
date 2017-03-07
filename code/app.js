@@ -233,15 +233,26 @@ app.post('/sendVote', function (req, res) {
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
         if (err) throw err;
-        var vote = {};
-        vote['userId'] =
-        db.collection('votes').update({userId : payload['sub'], pollId : ipollId}, { $set: {option: ioption}}, {upsert: true} );
-        db.close();
+        db.collection('votacions').findOne({pollId : ipollId }, function (err, doc) {
+          if(doc.state == "open"){
+            var vote = {};
+            vote['userId'] =
+            db.collection('votes').update({userId : payload['sub'], pollId : ipollId}, { $set: {option: ioption}}, {upsert: true} );
+            db.close();
+            var ret = {};
+            ret['status'] = 0;
+            res.json(ret);
+          } else {
+
+            var ret = {};
+            ret['status'] = 4;
+            ret.message = "Poll Already Closed";
+            res.json(ret);
+
+          }
+        })
       })
   })
-  var ret = {};
-  ret['status'] = 0;
-  res.json(ret);
 })
 
 function inFunc(targetGroup, targets) {
@@ -521,7 +532,63 @@ app.post('/createPoll', function (req, res) {
               poll['isPrivate'] = req.body.isPrivate;
               poll['pollDeadline'] = req.body.pollDeadline;
               poll['descrpition'] = req.body.descrpition;
+              poll.state = "open";
               db.collection('votacions').insertMany([poll], function () {});
+            }
+            else{
+              res.json(1);
+              db.close();
+            }
+          }
+          else{
+            res.json(2)
+            db.close();
+          }
+        });
+      });
+    });
+})
+
+app.post('/closePoll', function (req, res) {
+  var token = req.body.idtoken;
+  var ipollId = req.body.pollId;
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = err.toString();
+        res.json(ret);
+        return ret;
+      }
+      var payload = login.getPayload();
+      MongoClient.connect(url, function(err, db) {
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err.toString();
+          res.json(ret);
+          return ret;
+        }
+        var users = db.collection('users');
+        users.findOne({userId: payload['sub']}, function(err, ret) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err.toString();
+            res.json(ret);
+            return ret;
+          }
+          if(ret != null){
+            var isadmin = false;
+            var member_status = ret.membership;
+            for(var i = 0; i < member_status.length; ++i){
+              isadmin = (["admin"] == member_status[i]);
+            }
+            if (isadmin){
+              db.collection('votacions').updateOne({pollId: ipollId}, {$set: {state: "closed"}});
             }
             else{
               res.json(1);
