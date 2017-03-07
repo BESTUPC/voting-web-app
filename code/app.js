@@ -366,99 +366,46 @@ app.post('/getResults', function (req, res) {
       res.json(ret);
       return ret;
     }
-    var votes = db.collection('votes');
-    var votacions = db.collection('votacions');
-    var users = db.collection('users');
-    votacions.findOne({_id: ipollId}, function(err, ret) {
-      if (err) {
-        var ret = {}
-        ret.status = 1;
-        ret.message = err.toString();
-        res.json(ret);
-        db.close();
-        return ret;
-      }
-      if (ret == null){ res.json(null); db.close();}
-      else{
-        var private = ret.isPrivate;
-        var poll = {}
-        poll.option = ret.pollOptions;
-        if (!private){
-          votes.find({pollId: ipollId}).toArray(function(err, vots){
-            if(err){
-              var ret = {}
-              ret.status = 1;
-              ret.message = err.toString();
-              res.json(ret);
-              db.close();
-              return ret;
-            }
-            else{
-              poll.numberVotes = vots.length;
-              var noms = [];
-              var got_names = 0;
-              for(var i = 0; i < vots.length; ++i){
-                var user_id = vots[i].userId;
-                users.findOne({userId: user_id}, function(err, user){
-                  if(err){
-                    var ret = {}
-                    ret.status = 1;
-                    ret.message = err.toString();
-                    res.json(ret);
-                    db.close();
-                    return ret;
-                  }
-                  if(user != null){
-                    noms.push(user.name);
-                  }
-                  if(noms.length == vots.length){
-                    poll.autors = noms;
-                    var ret = {}
-                    ret.status = 0;
-                    ret.polls = poll;
-                    res.json(ret);
-                    db.close();
-                  }
-                  else if( i == vots.length-1){
-                    poll.autors = noms;
-                    var ret = {}
-                    ret.status = 1;
-                    ret.polls = poll;
-                    res.json(ret);
-                    db.close();
-                  }
-                });
-              }
-            }
-          });
+    else if (db == null){
+      var ret = {}
+      ret.status = 1;
+      ret.message = "DB not found";
+      res.json(ret);
+      return ret;
+    }
+    else{
+      var votacions = db.collection('votacions');
+      votacions.findOne({_id: ipollId}, function(err, ret){
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err.toString();
+          res.json(ret);
+          db.close();
+          return ret;
+        }
+        else if(ret == null){
+          res.json(null);
+          db.close();
+          return ret;
         }
         else{
-          votes.count({pollId: ipollId}, function(err, count) {
-            if(err){
-              var ret = {}
-              ret.status = 1;
-              ret.message = err.toString();
-              res.json(ret);
-              db.close();
-              return ret;
-            }
-            else{
-              poll.numberVotes = count;
-              poll.autors = null;
-              var ret = {};
-              ret.status = 0;
-              ret.polls = poll;
-              res.json(ret);
-              db.close();
-            }
-          });
+          var final_poll = {}
+          final_poll.pollOptions = ret.pollOptions;
+          var vots_nums;
+          if(ret.isPrivate){
+
+          }
+          else{
+
+          }
         }
-      }
-    });
+      });
+    }
   });
 })
 
-app.post('/getMembership', function (req, res) {
+app.post('/getUserInfo', function (req, res) {
   var user_ID = req.body.userId;
   MongoClient.connect(url, function(err, db) {
     if (err) {
@@ -480,6 +427,8 @@ app.post('/getMembership', function (req, res) {
       var ret_final = {}
       ret_final.status = 0;
       ret_final.membership = ret.membership;
+      ret_final.name = ret.name;
+      ret_final.email = ret.email;
       if (ret!= null) res.json(ret_final);
       else res.json(null);
       db.close();

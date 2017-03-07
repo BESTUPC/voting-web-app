@@ -74,9 +74,13 @@ Given a poll id return the results if it's closed
       {
 
         "option" : Juanito,
-        "numberVotes" : 25,
+        "numberVotes" : [25,28,10]
         #null if private
-        "autors" : ["Esteve", "Iñigo", "Arnau"]
+        "autors" : [
+            "Esteve" : ["Bernat", "Maitane", "Jordi"] ,
+            "Iñigo" : ["Canya", "Marta"],
+            "Blanc" : ["Quesito"]
+          ]
       }
      ]
 }
