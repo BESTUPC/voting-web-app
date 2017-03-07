@@ -105,12 +105,26 @@ creates a new Poll in the data base
 gets a list of all users in the db
 ```
 {
-    "status" : 0,  
-    "users" : [{
-      name:"Iñigo",
-      email: "ignigomoreno@gmail.com",
-      userId 837363193
-      }]
+  "status": 0,
+  "users": [
+    {
+      "membership": [
+        "all",
+        "admin"
+      ],
+      "name": "Esteve Tarragó",
+      "email": "estevetarra@gmail.com"
+    },
+    {
+      "membership": [
+        "admin",
+        "full",
+        "all"
+      ],
+      "name": "Petter Varlac",
+      "email": "petter@best.com"
+    }
+  ]
 }
 ```
 ###### /addMembership(idtoken, email, newMembership)
