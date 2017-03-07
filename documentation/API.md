@@ -108,6 +108,7 @@ gets a list of all users in the db
   "status": 0,
   "users": [
     {
+      "userId": "102462623832080066896",
       "membership": [
         "all",
         "admin"
@@ -116,6 +117,7 @@ gets a list of all users in the db
       "email": "estevetarra@gmail.com"
     },
     {
+      "userId": "102462623932080066899",
       "membership": [
         "admin",
         "full",

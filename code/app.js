@@ -818,7 +818,7 @@ app.post('/getUsers', function (req, res) {
               isadmin = (["admin"] == member_status[i]);
             }
             if (isadmin){
-              db.collection('users').find({},{_id: 0, name: 1, email: 1, membership : 1 } ).toArray(function (err, docs){
+              db.collection('users').find({},{_id: 0, name: 1, email: 1, membership : 1 , userId : 1} ).toArray(function (err, docs){
                 var aux = {};
                 aux.status = 0;
                 aux.users = docs;
