@@ -390,14 +390,89 @@ app.post('/getResults', function (req, res) {
           return ret;
         }
         else{
+          var privatePoll = ret.isPrivate;
           var final_poll = {}
           final_poll.pollOptions = ret.pollOptions;
-          var vots_nums;
-          if(ret.isPrivate){
-
+          var vots_count = [];
+          var vots_id = [];
+          var votes = db.collection('votes');
+          var found = 0;
+          console.log("FINAL_POLL.POLLOPTIONS[0] = ", final_poll.pollOptions[0]);
+          for(var i = 0; i < final_poll.pollOptions.length; ++i){
+            var currOption = final_poll.pollOptions[i];
+            console.log("CURROPTION", currOption);
+            votes.find({pollOption: currOption}, {name: true, _id: false}).toArray(function(err, ret){
+              if (err){
+                var ret = {}
+                ret.status = 1;
+                ret.message = err.toString();
+                res.json(ret);
+                db.close();
+                return ret;
+              }
+              else if(ret == null){
+                vots_count[i] = 0;
+                vots_id[i] = null;
+              }
+              else{
+                vots_count[i] = ret.length;
+                vots_id[i] = ret;
+                if (i == final_poll.pollOptions.length-1) found = 1;
+                console.log("WHO VOTED FOR ", currOption, "?");
+                for(var i = 0; i < ret.length; ++i){
+                  console.log(ret[i]);
+                }
+              }
+            });
           }
-          else{
-
+          if(found == 1){
+            console.log("GOT COUNT AND ID's. FOUND = ", found);
+            console.log("COUNT.LENGTH = ", vots_count.length);
+            console.log("ID.LENGTH = ", vots_id.length)
+            final_poll.numberVotes = vots_count;
+            if(privatePoll){
+              final_poll.voters = null;
+              final_ret = {}
+              final_ret.status = 0;
+              final_ret.options = final_poll;
+              res.json(final_ret);
+              db.close();
+            }
+            else{
+              var j = 0;
+              var users = db.collection('users');
+              var vots_nom = [];
+              for(; j < vots_id.length; ++i){
+                users.find({userId: vots_id[i]}, {name:true, _id:false}).toArray(function(err, ret){
+                  if (err){
+                    var ret = {}
+                    ret.status = 1;
+                    ret.message = err.toString();
+                    res.json(ret);
+                    db.close();
+                    return ret;
+                  }
+                  else if(ret == null){
+                    var ret = {}
+                    ret.status = 1;
+                    ret.message = "Couldn't find voter's name.";
+                    res.json(ret);
+                    db.close();
+                  }
+                  else{
+                      vots_nom[i] = ret;
+                  }
+                });
+              }
+              if(j == vots_id.length){
+                final_poll.voters = vots_nom;
+                var ret = {}
+                ret.status = 0;
+                ret.options = final_poll;
+                res.json(ret);
+                db.close();
+              }
+            }
           }
         }
       });

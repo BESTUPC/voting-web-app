@@ -72,8 +72,6 @@ Given a poll id return the results if it's closed
 "status" : 0,
 "options" : [
       {
-
-        "winner" : Juanito,
         "pollOptions" = ["Juanito, "Pepito", "Pastanaga"]
         "numberVotes" : [3,2,1]
         #null if private
@@ -87,7 +85,7 @@ Given a poll id return the results if it's closed
 }
 ```
 
-###### /getUserInfo(userId)
+###### /getUserInfos(userId)
 gets the membership, name and email of a member
 ```
 #null if userId not found
