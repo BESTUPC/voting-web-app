@@ -383,9 +383,7 @@ app.post('/getResults', function (req, res) {
               return ret;
             }
             else{
-
               poll.numberVotes = vots.length;
-
               var noms = [];
               var got_names = 0;
               for(var i = 0; i < vots.length; ++i){
@@ -782,6 +780,57 @@ app.post('/tokensignin', function (req, res) {
     });
 })
 
+app.post('/getUsers', function (req, res) {
+  var token = req.body.idtoken;
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = err.toString();
+        res.json(ret);
+        return ret;
+      }
+      var payload = login.getPayload();
+      MongoClient.connect(url, function(err, db) {
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err.toString();
+          res.json(ret);
+          return ret;
+        }
+        var users = db.collection('users');
+        users.findOne({userId: payload['sub']}, function(err, ret) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err.toString();
+            res.json(ret);
+            return ret;
+          }
+          if(ret != null){
+            var isadmin = false;
+            var member_status = ret.membership;
+            for(var i = 0; i < member_status.length; ++i){
+              isadmin = (["admin"] == member_status[i]);
+            }
+            if (isadmin){
+              db.collection('users').find({},{_id: 0, name: 1, email: 1, userId : 1 } ).toArray(function (err, docs){
+                var aux = {};
+                aux.status = 0;
+                aux.users = docs;
+                res.json(aux);
+                db.close();
+              })
+            }
+          }
+        })
+      })
+})
+})
 
 //API calls end here
 

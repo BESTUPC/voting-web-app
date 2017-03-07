@@ -106,16 +106,11 @@ gets a list of all users in the db
 ```
 {
     "status" : 0,  
-    "users" : [{"Iñigo","ignigomoreno@gmail.com"},{"Esteve","estevetarra@gmail.com"}]
-}
-```
-###### /getUserMembership(idtoken, email)
-gets a user's membership
-```
-#null if users not found
-{
-  "status" : 0,  
-  "membership" : ["admin", "full"]
+    "users" : [{
+      name:"Iñigo",
+      email: "ignigomoreno@gmail.com",
+      userId 837363193
+      }]
 }
 ```
 ###### /addMembership(idtoken, email, newMembership)
