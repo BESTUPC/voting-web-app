@@ -2,10 +2,17 @@ function initNavBar(profile){
 	$('#navbar-photo').attr('src',profile.imageUrl)
 	$('#username').text(profile.name)
 	var xhrNav = new XMLHttpRequest();
-    xhrNav.open('POST', 'http://localhost:3000/getMembership');
+    xhrNav.open('POST', 'http://localhost:3000/getUserInfo');
     xhrNav.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhrNav.onload = function() {
         var response=JSON.parse(xhrNav.responseText);
+        if (response.status!='0'){
+            alert(response.message)
+            setTimeout(function(){
+                window.location="http://localhost:3000/login.html"
+            },20)
+            return 0
+        }
 		var membership = response.membership;
         membership.sort();
         var isAdmin = 0
