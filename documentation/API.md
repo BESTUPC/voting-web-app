@@ -73,26 +73,29 @@ Given a poll id return the results if it's closed
 "options" : [
       {
 
-        "option" : Juanito,
-        "numberVotes" : [25,28,10]
+        "winner" : Juanito,
+        "pollOptions" = ["Juanito, "Pepito", "Pastanaga"]
+        "numberVotes" : [3,2,1]
         #null if private
-        "autors" : [
-            "Esteve" : ["Bernat", "Maitane", "Jordi"] ,
-            "Iñigo" : ["Canya", "Marta"],
-            "Blanc" : ["Quesito"]
+        "voters" : [
+            ["Bernat", "Maitane", "Jordi"] ,
+            ["Canya", "Marta"],
+            ["Quesito"]
           ]
       }
      ]
 }
 ```
 
-###### /getMembership(userId)
-gets the membership of a member
+###### /getUserInfo(userId)
+gets the membership, name and email of a member
 ```
 #null if userId not found
 {
   "status" : 0,  
   "membership" : ["admin", "full"]
+  "name" : "Pepe"
+  "email" : "pepe@gmail.com"
 }
 ```
 
