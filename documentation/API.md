@@ -70,7 +70,7 @@ Given a poll id return the results if it's closed
 #null if pollId not found
 {
 "status" : 0,
-"polls" : [
+"options" : [
       {
 
         "option" : Juanito,
@@ -79,7 +79,7 @@ Given a poll id return the results if it's closed
         "autors" : ["Esteve", "Iñigo", "Arnau"]
       }
      ]
-   }
+}
 ```
 
 ###### /getMembership(userId)
