@@ -397,11 +397,13 @@ app.post('/getResults', function (req, res) {
           var vots_id = [];
           var votes = db.collection('votes');
           var found = 0;
-          console.log("FINAL_POLL.POLLOPTIONS[0] = ", final_poll.pollOptions[0]);
-          for(var i = 0; i < final_poll.pollOptions.length; ++i){
-            var currOption = final_poll.pollOptions[i];
-            console.log("CURROPTION", currOption);
-            votes.find({pollOption: currOption}, {name: true, _id: false}).toArray(function(err, ret){
+          var l = final_poll.pollOptions.length;
+          var count = 0;
+          final_poll.pollOptions.forEach(function(Option){
+            console.log("damn", final_poll.pollOptions[0]);
+            console.log("DAMN", Option);
+            votes.find( {pollOption: Option}, {userId:true,_id: false} ).toArray(function(err, vot_ret) {
+              console.log("INSIDE",Option);
               if (err){
                 var ret = {}
                 ret.status = 1;
@@ -410,70 +412,31 @@ app.post('/getResults', function (req, res) {
                 db.close();
                 return ret;
               }
-              else if(ret == null){
-                vots_count[i] = 0;
-                vots_id[i] = null;
+              else if((vot_ret != null) && (vot_ret.length != 0)){
+                console.log(count);
+                vots_count[count] = vot_ret.length;
+                vots_id[count] = vot_ret;
+                ++count;
+
               }
               else{
-                vots_count[i] = ret.length;
-                vots_id[i] = ret;
-                if (i == final_poll.pollOptions.length-1) found = 1;
-                console.log("WHO VOTED FOR ", currOption, "?");
-                for(var i = 0; i < ret.length; ++i){
-                  console.log(ret[i]);
-                }
+                console.log(count);
+                vots_count[count] = 0;
+                vots_id[count] = null;
+                ++count;
               }
-            });
-          }
-          if(found == 1){
-            console.log("GOT COUNT AND ID's. FOUND = ", found);
-            console.log("COUNT.LENGTH = ", vots_count.length);
-            console.log("ID.LENGTH = ", vots_id.length)
-            final_poll.numberVotes = vots_count;
-            if(privatePoll){
-              final_poll.voters = null;
-              final_ret = {}
-              final_ret.status = 0;
-              final_ret.options = final_poll;
-              res.json(final_ret);
-              db.close();
-            }
-            else{
-              var j = 0;
-              var users = db.collection('users');
-              var vots_nom = [];
-              for(; j < vots_id.length; ++i){
-                users.find({userId: vots_id[i]}, {name:true, _id:false}).toArray(function(err, ret){
-                  if (err){
-                    var ret = {}
-                    ret.status = 1;
-                    ret.message = err.toString();
-                    res.json(ret);
-                    db.close();
-                    return ret;
-                  }
-                  else if(ret == null){
-                    var ret = {}
-                    ret.status = 1;
-                    ret.message = "Couldn't find voter's name.";
-                    res.json(ret);
-                    db.close();
-                  }
-                  else{
-                      vots_nom[i] = ret;
-                  }
-                });
-              }
-              if(j == vots_id.length){
-                final_poll.voters = vots_nom;
+              if(count == l){
+                console.log(count);
+                final_poll.numberVotes = vots_count;
+                final_poll.voters = vots_id;
                 var ret = {}
                 ret.status = 0;
                 ret.options = final_poll;
                 res.json(ret);
                 db.close();
               }
-            }
-          }
+            });
+          });
         }
       });
     }
