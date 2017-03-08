@@ -74,11 +74,6 @@
         </div>
         <div class="row">
             <div class="col-lg-5" id="memberships">
-                <div class="well" style="overflow:hidden; padding:10px">
-                    <h4 style="display:inline; margin-top: 15px; margin-bottom: 15px">Normal Well</h4>
-                    <button type="button" class="btn btn-danger btn-circle btn-lg pull-right"><i class="fa fa-trash"></i>
-                    </button>
-                </div>
             </div>
         </div>
         <div class="row">
@@ -177,6 +172,33 @@
         $('#name').text(response.name)
         $('title').text(response.name)
         $('#email').text(response.email)
+        membership.sort()
+        for (i in membership){
+            role=membership[i]
+            if (role!='all'){
+                var item=$('<div class="well" style="overflow:hidden; padding:10px"><h4 style="display:inline; margin-top: 15px; margin-bottom: 15px">Normal Well</h4><button type="button" class="btn btn-danger btn-circle btn-lg pull-right"><i class="fa fa-trash"></i></button></div>')
+                item.find('h4').text(role)
+                item.attr('id',role)
+                item.find('button').click(function(){
+                    $(this).blur()
+                    role=$(this).parent().attr('id')
+                    var xhrDel = new XMLHttpRequest();
+                    xhrDel.open('POST', 'http://localhost:3000/revokeMembership');
+                    xhrDel.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhrDel.onload=function() {
+                        responseDel=JSON.parse(xhrDel.responseText)
+                        if(responseDel.status==0){
+                            location.reload()
+                        }
+                        else{
+                            error('Error',responseDel.message)
+                        }
+                    }
+                    xhrDel.send('idtoken=' + id_token +'&email=' + response.email + '&newMembership=' + role);
+                })
+                $('#memberships').append(item)
+            }
+        }
     }
     xhr.send('userId=' + id);
 
