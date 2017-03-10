@@ -21,7 +21,7 @@ given a tokenid return the polls he can vote
 }
 ```
 
-###### /getPollInfo(pollId)
+###### /getPollInfo(pollId,idtoken)
 given a poll id return info of the poll
 ```
 {
