@@ -154,24 +154,26 @@ app.post('/getPolls', function (req, res) {
               res.json(ret);
               return ret;
             }
-            db.collection('votes').findOne({pollId: docs._id , userId: user['userId'] }, function(err, ret) {
-              if (err)
-              {
-                var ret = {}
-                ret.status = 1;
-                ret.message = err.toString();
-                res.json(ret);
-                return ret;
-                db.close();
+            //S'ha de fer per cada poll... $lookup
+              db.collection('votes').findOne({pollId: docs._id , userId: user['userId'] }, function(err, ret) {
+                if (err)
+                {
+                  var ret = {}
+                  ret.status = 1;
+                  ret.message = err.toString();
+                  res.json(ret);
+                  return ret;
+                  db.close();
 
-              }
-              if (ret == null) docs['pollOption'] = "";
-              else docs['pollOption'] = ret.pollOption;
-              var ret = {}
-              ret.status = 0;
-              ret.polls=docs
-              res.json(ret);
-            });
+                }
+                if (ret == null) docs['pollOption'] = "";
+                else docs['pollOption'] = ret.pollOption;
+                var ret = {}
+                ret.status = 0;
+                ret.polls=docs
+                res.json(ret);
+              });
+
           });
         });
 
@@ -213,6 +215,7 @@ app.post('/getPollInfo', function (req, res) {
               }
               db.collection('votes').findOne({pollId: ipollId , userId: payload['sub'] }, function(err, ret)
                 {
+
                   if (err) {
                     var ret = {}
                     ret.status = 1;
@@ -220,8 +223,8 @@ app.post('/getPollInfo', function (req, res) {
                     res.json(ret);
                     return ret;
                   }
-                if (ret == null) docs['pollOption'] = "";
-                else docs['pollOption'] = ret.pollOption;
+                if (ret == null) docs.option = "";
+                else docs.pollOption = ret.option;
                 docs['status'] = 0;
                 res.json(docs);
                 db.close();
