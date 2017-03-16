@@ -52,7 +52,7 @@
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header" id=header-box-errorModal>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <button type="button" class="close" id="modalClose" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title" id="modal-title-text">Error</h4>
                         </div>
                         <div class="modal-body" id=body-box-errorModal>
@@ -164,7 +164,7 @@
             pollOptions=poll.pollOptions
             //poll.pollOption='Bernat' //DEBUG
             selectedOption=pollOptions.indexOf(poll.pollOption) //find index of pollOption
-            alert(JSON.stringify(poll))
+            //alert(JSON.stringify(poll))
             //$('#text').append(selectedOption) //DEBUG
             pollName=poll.pollName 
             $('#pollName').append(pollName) //Add pollName to html
@@ -210,13 +210,18 @@
                         }
                         else{
                             success('Succes','Vote sent successfully')
+                            var goBack=function () {
+                                window.location = "http://localhost:3000/index.html"
+                            }
+                            $('#modalButton').click(goBack)
+                            $('#modalClose').click(goBack)
                         }
                     }
                     xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&option=' + pollOptions[selectedOption]);
                 }
             })
             $('body').keypress(function(e){
-                alert(e.keyCode)
+                //alert(e.keyCode)
                 if(e.keyCode==13){
                     if( $('#errorModal').hasClass('in') ){
                         $('#modalButton').click()

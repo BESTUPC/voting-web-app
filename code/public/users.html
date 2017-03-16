@@ -161,6 +161,12 @@
                 .click(function(){
                     window.location = 'http://localhost:3000/user.html?id='+$(this).attr('id').substr(4)
                 })
+                .css('cursor','pointer')
+                .hover(function () {
+                    $(this).css('background-color','#eff0f1').find('td').css('text-decoration','underline')
+                },function () {
+                    $(this).css('background-color','#ffffff').find('td').css('text-decoration','none')
+                })
             $('#usersTable tbody').append(row) //afegeix fila a la taula
         }
 
