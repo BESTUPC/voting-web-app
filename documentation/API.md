@@ -9,16 +9,8 @@ given a tokenid return the polls he can vote
     {
       "_id": "3456789",
       "pollName": "Bestie de la biSetmana",
-      "pollOptions": [
-        "Iñigo",
-        "Quesito",
-        "Bernat",
-        "Laia"
-      ],
-      "targetGroup": "all",
-      "isPrivate": false,
-      "pollDeadline": "3234672825",
-      "description": "descripció ... why?"
+        "pollDeadline": "3234672825",
+      "state" : "open"
     }
   ]
 }
@@ -53,7 +45,19 @@ sends the vote
 }
 ```
 
-
+###### /egetResults(pollId)
+```
+[
+  {
+    "_id": "Bernat",
+    "total": 1
+  },
+  {
+    "_id": "Iñigo",
+    "total": 1
+  }
+]
+```
 
 ###### /askWithdrawal(idtoken, pollId)
 The user is asking for a withdrawal

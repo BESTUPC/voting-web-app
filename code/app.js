@@ -146,7 +146,7 @@ app.post('/getPolls', function (req, res) {
           console.log('document:', document);
           var memberships = document['membership'];
           var votacions = db.collection('votacions');
-          votacions.find({targetGroup : { $in: memberships }}).toArray(function (err, docs) {
+          votacions.find({targetGroup : { $in: memberships }},{ _id:1, pollName:1,pollDeadline:1, state :1 }).toArray(function (err, docs) {
             if (err) {
               var ret = {}
               ret.status = 1;
@@ -154,26 +154,10 @@ app.post('/getPolls', function (req, res) {
               res.json(ret);
               return ret;
             }
-            //S'ha de fer per cada poll... $lookup
-              db.collection('votes').findOne({pollId: docs._id , userId: user['userId'] }, function(err, ret) {
-                if (err)
-                {
-                  var ret = {}
-                  ret.status = 1;
-                  ret.message = err.toString();
-                  res.json(ret);
-                  return ret;
-                  db.close();
-
-                }
-                if (ret == null) docs['pollOption'] = "";
-                else docs['pollOption'] = ret.pollOption;
-                var ret = {}
-                ret.status = 0;
-                ret.polls=docs
-                res.json(ret);
-              });
-
+                          var ret = {}
+            ret.status = 0;
+            ret.polls=docs
+            res.json(ret);
           });
         });
 
@@ -223,7 +207,7 @@ app.post('/getPollInfo', function (req, res) {
                     res.json(ret);
                     return ret;
                   }
-                if (ret == null) docs.option = "";
+                if (ret == null) docs.pollOption = "";
                 else docs.pollOption = ret.option;
                 docs['status'] = 0;
                 res.json(docs);
@@ -304,6 +288,26 @@ function cens(targetGroup) {
 
 function notifyWithdrawal(){};
 
+app.post('/egetResults', function (req, res) {
+  var ipollId = req.body.pollId;
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      var ret = {}
+      ret.status = 1;
+      ret.message = err.toString();
+      res.json(ret);
+      return ret;
+    }
+    var aux = db.collection('votes').aggregate([
+                     { $match: { pollId : ipollId }},
+                     { $group: { _id: "$pollOption" , total: { $sum: 1 } }}
+                   ]
+                 ).toArray(function(err, doc){
+                   console.log(doc);
+                   res.json(doc);
+                 });
+    });
+})
 
 app.post('/askWithdrawal', function (req, res) {
   var token = req.body.idtoken;
