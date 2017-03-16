@@ -9,6 +9,22 @@ var CLIENT_ID = obj['id'];
 var CLIENT_SECRET = obj['secret'];
 var client = new auth.OAuth2(CLIENT_ID, CLIENT_SECRET, "http://localhost:3000/");
 var bodyParser = require("body-parser");
+var crypto = require('crypto'), algorithm = 'aes-256-ctr', password = CLIENT_SECRET;
+
+function codificate(userId, option, pollId) {
+  var cipher = crypto.createCipher(algorithm,password);
+  var encrypted = cipher.update(userId + option + pollId, 'utf8', 'hex');
+  return encrypted;
+}
+
+function decodificate(userId, options, pollId, encrypted) {
+  var cipher = crypto.createCipher(algorithm,password);
+  for (optionkey in options){
+    var auxEncrypted = cipher.update(userId + options[optionkey] + pollId, 'utf8', 'hex');
+    if (auxEncrypted == encrypted) return options[optionkey];
+  }
+  return null;
+}
 //Connection to mongodb
 // Connection URL
 var url = 'mongodb://localhost:27017/votacions';
@@ -39,6 +55,7 @@ MongoClient.connect(url, function(err, db) {
   votacio['targetGroup'] = "all";
   votacio['isPrivate'] = false;
   votacio['pollDeadline'] = "3234672825";
+  votacio['state'] = "open";
   votacio['description'] = "descripció ... why?";
   db.collection('votacions').insertMany([votacio], function(err, result){});
   var vote = {};
@@ -56,7 +73,6 @@ MongoClient.connect(url, function(err, db) {
   db.collection('askPrivate').insertMany([privat], function(err, result){});
   db.close();
 });
-
 
 //Creating the webserver
 var app = express();
@@ -138,24 +154,26 @@ app.post('/getPolls', function (req, res) {
               res.json(ret);
               return ret;
             }
-            db.collection('votes').findOne({pollId: docs._id , userId: user['userId'] }, function(err, ret) {
-              if (err)
-              {
-                var ret = {}
-                ret.status = 1;
-                ret.message = err.toString();
-                res.json(ret);
-                return ret;
-                db.close();
+            //S'ha de fer per cada poll... $lookup
+              db.collection('votes').findOne({pollId: docs._id , userId: user['userId'] }, function(err, ret) {
+                if (err)
+                {
+                  var ret = {}
+                  ret.status = 1;
+                  ret.message = err.toString();
+                  res.json(ret);
+                  return ret;
+                  db.close();
 
-              }
-              if (ret == null) docs['pollOption'] = "";
-              else docs['pollOption'] = ret.pollOption;
-              var ret = {}
-              ret.status = 0;
-              ret.polls=docs
-              res.json(ret);
-            });
+                }
+                if (ret == null) docs['pollOption'] = "";
+                else docs['pollOption'] = ret.pollOption;
+                var ret = {}
+                ret.status = 0;
+                ret.polls=docs
+                res.json(ret);
+              });
+
           });
         });
 
@@ -197,6 +215,7 @@ app.post('/getPollInfo', function (req, res) {
               }
               db.collection('votes').findOne({pollId: ipollId , userId: payload['sub'] }, function(err, ret)
                 {
+
                   if (err) {
                     var ret = {}
                     ret.status = 1;
@@ -204,8 +223,8 @@ app.post('/getPollInfo', function (req, res) {
                     res.json(ret);
                     return ret;
                   }
-                if (ret == null) docs['pollOption'] = "";
-                else docs['pollOption'] = ret.pollOption;
+                if (ret == null) docs.option = "";
+                else docs.pollOption = ret.option;
                 docs['status'] = 0;
                 res.json(docs);
                 db.close();
@@ -233,8 +252,15 @@ app.post('/sendVote', function (req, res) {
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
         if (err) throw err;
-        db.collection('votacions').findOne({pollId : ipollId }, function (err, doc) {
-          if(doc.state == "open"){
+        db.collection('votacions').findOne({ _id : ipollId }, function (err, doc) {
+          if (doc == null){
+            console.log(ipollId);
+            var ret = {};
+            ret.message = "votacio not found in db"
+            ret['status'] = 4;
+            res.json(ret);
+          }
+          else if(doc.state == "open"){
             var vote = {};
             vote['userId'] =
             db.collection('votes').update({userId : payload['sub'], pollId : ipollId}, { $set: {option: ioption}}, {upsert: true} );
@@ -277,6 +303,7 @@ function cens(targetGroup) {
 }
 
 function notifyWithdrawal(){};
+
 
 app.post('/askWithdrawal', function (req, res) {
   var token = req.body.idtoken;
@@ -372,8 +399,7 @@ app.post('/getResults', function (req, res) {
       ret.message = "DB not found";
       res.json(ret);
       return ret;
-    }
-    else{
+    } else {
       var votacions = db.collection('votacions');
       votacions.findOne({_id: ipollId}, function(err, ret){
         if (err) {
@@ -390,15 +416,53 @@ app.post('/getResults', function (req, res) {
           return ret;
         }
         else{
+          var privatePoll = ret.isPrivate;
           var final_poll = {}
           final_poll.pollOptions = ret.pollOptions;
-          var vots_nums;
-          if(ret.isPrivate){
+          var vots_count = [];
+          var vots_id = [];
+          var votes = db.collection('votes');
+          var found = 0;
+          var l = final_poll.pollOptions.length;
+          var count = 0;
+          final_poll.pollOptions.forEach(function(Option){
+            console.log("damn", final_poll.pollOptions[0]);
+            console.log("DAMN", Option);
+            votes.find( {pollOption: Option}, {userId:true,_id: false} ).toArray(function(err, vot_ret) {
+              console.log("INSIDE",Option);
+              if (err){
+                var ret = {}
+                ret.status = 1;
+                ret.message = err.toString();
+                res.json(ret);
+                db.close();
+                return ret;
+              }
+              else if((vot_ret != null) && (vot_ret.length != 0)){
+                console.log(count);
+                vots_count[count] = vot_ret.length;
+                vots_id[count] = vot_ret;
+                ++count;
 
-          }
-          else{
-
-          }
+              }
+              else{
+                console.log(count);
+                vots_count[count] = 0;
+                vots_id[count] = null;
+                ++count;
+              }
+              if(count == l){
+                console.log(count);
+                final_poll.numberVotes = vots_count;
+                final_poll.voters = vots_id;
+                var ret = {}
+                ret.status = 0;
+                ret.options = final_poll;
+                res.json(ret);
+                db.close();
+              }
+            });
+          });
         }
       });
     }
