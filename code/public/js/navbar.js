@@ -6,19 +6,31 @@ function gup( name, url ) {
     var results = regex.exec( url );
     return results == null ? null : results[1];
 }
-function error( title, message ) {
+function error( title, message, f ) {
+    if (f == undefined)f=function(){};
     $('#modal-title-text').text(title);
     $('#modal-text').text(message);
     $('#header-box-errorModal').css('background-color','rgb(241,103,103)');
     $('#footer-box-errorModal').css('background-color','rgb(241,103,103)');
+    $('#modalButton').click(f);
+    $('#modalClose').click(f);
     $('#errorModal').modal('show');
 }
-function success( title, message ) {
+function success( title, message , f) {
+    if (f == undefined)f=function(){};
     $('#modal-title-text').text(title);
     $('#modal-text').text(message);
     $('#header-box-errorModal').css('background-color','rgb(190,215,70)');
     $('#footer-box-errorModal').css('background-color','rgb(190,215,70)');
+    $('#modalButton').click(f);
+    $('#modalClose').click(f);
     $('#errorModal').modal('show');
+}
+function goHome(){
+    window.location = 'http://localhost:3000/index.html';
+}
+function goLogin(){
+    window.location = 'http://localhost:3000/login.html';
 }
 function initNavBar(profile){
     $.fn.exists = function () {
@@ -31,11 +43,9 @@ function initNavBar(profile){
     xhrNav.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhrNav.onload = function() {
         var response=JSON.parse(xhrNav.responseText);
+        //alert(xhrNav.responseText);
         if (response.status!='0'){
-            alert(response.message);
-            setTimeout(function(){
-                window.location="http://localhost:3000/login.html";
-            },20);
+            error('Error',response.message,goLogin());
             return 0;
         }
 		var membership = response.membership;
@@ -54,8 +64,9 @@ function initNavBar(profile){
         	$('#page-wrapper').css('margin','0');
     	}
     };
-    $(':root').keyup(function(e){
-        if ((e.ctrlKey || e.metaKey) && e.keyCode === 70) {
+    xhrNav.send('userId='+profile.id);
+    $(':root').keydown(function(e){
+        if ((e.ctrlKey || e.metaKey) && e.keyCode === 70) { //CTRL F
             var input=$('body').find('input[type=search]');
             if (input.exists()){
                 input.focus();
@@ -63,11 +74,15 @@ function initNavBar(profile){
                 e.stopImmediatePropagation();
             }
         }
-        if(e.keyCode==13){
+        else if(e.keyCode==13){ //ENTER
             if( $('#errorModal').hasClass('in') ){
                 e.stopImmediatePropagation();
                 $('#modalButton').click();
             }
+        }
+        else if(e.keyCode==27){ //ESC
+            goHome();
+            e.stopImmediatePropagation();
         }
     });
 }

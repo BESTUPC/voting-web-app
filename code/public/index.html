@@ -153,6 +153,13 @@
                 },
                 "aoColumns": [{"bSearchable": true},{"bSearchable":false}]
             });
+
+            $(':root').keydown(function(e){
+                if(e.keyCode==13){ //enter
+                    var trToClick = $('#pollListContent').find('tr:nth-child(1)');
+                    if(trToClick.exists()) trToClick.click();
+                }
+            });
         };
         xhr.send('idtoken=' + id_token);
     });

@@ -187,7 +187,12 @@
     $("#navbar").load("navbar.html",function(){
         initNavBar(JSON.parse(getCookie("profile")));
     });
-
+    $(':root').keydown(function(e){
+        if(e.keyCode==13){ //enter
+            var trToClick = $('#usersTable').find('tr:nth-child(1)');
+            if(trToClick.exists()) trToClick.click();
+        }
+    });
 </script>
 
 

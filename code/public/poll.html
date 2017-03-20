@@ -173,25 +173,20 @@
                                 error('Error',res.message);
                             }
                             else{
-                                var goBack=function () {
-                                    window.location = "http://localhost:3000/index.html";
-                                };
-                                $('#modalButton').click(goBack);
-                                $('#modalClose').click(goBack);
-                                success('Succes','Vote sent successfully');
+                                success('Success','Vote sent successfully',goHome);
                             }
                         };
                         xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&option=' + pollOptions[selectedOption]);
                     }
                 });
-                $(':root').keyup(function(e){
+                $(':root').keydown(function(e){
                     //alert(e.keyCode)
-                    if(e.keyCode>=48 && e.keyCode<=57){
+                    if(e.keyCode>=48 && e.keyCode<=57){ //number
                         var pressedNumber = e.keyCode-48;
                         var buttonToClick = $('#pollOptions').find('button:nth-child('+pressedNumber+')');
                         if(buttonToClick.exists()) buttonToClick.click();
                     }
-                    if(e.keyCode==13){
+                    if(e.keyCode==13){ //enter
                         $('#vote').click();
                     } //TODO MAYBE: Numeros per seleccionar vot
                 });
