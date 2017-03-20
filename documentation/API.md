@@ -145,8 +145,8 @@ gets a list of all users in the db
   ]
 }
 ```
-###### /addMembership(idtoken, email, newMembership)
-adds a membership to a member
+###### /updateMembership(idtoken, email, [Memberships])
+the user with that email gets that memberships (you should include all the memberships, the rest will be deleted)
 ```
 #null if users not found
 {
