@@ -117,13 +117,20 @@
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onload = function() {
                 //$('#text').append(xhr.responseText)
-                poll = JSON.parse(xhr.responseText);
-                pollOptions=poll.pollOptions;
+                var poll = JSON.parse(xhr.responseText);
+                if (poll.status!='0'){
+                    alert(poll.message);
+                    setTimeout(function(){
+                        window.location="http://localhost:3000/login.html";
+                    },20);
+                    return 0;
+                }
+                var pollOptions=poll.pollOptions;
                 //poll.pollOption='Bernat' //DEBUG
-                selectedOption=pollOptions.indexOf(poll.pollOption); //find index of pollOption
+                var selectedOption=pollOptions.indexOf(poll.pollOption); //find index of pollOption
                 //alert(JSON.stringify(poll))
                 //$('#text').append(selectedOption) //DEBUG
-                pollName=poll.pollName;
+                var pollName=poll.pollName;
                 $('#pollName').append(pollName); //Add pollName to html
                 $('title').text(pollName);
                 for (i in pollOptions){    //For all poll options
@@ -177,8 +184,13 @@
                         xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&option=' + pollOptions[selectedOption]);
                     }
                 });
-                $(':root').keypress(function(e){
+                $(':root').keyup(function(e){
                     //alert(e.keyCode)
+                    if(e.keyCode>=48 && e.keyCode<=57){
+                        var pressedNumber = e.keyCode-48;
+                        var buttonToClick = $('#pollOptions').find('button:nth-child('+pressedNumber+')');
+                        if(buttonToClick.exists()) buttonToClick.click();
+                    }
                     if(e.keyCode==13){
                         $('#vote').click();
                     } //TODO MAYBE: Numeros per seleccionar vot

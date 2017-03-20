@@ -54,17 +54,15 @@ function initNavBar(profile){
         	$('#page-wrapper').css('margin','0');
     	}
     };
-    $(':root').keydown(function(e){
-        $(window).keydown(function(e){
-            if ((e.ctrlKey || e.metaKey) && e.keyCode === 70) {
-                var input=$('body').find('input[type=search]');
-                if (input.exists()){
-                    input.focus();
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                }
+    $(':root').keyup(function(e){
+        if ((e.ctrlKey || e.metaKey) && e.keyCode === 70) {
+            var input=$('body').find('input[type=search]');
+            if (input.exists()){
+                input.focus();
+                e.preventDefault();
+                e.stopImmediatePropagation();
             }
-        });
+        }
         if(e.keyCode==13){
             if( $('#errorModal').hasClass('in') ){
                 e.stopImmediatePropagation();
