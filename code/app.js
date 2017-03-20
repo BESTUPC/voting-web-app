@@ -621,7 +621,7 @@ app.post('/closePoll', function (req, res) {
     });
 })
 
-app.post('/addMembership', function (req, res) {
+app.post('/updateMembership', function (req, res) {
   var token = req.body.idtoken;
   //console.log(token);
   client.verifyIdToken(
@@ -672,29 +672,12 @@ app.post('/addMembership', function (req, res) {
                   return ret;
                 }
                 if(ret!= null){
-                  var found = false;
-                  var to_add_status=ret.membership;
-                  for(var i = 0; i < to_add_status.length; ++i){
-                    found = (to_add_status[i] == membership_to_add);
-                  }
-                  if (!found)
-                  {
-                    to_add_status.push(membership_to_add);
-                    users.updateOne({email: email_to_add}, {$set: {membership: to_add_status}});
+                    users.updateOne({email: email_to_add}, {$set: {membership: membership_to_add}});
                     var ret = {}
                     ret.status = 0;
                     ret.message = "";
                     res.json(ret);
                     db.close();
-                  }
-                  else
-                  {
-                    var ret_else = {}
-                    ret_else.status = 4;
-                    ret_else.message = "Already had newMembership";
-                    res.json(ret_else);
-                    db.close();
-                  }
                 }
                 else
                 {
