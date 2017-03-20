@@ -46,25 +46,6 @@
         <div id="navbar"></div>
 
         <div id="page-wrapper">
-            <div class="container">
-            <div class="modal fade" id="errorModal" role="dialog">
-                <div class="modal-dialog" >
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header" id=header-box-errorModal>
-                            <button type="button" class="close" id="modalClose" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title" id="modal-title-text">Error</h4>
-                        </div>
-                        <div class="modal-body" id=body-box-errorModal>
-                            <p id="modal-text"></p>
-                        </div>
-                        <div class="modal-footer" id=footer-box-errorModal>
-                            <button type="button" id="modalButton" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header" id="pollName"></h1>
@@ -125,114 +106,88 @@
 
     <script src="js/navbar.js">  </script>
     <script>
-        function gup( name, url ) {
-            if (!url) url = location.href;
-            name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-            var regexS = "[\\?&]"+name+"=([^&#]*)";
-            var regex = new RegExp( regexS );
-            var results = regex.exec( url );
-            return results == null ? null : results[1];
-        }
-        function error( title, message ) {
-            $('#modal-title-text').text(title)
-			$('#modal-text').text(message)
-            $('#header-box-errorModal').css('background-color','rgb(241,103,103)')
-			$('#footer-box-errorModal').css('background-color','rgb(241,103,103)')
-			$('#errorModal').modal('show')
-        }
-		function success( title, message ) {
-            $('#modal-title-text').text(title)
-			$('#modal-text').text(message)
-            $('#header-box-errorModal').css('background-color','rgb(190,215,70)')
-			$('#footer-box-errorModal').css('background-color','rgb(190,215,70)')
-			$('#errorModal').modal('show')
-        }
 		
-        pollId=gup('id')
-        id_token = getCookie("idtoken")
+        pollId=gup('id');
+        id_token = getCookie("idtoken");
 
         $("#navbar").load("navbar.html",function(){
-          initNavBar(JSON.parse(getCookie("profile")))
-        });
-        
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:3000/getPollInfo');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function() {
-            //$('#text').append(xhr.responseText)
-            poll = JSON.parse(xhr.responseText)
-            pollOptions=poll.pollOptions
-            //poll.pollOption='Bernat' //DEBUG
-            selectedOption=pollOptions.indexOf(poll.pollOption) //find index of pollOption
-            //alert(JSON.stringify(poll))
-            //$('#text').append(selectedOption) //DEBUG
-            pollName=poll.pollName 
-            $('#pollName').append(pollName) //Add pollName to html
-            $('title').text(pollName)
-            for (i in pollOptions){    //For all poll options
-                pollOption=pollOptions[i]
-                var button=$('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
-                    .append(' '+pollOption) //add option name to button
-                    .attr('pos',i) //save position of this polloption in the button
-                    .click(function(){
-                        $(this).blur() //remove foucs
-                        ind=$(this).attr('pos') //get position of this clicked option from the html
-                        if(selectedOption!=ind){ //do nothing if it's already selected
-                            $(this).removeClass('btn-default').addClass('btn-primary')//change color to primary
-                            $(this).find('i').addClass('fa fa-check') //add check icon
-                            if(selectedOption!=-1){ //if there was another selected option
-                                $(this).parent().find("[pos='"+selectedOption+"']") //find the previously selected option
-                                    .removeClass('btn-primary').addClass('btn-default') //change its color
-                                    .find('i').removeClass('fa fa-check') //remove its check icon
-                            }
-                            selectedOption=ind //update selected option variable
-                        }
-                    })
-                if (i==selectedOption){ //If button we are going to add was already selected 
-                    button.removeClass('btn-default').addClass('btn-primary') //change its color
-                        .find('i').addClass('fa fa-check') //add check icon
-                }
-                $('#pollOptions').append(button) //we add the button to the list of buttons
-            }
-            $('#vote').click(function(){
-                $(this).blur() //loose focus
-                if (selectedOption==-1){
-                    error( 'Error', 'No option selected' ) 
-                }
-                else{
-                    var xhr2 = new XMLHttpRequest();
-                    xhr2.open('POST', 'http://localhost:3000/sendVote');
-                    xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr2.onload = function() {
-                        res=JSON.parse(xhr2.responseText)
-                        if (res.status!='0'){
-                            error('Error',res.message)
-                        }
-                        else{
-                            success('Succes','Vote sent successfully')
-                            var goBack=function () {
-                                window.location = "http://localhost:3000/index.html"
-                            }
-                            $('#modalButton').click(goBack)
-                            $('#modalClose').click(goBack)
-                        }
+            initNavBar(JSON.parse(getCookie("profile")));
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:3000/getPollInfo');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                //$('#text').append(xhr.responseText)
+                poll = JSON.parse(xhr.responseText);
+                pollOptions=poll.pollOptions;
+                //poll.pollOption='Bernat' //DEBUG
+                selectedOption=pollOptions.indexOf(poll.pollOption); //find index of pollOption
+                //alert(JSON.stringify(poll))
+                //$('#text').append(selectedOption) //DEBUG
+                pollName=poll.pollName;
+                $('#pollName').append(pollName); //Add pollName to html
+                $('title').text(pollName);
+                for (i in pollOptions){    //For all poll options
+                    pollOption=pollOptions[i];
+                    var button=$('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
+                        .append(' '+pollOption) //add option name to button
+                        .attr('pos',i) //save position of this polloption in the button
+                        .click(function(){
+                            $(this).blur(); //remove foucs
+                            ind=$(this).attr('pos'); //get position of this clicked option from the html
+                            if(selectedOption!=ind){ //do nothing if it's already selected
+                                $(this).removeClass('btn-default').addClass('btn-primary')//change color to primary
+                                $(this).find('i').addClass('fa fa-check'); //add check icon
+                                if(selectedOption!=-1){ //if there was another selected option
+                                    $(this).parent().find("[pos='"+selectedOption+"']") //find the previously selected option
+                                        .removeClass('btn-primary').addClass('btn-default') //change its color
+                                        .find('i').removeClass('fa fa-check'); //remove its check icon
+                                }
+                                selectedOption=ind; //update selected option variable
+                            };
+                        });
+                    if (i==selectedOption){ //If button we are going to add was already selected
+                        button.removeClass('btn-default').addClass('btn-primary') //change its color
+                            .find('i').addClass('fa fa-check'); //add check icon
                     }
-                    xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&option=' + pollOptions[selectedOption]);
+                    $('#pollOptions').append(button); //we add the button to the list of buttons
                 }
-            })
-            $('body').keypress(function(e){
-                //alert(e.keyCode)
-                if(e.keyCode==13){
-                    if( $('#errorModal').hasClass('in') ){
-                        $('#modalButton').click()
+                $('#vote').click(function(){
+                    $(this).blur(); //loose focus
+                    if (selectedOption==-1){
+                        error( 'Error', 'No option selected' );
                     }
                     else{
-                        $('#vote').click()
+                        var xhr2 = new XMLHttpRequest();
+                        xhr2.open('POST', 'http://localhost:3000/sendVote');
+                        xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        xhr2.onload = function() {
+                            res=JSON.parse(xhr2.responseText);
+                            if (res.status!='0'){
+                                error('Error',res.message);
+                            }
+                            else{
+                                var goBack=function () {
+                                    window.location = "http://localhost:3000/index.html";
+                                };
+                                $('#modalButton').click(goBack);
+                                $('#modalClose').click(goBack);
+                                success('Succes','Vote sent successfully');
+                            }
+                        };
+                        xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&option=' + pollOptions[selectedOption]);
                     }
-                } //TODO MAYBE: Numeros per seleccionar vot
-            })
-        }
-        xhr.send('pollId=' + pollId + '&idtoken=' + id_token);
+                });
+                $(':root').keypress(function(e){
+                    //alert(e.keyCode)
+                    if(e.keyCode==13){
+                        $('#vote').click();
+                    } //TODO MAYBE: Numeros per seleccionar vot
+                });
+            };
+            xhr.send('pollId=' + pollId + '&idtoken=' + id_token);
+        });
+        
+
     </script>
 
 
