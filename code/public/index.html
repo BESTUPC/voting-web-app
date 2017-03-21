@@ -121,25 +121,49 @@
                 return 0;
             }
             var pollList=result.polls;
-            for(i in pollList){
+            for(var i in pollList){
                 //alert(JSON.stringify(pollList[i]))
-                poll=pollList[i];
+                var poll=pollList[i];
                 var id=poll._id;
                 var name=poll.pollName;
                 var date_ms = poll.pollDeadline*1000;
                 //crea una nova fila amb el nom i la deadline
                 var row = $('<tr><td>'+name+'</td><td>'+date_ms.toString()+'</td></tr>')
                     .attr('id','poll'+id) //afegeix link a la fila
-                    .click(function(){
-                        window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4);
-                    })
-                    .css('cursor','pointer')
-                    .hover(function () {
-                        $(this).css('background-color','#eff0f1').find('td').css('text-decoration','underline');
-                    },function () {
-                        $(this).css('background-color','#ffffff').find('td').css('text-decoration','none');
-                    });
-                //.css('background-color',(poll.pollOption==''?'White':'#B7E797'))//fica blanc o verd depenent de si has votat o no
+                    .css('cursor','pointer');
+                if (poll.state=='closed'){
+                    row.css('background-color','White')
+                       .hover(function () {
+                          $(this).css('background-color','#e5e5e5').find('td').css('text-decoration','underline');
+                      },function () {
+                          $(this).css('background-color','White').find('td').css('text-decoration','none');
+                      })
+                      .click(function(){
+                          window.location = 'http://localhost:3000/results.html?id='+$(this).attr('id').substr(4);
+                      });
+                }
+                else{
+                    row.css('background-color','#B7E797')
+                        .hover(function () {
+                            $(this).css('background-color','#a4cf87').find('td').css('text-decoration','underline');
+                        },function () {
+                            $(this).css('background-color','#B7E797').find('td').css('text-decoration','none');
+                        })
+                        .click(function(){
+                            window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4);
+                        });
+//                    row.css('background-color','#E6F0C3 ')
+//                        .hover(function () {
+//                            $(this).css('background-color','#69CD28').find('td').css('text-decoration','underline');
+//                        },function () {
+//                            $(this).css('background-color','#E6F0C3 ').find('td').css('text-decoration','none');
+//                        })
+//                        .click(function(){
+//                            window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4);
+//                        });
+                }
+
+
                 $('#pollListContent').append(row); //afegeix fila a la taula
             }
 

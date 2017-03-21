@@ -173,9 +173,15 @@
             xhrApply.open('POST', 'http://localhost:3000/updateMembership');
             xhrApply.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhrApply.onload = function () {
-                alert(xhrApply.responseText);
+                res=JSON.parse(xhrApply.responseText);
+                if (res.status!='0'){
+                    error('Error',res.message);
+                }
+                else{
+                    success('Success','Membership changed successfully',goHome);
+                }
             };
-            xhrApply.send('idtoken=' + id_token + '&email=' + response.email + '&Memberships=' + newMembership);
+            xhrApply.send('idtoken=' + id_token + '&email=' + response.email + '&newMembership=' + JSON.stringify(newMembership));
         });
 
     };
