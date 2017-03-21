@@ -9,6 +9,22 @@ var CLIENT_ID = obj['id'];
 var CLIENT_SECRET = obj['secret'];
 var client = new auth.OAuth2(CLIENT_ID, CLIENT_SECRET, "http://localhost:3000/");
 var bodyParser = require("body-parser");
+var crypto = require('crypto'), algorithm = 'aes-256-ctr', password = CLIENT_SECRET;
+
+function codificate(userId, option, pollId) {
+  var cipher = crypto.createCipher(algorithm,password);
+  var encrypted = cipher.update(userId + option + pollId, 'utf8', 'hex');
+  return encrypted;
+}
+
+function decodificate(userId, options, pollId, encrypted) {
+  var cipher = crypto.createCipher(algorithm,password);
+  for (optionkey in options){
+    var auxEncrypted = cipher.update(userId + options[optionkey] + pollId, 'utf8', 'hex');
+    if (auxEncrypted == encrypted) return options[optionkey];
+  }
+  return null;
+}
 //Connection to mongodb
 // Connection URL
 var url = 'mongodb://localhost:27017/votacions';
@@ -39,6 +55,7 @@ MongoClient.connect(url, function(err, db) {
   votacio['targetGroup'] = "all";
   votacio['isPrivate'] = false;
   votacio['pollDeadline'] = "3234672825";
+  votacio['state'] = "open";
   votacio['description'] = "descripció ... why?";
   db.collection('votacions').insertMany([votacio], function(err, result){});
   var vote = {};
@@ -56,7 +73,6 @@ MongoClient.connect(url, function(err, db) {
   db.collection('askPrivate').insertMany([privat], function(err, result){});
   db.close();
 });
-
 
 //Creating the webserver
 var app = express();
@@ -130,7 +146,7 @@ app.post('/getPolls', function (req, res) {
           console.log('document:', document);
           var memberships = document['membership'];
           var votacions = db.collection('votacions');
-          votacions.find({targetGroup : { $in: memberships }}).toArray(function (err, docs) {
+          votacions.find({targetGroup : { $in: memberships }},{ _id:1, pollName:1,pollDeadline:1, state :1 }).toArray(function (err, docs) {
             if (err) {
               var ret = {}
               ret.status = 1;
@@ -138,24 +154,10 @@ app.post('/getPolls', function (req, res) {
               res.json(ret);
               return ret;
             }
-            db.collection('votes').findOne({pollId: docs._id , userId: user['userId'] }, function(err, ret) {
-              if (err)
-              {
-                var ret = {}
-                ret.status = 1;
-                ret.message = err.toString();
-                res.json(ret);
-                return ret;
-                db.close();
-
-              }
-              if (ret == null) docs['pollOption'] = "";
-              else docs['pollOption'] = ret.pollOption;
-              var ret = {}
-              ret.status = 0;
-              ret.polls=docs
-              res.json(ret);
-            });
+                          var ret = {}
+            ret.status = 0;
+            ret.polls=docs
+            res.json(ret);
           });
         });
 
@@ -197,6 +199,7 @@ app.post('/getPollInfo', function (req, res) {
               }
               db.collection('votes').findOne({pollId: ipollId , userId: payload['sub'] }, function(err, ret)
                 {
+
                   if (err) {
                     var ret = {}
                     ret.status = 1;
@@ -204,8 +207,8 @@ app.post('/getPollInfo', function (req, res) {
                     res.json(ret);
                     return ret;
                   }
-                if (ret == null) docs['pollOption'] = "";
-                else docs['pollOption'] = ret.pollOption;
+                if (ret == null) docs.pollOption = "";
+                else docs.pollOption = ret.option;
                 docs['status'] = 0;
                 res.json(docs);
                 db.close();
@@ -233,8 +236,15 @@ app.post('/sendVote', function (req, res) {
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
         if (err) throw err;
-        db.collection('votacions').findOne({pollId : ipollId }, function (err, doc) {
-          if(doc.state == "open"){
+        db.collection('votacions').findOne({ _id : ipollId }, function (err, doc) {
+          if (doc == null){
+            console.log(ipollId);
+            var ret = {};
+            ret.message = "votacio not found in db"
+            ret['status'] = 4;
+            res.json(ret);
+          }
+          else if(doc.state == "open"){
             var vote = {};
             vote['userId'] =
             db.collection('votes').update({userId : payload['sub'], pollId : ipollId}, { $set: {option: ioption}}, {upsert: true} );
@@ -277,6 +287,27 @@ function cens(targetGroup) {
 }
 
 function notifyWithdrawal(){};
+
+app.post('/egetResults', function (req, res) {
+  var ipollId = req.body.pollId;
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      var ret = {}
+      ret.status = 1;
+      ret.message = err.toString();
+      res.json(ret);
+      return ret;
+    }
+    var aux = db.collection('votes').aggregate([
+                     { $match: { pollId : ipollId }},
+                     { $group: { _id: "$pollOption" , total: { $sum: 1 } }}
+                   ]
+                 ).toArray(function(err, doc){
+                   console.log(doc);
+                   res.json(doc);
+                 });
+    });
+})
 
 app.post('/askWithdrawal', function (req, res) {
   var token = req.body.idtoken;
@@ -372,8 +403,7 @@ app.post('/getResults', function (req, res) {
       ret.message = "DB not found";
       res.json(ret);
       return ret;
-    }
-    else{
+    } else {
       var votacions = db.collection('votacions');
       votacions.findOne({_id: ipollId}, function(err, ret){
         if (err) {
@@ -650,7 +680,7 @@ app.post('/closePoll', function (req, res) {
     });
 })
 
-app.post('/addMembership', function (req, res) {
+app.post('/updateMembership', function (req, res) {
   var token = req.body.idtoken;
   //console.log(token);
   client.verifyIdToken(
@@ -701,29 +731,12 @@ app.post('/addMembership', function (req, res) {
                   return ret;
                 }
                 if(ret!= null){
-                  var found = false;
-                  var to_add_status=ret.membership;
-                  for(var i = 0; i < to_add_status.length; ++i){
-                    found = (to_add_status[i] == membership_to_add);
-                  }
-                  if (!found)
-                  {
-                    to_add_status.push(membership_to_add);
-                    users.updateOne({email: email_to_add}, {$set: {membership: to_add_status}});
+                    users.updateOne({email: email_to_add}, {$set: {membership: membership_to_add}});
                     var ret = {}
                     ret.status = 0;
                     ret.message = "";
                     res.json(ret);
                     db.close();
-                  }
-                  else
-                  {
-                    var ret_else = {}
-                    ret_else.status = 4;
-                    ret_else.message = "Already had newMembership";
-                    res.json(ret_else);
-                    db.close();
-                  }
                 }
                 else
                 {

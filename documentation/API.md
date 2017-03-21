@@ -3,39 +3,38 @@
 ###### /getPolls(idtoken)
 given a tokenid return the polls he can vote
 ```
- {
-   "status" : 0,
-   "polls" :    [
-      {
-        "status" : 0,
-        "pollId" : 25487,
-        "pollName" : "Bestie de la biSetmana",
-        "pollOptions" : ["Esteve", "Iñigo", "Arnau"],
-        "pollDeadline" : 1487335573, //unix_timestamp in s
-        "isPrivate" : 0,
-        "targetGroup" : "members",
-        "descrpition" : "Qui vols que sigui el proxim Bestie de la biSetmana?",
-        "option" : "Arnau"
-      }
-    ]
+{
+  "status": 0,
+  "polls": [
+    {
+      "_id": "3456789",
+      "pollName": "Bestie de la biSetmana",
+        "pollDeadline": "3234672825",
+      "state" : "open"
+    }
+  ]
 }
 ```
 
-###### /getPollInfo(pollId)
+###### /getPollInfo(pollId,idtoken)
 given a poll id return info of the poll
 ```
 {
-    "status" : 0,
-    "pollId" : 25487,
-    "pollName" : "Bestie de la biSetmana",
-    "pollOptions" : ["Esteve", "Iñigo", "Arnau"],
-    "pollDeadline" : 1487335573,
-    "isPrivate" : 0,
-    "targetGroup" : "members",
-    "descrpition" : "Qui vols que sigui el proxim Bestie de la biSetmana?",
-    "option": "Arnau"
+  "_id": "3456789",
+  "pollName": "Bestie de la biSetmana",
+  "pollOptions": [
+    "Iñigo",
+    "Quesito",
+    "Bernat",
+    "Laia"
+  ],
+  "targetGroup": "all",
+  "isPrivate": false,
+  "pollDeadline": "3234672825",
+  "description": "descripció ... why?",
+  "pollOption": "Iñigo",
+  "status": 0
 }
-
 ```
 
 ###### /sendVote(idtoken, pollId, option)
@@ -46,7 +45,19 @@ sends the vote
 }
 ```
 
-
+###### /egetResults(pollId)
+```
+[
+  {
+    "_id": "Bernat",
+    "total": 1
+  },
+  {
+    "_id": "Iñigo",
+    "total": 1
+  }
+]
+```
 
 ###### /askWithdrawal(idtoken, pollId)
 The user is asking for a withdrawal
@@ -134,8 +145,8 @@ gets a list of all users in the db
   ]
 }
 ```
-###### /addMembership(idtoken, email, newMembership)
-adds a membership to a member
+###### /updateMembership(idtoken, email, [Memberships])
+the user with that email gets that memberships (you should include all the memberships, the rest will be deleted)
 ```
 #null if users not found
 {
