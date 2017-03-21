@@ -400,10 +400,7 @@ app.post('/getResults', function (req, res) {
           var l = final_poll.pollOptions.length;
           var count = 0;
           final_poll.pollOptions.forEach(function(Option){
-            console.log("damn", final_poll.pollOptions[0]);
-            console.log("DAMN", Option);
             votes.find( {pollOption: Option}, {userId:true,_id: false} ).toArray(function(err, vot_ret) {
-              console.log("INSIDE",Option);
               if (err){
                 var ret = {}
                 ret.status = 1;
@@ -413,27 +410,89 @@ app.post('/getResults', function (req, res) {
                 return ret;
               }
               else if((vot_ret != null) && (vot_ret.length != 0)){
-                console.log(count);
+                //console.log(Option);
+                //console.log(vot_ret.length);
                 vots_count[count] = vot_ret.length;
                 vots_id[count] = vot_ret;
                 ++count;
 
               }
               else{
-                console.log(count);
                 vots_count[count] = 0;
                 vots_id[count] = null;
                 ++count;
               }
               if(count == l){
-                console.log(count);
+                console.log("HOHOHOHO", count);
+                for(var i = 0; i < vots_id.length; ++i){
+                  if(vots_id[i] != null){
+                    for(var j = 0; j < vots_id[i].length; ++j){
+                      console.log("i = ", i, " j = ", j, " vots = ", vots_id[i][j]);
+                    }
+                  }
+                }
+                console.log("length", vots_id.length);
                 final_poll.numberVotes = vots_count;
-                final_poll.voters = vots_id;
-                var ret = {}
-                ret.status = 0;
-                ret.options = final_poll;
-                res.json(ret);
-                db.close();
+                var vots_nom = [[]];
+                var users = db.collection('users');
+                var ltot = vots_id.length;
+                var it1 = 0;
+                console.log("ltot",ltot);
+                vots_id.forEach(function(ivoters){
+                  if(ivoters != null){
+                    ++it1;
+                    ivoters.forEach(function(votersid){
+                      console.log("id", votersid);
+                       users.findOne({userId: votersid} ,{name:true,_id:false}, function(err, name_user){
+                         if(err){
+                           var ret = {}
+                           ret.status = 1;
+                           ret.message = err.toString();
+                           res.json(ret);
+                           db.close();
+                           return ret;
+                         }
+                         else if(name_user != null){
+                           console.log("aqui");
+                           console.log("name", name_user);
+                           console.log("it1", it1);
+                           vots_nom[it1].push(name_user);
+                           console.log("it1 ", it1 );
+                           if(it1 == ltot){
+                             final_poll.voters = vots_nom;
+                             var ret = {}
+                             ret.status = 0;
+                             ret.options = final_poll;
+                             res.json(ret);
+                             db.close();
+                           }
+                         }
+                         else{
+                           console.log("alla");
+                           if(it1 == ltot){
+                             final_poll.voters = vots_nom;
+                             var ret = {}
+                             ret.status = 0;
+                             ret.options = final_poll;
+                             res.json(ret);
+                             db.close();
+                           }
+                         }
+                       });
+                     });
+                   }
+                   else{
+                     ++it1;
+                     if(it1 == ltot){
+                       final_poll.voters = vots_nom;
+                       var ret = {}
+                       ret.status = 0;
+                       ret.options = final_poll;
+                       res.json(ret);
+                       db.close();
+                     }
+                   }
+                });
               }
             });
           });
