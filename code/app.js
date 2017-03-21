@@ -304,7 +304,10 @@ app.post('/egetResults', function (req, res) {
                    ]
                  ).toArray(function(err, doc){
                    console.log(doc);
-                   res.json(doc);
+                   var ret = {}
+                   ret.status = 0;
+                   ret.data = doc;
+                   res.json(ret);
                  });
     });
 })
