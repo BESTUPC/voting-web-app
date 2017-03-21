@@ -84,12 +84,17 @@ Given a poll id return the results if it's closed
 "options" : [
       {
         "pollOptions" = ["Juanito, "Pepito", "Pastanaga"]
-        "numberVotes" : [3,2,1]
+        "numberVotes" : [
+              "Juanito": 3,
+              "Pepito" : 2,
+              "Pastanaga" : 1
+        ]
         #null if private
         "voters" : [
-            ["Bernat", "Maitane", "Jordi"] ,
-            ["Canya", "Marta"],
-            ["Quesito"]
+            #null if empty
+            "Juanito": ["Bernat", "Maitane", "Jordi"] ,
+            "Pepito": ["Canya", "Marta"],
+            "Patanaga": ["Quesito"]
           ]
       }
      ]

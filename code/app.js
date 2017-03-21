@@ -420,20 +420,25 @@ app.post('/getResults', function (req, res) {
         else if(ret == null){
           res.json(null);
           db.close();
-          return ret;
+
         }
         else{
           var privatePoll = ret.isPrivate;
           var final_poll = {}
           final_poll.pollOptions = ret.pollOptions;
-          var vots_count = [];
-          var vots_id = [];
+          var vots_count = {}
+          var vots_id = {}
           var votes = db.collection('votes');
           var found = 0;
           var l = final_poll.pollOptions.length;
           var count = 0;
           final_poll.pollOptions.forEach(function(Option){
+            console.log("L_OUTFIND = ", l);
+            console.log("OPTION_POLL_OUTFIND = ", Option);
+            console.log("COUNT_OUTFIND = ", count);
             votes.find( {pollOption: Option}, {userId:true,_id: false} ).toArray(function(err, vot_ret) {
+              console.log("L_OUTFIND = ", l);
+              console.log("COUNT_INFIND = ", count);
               if (err){
                 var ret = {}
                 ret.status = 1;
@@ -443,89 +448,100 @@ app.post('/getResults', function (req, res) {
                 return ret;
               }
               else if((vot_ret != null) && (vot_ret.length != 0)){
+                console.log("OPTION_POLL_INFIND_FOUND = ", Option);
                 //console.log(Option);
                 //console.log(vot_ret.length);
-                vots_count[count] = vot_ret.length;
-                vots_id[count] = vot_ret;
+                vots_count[Option] = vot_ret.length;
+                vots_id[Option] = vot_ret;
                 ++count;
-
               }
               else{
-                vots_count[count] = 0;
-                vots_id[count] = null;
+                console.log("OPTION_POLL_INFIND_NOTFOUND = ", Option);
+                vots_count[Option] = 0;
+                vots_id[Option] = null;
                 ++count;
               }
               if(count == l){
-                console.log("HOHOHOHO", count);
-                for(var i = 0; i < vots_id.length; ++i){
-                  if(vots_id[i] != null){
-                    for(var j = 0; j < vots_id[i].length; ++j){
-                      console.log("i = ", i, " j = ", j, " vots = ", vots_id[i][j]);
+                if(privatePoll){
+                  var ret = {}
+                  ret.status = 0;
+                  final_poll.numberVotes = vots_count;
+                  final_poll.voters = null;
+                  ret.options = final_poll;
+                  res.json(ret);
+                  db.close();
+                }
+                else{
+                  vots_nom = {};
+                  var users = db.collection('users');
+                  var optionstofind = final_poll.pollOptions.length;
+                  console.log("OPTIONSTOFIND : ", optionstofind);
+                  var optionscount = 0;
+                  final_poll.pollOptions.forEach(function(Option){
+                    console.log("CACACCACACCACACCA");
+                    vots_nom[Option] = [];
+                    var namescount = 0;
+                    console.log(Option);
+                    if(vots_id[Option] != null){
+                      var namestofind = vots_id[Option].length;
+
+                    console.log(namestofind);
+
+                    vots_id[Option].forEach(function(Idtofind){
+                      users.findOne({userId: Idtofind.userId}, function(err, namefound){
+                        if (err) {
+                          var ret = {}
+                          ret.status = 1;
+                          ret.message = err.toString();
+                          res.json(ret);
+                          db.close();
+                          return ret;
+                        }
+                        else if(namefound == null){
+                          console.log(Idtofind);
+                          var ret = {}
+                          ret.status = 1;
+                          ret.message = "Voter ID not found in database!";
+                          res.json(ret);
+                          db.close();
+                        }
+                        else{
+                          console.log("HERE : ", namefound.name);
+                          console.log("OPTION :", Option);
+                          console.log()
+                          vots_nom[Option].push(namefound.name);
+                          ++namescount;
+                          if(namescount == namestofind){
+                            ++optionscount;
+                          }
+                          if(optionscount == optionstofind){
+                            var ret = {}
+                            ret.status = 0;
+                            final_poll.numberVotes = vots_count;
+                            final_poll.voters = vots_nom;
+                            ret.options = final_poll;
+                            res.json(ret);
+                            db.close();
+                          }
+                        }
+                      });
+                    });
+                  }
+                  else{
+                    vots_nom[Option] = null;
+                    ++optionscount;
+                    if(optionscount == optionstofind){
+                      var ret = {}
+                      ret.status = 0;
+                      final_poll.numberVotes = vots_count;
+                      final_poll.voters = vots_nom;
+                      ret.options = final_poll;
+                      res.json(ret);
+                      db.close();
                     }
                   }
+                  });
                 }
-                console.log("length", vots_id.length);
-                final_poll.numberVotes = vots_count;
-                var vots_nom = [[]];
-                var users = db.collection('users');
-                var ltot = vots_id.length;
-                var it1 = 0;
-                console.log("ltot",ltot);
-                vots_id.forEach(function(ivoters){
-                  if(ivoters != null){
-                    ++it1;
-                    ivoters.forEach(function(votersid){
-                      console.log("id", votersid);
-                       users.findOne({userId: votersid} ,{name:true,_id:false}, function(err, name_user){
-                         if(err){
-                           var ret = {}
-                           ret.status = 1;
-                           ret.message = err.toString();
-                           res.json(ret);
-                           db.close();
-                           return ret;
-                         }
-                         else if(name_user != null){
-                           console.log("aqui");
-                           console.log("name", name_user);
-                           console.log("it1", it1);
-                           vots_nom[it1].push(name_user);
-                           console.log("it1 ", it1 );
-                           if(it1 == ltot){
-                             final_poll.voters = vots_nom;
-                             var ret = {}
-                             ret.status = 0;
-                             ret.options = final_poll;
-                             res.json(ret);
-                             db.close();
-                           }
-                         }
-                         else{
-                           console.log("alla");
-                           if(it1 == ltot){
-                             final_poll.voters = vots_nom;
-                             var ret = {}
-                             ret.status = 0;
-                             ret.options = final_poll;
-                             res.json(ret);
-                             db.close();
-                           }
-                         }
-                       });
-                     });
-                   }
-                   else{
-                     ++it1;
-                     if(it1 == ltot){
-                       final_poll.voters = vots_nom;
-                       var ret = {}
-                       ret.status = 0;
-                       ret.options = final_poll;
-                       res.json(ret);
-                       db.close();
-                     }
-                   }
-                });
               }
             });
           });
