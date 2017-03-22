@@ -119,7 +119,7 @@
     $("#navbar").load("navbar.html",function(){
         initNavBar(JSON.parse(getCookie("profile")));
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:3000/egetResults');
+        xhr.open('POST', 'http://localhost:3000/getResults');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             var results = JSON.parse(xhr.responseText);
@@ -131,33 +131,48 @@
                 return 0;
             }
 
-
+//            $('#text').append(xhr.responseText);
             var data = {
                 // A labels array that can contain any sort of values
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                labels: results.options.pollOptions,
                 // Our series array that contains series objects or in this case series data arrays
                 series: [
-                    [5, 2, 4, 2, 0]
+                    Object.values(results.options.numberVotes)
                 ]
             };
             var chart = new Chartist.Bar('#results', data);
-            var timers = [];
-            window.d=[];
+            var drawn = 0;
             chart.on('draw', function(data) {
                 if(data.type === 'bar') {
-                    if (data.index==0)while (timers.length > 0)clearTimeout(timers.pop());
-                    var duration=5000*data.series[data.index]/Math.max.apply(null,data.series);
-                    data.element.animate({
-                        y2: {
-                            begin: 0,
-                            dur: duration,
-                            from: data.y1,
-                            to: data.y2,
-                            easing: Chartist.Svg.Easing.linear
-                        }
-                    });
-                    window.d.push(data);
-                    timers.push(setTimeout(function (data) {
+                    if(drawn<data.series.length){
+                        var ms_total=5000;
+                        var duration=ms_total*data.series[data.index]/Math.max.apply(null,data.series);
+                        data.element.animate({
+                            y2: {
+                                begin: 0,
+                                dur: duration,
+                                from: data.y1,
+                                to: data.y2,
+                                easing: Chartist.Svg.Easing.linear
+                            }
+                        });
+                        drawn++;
+                        setTimeout(function (data) {
+                            barHorizontalCenter = data.x1 + (data.element.width() * .5);
+                            barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
+                            value = data.element.attr('ct:value');
+                            label = new Chartist.Svg('text');
+                            label.text(''+value+' vots');
+                            label.addClass("ct-barlabel");
+                            label.attr({
+                                x: barHorizontalCenter,
+                                y: barVerticalCenter,
+                                'text-anchor': 'middle'
+                            });
+                            data.group.append(label);
+                        },duration,data);
+                    }
+                    else{
                         barHorizontalCenter = data.x1 + (data.element.width() * .5);
                         barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
                         value = data.element.attr('ct:value');
@@ -170,74 +185,27 @@
                             'text-anchor': 'middle'
                         });
                         data.group.append(label);
+                    }
 
-                    },duration,data));
                     data.element.attr({
                         style:"stroke-width: 30px"
                     });
                 }
             });
+            chart.on('created',function(d){
+                $(d.svg.getNode()).css('padding','5px');
+                $('#results').click(function(){
+                   chart.update();
+                }).css('cursor','pointer');
 
+                $(':root').keydown(function(e){
+                    if(e.keyCode==13){ //enter
+                        chart.update();
+                    }
+                });
 
-//            var mychart = new Chart($("#results"),{
-//                type: 'bar',
-//                data: {
-//                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-//                    datasets: [{
-//                        label: '# of Votes',
-//                        data: [12, 19, 3, 5, 2, 3],
-//                        backgroundColor: [
-//                            'rgba(255, 99, 132, 0.2)',
-//                            'rgba(54, 162, 235, 0.2)',
-//                            'rgba(255, 206, 86, 0.2)',
-//                            'rgba(75, 192, 192, 0.2)',
-//                            'rgba(153, 102, 255, 0.2)',
-//                            'rgba(255, 159, 64, 0.2)'
-//                        ],
-//                        borderColor: [
-//                            'rgba(255,99,132,1)',
-//                            'rgba(54, 162, 235, 1)',
-//                            'rgba(255, 206, 86, 1)',
-//                            'rgba(75, 192, 192, 1)',
-//                            'rgba(153, 102, 255, 1)',
-//                            'rgba(255, 159, 64, 1)'
-//                        ],
-//                        animation:{
-//                            duration: [1,1,1,5,1,1]
-//                        },
-//
-//                        borderWidth: 1
-//                    }]
-//                },
-//                options: {
-//                    scales: {
-//                        yAxes: [{
-//                            ticks: {
-//                                beginAtZero:false
-//                            }
-//                        }]
-//                    }
-//                }
-//            });
-//            window.myChart=mychart
-//            console.log('hola');
-            //});
+            });
 
-//            new Morris.Bar({
-//                // ID of the element in which to draw the chart.
-//                element: 'results',
-//                // Chart data records -- each entry in this array corresponds to a point on
-//                // the chart.
-//                data: results.data,
-//                // The name of the data record attribute that contains x-values.
-//                xkey: '_id',
-//                // A list of names of data record attributes that contain y-values.
-//                ykeys: ['total'],
-//                // Labels for the ykeys -- will be displayed when you hover over the
-//                // chart.
-//                labels: ['Total'],
-//                resize: true
-//            });
         };
         xhr.send('pollId=' + pollId + '&idtoken=' + id_token);
     });
