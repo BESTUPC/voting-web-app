@@ -390,6 +390,15 @@ app.post('/askPrivate', function (req, res) {
   res.json(ret);
 })
 
+function shuffle(a) {
+    for (let i = a.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [a[i - 1], a[j]] = [a[j], a[i - 1]];
+        console.log("WIGGLE WIGGLE WIGGLE YEAH!");
+    }
+    console.log("EVERYDAY I'M SHUFFLIN'");
+}
+
 app.post('/getResults', function (req, res) {
   var ipollId = req.body.pollId;
   MongoClient.connect(url, function(err, db) {
@@ -462,17 +471,8 @@ app.post('/getResults', function (req, res) {
                 ++count;
               }
               if(count == l){
-                if(privatePoll){
-                  var ret = {}
-                  ret.status = 0;
-                  final_poll.numberVotes = vots_count;
-                  final_poll.voters = null;
-                  ret.options = final_poll;
-                  res.json(ret);
-                  db.close();
-                }
-                else{
                   vots_nom = {};
+                  tots_vots = [];
                   var users = db.collection('users');
                   var optionstofind = final_poll.pollOptions.length;
                   console.log("OPTIONSTOFIND : ", optionstofind);
@@ -510,6 +510,7 @@ app.post('/getResults', function (req, res) {
                           console.log("OPTION :", Option);
                           console.log()
                           vots_nom[Option].push(namefound.name);
+                          tots_vots.push(namefound.name);
                           ++namescount;
                           if(namescount == namestofind){
                             ++optionscount;
@@ -518,7 +519,11 @@ app.post('/getResults', function (req, res) {
                             var ret = {}
                             ret.status = 0;
                             final_poll.numberVotes = vots_count;
-                            final_poll.voters = vots_nom;
+                            if(privatePoll){
+                              shuffle(tots_vots);
+                              final_poll.voters = tots_vots;
+                            }
+                            else final_poll.voters = vots_nom;
                             ret.options = final_poll;
                             res.json(ret);
                             db.close();
@@ -541,7 +546,7 @@ app.post('/getResults', function (req, res) {
                     }
                   }
                   });
-                }
+
               }
             });
           });

@@ -24,7 +24,7 @@ Implementar getPollInfo | estevetarra | F
 Implementar sendVote | estevetarra | F
 Implementar askWithdrawal | estevetarra | F
 Implementar askPrivate | estevetarra | F
-Implementar getResults | - | WR
+Implementar getResults | berni | F
 Implementar createPoll | - | WR
 Implementar getMembership | berni | F
 Implementar addMemberhsip | berni | F
