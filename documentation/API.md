@@ -89,8 +89,10 @@ Given a poll id return the results if it's closed
               "Pepito" : 2,
               "Pastanaga" : 1
         ]
-        #null if private
-        "voters" : [
+        #if private
+        "voters" : ["Marta", "Maitane", "Quesito", "Bernat",  "Jordi", "Canya"]
+        #else
+        "voters" : []
             #null if empty
             "Juanito": ["Bernat", "Maitane", "Jordi"] ,
             "Pepito": ["Canya", "Marta"],
