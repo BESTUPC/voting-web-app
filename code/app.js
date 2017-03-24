@@ -790,7 +790,7 @@ app.post('/updateMembership', function (req, res) {
             }
             if (isadmin){
               var email_to_add = req.body.email;
-              var membership_to_add = req.body.newMembership;
+              var membership_to_add = JSON.parse(req.body.newMembership);
               users.findOne({email: email_to_add}, function(err, ret)
               {
                 if (err){

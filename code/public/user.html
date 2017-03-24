@@ -168,7 +168,8 @@
                 var item=$('#memberships').find('[id='+role+']');
                 if (item.hasClass('btn-primary'))newMembership.push(role);
             }
-            alert(newMembership);
+            //alert(newMembership);
+
             var xhrApply = new XMLHttpRequest();
             xhrApply.open('POST', 'http://localhost:3000/updateMembership');
             xhrApply.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
