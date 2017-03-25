@@ -125,6 +125,13 @@ creates a new Poll in the data base
     "status" : 0,
 }
 ```
+###### /setState(idtoken, pollID, state)
+changes poll with pollId to new state
+```
+{
+    "status" : 0,
+}
+```
 ###### /getUsers(idtoken)
 gets a list of all users in the db
 ```

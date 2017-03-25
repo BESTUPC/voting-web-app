@@ -620,14 +620,19 @@ app.post('/getUserInfo', function (req, res) {
         res.json(ret);
         return ret;
       }
+      else if (ret == null){
+        res.json(null);
+        db.close();
+      }
+      else{
       var ret_final = {}
       ret_final.status = 0;
       ret_final.membership = ret.membership;
       ret_final.name = ret.name;
       ret_final.email = ret.email;
-      if (ret!= null) res.json(ret_final);
-      else res.json(null);
+      res.json(ret_final);
       db.close();
+      }
     });
   });
 })
@@ -694,9 +699,10 @@ app.post('/createPoll', function (req, res) {
     });
 })
 
-app.post('/closePoll', function (req, res) {
+app.post('/setState', function (req, res) {
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
+  var newstate = req.body.state;
   client.verifyIdToken(
     token,
     CLIENT_ID,
@@ -733,7 +739,10 @@ app.post('/closePoll', function (req, res) {
               if (["admin"] == member_status[i]) isadmin=true;
             }
             if (isadmin){
-              db.collection('votacions').updateOne({pollId: ipollId}, {$set: {state: "closed_private"}});
+              console.log("NEWSTATE: ", newstate);
+              db.collection('votacions').updateOne({_id: ipollId}, {$set: {state: newstate}});
+              res.json(0);
+              db.close();
             }
             else{
               res.json(1);
