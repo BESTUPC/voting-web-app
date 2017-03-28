@@ -288,30 +288,6 @@ function cens(targetGroup) {
 
 function notifyWithdrawal(){};
 
-app.post('/egetResults', function (req, res) {
-  var ipollId = req.body.pollId;
-  MongoClient.connect(url, function(err, db) {
-    if (err) {
-      var ret = {}
-      ret.status = 1;
-      ret.message = err.toString();
-      res.json(ret);
-      return ret;
-    }
-    var aux = db.collection('votes').aggregate([
-                     { $match: { pollId : ipollId }},
-                     { $group: { _id: "$pollOption" , total: { $sum: 1 } }}
-                   ]
-                 ).toArray(function(err, doc){
-                   console.log(doc);
-                   var ret = {}
-                   ret.status = 0;
-                   ret.data = doc;
-                   res.json(ret);
-                 });
-    });
-})
-
 app.post('/askWithdrawal', function (req, res) {
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
@@ -976,11 +952,19 @@ app.post('/tokensignin', function (req, res) {
         var users = db.collection('users');
         var user = {};
         user['userId'] = payload['sub'];
-        user['membership'] = ['all'];
-        user['name'] = payload['name'];
-        user['email'] = payload['email'];
-        users.insertMany([user], function(err, result) {});
-        db.close();
+        db.collection('users').count(function(err, count) {
+          if (count < 3) {
+            user['membership'] = ['all','admin'];
+          } else {
+            user['membership'] = ['all'];
+          }
+          user['name'] = payload['name'];
+          user['email'] = payload['email'];
+          users.insertMany([user], function(err, result) {});
+          db.close();
+          }
+        )
+
       });
     });
 })
