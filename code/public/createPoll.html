@@ -11,9 +11,9 @@
 
     <title>WebApp Votacions BEST Barcelona</title>
 
+
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
@@ -21,12 +21,16 @@
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <!--<link href="../vendor/morrisjs/morris.css" rel="stylesheet">-->
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <link rel="icon" type="image/png" href="../images/BEST_logomark.png">
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,6 +70,7 @@
 
 <body>
 
+
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -74,7 +79,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12 page-header">
-                    <input type="text" class="h1 dynamic" id="pollName" placeholder="Poll name..." style="margin: 0; border: 0; padding:0"> </input>
+                    <input type="text" class="h1 dynamic" id="pollName" placeholder="Poll name..." style="width:100%; margin: 0; border: 0; padding:0"> </input>
                 </div>
             </div>
             <div class="row">
@@ -97,6 +102,27 @@
                         </div>
                         <input type="text" placeholder="Option...">
                     </div>
+                </div>
+                <div class="col-lg-5" style="display:inline-block; margin-top:10px; font-size: 18px; vertical-align: center">
+                    <label for="targetGroup" style="width:120px">Target Group: </label>
+                    <select id="targetGroup" style="margin-left:5px; width:120px; display:inline-block" class="form-control">
+                        <option>All</option>
+                        <option selected="selected">Members</option>
+                        <option>Fulls</option>
+                    </select>
+                    <br>
+                    <div class="checkbox">
+                        <label for="private" style="width:120px; vertical-align: middle; padding-left: 0; font-weight: 700">Private: </label>
+                        <input style="height:20px;width:20px; vertical-align: middle; position:relative; margin:0 0 0 5px" id="private" type="checkbox" value="">
+                    </div>
+                    <label for="deadline" style="width: 120px;">Deadline: </label>
+                    <input type="text" style="margin-left: 5px" value="" id="deadline">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5" style="text-align: right">
+                    <button type="button" id="create" class="btn btn-primary btn-lg" style="margin: 10px">Create Poll</button>
                 </div>
             </div>
 
@@ -123,10 +149,15 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/js/locales/bootstrap-datetimepicker.es.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.min.js"></script>
+
     <script src="js/cookie.js">  </script>
     <script>
         if (getCookie("idtoken") == ""){
-          window.location = "http://localhost:3000/login.html";
+          window.location = DOMAIN+"/login.html";
         }
         else{
           //alert(getCookie("idtoken"))
@@ -169,7 +200,16 @@
         id_token = getCookie("idtoken");
 
         $("#navbar").load("navbar.html",function() {
+
             initNavBar(JSON.parse(getCookie("profile")));
+
+            $('#deadline').datetimepicker({
+                format: 'dd/mm/yyyy hh:ii',
+                weekStart: 1,
+                autoclose: true,
+                fontAwesome: true
+            });
+
             $('#pollName').focus().keypress(function(e){
                 if(e.keyCode==13){
                     $('#adding').find('input').focus();
@@ -202,6 +242,44 @@
                 if (value!='') {
                     addOption(value);
                     oldInput.val('');
+                }
+            });
+
+            $('#create').click(function(){
+                $(this).blur();
+                var pollOptions=$('#pollOptions').find('.input-pro:not(#adding)').find('input').toArray().map(function(obj){
+                    return $(obj).val();
+                }).filter(function(val){return val!="";});
+                var deadline=moment($('#deadline').val(),'DD/MM/YYYY HH:mm').toDate().getTime()/1000;
+                var isPrivate=$('#private').is(':checked');
+                var targetGroup=$('#targetGroup').val().toLowerCase();
+                var pollName=$('#pollName').val();
+                if(targetGroup=='members')targetGroup='member';
+                if(targetGroup=='fulls')targetGroup='full';
+//                window.target=targetGroup;
+                if (pollName==""){
+                    error( 'Error', 'No name given' );
+                }
+                else if (pollOptions.length==0){
+                    error('Error', 'No options given');
+                }
+                else{
+                    var xhr2 = new XMLHttpRequest();
+                    xhr2.open('POST', URL + '/createPoll');
+                    xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr2.onload = function() {
+                        console.log('hola');
+                        res=JSON.parse(xhr2.responseText);
+                        if (res.status!='0'){
+                            error('Error',res.message);
+                        }
+                        else{
+                            success('Success','Poll created successfully',goHome);
+                        }
+                    };
+                    window.sentText='idtoken=' + id_token + '&pollName=' + pollName + '&pollOptions=' + JSON.stringify(pollOptions)
+                        + '&targetGroup=' + targetGroup + '&isPrivate=' + isPrivate + '&pollDeadline=' + deadline;
+                    xhr2.send(window.sentText);
                 }
             });
         });

@@ -614,6 +614,7 @@ app.post('/getUserInfo', function (req, res) {
 })
 
 app.post('/createPoll', function (req, res) {
+  // console.log(JSON.stringify(req.body));
   var token = req.body.idtoken;
   client.verifyIdToken(
     token,
@@ -653,13 +654,17 @@ app.post('/createPoll', function (req, res) {
             if (isadmin){
               var poll = {};
               poll['pollName'] = req.body.pollName;
-              poll['pollOptions'] = req.body.pollOptions;
+              poll['pollOptions'] = JSON.parse(req.body.pollOptions);
               poll['targetGroup'] = req.body.targetGroup;
               poll['isPrivate'] = req.body.isPrivate;
               poll['pollDeadline'] = req.body.pollDeadline;
               poll['descrpition'] = req.body.descrpition;
               poll.state = "open";
               db.collection('votacions').insertMany([poll], function () {});
+              var ret = {};
+              ret.status = 0;
+              res.json(ret);
+              return ret;
             }
             else{
               res.json(1);

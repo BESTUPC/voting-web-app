@@ -47,7 +47,7 @@
 
     <div id="page-wrapper">
 
-        <div style="padding: 10px"> <!-- per deixar un espai -->
+        <div style="padding: 10px"></div> <!-- per deixar un espai -->
         <div class="container">
             <div class="modal fade" id="errorModal" role="dialog">
                 <div class="modal-dialog" >
@@ -126,71 +126,75 @@
 
 <script src="js/navbar.js">  </script>
 <script>
-    id_token = getCookie("idtoken");
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', URL + '/getUsers');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        result = JSON.parse(xhr.responseText);
-        if (result.status!='0'){
-            alert(result.message);
-            setTimeout(function(){
-                window.location=DOMAIN + "/login.html";
-            },20);
-            return 0;
-        }
-        users=result.users;
-        for(i in users){
-            user=users[i];
-            var id=user.userId;
-            var name=user.name;
-            var email=user.email;
-            var membership=user.membership;
-            var member='';
-            var full='';
-            var admin='';
-            for (i in membership){
-                if(membership[i]=='member')member='member';
-                if(membership[i]=='full')full='full';
-                if(membership[i]=='admin')admin='admin';
-            }
-            //crea una nova fila amb el nom i la deadline
-            var row = $('<tr><td>'+name+'</td><td>'+email+'</td><td>'+member+'</td><td>'+full+'</td><td>'+admin+'</td></tr>')
-                .attr('id','poll'+id) //afegeix link a la fila
-                .click(function(){
-                    window.location = URL + '/user.html?id='+$(this).attr('id').substr(4);
-                })
-                .css('cursor','pointer')
-                .hover(function () {
-                    $(this).css('background-color','#eff0f1').find('td').css('text-decoration','underline');
-                },function () {
-                    $(this).css('background-color','#ffffff').find('td').css('text-decoration','none');
-                });
-            $('#usersTable tbody').append(row); //afegeix fila a la taula
-        }
 
-        var table = $('#usersTable').DataTable({
-//            "order": [[1,"desc"]],
-            "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                var isMember=aData[2]=='member';
-                var isFull=aData[3]=='full';
-                var isAdmin=aData[4]=='admin';
-                $('td:eq(2)', nRow).html(isMember?'<i class="fa fa-check"></i>':'<i class="fa fa-close"></i>');
-                $('td:eq(3)', nRow).html(isFull?'<i class="fa fa-check"></i>':'<i class="fa fa-close"></i>');
-                $('td:eq(4)', nRow).html(isAdmin?'<i class="fa fa-check"></i>':'<i class="fa fa-close"></i>');
-//                $('td:eq(2)', nRow).html('hola')
+    $("#navbar").load("navbar.html",function() {
+        initNavBar(JSON.parse(getCookie("profile")));
+        id_token = getCookie("idtoken");
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', URL + '/getUsers');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            result = JSON.parse(xhr.responseText);
+            if (result.status != '0') {
+                alert(result.message);
+                setTimeout(function () {
+                    window.location = DOMAIN + "/login.html";
+                }, 20);
+                return 0;
+            }
+            users = result.users;
+            for (i in users) {
+                user = users[i];
+                var id = user.userId;
+                var name = user.name;
+                var email = user.email;
+                var membership = user.membership;
+                var member = '';
+                var full = '';
+                var admin = '';
+                for (i in membership) {
+                    if (membership[i] == 'member') member = 'member';
+                    if (membership[i] == 'full') full = 'full';
+                    if (membership[i] == 'admin') admin = 'admin';
+                }
+                //crea una nova fila amb el nom i la deadline
+                var row = $('<tr><td>' + name + '</td><td>' + email + '</td><td>' + member + '</td><td>' + full + '</td><td>' + admin + '</td></tr>')
+                    .attr('id', 'poll' + id) //afegeix link a la fila
+                    .click(function () {
+                        window.location = DOMAIN + '/user.html?id=' + $(this).attr('id').substr(4);
+                    })
+                    .css('cursor', 'pointer')
+                    .hover(function () {
+                        $(this).css('background-color', '#eff0f1').find('td').css('text-decoration', 'underline');
+                    }, function () {
+                        $(this).css('background-color', '#ffffff').find('td').css('text-decoration', 'none');
+                    });
+                $('#usersTable tbody').append(row); //afegeix fila a la taula
+            }
+
+            var table = $('#usersTable').DataTable({
+                //            "order": [[1,"desc"]],
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    var isMember = aData[2] == 'member';
+                    var isFull = aData[3] == 'full';
+                    var isAdmin = aData[4] == 'admin';
+                    $('td:eq(2)', nRow).html(isMember ? '<i class="fa fa-check"></i>' : '<i class="fa fa-close"></i>');
+                    $('td:eq(3)', nRow).html(isFull ? '<i class="fa fa-check"></i>' : '<i class="fa fa-close"></i>');
+                    $('td:eq(4)', nRow).html(isAdmin ? '<i class="fa fa-check"></i>' : '<i class="fa fa-close"></i>');
+                    //                $('td:eq(2)', nRow).html('hola')
+                }
+            });
+        };
+        xhr.send('idtoken=' + id_token);
+        $("#navbar").load("navbar.html", function () {
+            initNavBar(JSON.parse(getCookie("profile")));
+        });
+        $(':root').keydown(function (e) {
+            if (e.keyCode == 13) { //enter
+                var trToClick = $('#usersTable').find('tr:nth-child(1)');
+                if (trToClick.exists()) trToClick.click();
             }
         });
-    };
-    xhr.send('idtoken=' + id_token);
-    $("#navbar").load("navbar.html",function(){
-        initNavBar(JSON.parse(getCookie("profile")));
-    });
-    $(':root').keydown(function(e){
-        if(e.keyCode==13){ //enter
-            var trToClick = $('#usersTable').find('tr:nth-child(1)');
-            if(trToClick.exists()) trToClick.click();
-        }
     });
 </script>
 

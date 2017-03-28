@@ -113,92 +113,91 @@
     id=gup('id');
     var id_token = getCookie("idtoken");
 
-    $("#navbar").load("navbar.html",function(){
+    $("#navbar").load("navbar.html",function() {
         initNavBar(JSON.parse(getCookie("profile")));
-    });
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', URL + '/getUserInfo');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        var response=JSON.parse(xhr.responseText);
-        if (response.status!='0'){
-            alert(response.message);
-            setTimeout(function(){
-                window.location= DOMAIN + "/login.html";
-            },20);
-            return 0;
-        }
-        var membership = response.membership; //get membership
-        $('#name').text(response.name); //add name to html
-        $('title').text(response.name); //add name to page name
-        $('#email').text(response.email); //add email to html
-        var possibleMemberships=['member','full','admin']; //list of memberships the user doesn't have, will be updated in next for
-        membership.sort(); //sort memberships
-        for (i in possibleMemberships){
-            var role=possibleMemberships[i];
-            //item is the div where the current role will be showed
-            //var item=$('<div class="well" style="overflow:hidden; padding:10px"><h4 style="display:inline; margin-top: 15px; margin-bottom: 15px">Normal Well</h4><button type="button" class="btn btn-danger btn-circle btn-lg pull-right"><i class="fa fa-trash"></i></button></div>');
-            var item=$('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
-                .append(' '+role) //add text to item
-                .attr('id',role)        //add an id (needed for the button)
-                .click(function(){ //when the admin clicks on the delete button
-                    $(this).blur();
-                    var roleClicked=$(this).parent().attr('id'); //get role from id
-                    if($(this).hasClass('btn-primary')){
-                        $(this).removeClass('btn-primary').addClass('btn-default'); //change its color
-                        $(this).find('i').removeClass('fa fa-check'); //remove its check icon
-                    }
-                    else{
-                        $(this).removeClass('btn-default').addClass('btn-primary');//change color to primary
-                        $(this).find('i').addClass('fa fa-check'); //add check icon
-                    }
-                    //alert(membership);
-                });
-            $('#memberships').append(item);
-            if(membership.indexOf(role)!=-1)item.click();
-        }
-        $('#apply').click(function () {
-            $(this).blur()
-            var possibleMemberships=['member','full','admin'];
-            var newMembership=['all'];
-            for(i in possibleMemberships){
-                role=possibleMemberships[i];
-                var item=$('#memberships').find('[id='+role+']');
-                if (item.hasClass('btn-primary'))newMembership.push(role);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', URL + '/getUserInfo');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            var response = JSON.parse(xhr.responseText);
+            if (response.status != '0') {
+                alert(response.message);
+                setTimeout(function () {
+                    window.location = DOMAIN + "/login.html";
+                }, 20);
+                return 0;
             }
-            //alert(newMembership);
+            var membership = response.membership; //get membership
+            $('#name').text(response.name); //add name to html
+            $('title').text(response.name); //add name to page name
+            $('#email').text(response.email); //add email to html
+            var possibleMemberships = ['member', 'full', 'admin']; //list of memberships the user doesn't have, will be updated in next for
+            membership.sort(); //sort memberships
+            for (i in possibleMemberships) {
+                var role = possibleMemberships[i];
+                //item is the div where the current role will be showed
+                //var item=$('<div class="well" style="overflow:hidden; padding:10px"><h4 style="display:inline; margin-top: 15px; margin-bottom: 15px">Normal Well</h4><button type="button" class="btn btn-danger btn-circle btn-lg pull-right"><i class="fa fa-trash"></i></button></div>');
+                var item = $('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
+                    .append(' ' + role) //add text to item
+                    .attr('id', role)        //add an id (needed for the button)
+                    .click(function () { //when the admin clicks on the delete button
+                        $(this).blur();
+                        var roleClicked = $(this).parent().attr('id'); //get role from id
+                        if ($(this).hasClass('btn-primary')) {
+                            $(this).removeClass('btn-primary').addClass('btn-default'); //change its color
+                            $(this).find('i').removeClass('fa fa-check'); //remove its check icon
+                        }
+                        else {
+                            $(this).removeClass('btn-default').addClass('btn-primary');//change color to primary
+                            $(this).find('i').addClass('fa fa-check'); //add check icon
+                        }
+                        //alert(membership);
+                    });
+                $('#memberships').append(item);
+                if (membership.indexOf(role) != -1) item.click();
+            }
+            $('#apply').click(function () {
+                $(this).blur()
+                var possibleMemberships = ['member', 'full', 'admin'];
+                var newMembership = ['all'];
+                for (i in possibleMemberships) {
+                    role = possibleMemberships[i];
+                    var item = $('#memberships').find('[id=' + role + ']');
+                    if (item.hasClass('btn-primary')) newMembership.push(role);
+                }
+                //alert(newMembership);
 
-            var xhrApply = new XMLHttpRequest();
-            xhrApply.open('POST', URL + '/updateMembership');
-            xhrApply.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhrApply.onload = function () {
-                res=JSON.parse(xhrApply.responseText);
-                if (res.status!='0'){
-                    error('Error',res.message);
-                }
-                else{
-                    success('Success','Membership changed successfully',goHome);
-                }
-            };
-            xhrApply.send('idtoken=' + id_token + '&email=' + response.email + '&newMembership=' + JSON.stringify(newMembership));
+                var xhrApply = new XMLHttpRequest();
+                xhrApply.open('POST', URL + '/updateMembership');
+                xhrApply.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhrApply.onload = function () {
+                    res = JSON.parse(xhrApply.responseText);
+                    if (res.status != '0') {
+                        error('Error', res.message);
+                    }
+                    else {
+                        success('Success', 'Membership changed successfully', goHome);
+                    }
+                };
+                xhrApply.send('idtoken=' + id_token + '&email=' + response.email + '&newMembership=' + JSON.stringify(newMembership));
+            });
+
+        };
+        xhr.send('userId=' + id);
+
+        $(':root').keydown(function (e) {
+            //alert(e.keyCode)
+            if (e.keyCode >= 48 && e.keyCode <= 57) { //number
+                var pressedNumber = e.keyCode - 48;
+                var buttonToClick = $('#memberships').find('button:nth-child(' + pressedNumber + ')');
+                if (buttonToClick.exists()) buttonToClick.click();
+            }
+            if (e.keyCode == 13) { //enter
+                $('#apply').click();
+            } //TODO MAYBE: Numeros per seleccionar vot
         });
-
-    };
-    xhr.send('userId=' + id);
-
-    $(':root').keydown(function(e){
-        //alert(e.keyCode)
-        if(e.keyCode>=48 && e.keyCode<=57){ //number
-            var pressedNumber = e.keyCode-48;
-            var buttonToClick = $('#memberships').find('button:nth-child('+pressedNumber+')');
-            if(buttonToClick.exists()) buttonToClick.click();
-        }
-        if(e.keyCode==13){ //enter
-            $('#apply').click();
-        } //TODO MAYBE: Numeros per seleccionar vot
     });
-
     function goHome(){
         window.location= DOMAIN + '/users.html';
     }

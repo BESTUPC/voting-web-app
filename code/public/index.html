@@ -115,7 +115,7 @@
             if (result.status!='0'){
                 alert(result.message);
                 setTimeout(function(){
-                    window.location= URL + "/login.html";
+                    window.location= DOMAIN + "/login.html";
                 },20);
                 return 0;
             }
@@ -138,7 +138,7 @@
                           $(this).css('background-color','White').find('td').css('text-decoration','none');
                       })
                       .click(function(){
-                          window.location = URL + '/results.html?id='+$(this).attr('id').substr(4);
+                          window.location = DOMAIN + '/results.html?id='+$(this).attr('id').substr(4);
                       });
                 }
                 else{
@@ -149,7 +149,7 @@
                             $(this).css('background-color','#B7E797').find('td').css('text-decoration','none');
                         })
                         .click(function(){
-                            window.location = URL + '/poll.html?id='+$(this).attr('id').substr(4);
+                            window.location = DOMAIN + '/poll.html?id='+$(this).attr('id').substr(4);
                         });
 //                    row.css('background-color','#E6F0C3 ')
 //                        .hover(function () {
