@@ -1,7 +1,7 @@
 function onSignIn(googleUser) {
   var id_token = googleUser.getAuthResponse().id_token;
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'http://localhost:3000/tokensignin');
+  xhr.open('POST', URL + '/tokensignin');
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.onload = function() {
     console.log('Signed in as: ' + xhr.responseText);
@@ -18,7 +18,7 @@ function onSignIn(googleUser) {
     imageUrl: profile.getImageUrl()
   }),300);
   //alert(JSON.stringify(googleUser.getBasicProfile()))
-  window.location = "http://localhost:3000";
+  window.location = DOMAIN;
 }
 
 function setCookie(cname, cvalue, exdays) {

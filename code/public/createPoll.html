@@ -81,7 +81,7 @@
 							<div class="panel-body">
 								<input class="form-control">
 							</div>
-							
+
 						</div>
 						<!-- target group-->
 						<div class="panel-body">
@@ -114,7 +114,7 @@
                                 </label>
                                 </div>
                             </div>
-						
+
 						</div>
 						<!-- Create poll-->
 						<div class="panel-body">
@@ -149,7 +149,7 @@
     <script src="js/cookie.js">  </script>
     <script>
         if (getCookie("idtoken") == ""){
-          window.location = "http://localhost:3000/login.html";
+          window.location = DOMAIN + "/login.html";
         }
         else{
           //alert(getCookie("idtoken"))
@@ -174,7 +174,7 @@
             pollId=gup('id');
             id_token = getCookie("idtoken");
         });
-        
+
     </script>
 
 

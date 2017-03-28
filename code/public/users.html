@@ -108,7 +108,7 @@
 <script src="js/cookie.js">  </script>
 <script>
     if (getCookie("idtoken") == ""){
-        window.location = "http://localhost:3000/login.html";
+        window.location = DOMAIN + "/login.html";
     }
     else{
         //alert(getCookie("idtoken"))
@@ -129,14 +129,14 @@
 <script>
     id_token = getCookie("idtoken");
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3000/getUsers');
+    xhr.open('POST', URL + '/getUsers');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         result = JSON.parse(xhr.responseText);
         if (result.status!='0'){
             alert(result.message);
             setTimeout(function(){
-                window.location="http://localhost:3000/login.html";
+                window.location=DOMAIN + "/login.html";
             },20);
             return 0;
         }
@@ -159,7 +159,7 @@
             var row = $('<tr><td>'+name+'</td><td>'+email+'</td><td>'+member+'</td><td>'+full+'</td><td>'+admin+'</td></tr>')
                 .attr('id','poll'+id) //afegeix link a la fila
                 .click(function(){
-                    window.location = 'http://localhost:3000/user.html?id='+$(this).attr('id').substr(4);
+                    window.location = URL + '/user.html?id='+$(this).attr('id').substr(4);
                 })
                 .css('cursor','pointer')
                 .hover(function () {

@@ -91,7 +91,7 @@
 <script src="js/cookie.js">  </script>
 <script>
     if (getCookie("idtoken") == ""){
-        window.location = "http://localhost:3000/login.html";
+        window.location = DOMAIN + "/login.html";
     }
     else{
         //alert(getCookie("idtoken"))
@@ -119,14 +119,14 @@
     });
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3000/getUserInfo');
+    xhr.open('POST', URL + '/getUserInfo');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         var response=JSON.parse(xhr.responseText);
         if (response.status!='0'){
             alert(response.message);
             setTimeout(function(){
-                window.location="http://localhost:3000/login.html";
+                window.location= DOMAIN + "/login.html";
             },20);
             return 0;
         }
@@ -171,7 +171,7 @@
             //alert(newMembership);
 
             var xhrApply = new XMLHttpRequest();
-            xhrApply.open('POST', 'http://localhost:3000/updateMembership');
+            xhrApply.open('POST', URL + '/updateMembership');
             xhrApply.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhrApply.onload = function () {
                 res=JSON.parse(xhrApply.responseText);
@@ -201,7 +201,7 @@
     });
 
     function goHome(){
-        window.location='http://localhost:3000/users.html';
+        window.location= DOMAIN + '/users.html';
     }
 </script>
 

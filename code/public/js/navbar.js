@@ -27,10 +27,10 @@ function success( title, message , f) {
     $('#errorModal').modal('show');
 }
 function goHome(){
-    window.location = 'http://localhost:3000/index.html';
+    window.location = DOMAIN + '/index.html';
 }
 function goLogin(){
-    window.location = 'http://localhost:3000/login.html';
+    window.location = DOMAIN + '/login.html';
 }
 function initNavBar(profile){
     $.fn.exists = function () {
@@ -39,7 +39,7 @@ function initNavBar(profile){
 	$('#navbar-photo').attr('src',profile.imageUrl);
 	$('#username').text(profile.name);
 	var xhrNav = new XMLHttpRequest();
-    xhrNav.open('POST', 'http://localhost:3000/getUserInfo');
+    xhrNav.open('POST', URL + '/getUserInfo');
     xhrNav.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhrNav.onload = function() {
         var response=JSON.parse(xhrNav.responseText);
