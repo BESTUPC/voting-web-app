@@ -88,7 +88,7 @@
 <script src="js/cookie.js">  </script>
 <script>
     if (getCookie("idtoken") == ""){
-        window.location = "http://localhost:3000/login.html";
+        window.location = DOMAIN + "/login.html";
     }
     else{
         //alert(getCookie("idtoken"))
@@ -118,14 +118,14 @@
     $("#navbar").load("navbar.html",function(){
         initNavBar(JSON.parse(getCookie("profile")));
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:3000/getResults');
+        xhr.open('POST', URL + '/getResults');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             var results = JSON.parse(xhr.responseText);
             if (results.status!='0'){
                 alert(results.message);
                 setTimeout(function(){
-                    window.location="http://localhost:3000/login.html";
+                    window.location= DOMAIN + "/login.html";
                 },20);
                 return 0;
             }

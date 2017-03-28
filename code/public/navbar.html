@@ -1,6 +1,7 @@
 <!-- Navigation -->
 <head>
   <meta name="google-signin-client_id" content="260328757466-cmmgec2o5sfm626bl33o5h1dekrmvfir">
+  <script src="js/url.js"> </script>
 </head>
 <div class="container">
     <div class="modal fade" id="errorModal" role="dialog">
@@ -54,7 +55,7 @@
               //si fem aixo fem torna a donar els permisos
               //auth2.disconnect();
               auth2.signOut().then(function () {
-                window.location = "http://localhost:3000/login.html";
+                window.location = DOMAIN + "/login.html";
               });
             }
 
