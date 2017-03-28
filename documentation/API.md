@@ -75,14 +75,15 @@ The user is asking for the poll to be private
 }
 ```
 
-###### /getResults(pollId)
+###### /getResults(pollId, userId)
 Given a poll id return the results if it's closed
 ```
-#null if pollId not found
+#null if pollId not found or not closed
 {
 "status" : 0,
 "options" : [
       {
+        "name" = "Bestie de la biSetmana"
         "pollOptions" = ["Juanito, "Pepito", "Pastanaga"]
         "numberVotes" : [
               "Juanito": 3,
@@ -119,6 +120,13 @@ gets the membership, name and email of a member
 
 ###### /createPoll(idtoken, pollName, pollOptions, targetGroup, isPrivate, pollDeadline)
 creates a new Poll in the data base
+```
+{
+    "status" : 0,
+}
+```
+###### /setState(idtoken, pollID, state)
+changes poll with pollId to new state
 ```
 {
     "status" : 0,

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="author" content="Best Barcelona">
 
   <title>WebApp Votacions BEST Barcelona</title>
 
@@ -82,9 +82,10 @@
   <script src="../dist/js/sb-admin-2.js"></script>
 
   <script src="js/cookie.js">  </script>
+  <script src="js/url.js"> </script>
   <script>
     if (getCookie("idtoken") == ""){
-      window.location = "http://localhost:3000/login.html";
+      window.location = DOMAIN + "/login.html";
     }
     else{
       console.log();
@@ -109,14 +110,14 @@
         initNavBar(JSON.parse(getCookie("profile")));
         id_token = getCookie("idtoken");
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:3000/getPolls');
+        xhr.open('POST', URL + '/getPolls');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             result = JSON.parse(xhr.responseText);
             if (result.status!='0'){
                 alert(result.message);
                 setTimeout(function(){
-                    window.location="http://localhost:3000/login.html";
+                    window.location= URL + "/login.html";
                 },20);
                 return 0;
             }
@@ -139,7 +140,7 @@
                           $(this).css('background-color','White').find('td').css('text-decoration','none');
                       })
                       .click(function(){
-                          window.location = 'http://localhost:3000/results.html?id='+$(this).attr('id').substr(4);
+                          window.location = URL + '/results.html?id='+$(this).attr('id').substr(4);
                       });
                 }
                 else{
@@ -150,7 +151,7 @@
                             $(this).css('background-color','#B7E797').find('td').css('text-decoration','none');
                         })
                         .click(function(){
-                            window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4);
+                            window.location = URL + '/poll.html?id='+$(this).attr('id').substr(4);
                         });
 //                    row.css('background-color','#E6F0C3 ')
 //                        .hover(function () {
