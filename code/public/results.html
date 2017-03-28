@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WebApp Votacions BEST Barcelona</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.css" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="../images/BEST_logomark.png">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <div id="navbar"></div>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header" id="pollName">No name found!</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="ct-chart ct-perfect-fourth" id="results"></div>
+            </div>
+            <!--<canvas class="col-lg-7" id="results">-->
+            <!--</canvas>-->
+        </div>
+
+        <p id="text"> </p>
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="../vendor/raphael/raphael.min.js"></script>
+<script src="../vendor/morrisjs/morris.min.js"></script>
+<script src="../data/morris-data.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+<script src="js/cookie.js">  </script>
+<script>
+    if (getCookie("idtoken") == ""){
+        window.location = "http://localhost:3000/login.html";
+    }
+    else{
+        //alert(getCookie("idtoken"))
+    }
+</script>
+
+<a href="#" onclick="signOut();">Sign out</a>
+<script>
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+</script>
+<style>
+    .ct-label{
+        font-size:15px;
+        color:black;
+    }
+</style>
+<script src="js/navbar.js">  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.js"></script>
+<script>
+    pollId=gup('id');
+    id_token = getCookie("idtoken");
+    $("#navbar").load("navbar.html",function(){
+        initNavBar(JSON.parse(getCookie("profile")));
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:3000/getResults');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            var results = JSON.parse(xhr.responseText);
+            if (results.status!='0'){
+                alert(results.message);
+                setTimeout(function(){
+                    window.location="http://localhost:3000/login.html";
+                },20);
+                return 0;
+            }
+
+//            $('#text').append(xhr.responseText);
+            var data = {
+                // A labels array that can contain any sort of values
+                labels: results.options.pollOptions,
+                // Our series array that contains series objects or in this case series data arrays
+                series: [
+                    Object.values(results.options.numberVotes)
+                ]
+            };
+            var options = {
+                axisY: {
+                    showLabel: false
+                }
+            };
+            var chart = new Chartist.Bar('#results', data, options);
+            var drawn = 0;
+            chart.on('draw', function(data) {
+                if(data.type === 'bar') {
+                    if(drawn<data.series.length){
+                        var ms_total=5000;
+                        var duration=ms_total*data.series[data.index]/Math.max.apply(null,data.series);
+                        data.element.animate({
+                            y2: {
+                                begin: 0,
+                                dur: duration,
+                                from: data.y1,
+                                to: data.y2,
+                                easing: Chartist.Svg.Easing.linear
+                            }
+                        });
+                        drawn++;
+                        setTimeout(function (data) {
+                            barHorizontalCenter = data.x1 + (data.element.width() * .5);
+                            barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
+                            value = data.element.attr('ct:value');
+                            label = new Chartist.Svg('text');
+                            label.text(''+value+' vots');
+                            label.addClass("ct-barlabel");
+                            label.attr({
+                                x: barHorizontalCenter,
+                                y: barVerticalCenter,
+                                'text-anchor': 'middle'
+                            });
+                            data.group.append(label);
+                        },duration,data);
+                    }
+                    else{
+                        barHorizontalCenter = data.x1 + (data.element.width() * .5);
+                        barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
+                        value = data.element.attr('ct:value');
+                        label = new Chartist.Svg('text');
+                        label.text(''+value+' vots');
+                        label.addClass("ct-barlabel");
+                        label.attr({
+                            x: barHorizontalCenter,
+                            y: barVerticalCenter,
+                            'text-anchor': 'middle'
+                        });
+                        data.group.append(label);
+                    }
+
+                    data.element.attr({
+                        style:"stroke-width: 30px"
+                    });
+                }
+            });
+            chart.on('created',function(d){
+                $(d.svg.getNode()).css('padding','5px');
+                $('#results').click(function(){
+                   chart.update();
+                }).css('cursor','pointer');
+
+                $(':root').keydown(function(e){
+                    if(e.keyCode==13){ //enter
+                        chart.update();
+                    }
+                });
+
+            });
+
+        };
+        xhr.send('pollId=' + pollId + '&idtoken=' + id_token);
+    });
+
+
+</script>
+
+
+</body>
+
+</html>

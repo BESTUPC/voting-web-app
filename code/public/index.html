@@ -106,49 +106,88 @@
   <script>
 
     $("#navbar").load("navbar.html",function(){
-      initNavBar(JSON.parse(getCookie("profile")))
+        initNavBar(JSON.parse(getCookie("profile")));
+        id_token = getCookie("idtoken");
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:3000/getPolls');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            result = JSON.parse(xhr.responseText);
+            if (result.status!='0'){
+                alert(result.message);
+                setTimeout(function(){
+                    window.location="http://localhost:3000/login.html";
+                },20);
+                return 0;
+            }
+            var pollList=result.polls;
+            for(var i in pollList){
+                //alert(JSON.stringify(pollList[i]))
+                var poll=pollList[i];
+                var id=poll._id;
+                var name=poll.pollName;
+                var date_ms = poll.pollDeadline*1000;
+                //crea una nova fila amb el nom i la deadline
+                var row = $('<tr><td>'+name+'</td><td>'+date_ms.toString()+'</td></tr>')
+                    .attr('id','poll'+id) //afegeix link a la fila
+                    .css('cursor','pointer');
+                if (poll.state=='closed'){
+                    row.css('background-color','White')
+                       .hover(function () {
+                          $(this).css('background-color','#e5e5e5').find('td').css('text-decoration','underline');
+                      },function () {
+                          $(this).css('background-color','White').find('td').css('text-decoration','none');
+                      })
+                      .click(function(){
+                          window.location = 'http://localhost:3000/results.html?id='+$(this).attr('id').substr(4);
+                      });
+                }
+                else{
+                    row.css('background-color','#B7E797')
+                        .hover(function () {
+                            $(this).css('background-color','#a4cf87').find('td').css('text-decoration','underline');
+                        },function () {
+                            $(this).css('background-color','#B7E797').find('td').css('text-decoration','none');
+                        })
+                        .click(function(){
+                            window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4);
+                        });
+//                    row.css('background-color','#E6F0C3 ')
+//                        .hover(function () {
+//                            $(this).css('background-color','#69CD28').find('td').css('text-decoration','underline');
+//                        },function () {
+//                            $(this).css('background-color','#E6F0C3 ').find('td').css('text-decoration','none');
+//                        })
+//                        .click(function(){
+//                            window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4);
+//                        });
+                }
+
+
+                $('#pollListContent').append(row); //afegeix fila a la taula
+            }
+
+
+            var table = $('#pollListTable').DataTable({
+                "order": [[1,"desc"]],//ordena per DL
+                "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                    //canvia la data a un string, no es fa abans perque aixi quan li dones a ordenar ho fa per els milisegons i no per el string de la data
+                    var date=new Date(parseInt(aData[1]));
+                    $('td:eq(1)', nRow).html(date.toLocaleString());
+                },
+                "aoColumns": [{"bSearchable": true},{"bSearchable":false}]
+            });
+
+            $(':root').keydown(function(e){
+                if(e.keyCode==13){ //enter
+                    var trToClick = $('#pollListContent').find('tr:nth-child(1)');
+                    if(trToClick.exists()) trToClick.click();
+                }
+            });
+        };
+        xhr.send('idtoken=' + id_token);
     });
-    id_token = getCookie("idtoken")
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3000/getPolls');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-      result = JSON.parse(xhr.responseText)
-      if (result.status!='0'){
-        alert(result.message)
-        setTimeout(function(){
-          window.location="http://localhost:3000/login.html"
-        },20)
-        return 0
-      }
-      pollList=result.polls
-      for(i in pollList){
-        //alert(JSON.stringify(pollList[i]))
-        poll=pollList[i]
-        var id=poll._id
-        var name=poll.pollName
-        var date_ms = poll.pollDeadline*1000
-        //crea una nova fila amb el nom i la deadline
-        var row = $('<tr><td>'+name+'</td><td>'+date_ms.toString()+'</td></tr>')
-            .attr('id','poll'+id) //afegeix link a la fila
-            .click(function(){
-              window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4)
-            })
-            .css('background-color',(poll.pollOption==''?'White':'#B7E797'))//fica blanc o verd depenent de si has votat o no
-        $('#pollListContent').append(row) //afegeix fila a la taula
-      }
-      
-      var table = $('#pollListTable').DataTable({
-        "order": [[1,"desc"]],//ordena per DL
-        "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-          //canvia la data a un string, no es fa abans perque aixi quan li dones a ordenar ho fa per els milisegons i no per el string de la data
-          var date=new Date(parseInt(aData[1]))
-          $('td:eq(1)', nRow).html(date.toLocaleString())
-        },
-        "aoColumns": [{"bSearchable": true},{"bSearchable":false}]
-      })
-    }
-    xhr.send('idtoken=' + id_token);
+
   </script>
 
 </body>

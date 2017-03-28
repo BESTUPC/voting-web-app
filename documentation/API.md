@@ -9,16 +9,8 @@ given a tokenid return the polls he can vote
     {
       "_id": "3456789",
       "pollName": "Bestie de la biSetmana",
-      "pollOptions": [
-        "Iñigo",
-        "Quesito",
-        "Bernat",
-        "Laia"
-      ],
-      "targetGroup": "all",
-      "isPrivate": false,
-      "pollDeadline": "3234672825",
-      "description": "descripció ... why?"
+        "pollDeadline": "3234672825",
+      "state" : "open"
     }
   ]
 }
@@ -53,7 +45,19 @@ sends the vote
 }
 ```
 
-
+###### /egetResults(pollId)
+```
+[
+  {
+    "_id": "Bernat",
+    "total": 1
+  },
+  {
+    "_id": "Iñigo",
+    "total": 1
+  }
+]
+```
 
 ###### /askWithdrawal(idtoken, pollId)
 The user is asking for a withdrawal
@@ -71,21 +75,29 @@ The user is asking for the poll to be private
 }
 ```
 
-###### /getResults(pollId)
+###### /getResults(pollId, userId)
 Given a poll id return the results if it's closed
 ```
-#null if pollId not found
+#null if pollId not found or not closed
 {
 "status" : 0,
 "options" : [
       {
+        "name" = "Bestie de la biSetmana"
         "pollOptions" = ["Juanito, "Pepito", "Pastanaga"]
-        "numberVotes" : [3,2,1]
-        #null if private
-        "voters" : [
-            ["Bernat", "Maitane", "Jordi"] ,
-            ["Canya", "Marta"],
-            ["Quesito"]
+        "numberVotes" : [
+              "Juanito": 3,
+              "Pepito" : 2,
+              "Pastanaga" : 1
+        ]
+        #if private
+        "voters" : ["Marta", "Maitane", "Quesito", "Bernat",  "Jordi", "Canya"]
+        #else
+        "voters" : []
+            #null if empty
+            "Juanito": ["Bernat", "Maitane", "Jordi"] ,
+            "Pepito": ["Canya", "Marta"],
+            "Patanaga": ["Quesito"]
           ]
       }
      ]
@@ -108,6 +120,13 @@ gets the membership, name and email of a member
 
 ###### /createPoll(idtoken, pollName, pollOptions, targetGroup, isPrivate, pollDeadline)
 creates a new Poll in the data base
+```
+{
+    "status" : 0,
+}
+```
+###### /setState(idtoken, pollID, state)
+changes poll with pollId to new state
 ```
 {
     "status" : 0,
@@ -141,8 +160,8 @@ gets a list of all users in the db
   ]
 }
 ```
-###### /addMembership(idtoken, email, newMembership)
-adds a membership to a member
+###### /updateMembership(idtoken, email, [Memberships])
+the user with that email gets that memberships (you should include all the memberships, the rest will be deleted)
 ```
 #null if users not found
 {

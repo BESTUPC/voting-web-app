@@ -46,25 +46,7 @@
     <div id="navbar"></div>
 
     <div id="page-wrapper">
-        <div class="container">
-            <div class="modal fade" id="errorModal" role="dialog">
-                <div class="modal-dialog" >
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header" id=header-box-errorModal>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title" id="modal-title-text">Error</h4>
-                        </div>
-                        <div class="modal-body" id=body-box-errorModal>
-                            <p id="modal-text"></p>
-                        </div>
-                        <div class="modal-footer" id=footer-box-errorModal>
-                            <button type="button" id="modalButton" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="row page-header" style="margin-top: 0">
             <div class="col-lg-12">
                 <h1 id="name"></h1>
@@ -73,17 +55,14 @@
             </p>
         </div>
         <div class="row">
-            <div class="col-lg-12" id="memberships">
+            <div class="col-lg-5" id="memberships">
             </div>
         </div>
+
         <div class="row">
-
-            <div class="col-sm-5 well" style="margin:15px">
-                <h3> Add new role:</h3>
-                <select class="form-control" id="newOptions" style="display: inline-block"></select>
-                <button type="button" class="btn btn-primary" id="addRole" style="display: inline-block; margin-top:10px">Add</button>
+            <div class="col-lg-5" style="text-align: right">
+                <button type="button" id="apply" class="btn btn-primary btn-lg" style="margin: 10px">Apply changes</button>
             </div>
-
         </div>
 
         <p id="text"> </p>
@@ -131,34 +110,12 @@
 
 <script src="js/navbar.js">  </script>
 <script>
-    function gup( name, url ) {
-        if (!url) url = location.href;
-        name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-        var regexS = "[\\?&]"+name+"=([^&#]*)";
-        var regex = new RegExp( regexS );
-        var results = regex.exec( url );
-        return results == null ? null : results[1];
-    }
-    function error( title, message ) {
-        $('#modal-title-text').text(title)
-        $('#modal-text').text(message)
-        $('#header-box-errorModal').css('background-color','rgb(241,103,103)')
-        $('#footer-box-errorModal').css('background-color','rgb(241,103,103)')
-        $('#errorModal').modal('show')
-    }
-    function success( title, message ) {
-        $('#modal-title-text').text(title)
-        $('#modal-text').text(message)
-        $('#header-box-errorModal').css('background-color','rgb(190,215,70)')
-        $('#footer-box-errorModal').css('background-color','rgb(190,215,70)')
-        $('#errorModal').modal('show')
-    }
 
-    id=gup('id')
-    var id_token = getCookie("idtoken")
+    id=gup('id');
+    var id_token = getCookie("idtoken");
 
     $("#navbar").load("navbar.html",function(){
-        initNavBar(JSON.parse(getCookie("profile")))
+        initNavBar(JSON.parse(getCookie("profile")));
     });
 
     var xhr = new XMLHttpRequest();
@@ -167,73 +124,85 @@
     xhr.onload = function() {
         var response=JSON.parse(xhr.responseText);
         if (response.status!='0'){
-            alert(response.message)
+            alert(response.message);
             setTimeout(function(){
-                window.location="http://localhost:3000/login.html"
-            },20)
-            return 0
+                window.location="http://localhost:3000/login.html";
+            },20);
+            return 0;
         }
         var membership = response.membership; //get membership
-        $('#name').text(response.name) //add name to html
-        $('title').text(response.name) //add name to page name
-        $('#email').text(response.email) //add email to html
-        var newMemberships=['member','full','admin'] //list of memberships the user doesn't have, will be updated in next for
-        membership.sort() //sort memberships
-        for (i in membership){
-            var role=membership[i]
-            if (role!='all'){
-                //item is the div where the current role will be showed
-                var item=$('<div class="well" style="overflow:hidden; padding:10px"><h4 style="display:inline; margin-top: 15px; margin-bottom: 15px">Normal Well</h4><button type="button" class="btn btn-danger btn-circle btn-lg pull-right"><i class="fa fa-trash"></i></button></div>')
-                item.find('h4').text(role) //add text to item
-                item.attr('id',role)        //add an id (needed for the button)
-                item.find('button').click(function(){ //when the admin clicks on the delete button
-                    $(this).blur()
-                    role=$(this).parent().attr('id') //get role from id
-                    var xhrDel = new XMLHttpRequest();
-                    xhrDel.open('POST', 'http://localhost:3000/revokeMembership'); //remove membership
-                    xhrDel.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhrDel.onload=function() {
-                        responseDel=JSON.parse(xhrDel.responseText)
-                        if(responseDel.status==0){
-                            location.reload() //reload page so removal is shown
-                        }
-                        else{
-                            error('Error',responseDel.message)
-                        }
-                    }
-                    xhrDel.send('idtoken=' + id_token +'&email=' + response.email + '&newMembership=' + role);
-                })
-                $('#memberships').append(item)
-            }
-            var ind=$.inArray(role,newMemberships)//index del rol en el vector newMemberships
-            if(ind!=-1){
-                newMemberships.splice(ind,1) //treu el rol del vector newMemberships
-            }
-        }
-        for (i in newMemberships){
-            $('#newOptions').append('<option>'+newMemberships[i]+'</option>') //add newMemberships as an option of the dropdown
-        }
-        $('#addRole').click(function () { //quan es clica addRole
-            var selectedRole=$('#newOptions').find(':selected').text() //get the selected role
-            if(selectedRole!=''){   //if there is a selected role
-                var xhrAdd = new XMLHttpRequest();
-                xhrAdd.open('POST', 'http://localhost:3000/addMembership');
-                xhrAdd.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhrAdd.onload=function() {
-                    var responseDel=JSON.parse(xhrAdd.responseText)
-                    if(responseDel.status==0){
-                        location.reload() //reload page so added role is shown
+        $('#name').text(response.name); //add name to html
+        $('title').text(response.name); //add name to page name
+        $('#email').text(response.email); //add email to html
+        var possibleMemberships=['member','full','admin']; //list of memberships the user doesn't have, will be updated in next for
+        membership.sort(); //sort memberships
+        for (i in possibleMemberships){
+            var role=possibleMemberships[i];
+            //item is the div where the current role will be showed
+            //var item=$('<div class="well" style="overflow:hidden; padding:10px"><h4 style="display:inline; margin-top: 15px; margin-bottom: 15px">Normal Well</h4><button type="button" class="btn btn-danger btn-circle btn-lg pull-right"><i class="fa fa-trash"></i></button></div>');
+            var item=$('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
+                .append(' '+role) //add text to item
+                .attr('id',role)        //add an id (needed for the button)
+                .click(function(){ //when the admin clicks on the delete button
+                    $(this).blur();
+                    var roleClicked=$(this).parent().attr('id'); //get role from id
+                    if($(this).hasClass('btn-primary')){
+                        $(this).removeClass('btn-primary').addClass('btn-default'); //change its color
+                        $(this).find('i').removeClass('fa fa-check'); //remove its check icon
                     }
                     else{
-                        error('Error',responseDel.message)
+                        $(this).removeClass('btn-default').addClass('btn-primary');//change color to primary
+                        $(this).find('i').addClass('fa fa-check'); //add check icon
                     }
-                }
-                xhrAdd.send('idtoken=' + id_token +'&email=' + response.email + '&newMembership=' + selectedRole);
+                    //alert(membership);
+                });
+            $('#memberships').append(item);
+            if(membership.indexOf(role)!=-1)item.click();
+        }
+        $('#apply').click(function () {
+            $(this).blur()
+            var possibleMemberships=['member','full','admin'];
+            var newMembership=['all'];
+            for(i in possibleMemberships){
+                role=possibleMemberships[i];
+                var item=$('#memberships').find('[id='+role+']');
+                if (item.hasClass('btn-primary'))newMembership.push(role);
             }
-        })
-    }
+            //alert(newMembership);
+
+            var xhrApply = new XMLHttpRequest();
+            xhrApply.open('POST', 'http://localhost:3000/updateMembership');
+            xhrApply.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhrApply.onload = function () {
+                res=JSON.parse(xhrApply.responseText);
+                if (res.status!='0'){
+                    error('Error',res.message);
+                }
+                else{
+                    success('Success','Membership changed successfully',goHome);
+                }
+            };
+            xhrApply.send('idtoken=' + id_token + '&email=' + response.email + '&newMembership=' + JSON.stringify(newMembership));
+        });
+
+    };
     xhr.send('userId=' + id);
 
+    $(':root').keydown(function(e){
+        //alert(e.keyCode)
+        if(e.keyCode>=48 && e.keyCode<=57){ //number
+            var pressedNumber = e.keyCode-48;
+            var buttonToClick = $('#memberships').find('button:nth-child('+pressedNumber+')');
+            if(buttonToClick.exists()) buttonToClick.click();
+        }
+        if(e.keyCode==13){ //enter
+            $('#apply').click();
+        } //TODO MAYBE: Numeros per seleccionar vot
+    });
+
+    function goHome(){
+        window.location='http://localhost:3000/users.html';
+    }
 </script>
 
 

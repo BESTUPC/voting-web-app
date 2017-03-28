@@ -108,6 +108,14 @@
     
     <script src="js/signin.js">  </script>
 
+    <script>
+        $(':root').keydown(function(e){
+            if(e.keyCode==13){ //enter
+                $('#customBtn').click();
+            }
+        });
+    </script>
+
 </body>
 
 </html>

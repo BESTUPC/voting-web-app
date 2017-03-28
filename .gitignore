@@ -65,3 +65,4 @@ benchmarks/graphs
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
+sh.exe.stackdump
