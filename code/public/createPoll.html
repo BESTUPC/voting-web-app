@@ -53,8 +53,14 @@
     div.input-pro input{
         border:0;
     }
-    div.input-pro:not(#adding) input{
+    div.input-pro:not(.noMarginLeft) input{
         margin-left:5px;
+    }
+    div.input-pro.extra{
+        background-color: #ccc;
+    }
+    div.input-pro.extra input{
+        background-color: #ccc;
     }
 </style>
 
@@ -73,7 +79,19 @@
             </div>
             <div class="row">
                 <div class="col-lg-5" id="pollOptions">
-                    <div class="input-pro" id="adding" style="text-align: left">
+                    <div class="input-pro noMarginLeft extra" id="blanc" style="text-align: left">
+                        <div class="btn btn-circle" style="background-color: red">
+                            <i class="fa fa-times"></i>
+                        </div>
+                        <input type="text" placeholder="Option...">
+                    </div>
+                    <div class="input-pro noMarginLeft extra"  id="abstencio" style="text-align: left">
+                        <div class="btn btn-circle" style="background-color: red">
+                            <i class="fa fa-times"></i>
+                        </div>
+                        <input type="text" placeholder="Option...">
+                    </div>
+                    <div class="input-pro noMarginLeft" id="adding" style="text-align: left">
                         <div class="btn btn-primary btn-circle">
                             <i class="fa fa-plus"></i>
                         </div>
@@ -115,7 +133,6 @@
         }
     </script>
 
-    <a href="#" onclick="signOut();">Sign out</a>
     <script>
       function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
@@ -129,11 +146,24 @@
     <script>
         function addOption(option){
             var newInputParent = $('<div class="input-pro" style="text-align: left"><div class="btn btn-circle" style="background-color: red"><i class="fa fa-times"></i></div><input type="text" placeholder="Option..."></div>');
-            newInputParent.find('input').val(oldInput.val());
+            newInputParent.find('input').val(option).keypress(function(e){
+                if(e.keyCode==13){
+                    $('#adding').find('input').focus();
+                }
+            });
             newInputParent.find('.btn').click(function () {
                 $(this).parent().remove();
+                $('#adding').find('input').focus();
             });
-            newInputParent.insertBefore('#adding');
+            var extras=$('.input-pro.extra');
+            var whereToAdd=$('#adding');
+            if(extras.length>0)whereToAdd=$(extras[0]);
+            newInputParent.insertBefore(whereToAdd);
+            newInputParent.click(function (e) {
+                if($(e.target).hasClass("input-pro")){
+                    $(this).find('input').select();
+                }
+            });
             return newInputParent;
         }
         id_token = getCookie("idtoken");
@@ -144,6 +174,16 @@
                 if(e.keyCode==13){
                     $('#adding').find('input').focus();
                 }
+            });
+            $('#blanc').find('input').val('Blanc').attr('disabled','disabled');
+            $('#abstencio').find('input').val('Abstenció').attr('disabled','disabled');
+            $('#blanc').find('.btn').click(function () {
+                $(this).parent().remove();
+                $('#adding').find('input').focus();
+            });
+            $('#abstencio').find('.btn').click(function () {
+                $(this).parent().remove();
+                $('#adding').find('input').focus();
             });
             var adding=$('#adding');
             adding.click(function (e) {
@@ -158,8 +198,11 @@
             });
             adding.find('.btn').click(function() {
                 var oldInput = $(this).parent().find('input');
-                addOption(oldInput.val());
-                oldInput.val('');
+                var value=oldInput.val();
+                if (value!='') {
+                    addOption(value);
+                    oldInput.val('');
+                }
             });
         });
 
