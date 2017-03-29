@@ -1,5 +1,6 @@
 var express = require('express')
-var MongoClient = require('mongodb').MongoClient
+var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 var assert = require('assert');
 var fs = require('fs');
 var GoogleAuth = require('google-auth-library');
@@ -40,6 +41,7 @@ MongoClient.connect(url, function(err, db) {
   db.close();
 });
 
+/*
 //Create the stub, this should be deleted on the final version
 MongoClient.connect(url, function(err, db) {
   var user = {};
@@ -49,7 +51,7 @@ MongoClient.connect(url, function(err, db) {
   user['email'] = "petter@best.com";
   db.collection('users').insertMany([user], function(err, result) {});
   var votacio = {};
-  votacio['_id'] = "3456789";
+  votacio['_id'] = new ObjectID("3456789");
   votacio['pollName'] = "Bestie de la biSetmana";
   votacio['pollOptions'] = ["Iñigo", "Quesito", "Bernat", "Laia"];
   votacio['targetGroup'] = "all";
@@ -72,7 +74,7 @@ MongoClient.connect(url, function(err, db) {
   privat['userId'] = "102462623932080066899";
   db.collection('askPrivate').insertMany([privat], function(err, result){});
   db.close();
-});
+});*/
 
 //Creating the webserver
 var app = express();
@@ -183,7 +185,7 @@ app.post('/getPollInfo', function (req, res) {
       console.log(payload);
       MongoClient.connect(url, function(err, db)
         {
-          db.collection('votacions').findOne({_id : ipollId}, function (err, docs)
+          db.collection('votacions').findOne({_id : ObjectID(ipollId)}, function (err, docs)
             {
               if (err) {
                 var ret = {}
@@ -236,7 +238,7 @@ app.post('/sendVote', function (req, res) {
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
         if (err) throw err;
-        db.collection('votacions').findOne({ _id : ipollId }, function (err, doc) {
+        db.collection('votacions').findOne({ _id : new ObjectID(ipollId) }, function (err, doc) {
           if (doc == null){
             console.log(ipollId);
             var ret = {};
@@ -313,7 +315,7 @@ app.post('/askWithdrawal', function (req, res) {
             res.json(ret);
             return ret;
           }
-          var targetGroup = db.collection('votacions').findOne({pollId : ipollId},{ targetGroup: 1}).targetGroup;
+          var targetGroup = db.collection('votacions').findOne({pollId : new ObjectID(ipollId)},{ targetGroup: 1}).targetGroup;
           if (count/cens(targetGroup) > 0.4) notifyWithdrawal();
           db.close();
 
@@ -395,7 +397,7 @@ app.post('/getResults', function (req, res) {
 
     } else {
       var votacions = db.collection('votacions');
-      votacions.findOne({_id: ipollId}, function(err, ret){
+      votacions.findOne({_id: new ObjectID(ipollId)}, function(err, ret){
         if (err) {
           var ret = {}
           ret.status = 1;
@@ -721,7 +723,7 @@ app.post('/setState', function (req, res) {
             }
             if (isadmin){
               console.log("NEWSTATE: ", newstate);
-              db.collection('votacions').updateOne({_id: ipollId}, {$set: {state: newstate}});
+              db.collection('votacions').updateOne({_id: new ObjectID(ipollId)}, {$set: {state: newstate}});
               res.json(0);
               db.close();
             }
