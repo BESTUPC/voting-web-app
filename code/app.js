@@ -372,9 +372,9 @@ function shuffle(a) {
     for (let i = a.length; i; i--) {
         let j = Math.floor(Math.random() * i);
         [a[i - 1], a[j]] = [a[j], a[i - 1]];
-        console.log("WIGGLE WIGGLE WIGGLE YEAH!");
+        // console.log("WIGGLE WIGGLE WIGGLE YEAH!");
     }
-    console.log("EVERYDAY I'M SHUFFLIN'");
+    // console.log("EVERYDAY I'M SHUFFLIN'");
 }
 
 
@@ -397,7 +397,7 @@ app.post('/getResults', function (req, res) {
 
     } else {
       var votacions = db.collection('votacions');
-      votacions.findOne({_id: new ObjectID(ipollId)}, function(err, ret){
+      votacions.findOne({_id: ObjectID(ipollId)}, function(err, ret){
         if (err) {
           var ret = {}
           ret.status = 1;
@@ -425,8 +425,8 @@ app.post('/getResults', function (req, res) {
           var l = final_poll.pollOptions.length;
           var count = 0;
           var adminuser = null;
-          console.log("RETSTATE: ", ret.state);
-          console.log("ADMINUSEROUT: ",adminuser);
+          // console.log("RETSTATE: ", ret.state);
+          // console.log("ADMINUSEROUT: ",adminuser);
           var users = db.collection('users');
           users.findOne({userId: userId1 }, function(err, retuser){
             if(err){
@@ -443,19 +443,19 @@ app.post('/getResults', function (req, res) {
               res.json(ret);
             }
             else{
-              console.log("NAMENAME:  ",retuser.name);
-              console.log(retuser.membership);
+              // console.log("NAMENAME:  ",retuser.name);
+              // console.log(retuser.membership);
               adminuser = retuser.membership.indexOf("admin") > -1;
-              console.log(adminuser);
-              console.log("ADMINUSERIN: ",adminuser);
+              // console.log(adminuser);
+              // console.log("ADMINUSERIN: ",adminuser);
               if((statepoll == "closed")||((statepoll == "closed_private") && adminuser)){
                 final_poll.pollOptions.forEach(function(Option){
-                  console.log("L_OUTFIND = ", l);
-                  console.log("OPTION_POLL_OUTFIND = ", Option);
-                  console.log("COUNT_OUTFIND = ", count);
-                  votes.find( {pollOption: Option}, {userId:true,_id: false} ).toArray(function(err, vot_ret) {
-                    console.log("L_OUTFIND = ", l);
-                    console.log("COUNT_INFIND = ", count);
+                  // console.log("L_OUTFIND = ", l);
+                  // console.log("OPTION_POLL_OUTFIND = ", Option);
+                  // console.log("COUNT_OUTFIND = ", count);
+                  votes.find( {option: Option}, {userId:true,_id: false} ).toArray(function(err, vot_ret) {
+                    // console.log("L_OUTFIND = ", l);
+                    // console.log("COUNT_INFIND = ", count);
                     if (err){
                       var ret = {}
                       ret.status = 1;
@@ -465,15 +465,15 @@ app.post('/getResults', function (req, res) {
                       return ret;
                     }
                     else if((vot_ret != null) && (vot_ret.length != 0)){
-                      console.log("OPTION_POLL_INFIND_FOUND = ", Option);
-                      //console.log(Option);
+                      // console.log("OPTION_POLL_INFIND_FOUND = ", Option);
+                      // console.log(Option);
                       //console.log(vot_ret.length);
                       vots_count[Option] = vot_ret.length;
                       vots_id[Option] = vot_ret;
                       ++count;
                     }
                     else{
-                      console.log("OPTION_POLL_INFIND_NOTFOUND = ", Option);
+                      // console.log("OPTION_POLL_INFIND_NOTFOUND = ", Option);
                       vots_count[Option] = 0;
                       vots_id[Option] = null;
                       ++count;
@@ -483,17 +483,17 @@ app.post('/getResults', function (req, res) {
                         tots_vots = [];
                         var users = db.collection('users');
                         var optionstofind = final_poll.pollOptions.length;
-                        console.log("OPTIONSTOFIND : ", optionstofind);
+                        // console.log("OPTIONSTOFIND : ", optionstofind);
                         var optionscount = 0;
                         final_poll.pollOptions.forEach(function(Option){
-                          console.log("CACACCACACCACACCA");
+                          // console.log("CACACCACACCACACCA");
                           vots_nom[Option] = [];
                           var namescount = 0;
                           console.log(Option);
                           if(vots_id[Option] != null){
                             var namestofind = vots_id[Option].length;
 
-                          console.log(namestofind);
+                          // console.log(namestofind);
 
                           vots_id[Option].forEach(function(Idtofind){
                             users.findOne({userId: Idtofind.userId}, function(err, namefound){
@@ -506,7 +506,7 @@ app.post('/getResults', function (req, res) {
                                 return ret;
                               }
                               else if(namefound == null){
-                                console.log(Idtofind);
+                                // console.log(Idtofind);
                                 var ret = {}
                                 ret.status = 1;
                                 ret.message = "Voter ID not found in database!";
@@ -514,9 +514,9 @@ app.post('/getResults', function (req, res) {
                                 db.close();
                               }
                               else{
-                                console.log("HERE : ", namefound.name);
-                                console.log("OPTION :", Option);
-                                console.log()
+                                // console.log("HERE : ", namefound.name);
+                                // console.log("OPTION :", Option);
+                                // console.log()
                                 vots_nom[Option].push(namefound.name);
                                 tots_vots.push(namefound.name);
                                 ++namescount;
@@ -568,7 +568,7 @@ app.post('/getResults', function (req, res) {
                   db.close();
                 }
                 else{
-                  console.log(adminuser);
+                  // console.log(adminuser);
                   var ret_final = {}
                   ret_final.status = 3;
                   ret_final.message = 'You have no access to this poll';
