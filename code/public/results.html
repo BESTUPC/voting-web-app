@@ -134,6 +134,9 @@
 
             $('#pollName').text(results.options.name);
             var state = results.options.state;
+            if (state=='open')$('#selectState').val('Open');
+            if (state=='closed_private')$('#selectState').val('Closed hidden');
+            if (state=='closed')$('#selectState').val('Closed');
 //            $('#text').append(xhr.responseText);
             var data = {
                 // A labels array that can contain any sort of values

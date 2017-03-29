@@ -134,7 +134,10 @@
                 }
 
 
-
+                var state=poll.state;
+                if (state=='open')$('#selectState').val('Open');
+                if (state=='closed_private')$('#selectState').val('Closed hidden');
+                if (state=='closed')$('#selectState').val('Closed');
                 var pollOptions=poll.pollOptions;
                 //poll.pollOption='Bernat' //DEBUG
                 var selectedOption=pollOptions.indexOf(poll.pollOption); //find index of pollOption

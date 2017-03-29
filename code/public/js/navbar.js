@@ -85,4 +85,32 @@ function initNavBar(profile){
             e.stopImmediatePropagation();
         }
     });
+
+    var path=window.location.pathname;
+    if(path=='/poll.html' || path=='/results.html'){
+        pollId=gup('id');
+        $('#side-menu').append('<li><div style="padding-left:15px" class="text-primary h4"> Poll tools </div></li><li><div style="padding:10px 5px 10px 15px; display:inline-block" class="text-primary"><i class="fa fa-exchange fa-fw"></i> Set state</div><select id="selectState" style="vertical-align: middle;"><option>Open</option><option>Closed hidden</option><option>Closed</option></select><div id="stateBtn" class="btn btn-primary" style="font-size:10px; padding:3px 1px; margin-left: 5px">SET</div></li>');
+        $('#stateBtn').click(function () {
+            var val= $('#selectState').val();
+            var id_token = getCookie("idtoken");
+            // /setState(idtoken, pollID, state)
+            var state;
+            if(val=='Open')state='open';
+            if(val=='Closed hidden')state='closed_private';
+            if(val=='Closed')state='closed';
+
+            var xhrState = new XMLHttpRequest();
+            xhrState.open('POST', URL + '/setState');
+            xhrState.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhrState.onload = function() {
+                var response=JSON.parse(xhrState.responseText);
+                if (response.status!='0'){
+                    error('Error',response.message,goHome());
+                    return 0;
+                }
+                else success('Success','State changed successfully',goHome());
+            };
+            xhrState.send('idtoken='+id_token+'&pollId='+pollId+'&state='+state);
+        });
+    }
 }
