@@ -81,16 +81,7 @@
   <!-- Custom Theme JavaScript -->
   <script src="../dist/js/sb-admin-2.js"></script>
 
-  <script src="js/cookie.js">  </script>
-  <script>
-    if (getCookie("idtoken") == ""){
-      window.location = DOMAIN + "/login.html";
-    }
-    else{
-      console.log();
-      //alert(getCookie("idtoken"))
-    }
-  </script>
+  <script src="js/cookie.js">  </script>s
 
   <script>
     function signOut() {
@@ -105,6 +96,15 @@
   <script>
 
     $("#navbar").load("navbar.html",function(){
+
+        if (getCookie("idtoken") == ""){
+            window.location = DOMAIN + "/login.html";
+        }
+        else{
+            console.log();
+            //alert(getCookie("idtoken"))
+        }
+
         initNavBar(JSON.parse(getCookie("profile")));
         id_token = getCookie("idtoken");
         var xhr = new XMLHttpRequest();
@@ -141,6 +141,17 @@
                           window.location = DOMAIN + '/results.html?id='+$(this).attr('id').substr(4);
                       });
                 }
+                else if (poll.state=='closed_private'){
+                    row.css('background-color','#d5d5d5')
+                        .hover(function () {
+                            $(this).css('background-color','#c5c5c5').find('td').css('text-decoration','underline');
+                        },function () {
+                            $(this).css('background-color','#d5d5d5').find('td').css('text-decoration','none');
+                        })
+                        .click(function(){
+                            window.location = DOMAIN + '/results.html?id='+$(this).attr('id').substr(4);
+                        });
+                }
                 else{
                     row.css('background-color','#B7E797')
                         .hover(function () {
@@ -151,15 +162,6 @@
                         .click(function(){
                             window.location = DOMAIN + '/poll.html?id='+$(this).attr('id').substr(4);
                         });
-//                    row.css('background-color','#E6F0C3 ')
-//                        .hover(function () {
-//                            $(this).css('background-color','#69CD28').find('td').css('text-decoration','underline');
-//                        },function () {
-//                            $(this).css('background-color','#E6F0C3 ').find('td').css('text-decoration','none');
-//                        })
-//                        .click(function(){
-//                            window.location = 'http://localhost:3000/poll.html?id='+$(this).attr('id').substr(4);
-//                        });
                 }
 
 
