@@ -123,6 +123,7 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             var results = JSON.parse(xhr.responseText);
+            window.results = results;
             if (results.status!='0'){
                 alert(results.message);
                 setTimeout(function(){
@@ -217,7 +218,7 @@
                 });
 
             });
-
+            if(results.options.state=='closed')$('#text').text('Voters ' + JSON.stringify(results.options.voters));
         };
         profile=JSON.parse(profile);
         xhr.send('pollId=' + pollId + '&userId=' + profile.id);
