@@ -115,7 +115,7 @@
             xhr.open('POST', URL + '/getPollInfo');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onload = function() {
-                $('#text').append(xhr.responseText)
+//                $('#text').append(xhr.responseText)
                 var poll = JSON.parse(xhr.responseText);
                 if (poll.status!='0'){
                     alert(poll.message);

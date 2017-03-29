@@ -413,6 +413,7 @@ app.post('/getResults', function (req, res) {
           var privatePoll = ret.isPrivate;
           var final_poll = {}
           final_poll.name = ret.pollName;
+          final_poll.state = ret.state;
           final_poll.pollOptions = ret.pollOptions;
           var vots_count = {}
           var vots_id = {}
@@ -556,8 +557,11 @@ app.post('/getResults', function (req, res) {
                 });
               }
               else{
-                if(ret.state == "open"){
+                if(statepoll == "open"){
                   console.log("HI");
+                  ret={}
+                  ret.status = 1;
+                  ret.message = 'Stop trolling, this poll is still open';
                   res.json(null);
                   db.close();
                 }
@@ -565,6 +569,7 @@ app.post('/getResults', function (req, res) {
                   console.log(adminuser);
                   var ret_final = {}
                   ret_final.status = 3;
+                  ret_final.message = 'You have no access to this poll';
                   res.json(ret_final);
                   db.close();
                 }

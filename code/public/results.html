@@ -116,20 +116,25 @@
     pollId=gup('id');
     id_token = getCookie("idtoken");
     $("#navbar").load("navbar.html",function(){
-        initNavBar(JSON.parse(getCookie("profile")));
+        profile = getCookie("profile");
+        initNavBar(JSON.parse(profile));
         var xhr = new XMLHttpRequest();
         xhr.open('POST', URL + '/getResults');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             var results = JSON.parse(xhr.responseText);
+
             if (results.status!='0'){
                 alert(results.message);
                 setTimeout(function(){
-                    window.location= DOMAIN + "/login.html";
+                    if(results.status==3) window.location = DOMAIN;
+                    else window.location= DOMAIN + "/login.html";
                 },20);
                 return 0;
             }
 
+            $('#pollName').text(results.options.name);
+            var state = results.options.state;
 //            $('#text').append(xhr.responseText);
             var data = {
                 // A labels array that can contain any sort of values
@@ -150,6 +155,7 @@
                 if(data.type === 'bar') {
                     if(drawn<data.series.length){
                         var ms_total=5000;
+                        if (state=='closed') ms_total=1;
                         var duration=ms_total*data.series[data.index]/Math.max.apply(null,data.series);
                         data.element.animate({
                             y2: {
@@ -163,7 +169,7 @@
                         drawn++;
                         setTimeout(function (data) {
                             barHorizontalCenter = data.x1 + (data.element.width() * .5);
-                            barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
+                            barVerticalCenter = data.y2 - 10;
                             value = data.element.attr('ct:value');
                             label = new Chartist.Svg('text');
                             label.text(''+value+' vots');
@@ -211,7 +217,8 @@
             });
 
         };
-        xhr.send('pollId=' + pollId + '&idtoken=' + id_token);
+        profile=JSON.parse(profile);
+        xhr.send('pollId=' + pollId + '&userId=' + profile.id);
     });
 
 
