@@ -21,7 +21,7 @@
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <!--<link href="../vendor/morrisjs/morris.css" rel="stylesheet">-->
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -77,9 +77,9 @@
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="../vendor/raphael/raphael.min.js"></script>
-    <script src="../vendor/morrisjs/morris.min.js"></script>
-    <script src="../data/morris-data.js"></script>
+    <!--<script src="../vendor/raphael/raphael.min.js"></script>-->
+    <!--<script src="../vendor/morrisjs/morris.min.js"></script>-->
+    <!--<script src="../data/morris-data.js"></script>-->
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
@@ -117,6 +117,14 @@
             xhr.onload = function() {
 //                $('#text').append(xhr.responseText)
                 var poll = JSON.parse(xhr.responseText);
+                window.results=poll;
+                if (poll.state!= undefined && poll.state!='open'){
+                    alert('Poll is not open');
+                    setTimeout(function(){
+                        window.location= DOMAIN + "/results.html?id=" + pollId;
+                    },20);
+                    return 0;
+                }
                 if (poll.status!='0'){
                     alert(poll.message);
                     setTimeout(function(){
@@ -124,6 +132,9 @@
                     },20);
                     return 0;
                 }
+
+
+
                 var pollOptions=poll.pollOptions;
                 //poll.pollOption='Bernat' //DEBUG
                 var selectedOption=pollOptions.indexOf(poll.pollOption); //find index of pollOption
