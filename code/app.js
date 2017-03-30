@@ -33,12 +33,16 @@ var url = 'mongodb://localhost:27017/votacions';
 // Use connect method to connect to the server and creates unique indexes
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
-  db.collection('users').createIndex( { "userId" : 1}, { unique: true} );
-  db.collection('votes').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
-  db.collection('askWithdrawal').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
-  db.collection('askPrivate').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
-  console.log("Connected successfully to server");
-  db.close();
+  try {
+    db.collection('users').createIndex( { "userId" : 1}, { unique: true} );
+    db.collection('votes').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
+    db.collection('askWithdrawal').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
+    db.collection('askPrivate').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
+    console.log("Connected successfully to server");
+    db.close();
+  } catch (err) {
+    console.log("Could't create index");
+  }
 });
 
 /*
@@ -147,7 +151,11 @@ app.post('/getPolls', function (req, res) {
           if(document == null)
           {
             console.log('document not found on DB');
-            return 1;
+              var ret = {}
+              ret.status = 1;
+              ret.message = err.toString();
+              res.json(ret);
+              return ret;
           }
           console.log('document:', document);
           var memberships = document['membership'];
