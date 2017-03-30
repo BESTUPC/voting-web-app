@@ -168,10 +168,11 @@ app.post('/getPolls', function (req, res) {
               res.json(ret);
               return ret;
             }
-                          var ret = {}
+            var ret = {}
             ret.status = 0;
-            ret.polls=docs
+            ret.polls=docs;
             res.json(ret);
+            db.close();
           });
         });
 
@@ -262,7 +263,6 @@ app.post('/sendVote', function (req, res) {
             var vote = {};
             vote['userId'] =
             db.collection('votes').update({userId : payload['sub'], pollId : ipollId}, { $set: {option: ioption}}, {upsert: true} );
-            db.close();
             var ret = {};
             ret['status'] = 0;
             res.json(ret);
@@ -274,6 +274,7 @@ app.post('/sendVote', function (req, res) {
             res.json(ret);
 
           }
+          db.close();
         })
       })
   })
@@ -296,6 +297,7 @@ function cens(targetGroup) {
     }
       db.collection('users').count({ $where: function() { return inFunc(targetGroup,this.membership)} }, null,function(err, count) {
       return count;
+      db.close();
     });
   })
 }
@@ -446,6 +448,7 @@ app.post('/getResults', function (req, res) {
               ret.status = 1;
               ret.message = err.toString();
               res.json(ret);
+              db.close();
               return ret;
             }
             else if(retuser == null){
@@ -453,6 +456,9 @@ app.post('/getResults', function (req, res) {
               ret.status = 1;
               ret.message = "userId not found";
               res.json(ret);
+
+              db.close();
+              return ret;
             }
             else{
               // console.log("NAMENAME:  ",retuser.name);
@@ -613,6 +619,7 @@ app.post('/getUserInfo', function (req, res) {
         ret.status = 1;
         ret.message = err.toString();
         res.json(ret);
+        db.close();
         return ret;
       }
       else if (ret == null){
@@ -653,6 +660,7 @@ app.post('/createPoll', function (req, res) {
           ret.status = 1;
           ret.message = err.toString();
           res.json(ret);
+          db.close();
           return ret;
         }
         var users = db.collection('users');
@@ -662,6 +670,7 @@ app.post('/createPoll', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
+            db.close();
             return ret;
           }
           if(ret != null){
@@ -683,6 +692,7 @@ app.post('/createPoll', function (req, res) {
               var ret = {};
               ret.status = 0;
               res.json(ret);
+              db.close();
               return ret;
             }
             else{
@@ -721,6 +731,7 @@ app.post('/setState', function (req, res) {
           ret.status = 1;
           ret.message = err.toString();
           res.json(ret);
+          db.close();
           return ret;
         }
         var users = db.collection('users');
@@ -730,6 +741,7 @@ app.post('/setState', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
+            db.close();
             return ret;
           }
           if(ret != null){
@@ -789,6 +801,7 @@ app.post('/updateMembership', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
+            db.close();
             return ret;
           }
           if(ret != null){
@@ -807,6 +820,7 @@ app.post('/updateMembership', function (req, res) {
                   ret.status = 1;
                   ret.message = err.toString();
                   res.json(ret);
+                  db.close();
                   return ret;
                 }
                 if(ret!= null){
@@ -854,7 +868,6 @@ app.post('/revokeMembership', function (req, res) {
         ret.status = 2;
         ret.message = err.toString();
         res.json(ret);
-        db.close();
         return ret;
       }
       var payload = login.getPayload();
