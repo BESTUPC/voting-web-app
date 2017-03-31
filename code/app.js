@@ -499,7 +499,7 @@ app.post('/getResults', function (req, res) {
                   // console.log("L_OUTFIND = ", l);
                   // console.log("OPTION_POLL_OUTFIND = ", Option);
                   // console.log("COUNT_OUTFIND = ", count);
-                  votes.find( {option: Option}, {userId:true,_id: false} ).toArray(function(err, vot_ret) {
+                  votes.find( {option: Option, pollId: ipollId}, {userId:true,_id: false} ).toArray(function(err, vot_ret) {
                     // console.log("L_OUTFIND = ", l);
                     // console.log("COUNT_INFIND = ", count);
                     if (err){
