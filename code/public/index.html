@@ -98,11 +98,7 @@
     $("#navbar").load("navbar.html",function(){
 
         if (getCookie("idtoken") == ""){
-            window.location = DOMAIN + "/login.html";
-        }
-        else{
-            console.log();
-            //alert(getCookie("idtoken"))
+            goLogin();
         }
 
         initNavBar(JSON.parse(getCookie("profile")));
@@ -111,12 +107,10 @@
         xhr.open('POST', URL + '/getPolls');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
-            result = JSON.parse(xhr.responseText);
+            var result = JSON.parse(xhr.responseText);
             if (result.status!='0'){
-                alert(result.message);
-                setTimeout(function(){
-                    window.location= DOMAIN + "/login.html";
-                },20);
+                if (result.message.indexOf("token used too late")>=0)result.message='Session expired';
+                error('Error',result.message,goLogin);
                 return 0;
             }
             var pollList=result.polls;
