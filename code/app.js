@@ -1078,7 +1078,7 @@ app.post('/tokensignin', function (req, res) {
           users.insertMany([user], function(err, result) {});
           var ret = {}
           ret.status = 0;
-          ret.message = err.toString()  ;
+          ret.message = 'Error on signin'  ;
           res.json(ret);
           db.close();
           return ret;
