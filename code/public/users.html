@@ -136,10 +136,9 @@
         xhr.onload = function () {
             result = JSON.parse(xhr.responseText);
             if (result.status != '0') {
-                alert(result.message);
-                setTimeout(function () {
+                error('Error',result.message,function () {
                     window.location = DOMAIN + "/login.html";
-                }, 20);
+                });
                 return 0;
             }
             users = result.users;

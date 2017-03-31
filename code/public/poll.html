@@ -119,17 +119,15 @@
                 var poll = JSON.parse(xhr.responseText);
                 window.results=poll;
                 if (poll.state!= undefined && poll.state!='open'){
-                    alert('Poll is not open');
-                    setTimeout(function(){
+                    error('Error','Poll is not open',function(){
                         window.location= DOMAIN + "/results.html?id=" + pollId;
-                    },20);
+                    });
                     return 0;
                 }
                 if (poll.status!='0'){
-                    alert(poll.message);
-                    setTimeout(function(){
+                    error('Error',poll.message,function(){
                         window.location= DOMAIN + "/login.html";
-                    },20);
+                    });
                     return 0;
                 }
 
