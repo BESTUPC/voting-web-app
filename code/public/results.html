@@ -125,11 +125,10 @@
             var results = JSON.parse(xhr.responseText);
             window.results = results;
             if (results.status!='0'){
-                alert(results.message);
-                setTimeout(function(){
+                error('Error',results.message,function(){
                     if(results.status==3) window.location = DOMAIN;
                     else window.location= DOMAIN + "/login.html";
-                },20);
+                });
                 return 0;
             }
 

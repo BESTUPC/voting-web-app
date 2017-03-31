@@ -122,10 +122,9 @@
         xhr.onload = function () {
             var response = JSON.parse(xhr.responseText);
             if (response.status != '0') {
-                alert(response.message);
-                setTimeout(function () {
+                error('Error',response.message,function () {
                     window.location = DOMAIN + "/login.html";
-                }, 20);
+                });
                 return 0;
             }
             var membership = response.membership; //get membership
