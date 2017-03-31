@@ -40,7 +40,7 @@ MongoClient.connect(url, function(err, db) {
     db.collection('askPrivate').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
     console.log("Connected successfully to server");
     db.close();
-  } catch (err) {
+  } catch (error) {
     console.log("Could't create index");
   }
 });
@@ -115,6 +115,7 @@ app.get('/', function (req, res) {
 
 //API calls start here
 app.post('/getPolls', function (req, res) {
+  console.log("getPolls: " +  JSON.stringify(req.body));
   var token = req.body.idtoken;
   client.verifyIdToken(
     token,
@@ -135,6 +136,7 @@ app.post('/getPolls', function (req, res) {
           ret.status = 1;
           ret.message = err.toString();
           res.json(ret);
+          db.close();
           return ret;
         }
         var users = db.collection('users');
@@ -146,18 +148,18 @@ app.post('/getPolls', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
+            db.close();
             return ret;
           }
           if(document == null)
           {
-            console.log('document not found on DB');
               var ret = {}
               ret.status = 1;
               ret.message = err.toString();
               res.json(ret);
+              db.close()
               return ret;
           }
-          console.log('document:', document);
           var memberships = document['membership'];
           var votacions = db.collection('votacions');
           votacions.find({targetGroup : { $in: memberships }},{ _id:1, pollName:1,pollDeadline:1, state :1 }).toArray(function (err, docs) {
@@ -166,6 +168,7 @@ app.post('/getPolls', function (req, res) {
               ret.status = 1;
               ret.message = err.toString();
               res.json(ret);
+              db.close();
               return ret;
             }
             var ret = {}
@@ -173,6 +176,7 @@ app.post('/getPolls', function (req, res) {
             ret.polls=docs;
             res.json(ret);
             db.close();
+            return ret;
           });
         });
 
@@ -181,6 +185,7 @@ app.post('/getPolls', function (req, res) {
   });
 
 app.post('/getPollInfo', function (req, res) {
+  console.log('getPollInfo: ' +JSON.stringify(req.body));
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
   client.verifyIdToken(
@@ -195,7 +200,7 @@ app.post('/getPollInfo', function (req, res) {
         return ret;
       }
       var payload = login.getPayload();
-      console.log(payload);
+      //console.log(payload);
       MongoClient.connect(url, function(err, db)
         {
           db.collection('votacions').findOne({_id : ObjectID(ipollId)}, function (err, docs)
@@ -205,12 +210,17 @@ app.post('/getPollInfo', function (req, res) {
                 ret.status = 1;
                 ret.message = err.toString();
                 res.json(ret);
+                db.close();
                 return ret;
               }
               if(docs == null)
               {
-                console.log('poll not found in db');
-                return 1;
+                var ret = {}
+                ret.status = 1;
+                ret.message = 'poll not found in db';
+                res.json(ret);
+                db.close();
+                return ret;
               }
               db.collection('votes').findOne({pollId: ipollId , userId: payload['sub'] }, function(err, ret)
                 {
@@ -220,6 +230,7 @@ app.post('/getPollInfo', function (req, res) {
                     ret.status = 1;
                     ret.message = err.toString();
                     res.json(ret);
+                    db.close();
                     return ret;
                   }
                 if (ret == null) docs.pollOption = "";
@@ -234,6 +245,7 @@ app.post('/getPollInfo', function (req, res) {
 })
 
 app.post('/sendVote', function (req, res) {
+  console.log('sendVote: ' +JSON.stringify(req.body));
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
   var ioption = req.body.option;
@@ -250,7 +262,14 @@ app.post('/sendVote', function (req, res) {
       }
       var payload = login.getPayload();
       MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err.toString();
+          res.json(ret);
+          db.close();
+          return ret;
+        }
         db.collection('votacions').findOne({ _id : new ObjectID(ipollId) }, function (err, doc) {
           if (doc == null){
             console.log(ipollId);
@@ -258,6 +277,8 @@ app.post('/sendVote', function (req, res) {
             ret.message = "votacio not found in db"
             ret['status'] = 4;
             res.json(ret);
+            db.close();
+            return ret;
           }
           else if(doc.state == "open"){
             var vote = {};
@@ -266,15 +287,16 @@ app.post('/sendVote', function (req, res) {
             var ret = {};
             ret['status'] = 0;
             res.json(ret);
+            db.close();
+            return ret;
           } else {
-
             var ret = {};
             ret['status'] = 4;
             ret.message = "Poll Already Closed";
             res.json(ret);
-
+            db.close();
+            return ret;
           }
-          db.close();
         })
       })
   })
@@ -293,6 +315,7 @@ function cens(targetGroup) {
       ret.status = 1;
       ret.message = err.toString();
       res.json(ret);
+      db.close();
       return ret;
     }
       db.collection('users').count({ $where: function() { return inFunc(targetGroup,this.membership)} }, null,function(err, count) {
@@ -358,7 +381,7 @@ app.post('/askPrivate', function (req, res) {
         return ret;
       }
       var payload = login.getPayload();
-      console.log(payload);
+      //console.log(payload);
       MongoClient.connect(url, function(err, db) {
         db.collection('askPrivate').insertMany([{userId : payload['sub'], pollId : ipollId}], function () {});
         var howMany = db.collection('askPrivate').count({pollId : ipollId},null,function(err, count) {
@@ -393,6 +416,7 @@ function shuffle(a) {
 
 
 app.post('/getResults', function (req, res) {
+  console.log('getResults: ' + JSON.stringify(req.body));
   var ipollId = req.body.pollId;
   var userId1 = req.body.userId;
   MongoClient.connect(url, function(err, db) {
@@ -401,6 +425,7 @@ app.post('/getResults', function (req, res) {
       ret.status = 1;
       ret.message = err.toString();
       res.json(ret);
+      db.close();
       return ret;
     }
     else if (db == null){
@@ -408,7 +433,8 @@ app.post('/getResults', function (req, res) {
       ret.status = 1;
       ret.message = "DB not found";
       res.json(ret);
-
+      db.close();
+      return ret;
     } else {
       var votacions = db.collection('votacions');
       votacions.findOne({_id: ObjectID(ipollId)}, function(err, ret){
@@ -421,9 +447,12 @@ app.post('/getResults', function (req, res) {
           return ret;
         }
         else if(ret == null){
-          res.json(null);
+          var ret = {}
+          ret.status = 1;
+          ret.message = 'poll not found';
+          res.json(ret);
           db.close();
-
+          return ret;
         }
         else{
           var privatePoll = ret.isPrivate;
@@ -456,7 +485,6 @@ app.post('/getResults', function (req, res) {
               ret.status = 1;
               ret.message = "userId not found";
               res.json(ret);
-
               db.close();
               return ret;
             }
@@ -507,7 +535,7 @@ app.post('/getResults', function (req, res) {
                           // console.log("CACACCACACCACACCA");
                           vots_nom[Option] = [];
                           var namescount = 0;
-                          console.log(Option);
+                          //console.log(Option);
                           if(vots_id[Option] != null){
                             var namestofind = vots_id[Option].length;
 
@@ -530,6 +558,7 @@ app.post('/getResults', function (req, res) {
                                 ret.message = "Voter ID not found in database!";
                                 res.json(ret);
                                 db.close();
+                                return ret;
                               }
                               else{
                                 // console.log("HERE : ", namefound.name);
@@ -553,6 +582,7 @@ app.post('/getResults', function (req, res) {
                                   ret.options = final_poll;
                                   res.json(ret);
                                   db.close();
+                                  return ret;
                                 }
                               }
                             });
@@ -569,6 +599,7 @@ app.post('/getResults', function (req, res) {
                             ret.options = final_poll;
                             res.json(ret);
                             db.close();
+                            return ret;
                           }
                         }
                       });
@@ -578,12 +609,13 @@ app.post('/getResults', function (req, res) {
               }
               else{
                 if(statepoll == "open"){
-                  console.log("HI");
+                  //console.log("HI");
                   ret={}
                   ret.status = 1;
                   ret.message = 'Stop trolling, this poll is still open';
                   res.json(null);
                   db.close();
+                  return ret;
                 }
                 else{
                   // console.log(adminuser);
@@ -592,6 +624,7 @@ app.post('/getResults', function (req, res) {
                   ret_final.message = 'You have no access to this poll';
                   res.json(ret_final);
                   db.close();
+                  return ret;
                 }
               }
             }
@@ -603,6 +636,8 @@ app.post('/getResults', function (req, res) {
 })
 
 app.post('/getUserInfo', function (req, res) {
+
+      console.log('getUserInfo : ' + JSON.stringify(req.body));
   var user_ID = req.body.userId;
   MongoClient.connect(url, function(err, db) {
     if (err) {
@@ -610,6 +645,7 @@ app.post('/getUserInfo', function (req, res) {
       ret.status = 1;
       ret.message = err.toString();
       res.json(ret);
+      db.close();
       return ret;
     }
     var users = db.collection('users');
@@ -623,24 +659,30 @@ app.post('/getUserInfo', function (req, res) {
         return ret;
       }
       else if (ret == null){
-        res.json(null);
+        var ret = {}
+        ret.status = 1;
+        ret.message = 'poll Not found';
+        res.json(ret);
         db.close();
+        return ret;
       }
       else{
-      var ret_final = {}
-      ret_final.status = 0;
-      ret_final.membership = ret.membership;
-      ret_final.name = ret.name;
-      ret_final.email = ret.email;
-      res.json(ret_final);
-      db.close();
+        var ret_final = {}
+        ret_final.status = 0;
+        ret_final.membership = ret.membership;
+        ret_final.name = ret.name;
+        ret_final.email = ret.email;
+        res.json(ret_final);
+        db.close();
+        return ret_final;
       }
     });
   });
 })
 
 app.post('/createPoll', function (req, res) {
-  // console.log(JSON.stringify(req.body));
+
+    console.log('createPoll : ' +JSON.stringify(req.body));
   var token = req.body.idtoken;
   client.verifyIdToken(
     token,
@@ -696,13 +738,21 @@ app.post('/createPoll', function (req, res) {
               return ret;
             }
             else{
-              res.json(1);
+              var ret = {}
+              ret.status = 1;
+              ret.message = 'poll Not found';
+              res.json(ret);
               db.close();
+              return ret;
             }
           }
           else{
-            res.json(2)
+            var ret = {}
+            ret.status = 2;
+            ret.message = 'poll Not found';
+            res.json(ret);
             db.close();
+            return ret;
           }
         });
       });
@@ -710,6 +760,8 @@ app.post('/createPoll', function (req, res) {
 })
 
 app.post('/setState', function (req, res) {
+
+    console.log('setState : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
   var newstate = req.body.state;
@@ -751,19 +803,28 @@ app.post('/setState', function (req, res) {
               if (["admin"] == member_status[i]) isadmin=true;
             }
             if (isadmin){
-              console.log("NEWSTATE: ", newstate);
+              //console.log("NEWSTATE: ", newstate);
               db.collection('votacions').updateOne({_id: new ObjectID(ipollId)}, {$set: {state: newstate}});
-              res.json(0);
+              var ret = {}
+              ret.status = 0;
+              res.json(ret);
               db.close();
+              return ret;
             }
             else{
-              res.json(1);
+              var ret = {}
+              ret.status = 1;
+              res.json(ret);
               db.close();
+              return ret;
             }
           }
           else{
-            res.json(2)
+            var ret = {}
+            ret.status = 2;
+            res.json(ret);
             db.close();
+            return ret;
           }
         });
       });
@@ -772,6 +833,8 @@ app.post('/setState', function (req, res) {
 
 
 app.post('/updateMembership', function (req, res) {
+
+    console.log('updateMembership : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
   //console.log(token);
   client.verifyIdToken(
@@ -792,6 +855,7 @@ app.post('/updateMembership', function (req, res) {
           ret.status = 1;
           ret.message = err.toString();
           res.json(ret);
+          db.close();
           return ret;
         }
         var users = db.collection('users');
@@ -830,26 +894,32 @@ app.post('/updateMembership', function (req, res) {
                     ret.message = "";
                     res.json(ret);
                     db.close();
+                    return ret;
                 }
                 else
                 {
-
-                  res.json(null);
+                  var ret = {}
+                  ret.status = 1;
+                  ret.message = "urser not found";
+                  res.json(ret);
                   db.close();
+                  return ret;
                 }
               });
             }
             else{
               var ret = {}
               ret.status = 3;
-              ret.message = "Not an admin"
+              ret.message = "Not an admin";
               res.json(ret);
               db.close();
             }
           }
           else{
-
-            res.json(null)
+            var ret = {}
+            ret.status = 4;
+            ret.message = "User not found";
+            res.json(ret);
             db.close();
           }
         });
@@ -858,6 +928,7 @@ app.post('/updateMembership', function (req, res) {
   })
 
 app.post('/revokeMembership', function (req, res) {
+  console.log('revokeMembership : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
   client.verifyIdToken(
     token,
@@ -868,6 +939,7 @@ app.post('/revokeMembership', function (req, res) {
         ret.status = 2;
         ret.message = err.toString();
         res.json(ret);
+        db.close();
         return ret;
       }
       var payload = login.getPayload();
@@ -876,7 +948,6 @@ app.post('/revokeMembership', function (req, res) {
           var ret = {}
           ret.status = 1;
           ret.message = err.toString();
-
           res.json(ret);
           db.close();
           return ret;
@@ -887,15 +958,17 @@ app.post('/revokeMembership', function (req, res) {
             var ret = {}
             ret.status = 1;
             ret.message = err.toString();
-
             res.json(ret);
             db.close();
             return ret;
           }
           if(ret == null){
-
-            res.json(null);
+            var ret = {}
+            ret.status = 1;
+            ret.message = 'user not found in db';
+            res.json(ret);
             db.close();
+            return ret;
           }
           else{
             var isadmin = false;
@@ -911,15 +984,17 @@ app.post('/revokeMembership', function (req, res) {
                   var ret = {}
                   ret.status = 1;
                   ret.message = err.toString();
-
                   res.json(ret);
                   db.close();
                   return ret;
                 }
                 if(ret == null){
-
-                  res.json(null);
+                  var ret = {}
+                  ret.status = 1;
+                  ret.message ='email not found';
+                  res.json(ret);
                   db.close();
+                  return ret;
                 }
                 else{
                   var found = false;
@@ -938,8 +1013,10 @@ app.post('/revokeMembership', function (req, res) {
                     ret.status = 0;
                     res.json(ret);
                     db.close();
+                    return ret;
                   }
-                  else{
+                  else
+                  {
                     var ret = {}
                     ret.status = 4;
                     ret.message = "Didn't find newMembership"
@@ -964,8 +1041,8 @@ app.post('/revokeMembership', function (req, res) {
 })
 
 app.post('/tokensignin', function (req, res) {
+  console.log('tokensignin : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
-  console.log(token);
   client.verifyIdToken(
     token,
     CLIENT_ID,
@@ -984,6 +1061,7 @@ app.post('/tokensignin', function (req, res) {
           ret.status = 1;
           ret.message = err.toString()  ;
           res.json(ret);
+          db.close();
           return ret;
         }
         var users = db.collection('users');
@@ -998,7 +1076,12 @@ app.post('/tokensignin', function (req, res) {
           user['name'] = payload['name'];
           user['email'] = payload['email'];
           users.insertMany([user], function(err, result) {});
+          var ret = {}
+          ret.status = 0;
+          ret.message = err.toString()  ;
+          res.json(ret);
           db.close();
+          return ret;
           }
         )
 
@@ -1007,6 +1090,7 @@ app.post('/tokensignin', function (req, res) {
 })
 
 app.post('/getUsers', function (req, res) {
+  console.log('getUsers : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
   client.verifyIdToken(
     token,
@@ -1026,6 +1110,7 @@ app.post('/getUsers', function (req, res) {
           ret.status = 1;
           ret.message = err.toString();
           res.json(ret);
+          db.close();
           return ret;
         }
         var users = db.collection('users');
@@ -1035,6 +1120,7 @@ app.post('/getUsers', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
+            db.close();
             return ret;
           }
           if(ret != null){
@@ -1050,8 +1136,23 @@ app.post('/getUsers', function (req, res) {
                 aux.users = docs;
                 res.json(aux);
                 db.close();
+                return aux;
               })
+            } else {
+              var aux = {};
+              aux.status = 1;
+              aux.message = 'user not admin';
+              res.json(aux);
+              db.close();
+              return aux;
             }
+          } else {
+            var aux = {};
+            aux.status = 1;
+            aux.message = 'user not found';
+            res.json(aux);
+            db.close();
+            return aux;
           }
         })
       })
