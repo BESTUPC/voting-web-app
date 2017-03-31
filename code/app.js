@@ -33,12 +33,16 @@ var url = 'mongodb://localhost:27017/votacions';
 // Use connect method to connect to the server and creates unique indexes
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
-  db.collection('users').createIndex( { "userId" : 1}, { unique: true} );
-  db.collection('votes').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
-  db.collection('askWithdrawal').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
-  db.collection('askPrivate').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
-  console.log("Connected successfully to server");
-  db.close();
+  try {
+    db.collection('users').createIndex( { "userId" : 1}, { unique: true} );
+    db.collection('votes').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
+    db.collection('askWithdrawal').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
+    db.collection('askPrivate').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
+    console.log("Connected successfully to server");
+    db.close();
+  } catch (err) {
+    console.log("Could't create index");
+  }
 });
 
 /*
@@ -81,7 +85,11 @@ var app = express();
 
 //making files in public served at /
 app.use(express.static('public'))
-
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -143,7 +151,11 @@ app.post('/getPolls', function (req, res) {
           if(document == null)
           {
             console.log('document not found on DB');
-            return 1;
+              var ret = {}
+              ret.status = 1;
+              ret.message = err.toString();
+              res.json(ret);
+              return ret;
           }
           console.log('document:', document);
           var memberships = document['membership'];
@@ -156,10 +168,11 @@ app.post('/getPolls', function (req, res) {
               res.json(ret);
               return ret;
             }
-                          var ret = {}
+            var ret = {}
             ret.status = 0;
-            ret.polls=docs
+            ret.polls=docs;
             res.json(ret);
+            db.close();
           });
         });
 
@@ -250,7 +263,6 @@ app.post('/sendVote', function (req, res) {
             var vote = {};
             vote['userId'] =
             db.collection('votes').update({userId : payload['sub'], pollId : ipollId}, { $set: {option: ioption}}, {upsert: true} );
-            db.close();
             var ret = {};
             ret['status'] = 0;
             res.json(ret);
@@ -262,6 +274,7 @@ app.post('/sendVote', function (req, res) {
             res.json(ret);
 
           }
+          db.close();
         })
       })
   })
@@ -284,6 +297,7 @@ function cens(targetGroup) {
     }
       db.collection('users').count({ $where: function() { return inFunc(targetGroup,this.membership)} }, null,function(err, count) {
       return count;
+      db.close();
     });
   })
 }
@@ -434,6 +448,7 @@ app.post('/getResults', function (req, res) {
               ret.status = 1;
               ret.message = err.toString();
               res.json(ret);
+              db.close();
               return ret;
             }
             else if(retuser == null){
@@ -441,6 +456,9 @@ app.post('/getResults', function (req, res) {
               ret.status = 1;
               ret.message = "userId not found";
               res.json(ret);
+
+              db.close();
+              return ret;
             }
             else{
               // console.log("NAMENAME:  ",retuser.name);
@@ -601,6 +619,7 @@ app.post('/getUserInfo', function (req, res) {
         ret.status = 1;
         ret.message = err.toString();
         res.json(ret);
+        db.close();
         return ret;
       }
       else if (ret == null){
@@ -641,6 +660,7 @@ app.post('/createPoll', function (req, res) {
           ret.status = 1;
           ret.message = err.toString();
           res.json(ret);
+          db.close();
           return ret;
         }
         var users = db.collection('users');
@@ -650,6 +670,7 @@ app.post('/createPoll', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
+            db.close();
             return ret;
           }
           if(ret != null){
@@ -671,6 +692,7 @@ app.post('/createPoll', function (req, res) {
               var ret = {};
               ret.status = 0;
               res.json(ret);
+              db.close();
               return ret;
             }
             else{
@@ -709,6 +731,7 @@ app.post('/setState', function (req, res) {
           ret.status = 1;
           ret.message = err.toString();
           res.json(ret);
+          db.close();
           return ret;
         }
         var users = db.collection('users');
@@ -718,6 +741,7 @@ app.post('/setState', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
+            db.close();
             return ret;
           }
           if(ret != null){
@@ -777,6 +801,7 @@ app.post('/updateMembership', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
+            db.close();
             return ret;
           }
           if(ret != null){
@@ -795,6 +820,7 @@ app.post('/updateMembership', function (req, res) {
                   ret.status = 1;
                   ret.message = err.toString();
                   res.json(ret);
+                  db.close();
                   return ret;
                 }
                 if(ret!= null){
@@ -842,7 +868,6 @@ app.post('/revokeMembership', function (req, res) {
         ret.status = 2;
         ret.message = err.toString();
         res.json(ret);
-        db.close();
         return ret;
       }
       var payload = login.getPayload();
