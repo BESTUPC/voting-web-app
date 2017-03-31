@@ -12,9 +12,8 @@ function error( title, message, f ) {
     $('#modal-text').text(message);
     $('#header-box-errorModal').css('background-color','rgb(241,103,103)');
     $('#footer-box-errorModal').css('background-color','rgb(241,103,103)');
-    $('#modalButton').click(f);
-    $('#modalClose').click(f);
-    $('#errorModal').modal('show');
+
+    $('#errorModal').modal('show').on('hidden.bs.modal',f);
 }
 function success( title, message , f) {
     if (f == undefined)f=function(){};
@@ -22,9 +21,8 @@ function success( title, message , f) {
     $('#modal-text').text(message);
     $('#header-box-errorModal').css('background-color','rgb(190,215,70)');
     $('#footer-box-errorModal').css('background-color','rgb(190,215,70)');
-    $('#modalButton').click(f);
-    $('#modalClose').click(f);
-    $('#errorModal').modal('show');
+
+    $('#errorModal').modal('show').on('hidden.bs.modal',f);
 }
 function goHome(){
     window.location = DOMAIN + '/index.html';

@@ -99,7 +99,7 @@
 
         if (getCookie("idtoken") == ""){
             goLogin();
-        }F
+        }
 
         initNavBar(JSON.parse(getCookie("profile")));
         id_token = getCookie("idtoken");
@@ -109,7 +109,7 @@
         xhr.onload = function() {
             var result = JSON.parse(xhr.responseText);
             if (result.status!='0'){
-                if (result.message.indexOf("token used too late")>=0)result.message='Session expired';
+                if (result.message.indexOf("Token used too late")>=0)result.message='Session expired';
                 error('Error',result.message,goLogin);
                 return 0;
             }
