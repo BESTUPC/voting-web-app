@@ -137,13 +137,15 @@
             if (state=='open')$('#selectState').val('Open');
             if (state=='closed_private')$('#selectState').val('Closed hidden');
             if (state=='closed')$('#selectState').val('Closed');
-//            $('#text').append(xhr.responseText);
+            window.results=results;
+
+            var labels = results.options.pollOptions;
             var data = {
                 // A labels array that can contain any sort of values
-                labels: results.options.pollOptions,
+                labels: labels,
                 // Our series array that contains series objects or in this case series data arrays
                 series: [
-                    Object.values(results.options.numberVotes)
+                    Object.values(labels.map(function(a){return results.options.numberVotes[a]}))
                 ]
             };
             var options = {
