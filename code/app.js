@@ -415,6 +415,82 @@ function shuffle(a) {
 }
 
 
+app.post('/egetResults', function (req, res) {
+  console.log('egetResults: ' + JSON.stringify(req.body));
+  var ipollId = req.body.pollId;
+  //var userId1 = req.body.userId;
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      var ret = {}
+      ret.status = 1;
+      ret.message = err.toString();
+      res.json(ret);
+      db.close();
+      return ret;
+    }
+    db.collection('votacions').findOne({_id: ObjectID(ipollId)}, function(err, ret){
+      if (err) {
+        var ret = {}
+        ret.status = 1;
+        ret.message = err.toString();
+        res.json(ret);
+        db.close();
+        return ret;
+    }
+    if(ret == null){
+      var ret = {}
+      ret.status = 1;
+      ret.message = 'poll not found';
+      res.json(ret);
+      db.close();
+      return ret;
+    }
+    if (ret.state == "open")
+    {
+      var ret = {}
+      ret.status = 1;
+      ret.message = 'poll already open';
+      res.json(ret);
+      db.close();
+      return ret;
+    }
+    var isPrivate = ret.isPrivate;
+    var voters = {};
+    var options = JSON.PARSE(ret.options);
+    for (var keyOption in options){
+      voters[options[keyOption]] = [];
+    }
+    db.collection('votes').find( { pollId: ipollId }  ).toArray(function(err, docs) {
+      for (var docKey in docs){
+        var doc = docs[docKey];
+        voters[doc.pollOption].push(doc.userId);
+      }
+      var ret = {};
+      ret.status = 0;
+      ret.result = {};
+      for (var option in voters){
+        ret.result[option]= voters[option].length;
+      }
+      /////////////
+      // Translate id to names
+      ////////////
+      if (isPrivate)
+      {
+        ret.voters = [];
+        for (var option in voters){
+          ret.voters.push(voters[option]);
+        }
+      } else {
+        ret.voters = voters;
+      }
+      db.close();
+      res.json(ret);
+      return ret;
+    }
+
+
+});
+
 app.post('/getResults', function (req, res) {
   console.log('getResults: ' + JSON.stringify(req.body));
   var ipollId = req.body.pollId;
