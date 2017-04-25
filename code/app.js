@@ -429,7 +429,7 @@ app.post('/egetResults', function (req, res) {
       db.close();
       return ret;
     }
-    db.collection('votacions').findOne({_id: ObjectID(ipollId)}, function(err, ret){
+    db.collection('votacions').findOne({_id: ObjectID(ipollId)}, function(err, doc){
       console.log(ret);
       if (err) {
         var ret = {}
@@ -439,7 +439,7 @@ app.post('/egetResults', function (req, res) {
         db.close();
         return ret;
       }
-      if(ret == null){
+      if(doc == null){
         var ret = {}
         ret.status = 1;
         ret.message = 'poll not found';
@@ -447,7 +447,7 @@ app.post('/egetResults', function (req, res) {
         db.close();
         return ret;
       }
-      if (ret.state == "open"){
+      if (doc.state == "open"){
         var ret = {}
         ret.status = 1;
         ret.message = 'poll open';
@@ -456,9 +456,10 @@ app.post('/egetResults', function (req, res) {
         return ret;
       }
     //comprobar q sigui admin
-      var isPrivate = ret.isPrivate;
+      var isPrivate = doc.isPrivate;
       var voters = {};
-      var options = ret.pollOptions;
+      var options = doc.pollOptions;
+      var name = doc.pollName;
 
       for (var keyOption in options){
         voters[options[keyOption]] = [];
@@ -491,6 +492,7 @@ app.post('/egetResults', function (req, res) {
           }
           var ret = {};
           ret.isPrivate = isPrivate;
+          ret.name = name;
           ret.status = 0;
           ret.result = {};
           for (var option in voters){
