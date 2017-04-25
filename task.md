@@ -15,6 +15,11 @@
  Creació de votacions | - | WT
  Gestionar notificacion | - | WT
  Crear pàgina estadístiques | - | WT
+Fer que per defecte hi hagi una DL
+Permetre editar votacions
+Mostrar si las polls son privades o no
+
+
 
  ## Back-End
 

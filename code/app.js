@@ -28,7 +28,8 @@ function decodificate(userId, options, pollId, encrypted) {
 }
 //Connection to mongodb
 // Connection URL
-var url = 'mongodb://bestbarcelona.org:27017/votacions';
+//var url = 'mongodb://bestbarcelona.org:27017/votacions';
+var url = 'mongodb://localhost:27017/votacions';
 
 // Use connect method to connect to the server and creates unique indexes
 MongoClient.connect(url, function(err, db) {
@@ -449,14 +450,15 @@ app.post('/egetResults', function (req, res) {
       if (ret.state == "open"){
         var ret = {}
         ret.status = 1;
-        ret.message = 'poll already open';
+        ret.message = 'poll open';
         res.json(ret);
         db.close();
         return ret;
       }
+    //comprobar q sigui admin
       var isPrivate = ret.isPrivate;
       var voters = {};
-      var options = ret.options;
+      var options = ret.pollOptions;
 
       for (var keyOption in options){
         voters[options[keyOption]] = [];
@@ -485,18 +487,20 @@ app.post('/egetResults', function (req, res) {
           }
           for (var docKey in result){
             var doc = result[docKey];
-            voters[doc.pollOption].push(doc.userInfo.name);
+            voters[doc.option].push(doc.userInfo[0].name);
           }
           var ret = {};
+          ret.isPrivate = isPrivate;
           ret.status = 0;
           ret.result = {};
           for (var option in voters){
             ret.result[option]= voters[option].length;
           }
-          if (isPrivate){
+          if (isPrivate == "true"){
             ret.voters = [];
             for (var option in voters){
-              ret.voters.push(voters[option]);
+              for (var key in voters[option])
+               ret.voters.push(voters[option][key]);
             }
           }
           else {
