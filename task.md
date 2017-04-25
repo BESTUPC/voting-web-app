@@ -19,6 +19,7 @@ Fer que per defecte hi hagi una DL
 Permetre editar votacions
 Mostrar si las polls son privades o no
 
+Prova
 
 
  ## Back-End
