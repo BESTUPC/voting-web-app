@@ -119,7 +119,7 @@
         profile = getCookie("profile");
         initNavBar(JSON.parse(profile));
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', URL + '/getResults');
+        xhr.open('POST', URL + '/egetResults');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             var results = JSON.parse(xhr.responseText);
@@ -132,20 +132,19 @@
                 return 0;
             }
 
-            $('#pollName').text(results.options.name);
-            var state = results.options.state;
+            $('#pollName').text(results.name);
+            var state = results.state;
             if (state=='open')$('#selectState').val('Open');
             if (state=='closed_private')$('#selectState').val('Closed hidden');
             if (state=='closed')$('#selectState').val('Closed');
             window.results=results;
 
-            var labels = results.options.pollOptions;
             var data = {
                 // A labels array that can contain any sort of values
-                labels: labels,
+                labels: Object.keys(results.result),
                 // Our series array that contains series objects or in this case series data arrays
                 series: [
-                    Object.values(labels.map(function(a){return results.options.numberVotes[a]}))
+                    Object.values(results.result)
                 ]
             };
             var options = {
@@ -219,7 +218,7 @@
                 });
 
             });
-            if(results.options.state=='closed')$('#text').text('Voters ' + JSON.stringify(results.options.voters));
+            $('#text').text('Voters ' + JSON.stringify(results.voters));
         };
         profile=JSON.parse(profile);
         xhr.send('pollId=' + pollId + '&userId=' + profile.id);
