@@ -460,7 +460,7 @@ app.post('/egetResults', function (req, res) {
       var voters = {};
       var options = doc.pollOptions;
       var name = doc.pollName;
-
+      var state = doc.state;
       for (var keyOption in options){
         voters[options[keyOption]] = [];
       }
@@ -493,6 +493,7 @@ app.post('/egetResults', function (req, res) {
           var ret = {};
           ret.isPrivate = isPrivate;
           ret.name = name;
+          ret.state = state;
           ret.status = 0;
           ret.result = {};
           for (var option in voters){
