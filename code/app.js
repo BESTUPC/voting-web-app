@@ -416,6 +416,7 @@ function shuffle(a) {
 }
 
 
+
 app.post('/egetResults', function (req, res) {
   console.log('egetResults: ' + JSON.stringify(req.body));
   var ipollId = req.body.pollId;
@@ -455,29 +456,9 @@ app.post('/egetResults', function (req, res) {
         db.close();
         return ret;
       }
-    //comprobar q sigui admin
-      var isPrivate = doc.isPrivate;
-      var voters = {};
-      var options = doc.pollOptions;
-      var name = doc.pollName;
-      var state = doc.state;
-      for (var keyOption in options){
-        voters[options[keyOption]] = [];
-      }
-      db.collection('votes').aggregate(
-        [
-        { $match : { pollId: ipollId }
-        },
-        { $lookup:
-            {
-              from: "users",
-              localField: "userId",
-              foreignField: "userId",
-              as: "userInfo"
-            }
-        }
-      ],
-        function(err, result){
+      if (doc.state == "closed_private"){
+
+        MongoClient.connect(url, function(err, db) {
           if (err) {
             var ret = {}
             ret.status = 1;
@@ -486,35 +467,159 @@ app.post('/egetResults', function (req, res) {
             db.close();
             return ret;
           }
-          for (var docKey in result){
-            var doc = result[docKey];
-            voters[doc.option].push(doc.userInfo[0].name);
-          }
-          var ret = {};
-          ret.isPrivate = isPrivate;
-          ret.name = name;
-          ret.state = state;
-          ret.status = 0;
-          ret.result = {};
-          for (var option in voters){
-            ret.result[option]= voters[option].length;
-          }
-          if (isPrivate == "true"){
-            ret.voters = [];
-            for (var option in voters){
-              for (var key in voters[option])
-               ret.voters.push(voters[option][key]);
+          var users = db.collection('users');
+          users.findOne({userId: req.body.userId}, function(err, ret) {
+            if (err) {
+              var ret = {}
+              ret.status = 1;
+              ret.message = err.toString();
+              res.json(ret);
+              db.close();
+              return ret;
             }
-          }
-          else {
-            ret.voters = voters;
-          }
-          db.close();
-          res.json(ret);
-          return ret;
+            if (req == null) {
+              var ret = {}
+              ret.status = 1;
+              ret.message = "user id not found";
+              res.json(ret);
+              db.close();
+              return ret;
+            }
+            var isadmin = false;
+            var memberships = ret.membership
+            for (var mem in memberships){
+              if (memberships[mem] == "admin"){
+                isadmin = true;
+              }
+            }
+            if (isadmin == false){
+              var ret = {}
+              ret.status = 3;
+              ret.message = "This poll is closed but the results are only available for admins";
+              res.json(ret);
+              return ret;
+            }
+            var isPrivate = doc.isPrivate;
+            var voters = {};
+            var options = doc.pollOptions;
+            var name = doc.pollName;
+            var state = doc.state;
+            for (var keyOption in options){
+              voters[options[keyOption]] = [];
+            }
+            db.collection('votes').aggregate(
+              [
+              { $match : { pollId: ipollId }
+              },
+              { $lookup:
+                  {
+                    from: "users",
+                    localField: "userId",
+                    foreignField: "userId",
+                    as: "userInfo"
+                  }
+              }
+            ],
+              function(err, result){
+                if (err) {
+                  var ret = {}
+                  ret.status = 1;
+                  ret.message = err.toString();
+                  res.json(ret);
+                  db.close();
+                  return ret;
+                }
+                for (var docKey in result){
+                  var doc = result[docKey];
+                  voters[doc.option].push(doc.userInfo[0].name);
+                }
+                var ret = {};
+                ret.isPrivate = isPrivate;
+                ret.name = name;
+                ret.state = state;
+                ret.status = 0;
+                ret.result = {};
+                for (var option in voters){
+                  ret.result[option]= voters[option].length;
+                }
+                if (isPrivate == "true"){
+                  ret.voters = [];
+                  for (var option in voters){
+                    for (var key in voters[option])
+                     ret.voters.push(voters[option][key]);
+                  }
+                }
+                else {
+                  ret.voters = voters;
+                }
+                db.close();
+                res.json(ret);
+                return ret;
+              });
+          })
+        })
 
-      });
+      } else
+      {
+        var isPrivate = doc.isPrivate;
+        var voters = {};
+        var options = doc.pollOptions;
+        var name = doc.pollName;
+        var state = doc.state;
+        for (var keyOption in options){
+          voters[options[keyOption]] = [];
+        }
+        db.collection('votes').aggregate(
+          [
+          { $match : { pollId: ipollId }
+          },
+          { $lookup:
+              {
+                from: "users",
+                localField: "userId",
+                foreignField: "userId",
+                as: "userInfo"
+              }
+          }
+        ],
+          function(err, result){
+            if (err) {
+              var ret = {}
+              ret.status = 1;
+              ret.message = err.toString();
+              res.json(ret);
+              db.close();
+              return ret;
+            }
+            for (var docKey in result){
+              var doc = result[docKey];
+              voters[doc.option].push(doc.userInfo[0].name);
+            }
+            var ret = {};
+            ret.isPrivate = isPrivate;
+            ret.name = name;
+            ret.state = state;
+            ret.status = 0;
+            ret.result = {};
+            for (var option in voters){
+              ret.result[option]= voters[option].length;
+            }
+            if (isPrivate == "true"){
+              ret.voters = [];
+              for (var option in voters){
+                for (var key in voters[option])
+                 ret.voters.push(voters[option][key]);
+              }
+            }
+            else {
+              ret.voters = voters;
+            }
+            db.close();
+            res.json(ret);
+            return ret;
 
+        });
+      }
     });
   });
 });
