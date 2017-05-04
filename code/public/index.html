@@ -113,6 +113,10 @@
                     goLogin();
                     return 0;
                 }
+                if (result.message.indexOf("No pem found for envelope")>=0){
+                    goLogin();
+                    return 0;
+                }
                 error('Error',result.message,goLogin);
                 return 0;
             }
