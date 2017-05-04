@@ -109,7 +109,6 @@
         xhr.onload = function() {
 
             var result = JSON.parse(xhr.responseText);
-            alert(result);
             if (result.status!='0'){
                 if (result.message.indexOf("Token used too late")>=0){
                     goLogin();
