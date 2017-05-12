@@ -57,8 +57,8 @@ function initNavBar(profile){
         	}
         }
         if(isAdmin){
-        	$('#sidebar').css('display','block');
-        	$('#navbar-toggle').css('display','block');
+        	$('#sidebar').show();
+        	$('#navbar-toggle').show();
         	$('#page-wrapper').css('margin','0 0 0 250 px');
     	}
     };
