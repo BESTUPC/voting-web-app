@@ -59,7 +59,7 @@ function initNavBar(profile){
         if(isAdmin){
         	$('#sidebar').show();
         	$('#navbar-toggle').show();
-        	$('#page-wrapper').css('margin','0 0 0 250 px');
+        	$('#page-wrapper').css('margin-left','250px');
     	}
     };
     xhrNav.send('userId='+profile.id);
