@@ -56,10 +56,10 @@ function initNavBar(profile){
         		if(role=='admin')isAdmin=1;
         	}
         }
-        if(!isAdmin){
-        	$('#sidebar').remove();
-        	$('#navbar-toggle').remove();
-        	$('#page-wrapper').css('margin','0');
+        if(isAdmin){
+        	$('#sidebar').css('display','block');
+        	$('#navbar-toggle').css('display','block');
+        	$('#page-wrapper').css('margin','0 0 0 250 px');
     	}
     };
     xhrNav.send('userId='+profile.id);
