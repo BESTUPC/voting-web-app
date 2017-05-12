@@ -164,6 +164,6 @@ function initNavBar(profile){
     });
 
     function activateCheats() {
-        alert("cheats activated");
+        window.location='http:/www.youtube.com/watch?v=dQw4w9WgXcQ';
     }
 }
