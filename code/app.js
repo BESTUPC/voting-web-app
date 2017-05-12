@@ -415,8 +415,6 @@ function shuffle(a) {
     // console.log("EVERYDAY I'M SHUFFLIN'");
 }
 
-
-
 app.post('/egetResults', function (req, res) {
   console.log('egetResults: ' + JSON.stringify(req.body));
   var ipollId = req.body.pollId;
@@ -1040,7 +1038,6 @@ app.post('/setState', function (req, res) {
     });
 })
 
-
 app.post('/updateMembership', function (req, res) {
 
     console.log('updateMembership : ' + JSON.stringify(req.body));
@@ -1367,6 +1364,73 @@ app.post('/getUsers', function (req, res) {
       })
 })
 })
+
+app.post('/removePoll', function (req, res) {
+  console.log('removePoll : ' + JSON.stringify(req.body));
+  var token = req.body.idtoken;
+  var pollId = req.body.pollId;
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 2;
+        ret.message = err.toString();
+        res.json(ret);
+        db.close();
+        return ret;
+      }
+      var payload = login.getPayload();
+      MongoClient.connect(url, function(err, db) {
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err.toString();
+          res.json(ret);
+          db.close();
+          return ret;
+        }
+        var users = db.collection('users');
+        users.findOne({userId: payload['sub']}, function(err, ret) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err.toString();
+            res.json(ret);
+            db.close();
+            return ret;
+          }
+          if(ret == null){
+            var ret = {}
+            ret.status = 1;
+            ret.message = 'user not found in db';
+            res.json(ret);
+            db.close();
+            return ret;
+          }
+          else{
+            var isadmin = false;
+            var member_status = ret.membership;
+            for(var i = 0; i < member_status.length; ++i){
+              if (["admin"] == member_status[i]) isadmin=true;
+            }
+            if (isadmin){
+              db.collection('votacions').remove( { "pollId": pollId}, { justOne: true });
+            }
+            else{
+              var ret = {}
+              ret.status = 3;
+              ret.message = "User not admin"
+              res.json(ret);
+              db.close();
+            }
+          }
+        });
+      });
+    });
+})
+
 
 //API calls end here
 
