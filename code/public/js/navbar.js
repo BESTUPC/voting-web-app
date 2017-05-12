@@ -110,5 +110,60 @@ function initNavBar(profile){
             };
             xhrState.send('idtoken='+id_token+'&pollId='+pollId+'&state='+state);
         });
+        $('#side-menu').append('<li><div style="padding:10px 5px 10px 15px; display:inline-block" id="remove-poll" class="text-primary"><i class="fa fa-trash fa-fw"></i>Remove poll</li>')
+        $('#remove-poll').click(function(){
+            var xhrRemove = new XMLHttpRequest();
+            xhrRemove.open('POST', URL + '/removePoll');
+            xhrRemove.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhrRemove.onload = function() {
+                var response=JSON.parse(xhrRemove.responseText);
+                if (response.status!='0'){
+                    error('Error',response.message,goHome());
+                    return 0;
+                }
+                else success('Success','State changed successfully',goHome());
+            };
+            xhrRemove.send('idtoken='+id_token+'&pollId='+pollId);
+        });
+    }
+
+    // a key map of allowed keys
+    var allowedKeys = {
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down',
+        65: 'a',
+        66: 'b'
+    };
+
+// the 'official' Konami Code sequence
+    var konamiCode = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
+
+// a variable to remember the 'position' the user has reached so far.
+    var konamiCodePosition = 0;
+
+// add keydown event listener
+    document.addEventListener('keydown', function(e) {
+        // get the value of the key code from the key map
+        var key = allowedKeys[e.keyCode];
+        // get the value of the required key from the konami code
+        var requiredKey = konamiCode[konamiCodePosition];
+
+        // compare the key with the required key
+        if (key == requiredKey) {
+
+            // move to the next key in the konami code sequence
+            konamiCodePosition++;
+
+            // if the last key is reached, activate cheats
+            if (konamiCodePosition == konamiCode.length)
+                activateCheats();
+        } else
+            konamiCodePosition = 0;
+    });
+
+    function activateCheats() {
+        window.location.href='http://www.youtube.com/watch?v=dQw4w9WgXcQ';
     }
 }
