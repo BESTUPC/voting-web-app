@@ -121,10 +121,10 @@ function initNavBar(profile){
                     error('Error',response.message,goHome());
                     return 0;
                 }
-                else success('Success','State changed successfully',goHome());
+                else success('Success','Poll removed successfully',goHome());
             };
             xhrRemove.send('idtoken='+id_token+'&pollId='+pollId);
-        });
+        }).css('cursor','pointer');
     }
 
     // a key map of allowed keys
