@@ -139,9 +139,14 @@
                 var pollOptions=poll.pollOptions;
                 //poll.pollOption='Bernat' //DEBUG
                 var selectedOption=pollOptions.indexOf(poll.pollOption); //find index of pollOption
-                //alert(JSON.stringify(poll))
+                alert(JSON.stringify(poll))
                 //$('#text').append(selectedOption) //DEBUG
                 var pollName=poll.pollName;
+                if (poll.isPrivate == "true") {
+                  pollName += "    <i class='fa fa-lock'></i>"
+                } else {
+                  pollName += "    <i class='fa fa-unlock'></i>"
+                }
                 $('#pollName').append(pollName); //Add pollName to html
                 $('title').text(pollName);
                 for (i in pollOptions){    //For all poll options
