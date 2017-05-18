@@ -62,6 +62,10 @@
             <!--</canvas>-->
         </div>
 
+        <h3>Voters:</h3>
+        <div id="voters">
+        </div>
+
         <p id="text"> </p>
     </div>
     <!-- /#page-wrapper -->
@@ -119,7 +123,7 @@
         profile = getCookie("profile");
         initNavBar(JSON.parse(profile));
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', URL + '/getResults');
+        xhr.open('POST', URL + '/egetResults');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             var results = JSON.parse(xhr.responseText);
@@ -132,18 +136,19 @@
                 return 0;
             }
 
-            $('#pollName').text(results.options.name);
-            var state = results.options.state;
+            $('#pollName').text(results.name);
+            var state = results.state;
             if (state=='open')$('#selectState').val('Open');
             if (state=='closed_private')$('#selectState').val('Closed hidden');
             if (state=='closed')$('#selectState').val('Closed');
-//            $('#text').append(xhr.responseText);
+            window.results=results;
+
             var data = {
                 // A labels array that can contain any sort of values
-                labels: results.options.pollOptions,
+                labels: Object.keys(results.result),
                 // Our series array that contains series objects or in this case series data arrays
                 series: [
-                    Object.values(results.options.numberVotes)
+                    Object.values(results.result)
                 ]
             };
             var options = {
@@ -215,17 +220,41 @@
                         chart.update();
                     }
                 });
-
             });
-            if(results.options.state=='closed')$('#text').text('Voters ' + JSON.stringify(results.options.voters));
+
+            var voters=results.voters;
+            function addVoters(voters,element){
+                for (i in voters){
+                    voter=voters[i];
+                    if(i!=0)element.append('<br>');
+                    element.append(voter);
+                }
+            }
+            if(results.isPrivate=="true"){
+                addVoters(voters,$('#voters'));
+            }
+            else{
+                var pollOptions=Object.keys(voters);
+                var optionsVoters=Object.values(voters);
+
+                window.pollOptions=pollOptions;
+                window.optionsVoters=optionsVoters;
+                for (i in pollOptions){
+                    var pollOption=pollOptions[i];
+                    var optionVoters=optionsVoters[i];
+                    var optionVotersDiv = $('<div style="margin-left: 15px"></div>');
+                    var pollOptionDiv = $('<div style="margin-left: 15px"></div>')
+                        .append('<h4>'+pollOption+':</h4>')
+                        .append(optionVotersDiv);
+                    addVoters(optionVoters,optionVotersDiv);
+                    $('#voters').append(pollOptionDiv);
+                }
+            }
         };
-        profile=JSON.parse(profile);
+        var profile=JSON.parse(profile);
         xhr.send('pollId=' + pollId + '&userId=' + profile.id);
     });
-
-
 </script>
-
 
 </body>
 

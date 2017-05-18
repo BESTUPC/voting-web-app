@@ -47,47 +47,64 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
       <script src="https://apis.google.com/js/api:client.js"></script>
       <script>
+
+      function attachSignin(element) {
+          console.log(element.id);
+          auth2.attachClickHandler(element, {},
+              onSignIn, function(error) {
+                  //alert(JSON.stringify(error, undefined, 2));
+              });
+      }
+
       var googleUser = {};
       var startApp = function() {
         gapi.load('auth2', function(){
           // Retrieve the singleton for the GoogleAuth library and set up the client.
           auth2 = gapi.auth2.init({
             client_id: '260328757466-cmmgec2o5sfm626bl33o5h1dekrmvfir.apps.googleusercontent.com',
-            cookiepolicy: 'single_host_origin',
+            cookiepolicy: 'single_host_origin'
             // Request scopes in addition to 'profile' and 'email'
             //scope: 'additional_scope'
           });
           attachSignin(document.getElementById('customBtn'));
+          if (getCookie("idtoken") != "") {
+              //alert("Token found"+getCookie("idtoken"));
+              setTimeout(function () {
+                  $('#customBtn').click();
+              }, 1000);
+          }
         });
       };
-
-      function attachSignin(element) {
-        console.log(element.id);
-        auth2.attachClickHandler(element, {},
-            onSignIn, function(error) {
-              alert(JSON.stringify(error, undefined, 2));
-            });
-      }
       </script>
 
 </head>
+<style>
+img {
+  border-radius: 5%;
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+          transition:         transform .8s ease-in-out;
+}
+img:hover {
+  -webkit-transform: rotate(-360deg);
+          transform: rotate(-360deg);
+}
+</style>
 
-<body>
+<body style="background-color:white;">
 
     <div id="wrapper">
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-4"></div>
-          <div class="col-sm-4" ><img src="./images/best-barcelona-logo2.png" class="animated fadeInDown" width="100%"></div>
+          <div class="col-sm-4" ><img src="./images/BEST_logomark.png" width="100%"></div>
           <div class="col-sm-4"></div>
         </div>
         <div class="row">
           <div class="col-sm-4"></div>
           <div class="col-sm-4" >
 
-            <button type="button" id ="customBtn" name="test-button" class="customGPlusSignIn btn btn-primary btn-success btn-lg btn-block animated fadeInUp"> LogIn with Google </button>
+            <button type="button" id ="customBtn" name="test-button" class="customGPlusSignIn btn btn-primary btn-success btn-lg btn-block"> LogIn with Google </button>
 
-            <script>startApp();</script>
             <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
           </div>
           <div class="col-sm-4"></div>
@@ -109,6 +126,8 @@
     <script src="js/signin.js">  </script>
 
     <script>
+
+        startApp();
         $(':root').keydown(function(e){
             if(e.keyCode==13){ //enter
                 $('#customBtn').click();

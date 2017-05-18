@@ -47,16 +47,27 @@ sends the vote
 
 ###### /egetResults(pollId)
 ```
-[
-  {
-    "_id": "Bernat",
-    "total": 1
+{
+  "isPrivate": "true",
+  "status": 0,
+  "result": {
+    "Blanc": 1,
+    "Abstenció": 0
   },
-  {
-    "_id": "Iñigo",
-    "total": 1
+  #if private
+  "voters": [
+    "Esteve Tarragó"
+  ]
+  #else
+  "voters": {
+    "Blanc": [
+      "Esteve Tarragó"
+    ],
+    "Abstenció": []
   }
-]
+}
+
+        
 ```
 
 ###### /askWithdrawal(idtoken, pollId)
