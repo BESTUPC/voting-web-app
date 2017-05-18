@@ -1416,11 +1416,14 @@ app.post('/removePoll', function (req, res) {
               if (["admin"] == member_status[i]) isadmin=true;
             }
             if (isadmin){
-              db.collection('votacions').remove( { "pollId": pollId}, { justOne: true },function(){
-                  var ret = {}
-                  ret.status = 0;
-                  res.json(ret);
-                  db.close();
+              db.collection('votacions').deleteOne( { _id: ObjectID(pollId)}, { justOne: true },null, function(error, result) {
+                console.log("error" + error);
+                console.log("result" + result);
+                var ret = {}
+                ret.status = 0;
+                ret.message = "Poll deleted successfully";
+                res.json(ret);
+                db.close();
                   return ret;
               });
             }
