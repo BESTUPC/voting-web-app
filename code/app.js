@@ -1416,7 +1416,13 @@ app.post('/removePoll', function (req, res) {
               if (["admin"] == member_status[i]) isadmin=true;
             }
             if (isadmin){
-              db.collection('votacions').remove( { "pollId": pollId}, { justOne: true });
+              db.collection('votacions').remove( { "pollId": pollId}, { justOne: true },function(){
+                  var ret = {}
+                  ret.status = 0;
+                  res.json(ret);
+                  db.close();
+                  return ret;
+              });
             }
             else{
               var ret = {}
