@@ -1416,7 +1416,7 @@ app.post('/removePoll', function (req, res) {
               if (["admin"] == member_status[i]) isadmin=true;
             }
             if (isadmin){
-              db.collection('votacions').deleteOne( { _id: ObjectID(pollId)}, { justOne: true },null, function(error, result) {
+              db.collection('votacions').deleteOne( { _id: ObjectID(pollId)}, { justOne: true }, function(error, result) {
                 console.log("error" + error);
                 console.log("result" + result);
                 var ret = {}
