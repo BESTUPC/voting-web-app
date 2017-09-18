@@ -98,8 +98,8 @@
     $("#navbar").load("navbar.html",function(){
 
         if (getCookie("idtoken") == ""){
-            setCookie('profile',"",0);
-            setCookie('idtoken',"",0);
+            setCookie('profile',"",1);
+            setCookie('idtoken',"",1);
             error('Error','idtoken cookie not found',goLogin);
             return 0;
         }
@@ -113,8 +113,8 @@
 
             var result = JSON.parse(xhr.responseText);
             if (result.status!='0'){
-                setCookie('profile',"",0);
-                setCookie('idtoken',"",0);
+                setCookie('profile',"",1);
+                setCookie('idtoken',"",1);
                 error('Error',result.message,goLogin);
                 return 0;
             }
