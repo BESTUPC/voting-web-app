@@ -98,9 +98,9 @@
     $("#navbar").load("navbar.html",function(){
 
         if (getCookie("idtoken") == ""){
+            setCookie('profile',"",0);
+            setCookie('idtoken',"",0);
             error('Error','idtoken cookie not found',goLogin);
-            setCookie('profile',0,0);
-            setCookie('idtoken',0,0);
             return 0;
         }
 
@@ -113,10 +113,8 @@
 
             var result = JSON.parse(xhr.responseText);
             if (result.status!='0'){
-                //if (result.message.indexOf("Token used too late")==0 && result.message.indexOf("No pem found for envelope")==0){
-                    setCookie('profile',0,0);
-                    setCookie('idtoken',0,0);
-                //}
+                setCookie('profile',"",0);
+                setCookie('idtoken',"",0);
                 error('Error',result.message,goLogin);
                 return 0;
             }
