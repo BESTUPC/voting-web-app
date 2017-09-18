@@ -156,7 +156,7 @@ app.post('/getPolls', function (req, res) {
           {
               var ret = {}
               ret.status = 1;
-              ret.message = err.toString();
+              ret.message = "User with id " + user['userId'] + 'not in the DB' ;
               res.json(ret);
               db.close()
               return ret;
