@@ -59,8 +59,8 @@
               //auth2.disconnect();
               auth2.signOut().then(function () {
 
-                  setCookie('profile',0,0);
-                  setCookie('idtoken',0,0);
+                  setCookie('profile',"",1);
+                  setCookie('idtoken',"",1);
                   window.location = DOMAIN + "/login.html";
               });
             }
