@@ -45,7 +45,10 @@ function initNavBar(profile){
         if (response.status!='0'){
 	setCookie('profile',"",1);
 	setCookie('idtoken',"",1);
-            error('Error',response.message,goLogin());
+            error('Error',response.message,null);
+		console.log(JSON.stringify(response));
+//            error('Error',response.message,goLogin());
+
             return 0;
         }
 		var membership = response.membership;
