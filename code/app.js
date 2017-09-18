@@ -868,7 +868,7 @@ app.post('/getUserInfo', function (req, res) {
       else if (ret == null){
         var ret = {}
         ret.status = 1;
-        ret.message = 'poll Not found';
+        ret.message = 'User not found in getUserInfo with id ' + user_ID;
         res.json(ret);
         db.close();
         return ret;
