@@ -25,10 +25,18 @@ function success( title, message , f) {
     $('#errorModal').modal('show').on('hidden.bs.modal',f);
 }
 function goHome(){
+		setTimeout(function(){
+
     window.location = DOMAIN + '/index.html';
+
+	}, 500); 
 }
 function goLogin(){
+	setTimeout(function(){
+
     window.location = DOMAIN + '/login.html';
+
+	}, 500); 
 }
 function initNavBar(profile){
     $.fn.exists = function () {
