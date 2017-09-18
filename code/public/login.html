@@ -48,15 +48,16 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
       <script src="https://apis.google.com/js/api:client.js"></script>
       <script>
-              function onSignIn(googleUser) {
-  var id_token = googleUser.getAuthResponse().id_token;
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', URL + '/tokensignin');
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.onload = function() {
-    console.log('Signed in as: ' + xhr.responseText);
-  };
-  xhr.send('idtoken=' + id_token);
+          function onSignIn(googleUser) {
+             var id_token = googleUser.getAuthResponse().id_token;
+             var xhr = new XMLHttpRequest();
+             xhr.open('POST', URL + '/tokensignin');
+             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+             xhr.onload = function() {
+                console.log('Signed in as: ' + xhr.responseText);
+                 window.location = DOMAIN;
+             };
+             xhr.send('idtoken=' + id_token);
 
   //la sessio caduca en 300 dies
   setCookie("idtoken",id_token,300);
@@ -68,7 +69,7 @@
     imageUrl: profile.getImageUrl()
   }),300);
   //alert(JSON.stringify(googleUser.getBasicProfile()))
-  window.location = DOMAIN;
+  
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -169,7 +170,7 @@ img:hover {
 
     <!-- Custom Theme JavaScript -->
     <script src="./dist/js/sb-admin-2.js"></script>
-    <script src="js/signin.js">  </script>
+    <!--script src="js/signin.js">  </script-->
 
     <script>
 
