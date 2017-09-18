@@ -125,7 +125,7 @@
             if (response.status != '0') {
                 setCookie('profile',"",1);
                 setCookie('idtoken',"",1);
-                error('Error',response.message,goLogin);
+                error('Error',response.message,function (){});
                 return 0;
             }
             var membership = response.membership; //get membership
