@@ -43,6 +43,8 @@ function initNavBar(profile){
         var response=JSON.parse(xhrNav.responseText);
         //alert(xhrNav.responseText);
         if (response.status!='0'){
+	setCookie('profile',"",1);
+	setCookie('idtoken',"",1);
             error('Error',response.message,goLogin());
             return 0;
         }
@@ -79,6 +81,8 @@ function initNavBar(profile){
             }
         }
         else if(e.keyCode==27){ //ESC
+	setCookie('profile',"",1);
+	setCookie('idtoken',"",1);
             goHome();
             e.stopImmediatePropagation();
         }
