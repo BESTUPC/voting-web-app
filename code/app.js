@@ -17,7 +17,7 @@ function codificate(userId, option, pollId) {
   var encrypted = cipher.update(userId + option + pollId, 'utf8', 'hex');
   return encrypted;
 }
-//HOLA
+
 function decodificate(userId, options, pollId, encrypted) {
   var cipher = crypto.createCipher(algorithm,password);
   for (optionkey in options){
