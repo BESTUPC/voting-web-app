@@ -48,23 +48,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //What file to return when acces to '/' Pendent de borrar, creiem que no fa res
-app.get('/', function (req, res) {
-  var options = {
-    root: __dirname + '/public/',
-    dotfiles: 'deny',
-    headers: {
-        'x-timestamp': Date.now(),
-        'x-sent': true
-    }
-  };
-  res.sendFile("index.html", options, function (err) {
-   if (err) {
-     next(err);
-   } else {
-     console.log('Sent:', fileName);
-   }
- });
-})
+
 
 //API calls start here
 app.post('/getPolls', function (req, res) {
