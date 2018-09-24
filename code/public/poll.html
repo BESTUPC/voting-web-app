@@ -141,13 +141,13 @@
                 var selectedOption=pollOptions.indexOf(poll.pollOption); //find index of pollOption
                 //$('#text').append(selectedOption) //DEBUG
                 var pollName=poll.pollName;
+                $('title').text(pollName);
                 if (poll.isPrivate == "true") {
                   pollName += "    <i class='fa fa-lock'></i>"
                 } else {
                   pollName += "    <i class='fa fa-unlock'></i>"
                 }
                 $('#pollName').append(pollName); //Add pollName to html
-                $('title').text(pollName);
                 for (i in pollOptions){    //For all poll options
                     pollOption=pollOptions[i];
                     var button=$('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
