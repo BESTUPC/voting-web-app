@@ -115,6 +115,10 @@
                         <label for="private" style="width:120px; vertical-align: middle; padding-left: 0; font-weight: 700">Private: </label>
                         <input style="height:20px;width:20px; vertical-align: middle; position:relative; margin:0 0 0 5px" id="private" type="checkbox" value="">
                     </div>
+                    <div class="checkbox">
+                        <label for="priority" style="width:120px; vertical-align: middle; padding-left: 0; font-weight: 700">Priority: </label>
+                        <input style="height:20px;width:20px; vertical-align: middle; position:relative; margin:0 0 0 5px" id="priority" type="checkbox" value="">
+                    </div>
                     <label for="deadline" style="width: 120px;">Deadline: </label>
                     <input type="text" style="margin-left: 5px" value="" id="deadline">
                 </div>
@@ -247,11 +251,22 @@
 
             $('#create').click(function(){
                 $(this).blur();
-                var pollOptions=$('#pollOptions').find('.input-pro:not(#adding)').find('input').toArray().map(function(obj){
-                    return $(obj).val();
-                }).filter(function(val){return val!="";});
+
+
+                var pollOptions=$('#pollOptions').find('.input-pro:not(#adding)').find('input')
+                	.toArray()
+                	.map(function(obj){return $(obj).val();})
+                	.filter(function(val){return val!="";});
+
+
+                var value= $('#adding').find('input').val();
+                if (value!='') {
+                	pollOptions.unshift(value);
+                }
+
                 var deadline=moment($('#deadline').val(),'DD/MM/YYYY HH:mm').toDate().getTime()/1000;
                 var isPrivate=$('#private').is(':checked');
+                var isPriority=$('#priority').is(':checked');
                 var targetGroup=$('#targetGroup').val().toLowerCase();
                 var pollName=$('#pollName').val();
                 if(targetGroup=='members')targetGroup='member';
@@ -278,7 +293,8 @@
                         }
                     };
                     window.sentText='idtoken=' + id_token + '&pollName=' + pollName + '&pollOptions=' + JSON.stringify(pollOptions)
-                        + '&targetGroup=' + targetGroup + '&isPrivate=' + isPrivate + '&pollDeadline=' + deadline;
+                        + '&targetGroup=' + targetGroup + '&isPrivate=' + isPrivate +
+'&isPriority=' + isPriority + '&pollDeadline=' + deadline;
                     xhr2.send(window.sentText);
                 }
             });
