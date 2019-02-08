@@ -8,10 +8,23 @@ var auth = new GoogleAuth;
 var obj = JSON.parse(fs.readFileSync('googlecredentials.pswd', 'utf8'));
 var CLIENT_ID = obj['id'];
 var CLIENT_SECRET = obj['secret'];
-var client = new auth.OAuth2(CLIENT_ID, CLIENT_SECRET, "http://localhost:3000/");
+var client = new auth.OAuth2(CLIENT_ID, CLIENT_SECRET, "https://localhost:3000/");
 var bodyParser = require("body-parser");
 var crypto = require('crypto'), algorithm = 'aes-256-ctr', password = CLIENT_SECRET;
 
+const http = require('http');
+const https = require('https');
+
+// Certificate
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/chain.pem', 'utf8');
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
 
 //Connection to mongodb
 // Connection URL
@@ -1379,7 +1392,15 @@ app.post('/removePoll', function (req, res) {
 
 //API calls end here
 
+
 //Definig the port in which will run our app
-app.listen(3000, function () {
-  console.log('App listening on port 3000!')
-})
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(3003, () => {
+	console.log('HTTP Server running on port 3003');
+});
+
+httpsServer.listen(3000, () => {
+	console.log('HTTPS Server running on port 3000');
+});
