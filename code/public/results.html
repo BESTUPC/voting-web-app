@@ -19,6 +19,8 @@
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
 
     <!-- Morris Charts CSS -->
     <!--<link href="../vendor/morrisjs/morris.css" rel="stylesheet">-->
@@ -56,7 +58,8 @@
 
         <div class="row">
             <div class="col-lg-7">
-                <div class="ct-chart ct-perfect-fourth" id="results"></div>
+                <div class="ct-chart ct-perfect-fourth" id="result1"></div>
+
             </div>
             <!--<canvas class="col-lg-7" id="results">-->
             <!--</canvas>-->
@@ -127,56 +130,81 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             var results = JSON.parse(xhr.responseText);
+            console.log(results)
             window.results = results;
-            if (results.status!='0'){
-                error('Error',results.message,function(){
-                    if(results.status==3) window.location = DOMAIN;
-                    else window.location= DOMAIN + "/login.html";
-                });
-                return 0;
-            }
-
-            $('#pollName').text(results.name);
-            var state = results.state;
-            if (state=='open')$('#selectState').val('Open');
-            if (state=='closed_private')$('#selectState').val('Closed hidden');
-            if (state=='closed')$('#selectState').val('Closed');
-            window.results=results;
-
-            var data = {
-                // A labels array that can contain any sort of values
-                labels: Object.keys(results.result),
-                // Our series array that contains series objects or in this case series data arrays
-                series: [
-                    Object.values(results.result)
-                ]
-            };
-            var options = {
-                axisY: {
-                    showLabel: false
+            if (!(results.length>0)){
+                results=[results]
+                
+                for (var keyResults in results){
+                    result=results[keyResults]
                 }
-            };
-            var chart = new Chartist.Bar('#results', data, options);
-            var drawn = 0;
-            chart.on('draw', function(data) {
-                if(data.type === 'bar') {
-                    if(drawn<data.series.length){
-                        var ms_total=5000;
-                        if (state=='closed') ms_total=1;
-                        var duration=ms_total*data.series[data.index]/Math.max.apply(null,data.series);
-                        data.element.animate({
-                            y2: {
-                                begin: 0,
-                                dur: duration,
-                                from: data.y1,
-                                to: data.y2,
-                                easing: Chartist.Svg.Easing.linear
-                            }
-                        });
-                        drawn++;
-                        setTimeout(function (data) {
+                if (result.status!='0'){
+                    error('Error',result.message,function(){
+                        if(result.status==3) window.location = DOMAIN;
+                        else window.location= DOMAIN + "/login.html";
+                    });
+                    return 0;
+                }
+
+                $('#pollName').text(result.name);
+                var state = result.state;
+                if (state=='open')$('#selectState').val('Open');
+                if (state=='closed_private')$('#selectState').val('Closed hidden');
+                if (state=='closed')$('#selectState').val('Closed');
+
+                var data = {
+                    // A labels array that can contain any sort of values
+                    labels: Object.keys(result.result),
+                    // Our series array that contains series objects or in this case series data arrays
+                    series: [
+                        Object.values(result.result)
+                    ]
+                };
+                var options = {
+                    axisY: {
+                        showLabel: false,
+                    },
+                    axisX:{
+                        offset: 70
+                        //position: 'stra'
+                    }
+                };
+                var chart = new Chartist.Bar('#result', data, options);
+                var drawn = 0;
+                chart.on('draw', function(data) {
+                    if(data.type === 'bar') {
+                        if(drawn<data.series.length){
+                            var ms_total=5000;
+                            if (state=='closed') ms_total=1;
+                            var duration=ms_total*data.series[data.index]/Math.max.apply(null,data.series);
+                            data.element.animate({
+                                y2: {
+                                    begin: 0,
+                                    dur: duration,
+                                    from: data.y1,
+                                    to: data.y2,
+                                    easing: Chartist.Svg.Easing.linear
+                                }
+                            });
+                            drawn++;
+                            setTimeout(function (data) {
+                                barHorizontalCenter = data.x1 + (data.element.width() * .5);
+                                barVerticalCenter = data.y2 - 10;
+                                value = data.element.attr('ct:value');
+                                label = new Chartist.Svg('text');
+                                label.text(''+value+' vots');
+                                label.addClass("ct-barlabel");
+                                label.attr({
+                                    x: barHorizontalCenter,
+                                    y: barVerticalCenter,
+                                    'text-anchor': 'middle'
+                                });
+                                data.group.append(label);
+                            },duration,data);
+                        }
+                        else{
                             barHorizontalCenter = data.x1 + (data.element.width() * .5);
-                            barVerticalCenter = data.y2 - 10;
+                            barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
                             value = data.element.attr('ct:value');
                             label = new Chartist.Svg('text');
                             label.text(''+value+' vots');
@@ -187,67 +215,53 @@
                                 'text-anchor': 'middle'
                             });
                             data.group.append(label);
-                        },duration,data);
-                    }
-                    else{
-                        barHorizontalCenter = data.x1 + (data.element.width() * .5);
-                        barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
-                        value = data.element.attr('ct:value');
-                        label = new Chartist.Svg('text');
-                        label.text(''+value+' vots');
-                        label.addClass("ct-barlabel");
-                        label.attr({
-                            x: barHorizontalCenter,
-                            y: barVerticalCenter,
-                            'text-anchor': 'middle'
+                        }
+
+                        data.element.attr({
+                            style:"stroke-width: 30px"
                         });
-                        data.group.append(label);
-                    }
-
-                    data.element.attr({
-                        style:"stroke-width: 30px"
-                    });
-                }
-            });
-            chart.on('created',function(d){
-                $(d.svg.getNode()).css('padding','5px');
-                $('#results').click(function(){
-                   chart.update();
-                }).css('cursor','pointer');
-
-                $(':root').keydown(function(e){
-                    if(e.keyCode==13){ //enter
-                        chart.update();
                     }
                 });
-            });
+                chart.on('created',function(d){
+                    $(d.svg.getNode()).css('padding','5px');
+                    $('#result').click(function(){
+                       chart.update();
+                    }).css('cursor','pointer');
 
-            var voters=results.voters;
-            function addVoters(voters,element){
-                for (i in voters){
-                    voter=voters[i];
-                    if(i!=0)element.append('<br>');
-                    element.append(voter);
+                    $(':root').keydown(function(e){
+                        if(e.keyCode==13){ //enter
+                            chart.update();
+                        }
+                    });
+                });
+
+                var voters=result.voters;
+                function addVoters(voters,element){
+                    for (i in voters){
+                        voter=voters[i];
+                        if(i!=0)element.append('<br>');
+                        element.append(voter);
+                    }
                 }
-            }
-            if(results.isPrivate=="true"){
-                addVoters(voters,$('#voters'));
-            }
-            else{
-                var pollOptions=Object.keys(voters);
-                var optionsVoters=Object.values(voters);
+                if(result.isPrivate){
+                    addVoters(voters,$('#voters'));
+                }
+                else{
+                    var pollOptions=Object.keys(voters);
+                    var optionsVoters=Object.values(voters);
 
-                window.pollOptions=pollOptions;
-                window.optionsVoters=optionsVoters;
-                for (i in pollOptions){
-                    var pollOption=pollOptions[i];
-                    var optionVoters=optionsVoters[i];
-                    var optionVotersDiv = $('<div style="margin-left: 15px"></div>');
-                    var pollOptionDiv = $('<div style="margin-left: 15px"></div>')
-                        .append('<h4>'+pollOption+':</h4>')
-                        .append(optionVotersDiv);
-                    addVoters(optionVoters,optionVotersDiv);
-                    $('#voters').append(pollOptionDiv);
+                    window.pollOptions=pollOptions;
+                    window.optionsVoters=optionsVoters;
+                    for (i in pollOptions){
+                        var pollOption=pollOptions[i];
+                        var optionVoters=optionsVoters[i];
+                        var optionVotersDiv = $('<div style="margin-left: 15px"></div>');
+                        var pollOptionDiv = $('<div style="margin-left: 15px"></div>')
+                            .append('<h4>'+pollOption+':</h4>')
+                            .append(optionVotersDiv);
+                        addVoters(optionVoters,optionVotersDiv);
+                        $('#voters').append(pollOptionDiv);
+                    }
                 }
             }
         };

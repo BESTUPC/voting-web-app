@@ -73,6 +73,8 @@ function initNavBar(profile){
         	$('#sidebar').show();
         	$('#navbar-toggle').show();
         	$('#page-wrapper-style').text('@media (min-width: 768px) { #page-wrapper { margin: 0 0 0 250px; }  }');
+            $('#del').show();
+            $('#remove_del').show();
     	}
     };
     xhrNav.send('userId='+profile.id);
