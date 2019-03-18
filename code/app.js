@@ -51,7 +51,7 @@ MongoClient.connect(url, function(err, db) {
 //Creating the webserver
 var app = express();
 //var httpsServer=https.createServer(app);
-var httpsServer=app;
+//var httpsServer=app;
 
 //making files in public served at /
 app.use(express.static('public'))
