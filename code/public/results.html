@@ -191,11 +191,7 @@
             };
             var options = {
                 axisY: {
-                    showLabel: false,
-                },
-                axisX:{
-                    offset: 70
-                    //position: 'stra'
+                    showLabel: false
                 }
             };
             var chart = new Chartist.Bar('#result', data, options);
@@ -245,6 +241,10 @@
                         });
                         data.group.append(label);
                     }
+
+                    data.element.attr({
+                        style:"stroke-width: 30px"
+                    });
                 }
             });
             chart.on('created',function(d){
@@ -253,7 +253,11 @@
                    chart.update();
                 }).css('cursor','pointer');
 
-                var voters=result.voters;
+                $(':root').keydown(function(e){
+                    if(e.keyCode==13){ //enter
+                        chart.update();
+                    }
+                });
             });
 
             var voters=result.voters;
@@ -284,7 +288,6 @@
                     $('#voters').append(pollOptionDiv);
                 }
             }
-            
         };
         var profile=JSON.parse(profile);
         xhr.send('pollId=' + pollId + '&userId=' + profile.id);
