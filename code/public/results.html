@@ -19,6 +19,8 @@
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
 
     <!-- Morris Charts CSS -->
     <!--<link href="../vendor/morrisjs/morris.css" rel="stylesheet">-->
@@ -150,6 +152,7 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             var results = JSON.parse(xhr.responseText);
+            console.log(results)
             window.results = results;
             if (!(results.length>0)){
                 results=[results]
@@ -215,7 +218,7 @@
                         drawn++;
                         setTimeout(function (data) {
                             barHorizontalCenter = data.x1 + (data.element.width() * .5);
-                            barVerticalCenter = data.y2 - 10;
+                            barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
                             value = data.element.attr('ct:value');
                             label = new Chartist.Svg('text');
                             label.text(''+value+' vots');
@@ -226,25 +229,23 @@
                                 'text-anchor': 'middle'
                             });
                             data.group.append(label);
-                        },duration,data);
-                    }
-                    else{
-                        barHorizontalCenter = data.x1 + (data.element.width() * .5);
-                        barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
-                        value = data.element.attr('ct:value');
-                        label = new Chartist.Svg('text');
-                        label.text(''+value+' vots');
-                        label.addClass("ct-barlabel");
-                        label.attr({
-                            x: barHorizontalCenter,
-                            y: barVerticalCenter,
-                            'text-anchor': 'middle'
-                        });
-                        data.group.append(label);
-                    }
+                        }
 
-                    data.element.attr({
-                        style:"stroke-width: 30px"
+                        data.element.attr({
+                            style:"stroke-width: 30px"
+                        });
+                    }
+                });
+                chart.on('created',function(d){
+                    $(d.svg.getNode()).css('padding','5px');
+                    $('#result').click(function(){
+                       chart.update();
+                    }).css('cursor','pointer');
+
+                    $(':root').keydown(function(e){
+                        if(e.keyCode==13){ //enter
+                            chart.update();
+                        }
                     });
                 }
             });
@@ -254,9 +255,12 @@
                    chart.update();
                 }).css('cursor','pointer');
 
-                $(':root').keydown(function(e){
-                    if(e.keyCode==13){ //enter
-                        chart.update();
+                var voters=result.voters;
+                function addVoters(voters,element){
+                    for (i in voters){
+                        voter=voters[i];
+                        if(i!=0)element.append('<br>');
+                        element.append(voter);
                     }
                 });
             });
@@ -276,17 +280,18 @@
                 var pollOptions=Object.keys(voters);
                 var optionsVoters=Object.values(voters);
 
-                window.pollOptions=pollOptions;
-                window.optionsVoters=optionsVoters;
-                for (i in pollOptions){
-                    var pollOption=pollOptions[i];
-                    var optionVoters=optionsVoters[i];
-                    var optionVotersDiv = $('<div style="margin-left: 15px"></div>');
-                    var pollOptionDiv = $('<div style="margin-left: 15px"></div>')
-                        .append('<h4>'+pollOption+':</h4>')
-                        .append(optionVotersDiv);
-                    addVoters(optionVoters,optionVotersDiv);
-                    $('#voters').append(pollOptionDiv);
+                    window.pollOptions=pollOptions;
+                    window.optionsVoters=optionsVoters;
+                    for (i in pollOptions){
+                        var pollOption=pollOptions[i];
+                        var optionVoters=optionsVoters[i];
+                        var optionVotersDiv = $('<div style="margin-left: 15px"></div>');
+                        var pollOptionDiv = $('<div style="margin-left: 15px"></div>')
+                            .append('<h4>'+pollOption+':</h4>')
+                            .append(optionVotersDiv);
+                        addVoters(optionVoters,optionVotersDiv);
+                        $('#voters').append(pollOptionDiv);
+                    }
                 }
             }
             

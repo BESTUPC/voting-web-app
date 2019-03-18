@@ -30,6 +30,7 @@ given a poll id return info of the poll
   ],
   "targetGroup": "all",
   "isPrivate": false,
+  "isPriority": false,
   "pollDeadline": "3234672825",
   "description": "descripció ... why?",
   "pollOption": "Iñigo",
@@ -129,7 +130,7 @@ gets the membership, name and email of a member
 
 ### Only by admin users
 
-###### /createPoll(idtoken, pollName, pollOptions, targetGroup, isPrivate, pollDeadline)
+###### /createPoll(idtoken, pollName, pollOptions, targetGroup, isPrivate, isPriority, pollDeadline)
 creates a new Poll in the data base
 ```
 {

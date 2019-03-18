@@ -11,8 +11,11 @@ var CLIENT_SECRET = obj['secret'];
 var client = new auth.OAuth2(CLIENT_ID, CLIENT_SECRET, "https://localhost:3000/");
 var bodyParser = require("body-parser");
 var crypto = require('crypto'), algorithm = 'aes-256-ctr', password = CLIENT_SECRET;
+var https = require("https");
+//var credentials = {key: privateKey, cert: certificate};
 
 const http = require('http');
+/*
 const https = require('https');
 
 // Certificate
@@ -25,7 +28,7 @@ const credentials = {
 	cert: certificate,
 	ca: ca
 };
-
+*/
 //Connection to mongodb
 // Connection URL
 //var url = 'mongodb://bestbarcelona.org:27017/votacions';
@@ -48,6 +51,8 @@ MongoClient.connect(url, function(err, db) {
 
 //Creating the webserver
 var app = express();
+//var httpsServer=https.createServer(app);
+var httpsServer=app;
 
 //making files in public served at /
 app.use(express.static('public'))
@@ -199,6 +204,7 @@ app.post('/sendVote', function (req, res) {
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
   var ioption = req.body.option;
+  var idelegation = req.body.delegation == "true";
   client.verifyIdToken(
     token,
     CLIENT_ID,
@@ -220,33 +226,90 @@ app.post('/sendVote', function (req, res) {
           db.close();
           return ret;
         }
-        db.collection('votacions').findOne({ _id : new ObjectID(ipollId) }, function (err, doc) {
-          if (doc == null){
-            console.log(ipollId);
-            var ret = {};
-            ret.message = "votacio not found in db"
-            ret['status'] = 4;
+        db.collection('users').findOne({userId: payload['sub']}, function(err, ret) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err.toString();
             res.json(ret);
             db.close();
             return ret;
           }
-          else if(doc.state == "open"){
-            var vote = {};
-            vote['userId'] =
-            db.collection('votes').update({userId : payload['sub'], pollId : ipollId}, { $set: {option: ioption}}, {upsert: true} );
-            var ret = {};
-            ret['status'] = 0;
-            res.json(ret);
-            db.close();
-            return ret;
-          } else {
-            var ret = {};
-            ret['status'] = 4;
-            ret.message = "Poll Already Closed";
+          if (req == null) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = "user id not found";
             res.json(ret);
             db.close();
             return ret;
           }
+          var isadmin = false;
+          var memberships = ret.membership
+          for (var mem in memberships){
+            if (memberships[mem] == "admin"){
+              isadmin = true;
+            }
+          }
+          if (!isadmin && idelegation){
+            var ret = {}
+            ret.status = 1;
+            ret.message = "Non admins cannot delegate";
+            res.json(ret);
+            db.close();
+            return ret;
+          }
+          db.collection('votacions').findOne({ _id : new ObjectID(ipollId) }, function (err, doc) {
+            if (doc == null){
+              console.log(ipollId);
+              var ret = {};
+              ret.message = "votacio not found in db"
+              ret['status'] = 4;
+              res.json(ret);
+              db.close();
+              return ret;
+            }
+            if(doc.state == "open"){
+              if (idelegation){
+                db.collection('votes').find({userId: /^delegation_/ , pollId: ipollId}).toArray(function(err, result){
+                  if (err) {
+                    var ret = {}
+                    ret.status = 1;
+                    ret.message = err.toString();
+                    res.json(ret);
+                    db.close();
+                    return ret;
+                  }
+                  var max = 0;
+                  result.forEach(x=>max=Math.max(max,parseInt(x.userId.substr(11))))
+                  var vote = {};
+                  vote['userId'] =
+                  db.collection('votes').update({userId : 'delegation_'+(max+1), pollId : ipollId}, { $set: {option: ioption}}, {upsert: true} );
+                  var ret = {};
+                  ret['status'] = 0;
+                  res.json(ret);
+                  db.close();
+                  return ret;
+                })
+              }
+              else{
+                var vote = {};
+                vote['userId'] =
+                db.collection('votes').update({userId : payload['sub'], pollId : ipollId}, { $set: {option: ioption}}, {upsert: true} );
+                var ret = {};
+                ret['status'] = 0;
+                res.json(ret);
+                db.close();
+                return ret;
+              }
+            } else {
+              var ret = {};
+              ret['status'] = 4;
+              ret.message = "Poll Already Closed";
+              res.json(ret);
+              db.close();
+              return ret;
+            }
+          })
         })
       })
   })
@@ -275,86 +338,6 @@ function cens(targetGroup) {
   })
 }
 
-function notifyWithdrawal(){};
-
-app.post('/askWithdrawal', function (req, res) {
-  var token = req.body.idtoken;
-  var ipollId = req.body.pollId;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
-    function(err, login) {
-      if (err) {
-        var ret = {}
-        ret.status = 2;
-        ret.message = err.toString();
-        res.json(ret);
-        return ret;
-      }
-      var payload = login.getPayload();
-      MongoClient.connect(url, function(err, db) {
-        db.collection('askWithdrawal').insertMany([{userId : payload['sub'], pollId : ipollId}], function () {});
-        db.collection('askWithdrawal').count({pollId : ipollId},null,function(err, count) {
-          if (err) {
-            var ret = {}
-            ret.status = 1;
-            ret.message = err.toString();
-            res.json(ret);
-            return ret;
-          }
-          var targetGroup = db.collection('votacions').findOne({pollId : new ObjectID(ipollId)},{ targetGroup: 1}).targetGroup;
-          if (count/cens(targetGroup) > 0.4) notifyWithdrawal();
-          db.close();
-
-        });
-
-      })
-  })
-
-  var ret = {};
-  ret['status'] = 0;
-  res.json(ret);
-})
-
-app.post('/askPrivate', function (req, res) {
-  var token = req.body.idtoken;
-  var ipollId = req.body.pollId;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
-    function(err, login) {
-      if (err) {
-        var ret = {}
-        ret.status = 2;
-        ret.message = err.toString();
-        res.json(ret);
-        return ret;
-      }
-      var payload = login.getPayload();
-      //console.log(payload);
-      MongoClient.connect(url, function(err, db) {
-        db.collection('askPrivate').insertMany([{userId : payload['sub'], pollId : ipollId}], function () {});
-        var howMany = db.collection('askPrivate').count({pollId : ipollId},null,function(err, count) {
-          if (err) {
-            var ret = {}
-            ret.status = 1;
-            ret.message = err.toString();
-            res.json(ret);
-            return ret;
-          }
-          var targetGroup = db.collection('askPrivate').findOne({pollId : ipollId},{ targetGroup: 1}).targetGroup;
-          if (count/cens(targetGroup) > 0.2) notifyWithdrawal();
-          db.close();
-
-        });
-      })
-  })
-
-  var ret = {};
-  ret['status'] = 0;
-  res.json(ret);
-})
-
 function shuffle(a) {
     for (let i = a.length; i; i--) {
         let j = Math.floor(Math.random() * i);
@@ -363,6 +346,104 @@ function shuffle(a) {
     }
     // console.log("EVERYDAY I'M SHUFFLIN'");
 }
+
+app.post('/removeDelegations', function (req,res){  
+  console.log('removeDelegations: ' +JSON.stringify(req.body));
+  var token = req.body.idtoken;
+  var ipollId = req.body.pollId;
+  client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    function(err, login) {
+      if (err) {
+        var ret = {}
+        ret.status = 1;
+        ret.message = err.toString();
+        res.json(ret);
+        return ret;
+      }
+      var payload = login.getPayload();
+      MongoClient.connect(url, function(err, db) {
+        if (err) {
+          var ret = {}
+          ret.status = 1;
+          ret.message = err.toString();
+          res.json(ret);
+          db.close();
+          return ret;
+        }
+        db.collection('users').findOne({userId: payload['sub']}, function(err, ret) {
+          if (err) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = err.toString();
+            res.json(ret);
+            db.close();
+            return ret;
+          }
+          if (req == null) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = "user id not found";
+            res.json(ret);
+            db.close();
+            return ret;
+          }
+          var isadmin = false;
+          var memberships = ret.membership
+          for (var mem in memberships){
+            if (memberships[mem] == "admin"){
+              isadmin = true;
+            }
+          }
+          if (!isadmin && idelegation){
+            var ret = {}
+            ret.status = 1;
+            ret.message = "Non admins cannot change delegations";
+            res.json(ret);
+            db.close();
+            return ret;
+          }
+          db.collection('votacions').findOne({ _id : new ObjectID(ipollId) }, function (err, doc) {
+            if (doc == null){
+              console.log(ipollId);
+              var ret = {};
+              ret.message = "votacio not found in db"
+              ret['status'] = 4;
+              res.json(ret);
+              db.close();
+              return ret;
+            }
+            if(doc.state == "open"){
+              db.collection('votes').deleteMany({userId: /^delegation_/ , pollId: ipollId}, function(err, result){
+                if (err) {
+                  var ret = {}
+                  ret.status = 1;
+                  ret.message = err.toString();
+                  res.json(ret);
+                  db.close();
+                  return ret;
+                }
+                var ret = {};
+                ret['status'] = 0;
+                res.json(ret);
+                db.close();
+                return ret;
+              })
+              
+            } else {
+              var ret = {};
+              ret['status'] = 4;
+              ret.message = "Poll Already Closed";
+              res.json(ret);
+              db.close();
+              return ret;
+            }
+          })
+        })
+      })
+  })
+})
 
 app.post('/egetResults', function (req, res) {
   console.log('egetResults: ' + JSON.stringify(req.body));
@@ -404,8 +485,8 @@ app.post('/egetResults', function (req, res) {
         return ret;
       }
       if (doc.state == "closed_private"){
-
-        MongoClient.connect(url, function(err, db) {
+        var users = db.collection('users');
+        users.findOne({userId: req.body.userId}, function(err, ret) {
           if (err) {
             var ret = {}
             ret.status = 1;
@@ -414,162 +495,160 @@ app.post('/egetResults', function (req, res) {
             db.close();
             return ret;
           }
-          var users = db.collection('users');
-          users.findOne({userId: req.body.userId}, function(err, ret) {
-            if (err) {
-              var ret = {}
-              ret.status = 1;
-              ret.message = err.toString();
-              res.json(ret);
-              db.close();
-              return ret;
-            }
-            if (req == null) {
-              var ret = {}
-              ret.status = 1;
-              ret.message = "user id not found";
-              res.json(ret);
-              db.close();
-              return ret;
-            }
-            var isadmin = false;
-            var memberships = ret.membership
-            for (var mem in memberships){
-              if (memberships[mem] == "admin"){
-                isadmin = true;
-              }
-            }
-            if (isadmin == false){
-              var ret = {}
-              ret.status = 3;
-              ret.message = "This poll is closed but the results are only available for admins";
-              res.json(ret);
-              return ret;
-            }
-            var isPrivate = doc.isPrivate;
-            var voters = {};
-            var options = doc.pollOptions;
-            var name = doc.pollName;
-            var state = doc.state;
-            for (var keyOption in options){
-              voters[options[keyOption]] = [];
-            }
-            db.collection('votes').aggregate(
-              [
-              { $match : { pollId: ipollId }
-              },
-              { $lookup:
-                  {
-                    from: "users",
-                    localField: "userId",
-                    foreignField: "userId",
-                    as: "userInfo"
-                  }
-              }
-            ],
-              function(err, result){
-                if (err) {
-                  var ret = {}
-                  ret.status = 1;
-                  ret.message = err.toString();
-                  res.json(ret);
-                  db.close();
-                  return ret;
-                }
-                for (var docKey in result){
-                  var doc = result[docKey];
-                  voters[doc.option].push(doc.userInfo[0].name);
-                }
-                var ret = {};
-                ret.isPrivate = isPrivate;
-                ret.name = name;
-                ret.state = state;
-                ret.status = 0;
-                ret.result = {};
-                for (var option in voters){
-                  ret.result[option]= voters[option].length;
-                }
-                if (isPrivate == "true"){
-                  ret.voters = [];
-                  for (var option in voters){
-                    for (var key in voters[option])
-                     ret.voters.push(voters[option][key]);
-                  }
-                }
-                else {
-                  ret.voters = voters;
-                }
-                db.close();
-                res.json(ret);
-                return ret;
-              });
-          })
-        })
-
-      } else
-      {
-        var isPrivate = doc.isPrivate;
-        var voters = {};
-        var options = doc.pollOptions;
-        var name = doc.pollName;
-        var state = doc.state;
-        for (var keyOption in options){
-          voters[options[keyOption]] = [];
-        }
-        db.collection('votes').aggregate(
-          [
-          { $match : { pollId: ipollId }
-          },
-          { $lookup:
-              {
-                from: "users",
-                localField: "userId",
-                foreignField: "userId",
-                as: "userInfo"
-              }
+          if (req == null) {
+            var ret = {}
+            ret.status = 1;
+            ret.message = "user id not found";
+            res.json(ret);
+            db.close();
+            return ret;
           }
-        ],
-          function(err, result){
-            if (err) {
-              var ret = {}
-              ret.status = 1;
-              ret.message = err.toString();
-              res.json(ret);
-              db.close();
-              return ret;
+          var isadmin = false;
+          var memberships = ret.membership
+          for (var mem in memberships){
+            if (memberships[mem] == "admin"){
+              isadmin = true;
             }
-            for (var docKey in result){
-              var doc = result[docKey];
-              voters[doc.option].push(doc.userInfo[0].name);
-            }
-            var ret = {};
-            ret.isPrivate = isPrivate;
-            ret.name = name;
-            ret.state = state;
-            ret.status = 0;
-            ret.result = {};
-            for (var option in voters){
-              ret.result[option]= voters[option].length;
-            }
-            if (isPrivate == "true"){
-              ret.voters = [];
-              for (var option in voters){
-                for (var key in voters[option])
-                 ret.voters.push(voters[option][key]);
-              }
-            }
-            else {
-              ret.voters = voters;
-            }
+          }
+          if (isadmin == false){
+            var ret = {}
+            ret.status = 3;
+            ret.message = "This poll is closed but the results are only available for admins";
+            res.json(ret);
+            return ret;
+          }
+          get_results(doc,ipollId,db,(ret)=>{       
             db.close();
             res.json(ret);
             return ret;
+          })
+        })
+      } 
+      else{
+        
+        get_results(doc,ipollId,db,(ret)=>{       
+          db.close();
+          res.json(ret);
+          return ret;
+        })
 
-        });
       }
     });
   });
 });
+
+function get_results(doc,ipollId,db,fun){
+  var isPrivate = doc.isPrivate == "true";
+  var isPriority = doc.isPriority == "true";
+  var options = doc.pollOptions;
+  var name = doc.pollName;
+  var state = doc.state;
+  db.collection('votes').aggregate(
+    [
+    { $match : { pollId: ipollId }
+    },
+    { $lookup:
+        {
+          from: "users",
+          localField: "userId",
+          foreignField: "userId",
+          as: "userInfo"
+        }
+    }
+  ],
+    function(err, result){
+      if (err) {
+        var ret = {}
+        ret.status = 1;
+        ret.message = err.toString();
+        res.json(ret);
+        db.close();
+        return ret;
+      }
+      if (isPriority){
+        ret=[]
+        while(options.filter(x=>x!="Blanc" && x!="Abstenció").length>1){
+          var voters = {};
+          for (var keyOption in options){
+            voters[options[keyOption]] = [];
+          }
+          for (var docKey in result){
+            var doc = result[docKey];
+            option=JSON.parse(doc.option);
+            selected=option.find(x=>options.indexOf(x)>=0);
+
+            if (result[docKey].userId.startsWith("delegation_")){
+              voters[selected].push(result[docKey].userId);
+            }
+            else{
+              voters[selected].push(doc.userInfo[0].name);
+            }
+          }
+
+          keys=options.filter(x=>x!="Blanc" && x!="Abstenció")
+          var lowest = Math.min.apply(null, keys.map(function(x) { return voters[x].length} ));
+          var match  = keys.filter(function(y) { return voters[y].length === lowest });
+          reti=get_ret_from_voters(voters,isPrivate,isPriority,name,state)
+
+          if (match.length>1){
+            options=[]
+            reti.eliminated_option="Multiple options are lowest, do not know what to eliminate"
+          }
+          else{
+            options=options.filter(x=>x!=match[0])
+            reti.eliminated_option=match[0];
+          }
+
+          ret.push(reti)
+        }
+        fun(ret);
+        return ret;
+      }
+      else{
+        var voters = {};
+        for (var keyOption in options){
+          voters[options[keyOption]] = [];
+        }
+        for (var docKey in result){
+          var doc = result[docKey];
+          if (result[docKey].userId.startsWith("delegation_")){
+            voters[doc.option].push(result[docKey].userId);
+          }
+          else{
+            voters[doc.option].push(doc.userInfo[0].name);
+          }
+        }
+        ret=get_ret_from_voters(voters,isPrivate,isPriority,name,state)
+      }
+      fun(ret);
+      return ret;
+
+  });
+  
+}
+
+function get_ret_from_voters(voters,isPrivate,isPriority,name,state){
+  var ret = {};
+  ret.isPrivate = isPrivate;
+  ret.name = name;
+  ret.state = state;
+  ret.status = 0;
+  ret.result = {};
+  for (var option in voters){
+    ret.result[option]= voters[option].length;
+  }
+  if (isPrivate){
+    ret.voters = [];
+    for (var option in voters){
+      for (var key in voters[option])
+       ret.voters.push(voters[option][key]);
+    }
+  }
+  else {
+    ret.voters = voters;
+  }
+  return ret;
+}
 
 app.post('/getResults', function (req, res) {
   console.log('getResults: ' + JSON.stringify(req.body));
@@ -792,8 +871,7 @@ app.post('/getResults', function (req, res) {
 })
 
 app.post('/getUserInfo', function (req, res) {
-
-      console.log('getUserInfo : ' + JSON.stringify(req.body));
+  console.log('getUserInfo : ' + JSON.stringify(req.body));
   var user_ID = req.body.userId;
   MongoClient.connect(url, function(err, db) {
     if (err) {
@@ -837,8 +915,7 @@ app.post('/getUserInfo', function (req, res) {
 })
 
 app.post('/createPoll', function (req, res) {
-
-    console.log('createPoll : ' +JSON.stringify(req.body));
+  console.log('createPoll : ' +JSON.stringify(req.body));
   var token = req.body.idtoken;
   client.verifyIdToken(
     token,
@@ -883,6 +960,7 @@ app.post('/createPoll', function (req, res) {
               poll['pollOptions'] = JSON.parse(req.body.pollOptions);
               poll['targetGroup'] = req.body.targetGroup;
               poll['isPrivate'] = req.body.isPrivate;
+              poll['isPriority'] = req.body.isPriority
               poll['pollDeadline'] = req.body.pollDeadline;
               poll['descrpition'] = req.body.descrpition;
               poll.state = "open";
@@ -916,8 +994,7 @@ app.post('/createPoll', function (req, res) {
 })
 
 app.post('/setState', function (req, res) {
-
-    console.log('setState : ' + JSON.stringify(req.body));
+  console.log('setState : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
   var newstate = req.body.state;
@@ -988,8 +1065,7 @@ app.post('/setState', function (req, res) {
 })
 
 app.post('/updateMembership', function (req, res) {
-
-    console.log('updateMembership : ' + JSON.stringify(req.body));
+  console.log('updateMembership : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
   //console.log(token);
   client.verifyIdToken(
@@ -1395,12 +1471,13 @@ app.post('/removePoll', function (req, res) {
 
 //Definig the port in which will run our app
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+//const httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(3003, () => {
-	console.log('HTTP Server running on port 3003');
+httpServer.listen(3000, () => {
+	console.log('HTTP Server running on port 3000');
 });
-
+/*
 httpsServer.listen(3000, () => {
 	console.log('HTTPS Server running on port 3000');
 });
+*/

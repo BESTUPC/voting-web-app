@@ -53,12 +53,19 @@
                 </div>
             </div>
             <div class="row">
+                <h3 id="pollInfo"></h3>
                 <div class="col-lg-5" id="pollOptions">
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-5" style="text-align: right">
+                <div class="col-lg-5" id="buttons" style="text-align: right">
                     <button type="button" id="vote" class="btn btn-primary btn-lg" style="margin: 10px">Send vote</button>
+                    <button type="button" id="del" class="btn btn-primary btn-lg" style="margin: 10px;  display:none">Add as delegated vote</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5" id="buttons" style="text-align: right">
+                    <button type="button" id="remove_del" class="btn btn-danger btn-lg" style="margin: 10px;  display:none">Remove delegated</button>
                 </div>
             </div>
 
@@ -70,6 +77,8 @@
 
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <script src="../vendor/jqueryui/jquery-ui.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -139,7 +148,6 @@
                 if (state=='closed')$('#selectState').val('Closed');
                 var pollOptions=poll.pollOptions;
                 //poll.pollOption='Bernat' //DEBUG
-                var selectedOption=pollOptions.indexOf(poll.pollOption); //find index of pollOption
                 //$('#text').append(selectedOption) //DEBUG
                 var pollName=poll.pollName;
                 $('title').text(pollName);
@@ -149,37 +157,24 @@
                   pollName += "    <i class='fa fa-unlock'></i>"
                 }
                 $('#pollName').append(pollName); //Add pollName to html
-                for (i in pollOptions){    //For all poll options
-                    pollOption=pollOptions[i];
-                    var button=$('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
-                        .append(' '+pollOption) //add option name to button
-                        .attr('pos',i) //save position of this polloption in the button
-                        .click(function(){
-                            $(this).blur(); //remove foucs
-                            ind=$(this).attr('pos'); //get position of this clicked option from the html
-                            if(selectedOption!=ind){ //do nothing if it's already selected
-                                $(this).removeClass('btn-default').addClass('btn-primary')//change color to primary
-                                $(this).find('i').addClass('fa fa-check'); //add check icon
-                                if(selectedOption!=-1){ //if there was another selected option
-                                    $(this).parent().find("[pos='"+selectedOption+"']") //find the previously selected option
-                                        .removeClass('btn-primary').addClass('btn-default') //change its color
-                                        .find('i').removeClass('fa fa-check'); //remove its check icon
-                                }
-                                selectedOption=ind; //update selected option variable
-                            };
-                        });
-                    if (i==selectedOption){ //If button we are going to add was already selected
-                        button.removeClass('btn-default').addClass('btn-primary') //change its color
-                            .find('i').addClass('fa fa-check'); //add check icon
+
+                if (poll.isPriority == "true"){
+                    console.log(poll)
+                    $('#pollInfo').append("This is a priority vote, please sort the following options:")
+
+                    if(poll.pollOption.length>0){
+                        pollOptions=JSON.parse(poll.pollOption);
                     }
-                    $('#pollOptions').append(button); //we add the button to the list of buttons
-                }
-                $('#vote').click(function(){
-                    $(this).blur(); //loose focus
-                    if (selectedOption==-1){
-                        error( 'Error', 'No option selected' );
+                    for (i in pollOptions){    //For all poll options
+                        pollOption=pollOptions[i];
+                        var button=$('<div class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"></div>')//create button for this poll option
+                            .append(' '+pollOption) //add option name to button
+                            .attr('pos',i) //save position of this polloption in the button
+                        $('#pollOptions').append(button); //we add the button to the list of buttons
                     }
-                    else{
+                    $('#pollOptions').sortable();
+                    vote=function(delegation){
+                        $(this).blur(); //loose focus
                         var xhr2 = new XMLHttpRequest();
                         xhr2.open('POST', URL + '/sendVote');
                         xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -189,10 +184,19 @@
                                 error('Error',res.message);
                             }
                             else{
-                                success('Success','Vote sent successfully',goHome);
+                                if (delegation){
+                                    success('Success','Delegated vote added successfully',location.reload);
+                                }
+                                else{
+                                    success('Success','Vote sent successfully',goHome)
+                                }
+                                
                             }
                         };
-                        xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&option=' + pollOptions[selectedOption]);
+                        option=$.map($("#pollOptions").children(),function( a ) {
+                          return a.innerText;
+                        })
+                        xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&delegation=' + delegation +'&option=' + JSON.stringify(option));
                     }
                     $('#vote').click(function(){
                         vote(false)
