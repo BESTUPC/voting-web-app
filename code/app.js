@@ -15,7 +15,7 @@ var https = require("https");
 //var credentials = {key: privateKey, cert: certificate};
 
 const http = require('http');
-/*
+
 const https = require('https');
 
 // Certificate
@@ -28,7 +28,7 @@ const credentials = {
 	cert: certificate,
 	ca: ca
 };
-*/
+
 //Connection to mongodb
 // Connection URL
 //var url = 'mongodb://bestbarcelona.org:27017/votacions';
@@ -1471,13 +1471,12 @@ app.post('/removePoll', function (req, res) {
 
 //Definig the port in which will run our app
 const httpServer = http.createServer(app);
-//const httpsServer = https.createServer(credentials, app);
+const httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(3000, () => {
-	console.log('HTTP Server running on port 3000');
+httpServer.listen(3003, () => {
+	console.log('HTTP Server running on port 3003');
 });
-/*
+
 httpsServer.listen(3000, () => {
 	console.log('HTTPS Server running on port 3000');
 });
-*/
