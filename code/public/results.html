@@ -248,7 +248,7 @@
                 }
             });
             chart.on('created',function(d){
-                $(d.svg.getNode()).css('padding','5px');
+                $(d.svg.getNode()).css('padding','5px').css('overflow','visible');
                 $('#result').click(function(){
                    chart.update();
                 }).css('cursor','pointer');
