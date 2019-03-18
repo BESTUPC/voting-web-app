@@ -11,7 +11,6 @@ var CLIENT_SECRET = obj['secret'];
 var client = new auth.OAuth2(CLIENT_ID, CLIENT_SECRET, "https://localhost:3000/");
 var bodyParser = require("body-parser");
 var crypto = require('crypto'), algorithm = 'aes-256-ctr', password = CLIENT_SECRET;
-var https = require("https");
 //var credentials = {key: privateKey, cert: certificate};
 
 const http = require('http');
