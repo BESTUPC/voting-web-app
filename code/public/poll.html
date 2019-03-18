@@ -24,7 +24,8 @@
     <!--<link href="../vendor/morrisjs/morris.css" rel="stylesheet">-->
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/font-awesome/css/fontawesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/font-awesome/css/solid.min.css" rel="stylesheet" type="text/css">
 
     <link rel="icon" type="image/png" href="../images/BEST_logomark.png">
 
@@ -193,18 +194,108 @@
                         };
                         xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&option=' + pollOptions[selectedOption]);
                     }
-                });
-                $(':root').keydown(function(e){
-                    //alert(e.keyCode)
-                    if(e.keyCode>=48 && e.keyCode<=57){ //number
-                        var pressedNumber = e.keyCode-48;
-                        var buttonToClick = $('#pollOptions').find('button:nth-child('+pressedNumber+')');
-                        if(buttonToClick.exists()) buttonToClick.click();
+                    $('#vote').click(function(){
+                        vote(false)
+                    });
+                    $('#side-menu').append('<li><div style="padding:10px 5px 10px 15px; display:inline-block" id="del" class="text-primary"><i class="fas fa-vote-yea"></i>Add delegation</li>')
+                    $('#del').click(function(){
+                        vote(true)
+                    }).css('cursor','pointer');
+                    $(':root').keydown(function(e){
+                        if(e.keyCode==13){ //enter
+                            $('#vote').click();
+
+                        } 
+                    });
+                }
+                else{
+                    var selectedOption=pollOptions.indexOf(poll.pollOption); //find index of pollOption
+                    for (i in pollOptions){    //For all poll options
+                        pollOption=pollOptions[i];
+                        var button=$('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
+                            .append(' '+pollOption) //add option name to button
+                            .attr('pos',i) //save position of this polloption in the button
+                            .click(function(){ //What happens if we click this button?
+                                $(this).blur(); //remove focus
+                                ind=$(this).attr('pos'); //get position of this clicked option from the html
+                                if(selectedOption!=ind){ //do nothing if it's already selected
+                                    $(this).removeClass('btn-default').addClass('btn-primary')//change color to primary
+                                    $(this).find('i').addClass('fa fa-check'); //add check icon
+                                    if(selectedOption!=-1){ //if there was another selected option
+                                        $(this).parent().find("[pos='"+selectedOption+"']") //find the previously selected option
+                                            .removeClass('btn-primary').addClass('btn-default') //change its color
+                                            .find('i').removeClass('fa fa-check'); //remove its check icon
+                                    }
+                                    selectedOption=ind; //update selected option variable
+                                };
+                            });
+                        if (i==selectedOption){ //If button we are going to add was already selected
+                            button.removeClass('btn-default').addClass('btn-primary') //change its color
+                                .find('i').addClass('fa fa-check'); //add check icon
+                        }
+                        $('#pollOptions').append(button); //we add the button to the list of buttons
+                    } 
+                    vote=function(delegation){
+                        $(this).blur(); //loose focus
+                        if (selectedOption==-1){
+                            error( 'Error', 'No option selected' );
+                        }
+                        else{
+                            var xhr2 = new XMLHttpRequest();
+                            xhr2.open('POST', URL + '/sendVote');
+                            xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xhr2.onload = function() {
+                                res=JSON.parse(xhr2.responseText);
+                                if (res.status!='0'){
+                                    error('Error',res.message);
+                                }
+                                else{
+                                    if (delegation){
+                                        success('Success','Delegated vote added successfully',location.reload);
+                                    }
+                                    else{
+                                        success('Success','Vote sent successfully',goHome)
+                                    }
+                                }
+                            };
+                            xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&delegation=' + delegation +'&option=' + pollOptions[selectedOption]);
+                        }
                     }
-                    if(e.keyCode==13){ //enter
-                        $('#vote').click();
-                    } //TODO MAYBE: Numeros per seleccionar vot
-                });
+                    $('#vote').click(function(){
+                        vote(false)
+                    });
+                    $('#side-menu').append('<li><div style="padding:10px 5px 10px 15px; display:inline-block" id="del" class="text-primary"><i class="fa fa-trash fa-fw"></i>Add delegation</li>')
+                    $('#del').click(function(){
+                        vote(true)
+                    }).css('cursor','pointer');
+                    $(':root').keydown(function(e){
+                        //alert(e.keyCode)
+                        if(e.keyCode>=48 && e.keyCode<=57){ //number
+                            var pressedNumber = e.keyCode-48;
+                            var buttonToClick = $('#pollOptions').find('button:nth-child('+pressedNumber+')');
+                            if(buttonToClick.exists()) buttonToClick.click();
+                        }
+                        if(e.keyCode==13){ //enter
+                            $('#vote').click();
+                        } 
+                    });
+                }
+                $('#side-menu').append('<li><div style="padding:10px 5px 10px 15px; display:inline-block" id="remove-del" class="text-primary"><i class="fa fa-trash fa-fw"></i>Remove delegations</li>')
+                $('#remove-del').click(function(){
+                    var xhr2 = new XMLHttpRequest();
+                    xhr2.open('POST', URL + '/removeDelegations');
+                    xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr2.onload = function() {
+                        res=JSON.parse(xhr2.responseText);
+                        if (res.status!='0'){
+                            error('Error',res.message);
+                        }
+                        else{
+                            success('Success','Removed delegated votes',goHome);
+                        }
+                    };
+                    xhr2.send('pollId=' + pollId + '&idtoken=' + id_token);
+                }).css('cursor','pointer');
             };
             xhr.send('pollId=' + pollId + '&idtoken=' + id_token);
         });

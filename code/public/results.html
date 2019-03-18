@@ -48,18 +48,26 @@
     <div id="navbar"></div>
 
     <div id="page-wrapper">
-        <div class="row">
-            <div class="col-lg-12">
+        <div class="row page">
+            <div class="col-lg-4">
                 <h1 class="page-header" id="pollName">No name found!</h1>
             </div>
+
         </div>
 
-        <div class="row">
+        <div class="row h-100 align-middle">
             <div class="col-lg-7">
-                <div class="ct-chart ct-perfect-fourth" id="results"></div>
+                <div class="ct-chart ct-perfect-fourth" id="result"></div>
+
             </div>
             <!--<canvas class="col-lg-7" id="results">-->
             <!--</canvas>-->
+        </div>
+        <div class="row">
+            <div class="col-lg-5" id="buttons" style="text-align: right">
+                <button type="button" id="prev" class="btn btn-primary btn-lg" style="margin: 10px;  display:none">Previous</button>
+                <button type="button" id="next" class="btn btn-primary btn-lg" style="margin: 10px;  display:none">Next</button>
+            </div>
         </div>
 
         <h3>Voters:</h3>
@@ -118,7 +126,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.js"></script>
 <script>
     pollId=gup('id');
+    keyResults=parseInt(gup('page'));
+    if (keyResults==null || isNaN(keyResults)){
+        keyResults=0;
+    }
     id_token = getCookie("idtoken");
+
+    $("#next").click(function(){
+        var url=window.location.href.split(/[?#]/)[0];
+        window.location=url + "?id=" + pollId + "&page=" + (keyResults+1)
+    });
+
+    $("#prev").click(function(){
+        var url=window.location.href.split(/[?#]/)[0];
+        window.location=url + "?id=" + pollId + "&page=" + (keyResults-1)
+    });
+
     $("#navbar").load("navbar.html",function(){
         profile = getCookie("profile");
         initNavBar(JSON.parse(profile));
@@ -128,35 +151,51 @@
         xhr.onload = function() {
             var results = JSON.parse(xhr.responseText);
             window.results = results;
-            if (results.status!='0'){
-                error('Error',results.message,function(){
-                    if(results.status==3) window.location = DOMAIN;
+            if (!(results.length>0)){
+                results=[results]
+            }
+            //if 
+            result=results[keyResults]
+            
+        
+            if (result.status!='0'){
+                error('Error',result.message,function(){
+                    if(result.status==3) window.location = DOMAIN;
                     else window.location= DOMAIN + "/login.html";
                 });
                 return 0;
             }
+            if (keyResults>0){
+                $("#prev").show();
+            }
+            if (keyResults<results.length-1){
+                $("#next").show();
+            }
 
-            $('#pollName').text(results.name);
-            var state = results.state;
+            $('#pollName').text(result.name);
+            var state = result.state;
             if (state=='open')$('#selectState').val('Open');
             if (state=='closed_private')$('#selectState').val('Closed hidden');
             if (state=='closed')$('#selectState').val('Closed');
-            window.results=results;
 
             var data = {
                 // A labels array that can contain any sort of values
-                labels: Object.keys(results.result),
+                labels: Object.keys(result.result),
                 // Our series array that contains series objects or in this case series data arrays
                 series: [
-                    Object.values(results.result)
+                    Object.values(result.result)
                 ]
             };
             var options = {
                 axisY: {
-                    showLabel: false
+                    showLabel: false,
+                },
+                axisX:{
+                    offset: 70
+                    //position: 'stra'
                 }
             };
-            var chart = new Chartist.Bar('#results', data, options);
+            var chart = new Chartist.Bar('#result', data, options);
             var drawn = 0;
             chart.on('draw', function(data) {
                 if(data.type === 'bar') {
@@ -211,7 +250,7 @@
             });
             chart.on('created',function(d){
                 $(d.svg.getNode()).css('padding','5px');
-                $('#results').click(function(){
+                $('#result').click(function(){
                    chart.update();
                 }).css('cursor','pointer');
 
@@ -222,7 +261,7 @@
                 });
             });
 
-            var voters=results.voters;
+            var voters=result.voters;
             function addVoters(voters,element){
                 for (i in voters){
                     voter=voters[i];
@@ -230,7 +269,7 @@
                     element.append(voter);
                 }
             }
-            if(results.isPrivate=="true"){
+            if(result.isPrivate){
                 addVoters(voters,$('#voters'));
             }
             else{
@@ -250,6 +289,7 @@
                     $('#voters').append(pollOptionDiv);
                 }
             }
+            
         };
         var profile=JSON.parse(profile);
         xhr.send('pollId=' + pollId + '&userId=' + profile.id);
