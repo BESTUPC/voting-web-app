@@ -566,7 +566,7 @@ function get_results(doc,ipollId,db,fun){
       }
       if (isPriority){
         ret=[]
-        while(options.filter(x=>x!="Blanc" && x!="Abstenció").length>1){
+        while(options.filter(x=>x!="Blanc" && x!="Abstenció").length>0){
           var voters = {};
           for (var keyOption in options){
             voters[options[keyOption]] = [];
