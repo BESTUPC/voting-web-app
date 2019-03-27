@@ -14,19 +14,9 @@ var crypto = require('crypto'), algorithm = 'aes-256-ctr', password = CLIENT_SEC
 //var credentials = {key: privateKey, cert: certificate};
 
 const http = require('http');
-
 const https = require('https');
 
-// Certificate
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/chain.pem', 'utf8');
 
-const credentials = {
-	key: privateKey,
-	cert: certificate,
-	ca: ca
-};
 
 //Connection to mongodb
 // Connection URL
@@ -591,11 +581,11 @@ function get_results(doc,ipollId,db,fun){
 
           if (match.length>1){
             options=[]
-            reti.eliminated_option="Multiple options are lowest, do not know what to eliminate"
+            reti.next_message="Error: Multiple options are lowest, do not know what to eliminate"
           }
           else{
             options=options.filter(x=>x!=match[0])
-            reti.eliminated_option=match[0];
+            reti.next_message="Eliminated option "+match[0];
           }
 
           ret.push(reti)
@@ -642,9 +632,13 @@ function get_ret_from_voters(voters,isPrivate,isPriority,name,state){
       for (var key in voters[option])
        ret.voters.push(voters[option][key]);
     }
+    ret.voters.sort()
   }
   else {
     ret.voters = voters;
+    for (var option in ret.voters){
+      ret.voters[option].sort();
+    }
   }
   return ret;
 }
@@ -1468,14 +1462,42 @@ app.post('/removePoll', function (req, res) {
 //API calls end here
 
 
+
+
 //Definig the port in which will run our app
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(3003, () => {
-	console.log('HTTP Server running on port 3003');
-});
 
-httpsServer.listen(3000, () => {
-	console.log('HTTPS Server running on port 3000');
-});
+if (fs.existsSync('/etc/letsencrypt/live/bestbarcelona.org/privkey.pem')&&
+    fs.existsSync('/etc/letsencrypt/live/bestbarcelona.org/cert.pem')&&
+    fs.existsSync('/etc/letsencrypt/live/bestbarcelona.org/chain.pem')){
+  // We have the certificates, open https
+  const privateKey = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/privkey.pem', 'utf8');
+  const certificate = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/cert.pem', 'utf8');
+  const ca = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/chain.pem', 'utf8');
+
+  const credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca
+  };
+
+  const httpServer = http.createServer(app);
+  const httpsServer = https.createServer(credentials, app);
+
+  //also open http on other port
+  httpServer.listen(3003, () => {
+    console.log('HTTP Server running on port 3003');
+  });
+
+  httpsServer.listen(3000, () => {
+    console.log('HTTPS Server running on port 3000');
+  });
+}
+else{
+  //we dont have the certificates, open http only
+  console.log("No https certificates found, opening http")
+  const httpServer = http.createServer(app);
+  httpServer.listen(3000, () => {
+    console.log('HTTP Server running on port 3000');
+  });
+}

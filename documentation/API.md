@@ -40,6 +40,7 @@ given a poll id return info of the poll
 
 ###### /sendVote(idtoken, pollId, option)
 sends the vote
+if it is a priority vote, option must be a JSON.stringified array of the pollOptions but sorted.
 ```
 {
     "status" : 0,
@@ -47,9 +48,12 @@ sends the vote
 ```
 
 ###### /egetResults(pollId)
+The user is asking for the results of a poll
+If the poll is not priority he gets:
 ```
 {
-  "isPrivate": "true",
+  "isPrivate": true,
+  "isPrivate": false,
   "status": 0,
   "result": {
     "Blanc": 1,
@@ -70,6 +74,8 @@ sends the vote
 
         
 ```
+If the poll is priority he gets an array of results with the added field "next_message" wich contains the reason why there is a next poll.
+
 
 ###### /askWithdrawal(idtoken, pollId)
 The user is asking for a withdrawal

@@ -134,15 +134,7 @@
     }
     id_token = getCookie("idtoken");
 
-    $("#next").click(function(){
-        var url=window.location.href.split(/[?#]/)[0];
-        window.location=url + "?id=" + pollId + "&page=" + (keyResults+1)
-    });
-
-    $("#prev").click(function(){
-        var url=window.location.href.split(/[?#]/)[0];
-        window.location=url + "?id=" + pollId + "&page=" + (keyResults-1)
-    });
+    
 
     $("#navbar").load("navbar.html",function(){
         profile = getCookie("profile");
@@ -168,11 +160,25 @@
                 });
                 return 0;
             }
+
             if (keyResults>0){
-                $("#prev").show();
+                $("#prev").click(function(){
+                    var url=window.location.href.split(/[?#]/)[0];
+                    window.location=url + "?id=" + pollId + "&page=" + (keyResults-1)
+                }).show();
             }
             if (keyResults<results.length-1){
-                $("#next").show();
+                $("#next").click(function(){
+                    success('Success',result.next_message,function(){
+                        var url=window.location.href.split(/[?#]/)[0];
+                        window.location=url + "?id=" + pollId + "&page=" + (keyResults+1)
+                    })
+                }).show();
+            }
+            if(result.hasOwnProperty("next_message") && result.next_message.includes("Error")){
+                $("#next").click(function(){
+                    error('Error',result.next_message,function(){/*do nothing*/})
+                }).show();
             }
 
             $('#pollName').text(result.name);
