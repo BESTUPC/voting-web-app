@@ -642,6 +642,7 @@ function get_ret_from_voters(voters,isPrivate,isPriority,name,state){
       for (var key in voters[option])
        ret.voters.push(voters[option][key]);
     }
+    ret.voters.sort();
   }
   else {
     ret.voters = voters;
