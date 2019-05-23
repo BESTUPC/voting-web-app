@@ -574,18 +574,38 @@ function get_results(doc,ipollId,db,fun){
             }
           }
 
-          keys=options.filter(x=>x!="Blanc" && x!="Abstenció")
-          var lowest = Math.min.apply(null, keys.map(function(x) { return voters[x].length} ));
+          keys = options.filter(x=>x!="Blanc" && x!="Abstenció")
+          lengths = keys.map(function(x) { return voters[x].length} )
+          var lowest = Math.min.apply(null, lengths);
           var match  = keys.filter(function(y) { return voters[y].length === lowest });
-          reti=get_ret_from_voters(voters,isPrivate,isPriority,name,state)
-
+          reti=get_ret_from_voters(voters,0,1,'asd','open')
           if (match.length>1){
-            options=[]
-            reti.next_message="Error: Multiple options are lowest, do not know what to eliminate"
+            var items = keys.map(key => [key, voters[key].length]);
+            items.sort((first, second) => first[1] - second[1] );
+
+            keys_sorted=items.map(x=>x[0])
+            votes_sorted=items.map(x=>x[1])
+            var max_index=-1;
+            var cummulative_votes=0;
+            for (var i=0; i<votes_sorted.length; i++){
+              if(cummulative_votes<votes_sorted[i]){
+                max_index=i-1;
+                reti.next_message=`Multiple options are lowest but I could find a set of negligible options: The options (${keys_sorted.slice(0,i).join(",")}) have ${cummulative_votes} total votes, lower than any other option`;
+              }
+              cummulative_votes+=votes_sorted[i];
+            }
+            if (max_index>=0){
+              options=options.filter(x=>x=="Blanc" || x=="Abstenció" || voters[x].length>votes_sorted[max_index])
+            }
+            else{
+              options=[]
+              reti.next_message=`Error: Multiple options (${match.join(",")}) are lowest and could not find a set of negligible options`;
+            }
+            
           }
           else{
             options=options.filter(x=>x!=match[0])
-            reti.next_message="Eliminated option "+match[0];
+            reti.next_message="Eliminated option " + match[0];
           }
 
           ret.push(reti)
