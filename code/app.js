@@ -1481,6 +1481,14 @@ app.post('/removePoll', function (req, res) {
 
 //API calls end here
 
+if (fs.existsSync('/etc/letsencrypt/live/bestbarcelona.org/privkey.pem') &&
+    fs.existsSync('/etc/letsencrypt/live/bestbarcelona.org/cert.pem') &&
+    fs.existsSync('/etc/letsencrypt/live/bestbarcelona.org/chain.pem')) {
+  
+  // Certificate found
+  const privateKey = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/privkey.pem', 'utf8');
+  const certificate = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/cert.pem', 'utf8');
+  const ca = fs.readFileSync('/etc/letsencrypt/live/bestbarcelona.org/chain.pem', 'utf8');
 
 
 
