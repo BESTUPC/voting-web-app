@@ -578,7 +578,7 @@ function get_results(doc,ipollId,db,fun){
           lengths = keys.map(function(x) { return voters[x].length} )
           var lowest = Math.min.apply(null, lengths);
           var match  = keys.filter(function(y) { return voters[y].length === lowest });
-          reti=get_ret_from_voters(voters,0,1,'asd','open')
+          reti=get_ret_from_voters(voters,isPrivate,isPriority,name,state)
           if (match.length>1){
             var items = keys.map(key => [key, voters[key].length]);
             items.sort((first, second) => first[1] - second[1] );
