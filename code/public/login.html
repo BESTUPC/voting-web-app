@@ -50,7 +50,7 @@
       <script>
           function onSignIn(googleUser) {
              var id_token = googleUser.getAuthResponse().id_token;
-             console.log(id_token)
+             console.log("IDTOKEN" + id_token);
              var xhr = new XMLHttpRequest();
              xhr.open('POST', URL + '/tokensignin');
              xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -67,9 +67,10 @@
                   }),300);
                  window.location = DOMAIN;
              };
+             console.log(xhr);
              xhr.send('idtoken=' + id_token);
              }catch (error){
-              console.log(error)
+              console.log(error);
              }
         
   
