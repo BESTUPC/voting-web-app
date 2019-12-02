@@ -68,6 +68,9 @@
                  window.location = DOMAIN;
              };
              console.log(xhr);
+             xhr.onerror= function(e){
+               console.log(e);
+             }
              xhr.send('idtoken=' + id_token);
              }catch (error){
               console.log(error);
