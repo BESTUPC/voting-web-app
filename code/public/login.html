@@ -50,12 +50,10 @@
       <script>
           function onSignIn(googleUser) {
              var id_token = googleUser.getAuthResponse().id_token;
-             console.log("IDTOKEN" + id_token);
              var xhr = new XMLHttpRequest();
              xhr.open('POST', URL + '/tokensignin');
              xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-             try{
-              xhr.onload = function() {
+             xhr.onload = function() {
                 console.log('Signed in as: ' + xhr.responseText);
                    setCookie("idtoken",id_token,300);
                   profile=googleUser.getBasicProfile();
@@ -67,14 +65,7 @@
                   }),300);
                  window.location = DOMAIN;
              };
-             console.log(xhr);
-             xhr.onerror= function(e){
-               console.log(e);
-             }
              xhr.send('idtoken=' + id_token);
-             }catch (error){
-              console.log(error);
-             }
         
   
 }
