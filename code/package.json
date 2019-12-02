@@ -20,12 +20,11 @@
   },
   "homepage": "https://github.com/estevetarra/Web-App-Votacions-BEST#readme",
   "dependencies": {
-    "body-parser": "^1.16.1",
-    "crypto": "0.0.3",
-    "express": "^4.14.1",
-    "forever": "^0.15.3",
-    "google-auth-library": "^0.10.0",
-    "mongodb": "^2.2.24",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "forever": "^1.0.0",
+    "google-auth-library": "0.10.0",
+    "mongodb": "2.2.24",
     "push.js": "0.0.12"
   }
 }
