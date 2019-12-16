@@ -16,11 +16,11 @@ const https = require('https');
 
 
 
-//Connection to mongodb
+//Conctiodfq to mongodb
 // Connection URL
 //var url = 'mongodb://bestbarcelona.org:27017/votacions';
 var url = 'mongodb://localhost:27017/votacions';
-
+var proooooooooova = 1;
 // Use connect method to connect to the server and creates unique indexes
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
