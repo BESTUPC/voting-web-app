@@ -24,7 +24,7 @@
     "express": "^4.17.1",
     "forever": "^1.0.0",
     "google-auth-library": "0.10.0",
-    "mongodb": "2.2.24",
+    "mongodb": "3.6.1",
     "push.js": "0.0.12"
   }
 }
