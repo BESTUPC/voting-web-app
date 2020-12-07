@@ -1,5 +1,5 @@
-var express = require('express')
-var MongoClient = require('mongodb').MongoClient;
+const express = require('express')
+const MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 var assert = require('assert');
 var fs = require('fs');
@@ -19,9 +19,48 @@ const https = require('https');
 //Conctiodfq to mongodb
 // Connection URL
 //var url = 'mongodb://bestbarcelona.org:27017/votacions';
-var url = 'mongodb://localhost:27017/votacions';
+const url = 'mongodb://localhost:27017';
+const dbName = 'votacions';
 var proooooooooova = 1;
 // Use connect method to connect to the server and creates unique indexes
+const clientMongo = new MongoClient(url, { useUnifiedTopology: true });
+
+function returnFunc(err, results) {
+    console.log(results);
+    console.log(err);
+}
+
+clientMongo.connect(function(err) {
+    assert.equal(null, err);
+
+    const db = clientMongo.db(dbName);
+    try {
+        db.collection('users').createIndex( { "userId" : 1}, { unique: true},function(){
+            db.collection('votes').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true},function() {
+            
+                db.collection('askWithdrawal').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true},function() {
+                    db.collection('askPrivate').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true},function() {
+                        returnFunc();
+                        console.log("Connected successfully to server");
+                    });
+                });
+            });
+        } );
+        
+        
+        
+        console.log("Connected successfully to server");
+    } catch (error) {
+        console.log("Could't create index");
+        consoe.log(error);
+    }
+
+});
+
+    const db = clientMongo.db(dbName);
+    
+    console.log(db);
+/*
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   try {
@@ -30,12 +69,13 @@ MongoClient.connect(url, function(err, db) {
     db.collection('askWithdrawal').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
     db.collection('askPrivate').createIndex( {"pollId" : 1, "userId" : 1}, { unique: true});
     console.log("Connected successfully to server");
-    db.close();
+    ();;
   } catch (error) {
     console.log("Could't create index");
+    consoe.log(error);
   }
 });
-
+*/
 //Creating the webserver
 var app = express();
 //var httpsServer=https.createServer(app);
@@ -72,25 +112,19 @@ app.post('/getPolls', function (req, res) {
       }
       var payload = login.getPayload();
       console.log(payload);
-      MongoClient.connect(url, function(err, db) {
-        if (err) {
-          var ret = {}
-          ret.status = 1;
-          ret.message = err.toString();
-          res.json(ret);
-          db.close();
-          return ret;
-        }
+
+        const db = clientMongo.db(dbName);
+        
         var users = db.collection('users');
         var user = {};
         user['userId'] = payload['sub'];
-        users.findOne({userId: user['userId']},{fields:{membership:1}}, function(err, document) {
+        users.findOne({userId: user['userId']},{field:{membership:1}}, function(err, document) {
           if (err) {
             var ret = {}
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           if(document == null)
@@ -99,7 +133,7 @@ app.post('/getPolls', function (req, res) {
               ret.status = 1;
               ret.message = "User with id " + user['userId'] + 'not in the DB' ;
               res.json(ret);
-              db.close()
+              
               return ret;
           }
           var memberships = document['membership'];
@@ -110,19 +144,17 @@ app.post('/getPolls', function (req, res) {
               ret.status = 1;
               ret.message = err.toString();
               res.json(ret);
-              db.close();
+              
               return ret;
             }
             var ret = {}
             ret.status = 0;
             ret.polls=docs;
             res.json(ret);
-            db.close();
+
             return ret;
           });
         });
-
-      });
     });
   });
 
@@ -143,8 +175,8 @@ app.post('/getPollInfo', function (req, res) {
       }
       var payload = login.getPayload();
       //console.log(payload);
-      MongoClient.connect(url, function(err, db)
-        {
+
+          const db = clientMongo.db(dbName);
           db.collection('votacions').findOne({_id : ObjectID(ipollId)}, function (err, docs)
             {
               if (err) {
@@ -152,7 +184,7 @@ app.post('/getPollInfo', function (req, res) {
                 ret.status = 1;
                 ret.message = err.toString();
                 res.json(ret);
-                db.close();
+                
                 return ret;
               }
               if(docs == null)
@@ -161,7 +193,7 @@ app.post('/getPollInfo', function (req, res) {
                 ret.status = 1;
                 ret.message = 'poll not found in db';
                 res.json(ret);
-                db.close();
+                
                 return ret;
               }
               db.collection('votes').findOne({pollId: ipollId , userId: payload['sub'] }, function(err, ret)
@@ -172,17 +204,17 @@ app.post('/getPollInfo', function (req, res) {
                     ret.status = 1;
                     ret.message = err.toString();
                     res.json(ret);
-                    db.close();
+                    
                     return ret;
                   }
                 if (ret == null) docs.pollOption = "";
                 else docs.pollOption = ret.option;
                 docs['status'] = 0;
                 res.json(docs);
-                db.close();
+                
                 });
             });
-        });
+
     });
 })
 
@@ -204,22 +236,16 @@ app.post('/sendVote', function (req, res) {
         return ret;
       }
       var payload = login.getPayload();
-      MongoClient.connect(url, function(err, db) {
-        if (err) {
-          var ret = {}
-          ret.status = 1;
-          ret.message = err.toString();
-          res.json(ret);
-          db.close();
-          return ret;
-        }
+
+        const db = clientMongo.db(dbName);
+        
         db.collection('users').findOne({userId: payload['sub']}, function(err, ret) {
           if (err) {
             var ret = {}
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           if (req == null) {
@@ -227,7 +253,7 @@ app.post('/sendVote', function (req, res) {
             ret.status = 1;
             ret.message = "user id not found";
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           var isadmin = false;
@@ -242,7 +268,7 @@ app.post('/sendVote', function (req, res) {
             ret.status = 1;
             ret.message = "Non admins cannot delegate";
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           db.collection('votacions').findOne({ _id : new ObjectID(ipollId) }, function (err, doc) {
@@ -252,7 +278,7 @@ app.post('/sendVote', function (req, res) {
               ret.message = "votacio not found in db"
               ret['status'] = 4;
               res.json(ret);
-              db.close();
+              
               return ret;
             }
             if(doc.state == "open"){
@@ -263,7 +289,7 @@ app.post('/sendVote', function (req, res) {
                     ret.status = 1;
                     ret.message = err.toString();
                     res.json(ret);
-                    db.close();
+                    
                     return ret;
                   }
                   var max = 0;
@@ -274,7 +300,7 @@ app.post('/sendVote', function (req, res) {
                   var ret = {};
                   ret['status'] = 0;
                   res.json(ret);
-                  db.close();
+                  
                   return ret;
                 })
               }
@@ -285,7 +311,7 @@ app.post('/sendVote', function (req, res) {
                 var ret = {};
                 ret['status'] = 0;
                 res.json(ret);
-                db.close();
+                
                 return ret;
               }
             } else {
@@ -293,12 +319,12 @@ app.post('/sendVote', function (req, res) {
               ret['status'] = 4;
               ret.message = "Poll Already Closed";
               res.json(ret);
-              db.close();
+              
               return ret;
             }
           })
         })
-      })
+
   })
 })
 
@@ -309,20 +335,15 @@ function inFunc(targetGroup, targets) {
 
 //millor guardar-ho a la db?
 function cens(targetGroup) {
-  MongoClient.connect(url, function(err, db) {
-    if (err) {
-      var ret = {}
-      ret.status = 1;
-      ret.message = err.toString();
-      res.json(ret);
-      db.close();
-      return ret;
-    }
-      db.collection('users').count({ $where: function() { return inFunc(targetGroup,this.membership)} }, null,function(err, count) {
+
+    const db = clientMongo.db(dbName);
+
+      db.collection('users').countDocuments({ $where: function() { return inFunc(targetGroup,this.membership)} }, null,function(err, count) {
+            
       return count;
-      db.close();
+
     });
-  })
+
 }
 
 function shuffle(a) {
@@ -350,22 +371,16 @@ app.post('/removeDelegations', function (req,res){
         return ret;
       }
       var payload = login.getPayload();
-      MongoClient.connect(url, function(err, db) {
-        if (err) {
-          var ret = {}
-          ret.status = 1;
-          ret.message = err.toString();
-          res.json(ret);
-          db.close();
-          return ret;
-        }
+
+        const db = clientMongo.db(dbName);
+
         db.collection('users').findOne({userId: payload['sub']}, function(err, ret) {
           if (err) {
             var ret = {}
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           if (req == null) {
@@ -373,7 +388,7 @@ app.post('/removeDelegations', function (req,res){
             ret.status = 1;
             ret.message = "user id not found";
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           var isadmin = false;
@@ -388,7 +403,7 @@ app.post('/removeDelegations', function (req,res){
             ret.status = 1;
             ret.message = "Non admins cannot change delegations";
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           db.collection('votacions').findOne({ _id : new ObjectID(ipollId) }, function (err, doc) {
@@ -398,7 +413,7 @@ app.post('/removeDelegations', function (req,res){
               ret.message = "votacio not found in db"
               ret['status'] = 4;
               res.json(ret);
-              db.close();
+              
               return ret;
             }
             if(doc.state == "open"){
@@ -408,13 +423,13 @@ app.post('/removeDelegations', function (req,res){
                   ret.status = 1;
                   ret.message = err.toString();
                   res.json(ret);
-                  db.close();
+                  
                   return ret;
                 }
                 var ret = {};
                 ret['status'] = 0;
                 res.json(ret);
-                db.close();
+                
                 return ret;
               })
               
@@ -423,12 +438,12 @@ app.post('/removeDelegations', function (req,res){
               ret['status'] = 4;
               ret.message = "Poll Already Closed";
               res.json(ret);
-              db.close();
+              
               return ret;
             }
           })
         })
-      })
+
   })
 })
 
@@ -436,15 +451,9 @@ app.post('/egetResults', function (req, res) {
   console.log('egetResults: ' + JSON.stringify(req.body));
   var ipollId = req.body.pollId;
   //var userId1 = req.body.userId;
-  MongoClient.connect(url, function(err, db) {
-    if (err) {
-      var ret = {}
-      ret.status = 1;
-      ret.message = err.toString();
-      res.json(ret);
-      db.close();
-      return ret;
-    }
+
+    const db = clientMongo.db(dbName);
+
     db.collection('votacions').findOne({_id: ObjectID(ipollId)}, function(err, doc){
       console.log(ret);
       if (err) {
@@ -452,7 +461,7 @@ app.post('/egetResults', function (req, res) {
         ret.status = 1;
         ret.message = err.toString();
         res.json(ret);
-        db.close();
+        
         return ret;
       }
       if(doc == null){
@@ -460,7 +469,7 @@ app.post('/egetResults', function (req, res) {
         ret.status = 1;
         ret.message = 'poll not found';
         res.json(ret);
-        db.close();
+        
         return ret;
       }
       if (doc.state == "open"){
@@ -468,7 +477,7 @@ app.post('/egetResults', function (req, res) {
         ret.status = 1;
         ret.message = 'poll open';
         res.json(ret);
-        db.close();
+        
         return ret;
       }
       if (doc.state == "closed_private"){
@@ -479,7 +488,7 @@ app.post('/egetResults', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           if (req == null) {
@@ -487,7 +496,7 @@ app.post('/egetResults', function (req, res) {
             ret.status = 1;
             ret.message = "user id not found";
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           var isadmin = false;
@@ -505,7 +514,7 @@ app.post('/egetResults', function (req, res) {
             return ret;
           }
           get_results(doc,ipollId,db,(ret)=>{       
-            db.close();
+            
             res.json(ret);
             return ret;
           })
@@ -514,14 +523,14 @@ app.post('/egetResults', function (req, res) {
       else{
         
         get_results(doc,ipollId,db,(ret)=>{       
-          db.close();
+          
           res.json(ret);
           return ret;
         })
 
       }
     });
-  });
+
 });
 
 function get_results(doc,ipollId,db,fun){
@@ -549,7 +558,7 @@ function get_results(doc,ipollId,db,fun){
         ret.status = 1;
         ret.message = err.toString();
         res.json(ret);
-        db.close();
+        
         return ret;
       }
       if (isPriority){
@@ -665,21 +674,15 @@ app.post('/getResults', function (req, res) {
   console.log('getResults: ' + JSON.stringify(req.body));
   var ipollId = req.body.pollId;
   var userId1 = req.body.userId;
-  MongoClient.connect(url, function(err, db) {
-    if (err) {
-      var ret = {}
-      ret.status = 1;
-      ret.message = err.toString();
-      res.json(ret);
-      db.close();
-      return ret;
-    }
-    else if (db == null){
+
+    const db = clientMongo.db(dbName);
+
+    if (db == null){
       var ret = {}
       ret.status = 1;
       ret.message = "DB not found";
       res.json(ret);
-      db.close();
+      
       return ret;
     } else {
       var votacions = db.collection('votacions');
@@ -689,7 +692,7 @@ app.post('/getResults', function (req, res) {
           ret.status = 1;
           ret.message = err.toString();
           res.json(ret);
-          db.close();
+          
           return ret;
         }
         else if(ret == null){
@@ -697,7 +700,7 @@ app.post('/getResults', function (req, res) {
           ret.status = 1;
           ret.message = 'poll not found';
           res.json(ret);
-          db.close();
+          
           return ret;
         }
         else{
@@ -723,7 +726,7 @@ app.post('/getResults', function (req, res) {
               ret.status = 1;
               ret.message = err.toString();
               res.json(ret);
-              db.close();
+              
               return ret;
             }
             else if(retuser == null){
@@ -731,7 +734,7 @@ app.post('/getResults', function (req, res) {
               ret.status = 1;
               ret.message = "userId not found";
               res.json(ret);
-              db.close();
+              
               return ret;
             }
             else{
@@ -753,7 +756,7 @@ app.post('/getResults', function (req, res) {
                       ret.status = 1;
                       ret.message = err.toString();
                       res.json(ret);
-                      db.close();
+                      
                       return ret;
                     }
                     else if((vot_ret != null) && (vot_ret.length != 0)){
@@ -794,7 +797,7 @@ app.post('/getResults', function (req, res) {
                                 ret.status = 1;
                                 ret.message = err.toString();
                                 res.json(ret);
-                                db.close();
+                                
                                 return ret;
                               }
                               else if(namefound == null){
@@ -803,7 +806,7 @@ app.post('/getResults', function (req, res) {
                                 ret.status = 1;
                                 ret.message = "Voter ID not found in database!";
                                 res.json(ret);
-                                db.close();
+                                
                                 return ret;
                               }
                               else{
@@ -827,7 +830,7 @@ app.post('/getResults', function (req, res) {
                                   else final_poll.voters = vots_nom;
                                   ret.options = final_poll;
                                   res.json(ret);
-                                  db.close();
+                                  
                                   return ret;
                                 }
                               }
@@ -844,7 +847,7 @@ app.post('/getResults', function (req, res) {
                             final_poll.voters = vots_nom;
                             ret.options = final_poll;
                             res.json(ret);
-                            db.close();
+                            
                             return ret;
                           }
                         }
@@ -860,7 +863,7 @@ app.post('/getResults', function (req, res) {
                   ret.status = 1;
                   ret.message = 'Stop trolling, this poll is still open';
                   res.json(null);
-                  db.close();
+                  
                   return ret;
                 }
                 else{
@@ -869,7 +872,7 @@ app.post('/getResults', function (req, res) {
                   ret_final.status = 3;
                   ret_final.message = 'You have no access to this poll';
                   res.json(ret_final);
-                  db.close();
+                  
                   return ret;
                 }
               }
@@ -878,21 +881,15 @@ app.post('/getResults', function (req, res) {
         }
       });
     }
-  });
+
 })
 
 app.post('/getUserInfo', function (req, res) {
   console.log('getUserInfo : ' + JSON.stringify(req.body));
   var user_ID = req.body.userId;
-  MongoClient.connect(url, function(err, db) {
-    if (err) {
-      var ret = {}
-      ret.status = 1;
-      ret.message = err.toString();
-      res.json(ret);
-      db.close();
-      return ret;
-    }
+
+    const db = clientMongo.db(dbName);
+
     var users = db.collection('users');
     users.findOne({userId: user_ID}, function(err, ret) {
       if (err) {
@@ -900,7 +897,7 @@ app.post('/getUserInfo', function (req, res) {
         ret.status = 1;
         ret.message = err.toString();
         res.json(ret);
-        db.close();
+        
         return ret;
       }
       else if (ret == null){
@@ -908,7 +905,7 @@ app.post('/getUserInfo', function (req, res) {
         ret.status = 1;
         ret.message = 'User not found in getUserInfo with id ' + user_ID;
         res.json(ret);
-        db.close();
+        
         return ret;
       }
       else{
@@ -918,11 +915,11 @@ app.post('/getUserInfo', function (req, res) {
         ret_final.name = ret.name;
         ret_final.email = ret.email;
         res.json(ret_final);
-        db.close();
+        
         return ret_final;
       }
     });
-  });
+
 })
 
 app.post('/createPoll', function (req, res) {
@@ -940,15 +937,9 @@ app.post('/createPoll', function (req, res) {
         return ret;
       }
       var payload = login.getPayload();
-      MongoClient.connect(url, function(err, db) {
-        if (err) {
-          var ret = {}
-          ret.status = 1;
-          ret.message = err.toString();
-          res.json(ret);
-          db.close();
-          return ret;
-        }
+
+      const db = clientMongo.db(dbName);
+        
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
           if (err) {
@@ -956,7 +947,7 @@ app.post('/createPoll', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           if(ret != null){
@@ -979,7 +970,7 @@ app.post('/createPoll', function (req, res) {
               var ret = {};
               ret.status = 0;
               res.json(ret);
-              db.close();
+              
               return ret;
             }
             else{
@@ -987,7 +978,7 @@ app.post('/createPoll', function (req, res) {
               ret.status = 1;
               ret.message = 'poll Not found';
               res.json(ret);
-              db.close();
+              
               return ret;
             }
           }
@@ -996,11 +987,11 @@ app.post('/createPoll', function (req, res) {
             ret.status = 2;
             ret.message = 'poll Not found';
             res.json(ret);
-            db.close();
+            
             return ret;
           }
         });
-      });
+
     });
 })
 
@@ -1021,15 +1012,9 @@ app.post('/setState', function (req, res) {
         return ret;
       }
       var payload = login.getPayload();
-      MongoClient.connect(url, function(err, db) {
-        if (err) {
-          var ret = {}
-          ret.status = 1;
-          ret.message = err.toString();
-          res.json(ret);
-          db.close();
-          return ret;
-        }
+
+      const db = clientMongo.db(dbName);
+
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
           if (err) {
@@ -1037,7 +1022,7 @@ app.post('/setState', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           if(ret != null){
@@ -1052,14 +1037,14 @@ app.post('/setState', function (req, res) {
               var ret = {}
               ret.status = 0;
               res.json(ret);
-              db.close();
+              
               return ret;
             }
             else{
               var ret = {}
               ret.status = 1;
               res.json(ret);
-              db.close();
+              
               return ret;
             }
           }
@@ -1067,11 +1052,11 @@ app.post('/setState', function (req, res) {
             var ret = {}
             ret.status = 2;
             res.json(ret);
-            db.close();
+            
             return ret;
           }
         });
-      });
+
     });
 })
 
@@ -1091,15 +1076,9 @@ app.post('/updateMembership', function (req, res) {
         return ret;
       }
       var payload = login.getPayload();
-      MongoClient.connect(url, function(err, db) {
-        if (err) {
-          var ret = {}
-          ret.status = 1;
-          ret.message = err.toString();
-          res.json(ret);
-          db.close();
-          return ret;
-        }
+
+      const db = clientMongo.db(dbName);
+
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
           if (err) {
@@ -1107,7 +1086,7 @@ app.post('/updateMembership', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           if(ret != null){
@@ -1126,7 +1105,7 @@ app.post('/updateMembership', function (req, res) {
                   ret.status = 1;
                   ret.message = err.toString();
                   res.json(ret);
-                  db.close();
+                  
                   return ret;
                 }
                 if(ret!= null){
@@ -1135,7 +1114,7 @@ app.post('/updateMembership', function (req, res) {
                     ret.status = 0;
                     ret.message = "";
                     res.json(ret);
-                    db.close();
+                    
                     return ret;
                 }
                 else
@@ -1144,7 +1123,7 @@ app.post('/updateMembership', function (req, res) {
                   ret.status = 1;
                   ret.message = "urser not found";
                   res.json(ret);
-                  db.close();
+                  
                   return ret;
                 }
               });
@@ -1154,7 +1133,7 @@ app.post('/updateMembership', function (req, res) {
               ret.status = 3;
               ret.message = "Not an admin";
               res.json(ret);
-              db.close();
+              
             }
           }
           else{
@@ -1162,10 +1141,10 @@ app.post('/updateMembership', function (req, res) {
             ret.status = 4;
             ret.message = "User not found";
             res.json(ret);
-            db.close();
+            
           }
         });
-      });
+
     });
   })
 
@@ -1181,19 +1160,13 @@ app.post('/revokeMembership', function (req, res) {
         ret.status = 2;
         ret.message = err.toString();
         res.json(ret);
-        db.close();
+        
         return ret;
       }
       var payload = login.getPayload();
-      MongoClient.connect(url, function(err, db) {
-        if (err) {
-          var ret = {}
-          ret.status = 1;
-          ret.message = err.toString();
-          res.json(ret);
-          db.close();
-          return ret;
-        }
+
+      const db = clientMongo.db(dbName);
+       
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
           if (err) {
@@ -1201,7 +1174,7 @@ app.post('/revokeMembership', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           if(ret == null){
@@ -1209,7 +1182,7 @@ app.post('/revokeMembership', function (req, res) {
             ret.status = 1;
             ret.message = 'user not found in db';
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           else{
@@ -1227,7 +1200,7 @@ app.post('/revokeMembership', function (req, res) {
                   ret.status = 1;
                   ret.message = err.toString();
                   res.json(ret);
-                  db.close();
+                  
                   return ret;
                 }
                 if(ret == null){
@@ -1235,7 +1208,7 @@ app.post('/revokeMembership', function (req, res) {
                   ret.status = 1;
                   ret.message ='email not found';
                   res.json(ret);
-                  db.close();
+                  
                   return ret;
                 }
                 else{
@@ -1254,7 +1227,7 @@ app.post('/revokeMembership', function (req, res) {
                     var ret= {}
                     ret.status = 0;
                     res.json(ret);
-                    db.close();
+                    
                     return ret;
                   }
                   else
@@ -1263,7 +1236,7 @@ app.post('/revokeMembership', function (req, res) {
                     ret.status = 4;
                     ret.message = "Didn't find newMembership"
                     res.json(ret);
-                    db.close();
+                    
                   }
                 }
               });
@@ -1274,11 +1247,11 @@ app.post('/revokeMembership', function (req, res) {
               ret.status = 3;
               ret.message = "User not admin"
               res.json(ret);
-              db.close();
+              
             }
           }
         });
-      });
+
     });
 })
 
@@ -1297,19 +1270,14 @@ app.post('/tokensignin', function (req, res) {
         return ret;
       }
       var payload = login.getPayload();
-      MongoClient.connect(url, function(err, db) {
-        if (err) {
-          var ret = {}
-          ret.status = 1;
-          ret.message = err.toString()  ;
-          res.json(ret);
-          db.close();
-          return ret;
-        }
+      console.log(dbName);
+
+      const db = clientMongo.db(dbName);
+
         var users = db.collection('users');
         var user = {};
         user['userId'] = payload['sub'];
-        db.collection('users').count(function(err, count) {
+        db.collection('users').countDocuments(function(err, count) {
           if (count < 3) {
             user['membership'] = ['all','admin'];
           } else {
@@ -1322,12 +1290,12 @@ app.post('/tokensignin', function (req, res) {
           ret.status = 0;
           ret.message = 'Error on signin'  ;
           res.json(ret);
-          db.close();
+          
           return ret;
           }
         )
 
-      });
+
     });
 })
 
@@ -1346,15 +1314,9 @@ app.post('/getUsers', function (req, res) {
         return ret;
       }
       var payload = login.getPayload();
-      MongoClient.connect(url, function(err, db) {
-        if (err) {
-          var ret = {}
-          ret.status = 1;
-          ret.message = err.toString();
-          res.json(ret);
-          db.close();
-          return ret;
-        }
+
+      const db = clientMongo.db(dbName);
+
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
           if (err) {
@@ -1362,7 +1324,7 @@ app.post('/getUsers', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           if(ret != null){
@@ -1377,7 +1339,7 @@ app.post('/getUsers', function (req, res) {
                 aux.status = 0;
                 aux.users = docs;
                 res.json(aux);
-                db.close();
+                
                 return aux;
               })
             } else {
@@ -1385,7 +1347,7 @@ app.post('/getUsers', function (req, res) {
               aux.status = 1;
               aux.message = 'user not admin';
               res.json(aux);
-              db.close();
+              
               return aux;
             }
           } else {
@@ -1393,11 +1355,11 @@ app.post('/getUsers', function (req, res) {
             aux.status = 1;
             aux.message = 'user not found';
             res.json(aux);
-            db.close();
+            
             return aux;
           }
         })
-      })
+
 })
 })
 
@@ -1414,19 +1376,13 @@ app.post('/removePoll', function (req, res) {
         ret.status = 2;
         ret.message = err.toString();
         res.json(ret);
-        db.close();
+        
         return ret;
       }
       var payload = login.getPayload();
-      MongoClient.connect(url, function(err, db) {
-        if (err) {
-          var ret = {}
-          ret.status = 1;
-          ret.message = err.toString();
-          res.json(ret);
-          db.close();
-          return ret;
-        }
+
+      const db = clientMongo.db(dbName);
+ 
         var users = db.collection('users');
         users.findOne({userId: payload['sub']}, function(err, ret) {
           if (err) {
@@ -1434,7 +1390,7 @@ app.post('/removePoll', function (req, res) {
             ret.status = 1;
             ret.message = err.toString();
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           if(ret == null){
@@ -1442,7 +1398,7 @@ app.post('/removePoll', function (req, res) {
             ret.status = 1;
             ret.message = 'user not found in db';
             res.json(ret);
-            db.close();
+            
             return ret;
           }
           else{
@@ -1459,7 +1415,7 @@ app.post('/removePoll', function (req, res) {
                 ret.status = 0;
                 ret.message = "Poll deleted successfully";
                 res.json(ret);
-                db.close();
+                
                   return ret;
               });
             }
@@ -1468,11 +1424,11 @@ app.post('/removePoll', function (req, res) {
               ret.status = 3;
               ret.message = "User not admin"
               res.json(ret);
-              db.close();
+              
             }
           }
         });
-      });
+
     });
 })
 
