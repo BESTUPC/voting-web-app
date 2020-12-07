@@ -3,12 +3,11 @@ const MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 var assert = require('assert');
 var fs = require('fs');
-var GoogleAuth = require('google-auth-library');
-var auth = new GoogleAuth;
+const {OAuth2Client} = require('google-auth-library');
 var obj = JSON.parse(fs.readFileSync('googlecredentials.pswd', 'utf8'));
 var CLIENT_ID = obj['id'];
 var CLIENT_SECRET = obj['secret'];
-var client = new auth.OAuth2(CLIENT_ID, CLIENT_SECRET, "https://localhost:3000/");
+var client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, "https://localhost:3000/");
 var bodyParser = require("body-parser");
 
 const http = require('http');
@@ -99,9 +98,7 @@ app.use(bodyParser.json());
 app.post('/getPolls', function (req, res) {
   console.log("getPolls: " +  JSON.stringify(req.body));
   var token = req.body.idtoken;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({"idToken":token, "audience": CLIENT_ID},
     function(e, login) {
       if (e) {
         var ret = {}
@@ -162,9 +159,7 @@ app.post('/getPollInfo', function (req, res) {
   console.log('getPollInfo: ' +JSON.stringify(req.body));
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({"idToken":token, "audience": CLIENT_ID},
     function(err, login) {
       if (err) {
         var ret = {}
@@ -224,9 +219,7 @@ app.post('/sendVote', function (req, res) {
   var ipollId = req.body.pollId;
   var ioption = req.body.option;
   var idelegation = req.body.delegation == "true";
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({"idToken":token, "audience": CLIENT_ID},
     function(err, login) {
       if (err) {
         var ret = {}
@@ -359,9 +352,7 @@ app.post('/removeDelegations', function (req,res){
   console.log('removeDelegations: ' +JSON.stringify(req.body));
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({"idToken":token, "audience": CLIENT_ID},
     function(err, login) {
       if (err) {
         var ret = {}
@@ -552,7 +543,9 @@ function get_results(doc,ipollId,db,fun){
         }
     }
   ],
-    function(err, result){
+    async function(err, result){
+      result = await result.toArray()
+      console.log(result);
       if (err) {
         var ret = {}
         ret.status = 1;
@@ -569,7 +562,9 @@ function get_results(doc,ipollId,db,fun){
             voters[options[keyOption]] = [];
           }
           for (var docKey in result){
+            console.log("HELLOE");
             var doc = result[docKey];
+            console.log(doc)
             option=JSON.parse(doc.option);
             selected=option.find(x=>options.indexOf(x)>=0);
 
@@ -626,6 +621,7 @@ function get_results(doc,ipollId,db,fun){
           voters[options[keyOption]] = [];
         }
         for (var docKey in result){
+                    console.log("HELLOEss");
           var doc = result[docKey];
           if (result[docKey].userId.startsWith("delegation_")){
             voters[doc.option].push(result[docKey].userId);
@@ -925,9 +921,7 @@ app.post('/getUserInfo', function (req, res) {
 app.post('/createPoll', function (req, res) {
   console.log('createPoll : ' +JSON.stringify(req.body));
   var token = req.body.idtoken;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({"idToken":token, "audience": CLIENT_ID},
     function(err, login) {
       if (err) {
         var ret = {}
@@ -1000,9 +994,7 @@ app.post('/setState', function (req, res) {
   var token = req.body.idtoken;
   var ipollId = req.body.pollId;
   var newstate = req.body.state;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({"idToken":token, "audience": CLIENT_ID},
     function(err, login) {
       if (err) {
         var ret = {}
@@ -1064,9 +1056,7 @@ app.post('/updateMembership', function (req, res) {
   console.log('updateMembership : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
   //console.log(token);
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({"idToken":token, "audience": CLIENT_ID},
     function(err, login) {
       if (err) {
         var ret = {}
@@ -1151,9 +1141,7 @@ app.post('/updateMembership', function (req, res) {
 app.post('/revokeMembership', function (req, res) {
   console.log('revokeMembership : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({"idToken":token, "audience": CLIENT_ID},
     function(err, login) {
       if (err) {
         var ret = {}
@@ -1258,9 +1246,7 @@ app.post('/revokeMembership', function (req, res) {
 app.post('/tokensignin', function (req, res) {
   console.log('tokensignin : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({'idToken': token, 'audience': CLIENT_ID},
     function(err, login) {
       if (err) {
         var ret = {}
@@ -1302,9 +1288,7 @@ app.post('/tokensignin', function (req, res) {
 app.post('/getUsers', function (req, res) {
   console.log('getUsers : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({"idToken":token, "audience": CLIENT_ID},
     function(err, login) {
       if (err) {
         var ret = {}
@@ -1367,9 +1351,7 @@ app.post('/removePoll', function (req, res) {
   console.log('removePoll : ' + JSON.stringify(req.body));
   var token = req.body.idtoken;
   var pollId = req.body.pollId;
-  client.verifyIdToken(
-    token,
-    CLIENT_ID,
+  client.verifyIdToken({"idToken":token, "audience": CLIENT_ID},
     function(err, login) {
       if (err) {
         var ret = {}
