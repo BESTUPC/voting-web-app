@@ -82,7 +82,7 @@
   <script src="../dist/js/sb-admin-2.js"></script>
 
   <script src="js/cookie.js">  </script>
-
+<!--
   <script>
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
@@ -91,12 +91,12 @@
       });
     }
   </script>
-
+-->
   <script src="js/navbar.js">  </script>
   <script>
 
     $("#navbar").load("navbar.html",function(){
-
+        /*
         if (getCookie("idtoken") == ""){
             setCookie('profile',"",1);
             setCookie('idtoken',"",1);
@@ -104,8 +104,9 @@
             return 0;
         }
 
-        initNavBar(JSON.parse(getCookie("profile")));
         id_token = getCookie("idtoken");
+        */
+        initNavBar(JSON.parse(getCookie("profile")));
         var xhr = new XMLHttpRequest();
         xhr.open('POST', URL + '/getPolls');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

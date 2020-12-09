@@ -4,7 +4,8 @@
   "description": "Web-App-Votacions-BEST",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +22,14 @@
   "homepage": "https://github.com/estevetarra/Web-App-Votacions-BEST#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cookie-session": "^1.4.0",
     "express": "^4.17.1",
-    "google-auth-library": "^6.1.3",
-    "mongodb": "^3.6.3"
+    "mongodb": "^3.6.3",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "nodemon": "^2.0.6"
   }
 }

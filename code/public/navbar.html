@@ -53,7 +53,7 @@
 
             <script>
             //http://stackoverflow.com/questions/30945798/html-php-google-single-sign-on-signout-will-throw-cannot-read-property-getauth
-            function signOut() {
+            /*function signOut() {
               var auth2 = gapi.auth2.getAuthInstance();
               //si fem aixo fem torna a donar els permisos
               //auth2.disconnect();
@@ -64,7 +64,7 @@
                   window.location = DOMAIN + "/login.html";
               });
             }
-
+*/
             function onLoad() {
               gapi.load('auth2', function() {
                 gapi.auth2.init();

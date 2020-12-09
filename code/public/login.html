@@ -46,81 +46,6 @@
 
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-      <script src="https://apis.google.com/js/api:client.js"></script>
-      <script>
-          function onSignIn(googleUser) {
-             var id_token = googleUser.getAuthResponse().id_token;
-             var xhr = new XMLHttpRequest();
-             xhr.open('POST', URL + '/tokensignin');
-             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-             xhr.onload = function() {
-                console.log('Signed in as: ' + xhr.responseText);
-                   setCookie("idtoken",id_token,300);
-                  profile=googleUser.getBasicProfile();
-                  setCookie("profile",JSON.stringify({
-                    name: profile.getName(),
-                    email: profile.getEmail(),
-                    id: profile.getId(),
-                    imageUrl: profile.getImageUrl()
-                  }),300);
-                 window.location = DOMAIN;
-             };
-             xhr.send('idtoken=' + id_token);
-        
-  
-}
-
-function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  var expires = "expires="+ d.toUTCString();
-    //alert(expires);
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
-      function attachSignin(element) {
-          console.log(element.id);
-          auth2.attachClickHandler(element, {},
-              onSignIn, function(error) {
-                  //alert(JSON.stringify(error, undefined, 2));
-              });
-      }
-
-      var googleUser = {};
-      var startApp = function() {
-        gapi.load('auth2', function(){
-          // Retrieve the singleton for the GoogleAuth library and set up the client.
-          auth2 = gapi.auth2.init({
-            client_id: '260328757466-cmmgec2o5sfm626bl33o5h1dekrmvfir.apps.googleusercontent.com',
-            cookiepolicy: 'single_host_origin'
-            // Request scopes in addition to 'profile' and 'email'
-            //scope: 'additional_scope'
-          });
-          attachSignin(document.getElementById('customBtn'));
-          if (getCookie("idtoken") != "") {
-              //alert("Token found"+getCookie("idtoken"));
-              setTimeout(function () {
-                  $('#customBtn').click();
-              }, 1000);
-          }
-        });
-      };
-      </script>
 
 </head>
 <style>
@@ -148,7 +73,7 @@ img:hover {
           <div class="col-sm-4"></div>
           <div class="col-sm-4" >
 
-            <button type="button" id ="customBtn" name="test-button" class="customGPlusSignIn btn btn-primary btn-success btn-lg btn-block"> LogIn with Google </button>
+            <button onclick="location.href='/auth'" type="button" id ="customBtn" name="test-button" class="customGPlusSignIn btn btn-primary btn-success btn-lg btn-block"> LogIn with Google </button>
 
             <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
           </div>
