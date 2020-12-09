@@ -43,7 +43,7 @@ function setupAuthorization(app) {
 
     app.get('/auth',
         passport.authenticate('google', { scope: ['profile', 'email'] }));
-    app.get('/auth/redirect', passport.authenticate('google', { failureRedirect: '/login' }),
+    app.get('/auth/redirect', passport.authenticate('google', { failureRedirect: '/login.html' }),
         function (req, res) {
             res.redirect('/');
         }
