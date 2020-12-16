@@ -3,3 +3,7 @@ dist
 coverage
 .vscode
 .nyc_output
+cert.pem
+chain.pem
+googlecredentials.pem
+privkey.pem
