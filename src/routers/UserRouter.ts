@@ -31,19 +31,6 @@ export default class UsersRouter {
                 }
             },
         );
-        this._router.post(
-            '/',
-            async (req: Request, res: Response, next: NextFunction) => {
-                try {
-                    const result: boolean = await this._controller.addUser(
-                        req.body,
-                    );
-                    res.status(200).json(result);
-                } catch (error) {
-                    next(error);
-                }
-            },
-        );
         this._router.patch(
             '/:id',
             async (req: Request, res: Response, next: NextFunction) => {

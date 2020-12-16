@@ -1,9 +1,10 @@
 import { Express, NextFunction, Request, Response } from 'express';
 import passport from 'passport';
-import { OAuth2Strategy } from 'passport-google-oauth';
+import { OAuth2Strategy, Profile } from 'passport-google-oauth';
 import cookieSession from 'cookie-session';
 import fs from 'fs';
 import { ICredentials } from '../interface/ICredentials';
+import UserController from '../controllers/UserController';
 
 export default abstract class Authentication {
     public static configure(app: Express): void {
@@ -20,7 +21,13 @@ export default abstract class Authentication {
             passport.use(
                 new OAuth2Strategy(
                     creds,
-                    function (_accessToken, _refreshToken, profile, done) {
+                    async function (
+                        _accessToken: string,
+                        _refreshToken: string,
+                        profile: Profile,
+                        done,
+                    ) {
+                        await UserController.addUser(profile);
                         return done(null, profile);
                     },
                 ),
@@ -42,7 +49,7 @@ export default abstract class Authentication {
         app.get(
             '/auth/redirect',
             passport.authenticate('google', { failureRedirect: '/login.html' }),
-            function (req, res) {
+            function (_req, res) {
                 res.redirect('/');
             },
         );

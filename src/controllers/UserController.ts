@@ -26,23 +26,15 @@ export default class UserController {
 
     public static async addUser(body: {
         id: string;
-        email: string;
-        name: string;
+        displayName: string;
+        emails?: Array<{ value: string; type?: string }>;
     }): Promise<boolean> {
-        let newUser: IUser;
-        try {
-            newUser = {
-                userId: body.id,
-                email: body.email,
-                name: body.name,
-                membership: ['all'],
-            };
-            if (!newUser.userId || !newUser.name || !newUser.email) {
-                throw new ErrorHandler(400, 'Bad request body');
-            }
-        } catch {
-            throw new ErrorHandler(400, 'Bad request body');
-        }
+        const newUser: IUser = {
+            userId: body.id,
+            email: body.emails ? body.emails[0].value : 'notAvailable',
+            name: body.displayName,
+            membership: ['all'],
+        };
         return UserModel.add(newUser);
     }
 

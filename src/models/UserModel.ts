@@ -1,4 +1,4 @@
-import { Collection, WriteOpResult } from 'mongodb';
+import { Collection } from 'mongodb';
 import { IMembership, IUser } from '../interface/IUser';
 import Database from '../providers/Database';
 
@@ -28,9 +28,11 @@ export default class UserModel {
     }
 
     public static async add(user: IUser): Promise<boolean> {
-        const writeResult: WriteOpResult = await UserModel.getCollection().insertOne(
-            user,
-        );
-        return writeResult.ops.length == 1;
+        try {
+            await UserModel.getCollection().insertOne(user);
+        } catch (e) {
+            return false;
+        }
+        return true;
     }
 }
