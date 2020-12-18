@@ -7,7 +7,7 @@
 | Definir interface \(bootstrap\) | quesito | F |
 | Crear template server | estevetarra | F |
 | Crear stub de API | estevetarra | F |
-| Crear stub de BD \(pocs casos per testajar\) | estevetarra | F |
+| Crear stub de BD \(pocs casos per testejar\) | estevetarra | F |
 | Crear script d'instal·lació | quesito | F |
 | Crear html static \(sense connectar\) | iñigo | F |
 | Crear js de la pàgina | - | WT |
@@ -51,4 +51,3 @@ Started S
 Finished F
 
 Debugged D
-
