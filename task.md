@@ -12,15 +12,15 @@
 | Crear html static \(sense connectar\) | iñigo | F |
 | Crear js de la pàgina | - | WT |
 | Fer log in amb google | estevetarra | F |
-| Crear coockies | estevetarra | F |
+| Crear cookies | estevetarra | F |
 | Visualització de votacions | - | WT |
 | Creació de votacions | - | WT |
 | Gestionar notificacion | - | WT |
 | Crear pàgina estadístiques | - | WT |
 
-Fer que per defecte hi hagi una DL Permetre editar votacions Mostrar si las polls son privades o no
-
-Prova
+* Fer que per defecte hi hagi una DL
+* Permetre editar votacions
+* Mostrar si las polls son privades o no
 
 ## Back-End
 
@@ -51,3 +51,4 @@ Started S
 Finished F
 
 Debugged D
+
