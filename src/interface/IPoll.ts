@@ -11,6 +11,7 @@ export interface IPoll {
     state: IPollState;
     targetGroup: IMembership;
     pollOptions: Array<string>;
+    pollName: string;
 }
 
 export type IPollState = 'open' | 'closed';

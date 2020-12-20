@@ -51,10 +51,9 @@ function initNavBar(profile){
         var response=JSON.parse(xhrNav.responseText);
         //alert(xhrNav.responseText);
         if (response.status!='0'){
-	setCookie('profile',"",1);
-	setCookie('idtoken',"",1);
+	//setCookie('profile',"",1);
+	//setCookie('idtoken',"",1);
             error('Error',response.message,null);
-		console.log(JSON.stringify(response));
 //            error('Error',response.message,goLogin());
 
             return 0;
@@ -94,8 +93,8 @@ function initNavBar(profile){
             }
         }
         else if(e.keyCode==27){ //ESC
-	setCookie('profile',"",1);
-	setCookie('idtoken',"",1);
+	//setCookie('profile',"",1);
+	//setCookie('idtoken',"",1);
             goHome();
             e.stopImmediatePropagation();
         }
@@ -117,7 +116,7 @@ function initNavBar(profile){
             var xhrState = new XMLHttpRequest();
             xhrState.open('POST', URL + '/setState');
             xhrState.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhrState.onload = function() {
+            xhrState.onload = async function() {
                 var response=JSON.parse(xhrState.responseText);
                 if (response.status!='0'){
                     error('Error',response.message,goHome());
@@ -132,7 +131,7 @@ function initNavBar(profile){
             var xhrRemove = new XMLHttpRequest();
             xhrRemove.open('POST', URL + '/removePoll');
             xhrRemove.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhrRemove.onload = function() {
+            xhrRemove.onload = async function() {
                 var response=JSON.parse(xhrRemove.responseText);
                 if (response.status!='0'){
                     error('Error',response.message,goHome());

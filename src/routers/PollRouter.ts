@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import UserController from '../controllers/UserController';
-import { IUser } from '../interface/IUser';
+import PollController from '../controllers/PollController';
+import { IPoll } from '../interface/IPoll';
 
-export default class UsersRouter {
+export default class PollRouter {
     private _router = Router();
-    private _controller = UserController;
+    private _controller = PollController;
 
     get router(): Router {
         return this._router;
@@ -22,7 +22,7 @@ export default class UsersRouter {
             '/',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
-                    const result: Array<IUser> = await this._controller.getUsers(
+                    const result: Array<IPoll> = await this._controller.getPolls(
                         req.user['id'],
                     );
                     res.status(200).json(result);
@@ -32,10 +32,10 @@ export default class UsersRouter {
             },
         );
         this._router.patch(
-            '/membership/:id',
+            '/state/:id',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
-                    const result = await this._controller.updateMembership(
+                    const result: boolean = await this._controller.updateState(
                         req.user['id'],
                         req.params.id,
                         req.body,
@@ -50,7 +50,8 @@ export default class UsersRouter {
             '/:id',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
-                    const result = await this._controller.getUser(
+                    const result: IPoll = await this._controller.getPoll(
+                        req.user['id'],
                         req.params.id,
                     );
                     res.status(200).json(result);
@@ -59,11 +60,29 @@ export default class UsersRouter {
                 }
             },
         );
-        this._router.get(
-            '/current',
+        this._router.delete(
+            '/:id',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
-                    res.status(200).json(req.user);
+                    const result: boolean = await this._controller.deletePoll(
+                        req.user['id'],
+                        req.params.id,
+                    );
+                    res.status(200).json(result);
+                } catch (error) {
+                    next(error);
+                }
+            },
+        );
+        this._router.post(
+            '/',
+            async (req: Request, res: Response, next: NextFunction) => {
+                try {
+                    const result: boolean = await this._controller.addPoll(
+                        req.user['id'],
+                        req.body,
+                    );
+                    res.status(200).json(result);
                 } catch (error) {
                     next(error);
                 }

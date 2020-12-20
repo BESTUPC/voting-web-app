@@ -1,4 +1,4 @@
-import { Collection } from 'mongodb';
+import { Collection, ObjectId } from 'mongodb';
 import { IMembership } from '../interface/IUser';
 import { IPoll, IPollState } from '../interface/IPoll';
 import Database from '../providers/Database';
@@ -8,34 +8,43 @@ export default class PollModel {
         return Database.getDb().collection('votacions');
     }
 
-    public static async getAll(member)
-
-
-
-    public static async get(userId: string): Promise<IUser | null> {
-        return PollModel.getCollection().findOne({ userId });
-    }
-
-    public static async getAll(): Promise<Array<IUser>> {
-        return PollModel.getCollection().find().toArray();
-    }
-
-    public static async updateMembership(
-        userId: string,
+    public static async getAll(
         membership: Array<IMembership>,
+    ): Promise<Array<IPoll>> {
+        return PollModel.getCollection()
+            .find({ targetGroup: { $in: membership } })
+            .toArray();
+    }
+
+    public static async get(_id: ObjectId): Promise<IPoll | null> {
+        return PollModel.getCollection().findOne({ _id });
+    }
+
+    public static async add(poll: IPoll): Promise<boolean> {
+        try {
+            await PollModel.getCollection().insertOne(poll);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static async setState(
+        _id: ObjectId,
+        state: IPollState,
     ): Promise<boolean> {
         const updateCount: number = (
             await PollModel.getCollection().updateOne(
-                { userId },
-                { $set: { membership } },
+                { _id },
+                { $set: { state } },
             )
         ).modifiedCount;
         return updateCount == 1;
     }
 
-    public static async add(user: IUser): Promise<boolean> {
+    public static async delete(_id: ObjectId): Promise<boolean> {
         try {
-            await PollModel.getCollection().insertOne(user);
+            await PollModel.getCollection().deleteOne({ _id });
         } catch (e) {
             return false;
         }
