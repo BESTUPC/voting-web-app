@@ -53,7 +53,7 @@ export default abstract class Authentication {
                 res.redirect('/');
             },
         );
-        app.get('/auth/logout', (req, res) => {
+        app.get('/auth/logout', async (req, res) => {
             req.session = null;
             req.logout();
             res.redirect('/login.html');
@@ -86,10 +86,12 @@ export default abstract class Authentication {
         res: Response,
         next: NextFunction,
     ): void {
-        const route: string = req.headers.referer
-            ? req.headers.referer
-            : req.path;
-        if (req.isAuthenticated() || route.includes('/login.html')) {
+        const auxRef: string = req.headers.referer ? req.headers.referer : '';
+        if (
+            req.isAuthenticated() ||
+            req.path.includes('/login.html') ||
+            auxRef.includes('/login.html')
+        ) {
             next();
         } else {
             res.redirect('/login.html');

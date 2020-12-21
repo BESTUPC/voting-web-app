@@ -29,7 +29,9 @@
     <link rel="icon" type="image/png" href="../images/BEST_logomark.png">
 
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css"
+        rel="stylesheet">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -43,7 +45,7 @@
 </head>
 
 <style>
-    div.input-pro{
+    div.input-pro {
         padding: 10px 16px;
         border: 1px solid;
         border-color: #ccc;
@@ -51,19 +53,24 @@
         font-size: 18px;
         line-height: 1.3333333;
     }
-    div.input-pro+div.input-pro{
-        margin-top:5px;
+
+    div.input-pro+div.input-pro {
+        margin-top: 5px;
     }
-    div.input-pro input{
-        border:0;
+
+    div.input-pro input {
+        border: 0;
     }
-    div.input-pro:not(.noMarginLeft) input{
-        margin-left:5px;
+
+    div.input-pro:not(.noMarginLeft) input {
+        margin-left: 5px;
     }
-    div.input-pro.extra{
+
+    div.input-pro.extra {
         background-color: #ccc;
     }
-    div.input-pro.extra input{
+
+    div.input-pro.extra input {
         background-color: #ccc;
     }
 </style>
@@ -79,7 +86,8 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12 page-header">
-                    <input type="text" class="h1 dynamic" id="pollName" placeholder="Poll name..." style="width:100%; margin: 0; border: 0; padding:0"> </input>
+                    <input type="text" class="h1 dynamic" id="pollName" placeholder="Poll name..."
+                        style="width:100%; margin: 0; border: 0; padding:0"> </input>
                 </div>
             </div>
             <div class="row">
@@ -90,7 +98,7 @@
                         </div>
                         <input type="text" placeholder="Option...">
                     </div>
-                    <div class="input-pro noMarginLeft extra"  id="abstencio" style="text-align: left">
+                    <div class="input-pro noMarginLeft extra" id="abstencio" style="text-align: left">
                         <div class="btn btn-circle" style="background-color: red">
                             <i class="fa fa-times"></i>
                         </div>
@@ -103,21 +111,31 @@
                         <input type="text" placeholder="Option...">
                     </div>
                 </div>
-                <div class="col-lg-5" style="display:inline-block; margin-top:10px; font-size: 18px; vertical-align: center">
+                <div class="col-lg-5"
+                    style="display:inline-block; margin-top:10px; font-size: 18px; vertical-align: center">
                     <label for="targetGroup" style="width:120px">Target Group: </label>
-                    <select id="targetGroup" style="margin-left:5px; width:120px; display:inline-block" class="form-control">
+                    <select id="targetGroup" style="margin-left:5px; width:120px; display:inline-block"
+                        class="form-control">
                         <option>All</option>
                         <option selected="selected">Members</option>
                         <option>Fulls</option>
                     </select>
                     <br>
                     <div class="checkbox">
-                        <label for="private" style="width:120px; vertical-align: middle; padding-left: 0; font-weight: 700">Private: </label>
-                        <input style="height:20px;width:20px; vertical-align: middle; position:relative; margin:0 0 0 5px" id="private" type="checkbox" value="">
+                        <label for="private"
+                            style="width:120px; vertical-align: middle; padding-left: 0; font-weight: 700">Private:
+                        </label>
+                        <input
+                            style="height:20px;width:20px; vertical-align: middle; position:relative; margin:0 0 0 5px"
+                            id="private" type="checkbox" value="">
                     </div>
                     <div class="checkbox">
-                        <label for="priority" style="width:120px; vertical-align: middle; padding-left: 0; font-weight: 700">Priority: </label>
-                        <input style="height:20px;width:20px; vertical-align: middle; position:relative; margin:0 0 0 5px" id="priority" type="checkbox" value="">
+                        <label for="priority"
+                            style="width:120px; vertical-align: middle; padding-left: 0; font-weight: 700">Priority:
+                        </label>
+                        <input
+                            style="height:20px;width:20px; vertical-align: middle; position:relative; margin:0 0 0 5px"
+                            id="priority" type="checkbox" value="">
                     </div>
                     <label for="deadline" style="width: 120px;">Deadline: </label>
                     <input type="text" style="margin-left: 5px" value="" id="deadline">
@@ -126,7 +144,8 @@
 
             <div class="row">
                 <div class="col-lg-5" style="text-align: right">
-                    <button type="button" id="create" class="btn btn-primary btn-lg" style="margin: 10px">Create Poll</button>
+                    <button type="button" id="create" class="btn btn-primary btn-lg" style="margin: 10px">Create
+                        Poll</button>
                 </div>
             </div>
 
@@ -154,20 +173,14 @@
     <script src="../dist/js/sb-admin-2.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/js/locales/bootstrap-datetimepicker.es.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/js/locales/bootstrap-datetimepicker.es.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.min.js"></script>
 
     <script src="js/cookie.js">  </script>
-    <script>
-        if (getCookie("idtoken") == ""){
-          window.location = DOMAIN+"/login.html";
-        }
-        else{
-          //alert(getCookie("idtoken"))
-        }
-    </script>
-<!--
+    <!--
     <script>
       function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
@@ -179,10 +192,10 @@
 -->
     <script src="js/navbar.js">  </script>
     <script>
-        function addOption(option){
+        function addOption(option) {
             var newInputParent = $('<div class="input-pro" style="text-align: left"><div class="btn btn-circle" style="background-color: red"><i class="fa fa-times"></i></div><input type="text" placeholder="Option..."></div>');
-            newInputParent.find('input').val(option).keypress(function(e){
-                if(e.keyCode==13){
+            newInputParent.find('input').val(option).keypress(function (e) {
+                if (e.keyCode == 13) {
                     $('#adding').find('input').focus();
                 }
             });
@@ -190,22 +203,29 @@
                 $(this).parent().remove();
                 $('#adding').find('input').focus();
             });
-            var extras=$('.input-pro.extra');
-            var whereToAdd=$('#adding');
-            if(extras.length>0)whereToAdd=$(extras[0]);
+            var extras = $('.input-pro.extra');
+            var whereToAdd = $('#adding');
+            if (extras.length > 0) whereToAdd = $(extras[0]);
             newInputParent.insertBefore(whereToAdd);
             newInputParent.click(function (e) {
-                if($(e.target).hasClass("input-pro")){
+                if ($(e.target).hasClass("input-pro")) {
                     $(this).find('input').select();
                 }
             });
             return newInputParent;
         }
-        id_token = getCookie("idtoken");
 
-        $("#navbar").load("navbar.html",function() {
+        $("#navbar").load("navbar.html", function () {
 
-            initNavBar(JSON.parse(getCookie("profile")));
+            var xhrAux = new XMLHttpRequest();
+            xhrAux.open('GET', '/api/users/current');
+            xhrAux.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhrAux.onload = function () {
+                console.log(xhrAux.response)
+                initNavBar(JSON.parse(xhrAux.response));
+            }
+            xhrAux.send();
+
 
             $('#deadline').datetimepicker({
                 format: 'dd/mm/yyyy hh:ii',
@@ -214,13 +234,13 @@
                 fontAwesome: true
             });
 
-            $('#pollName').focus().keypress(function(e){
-                if(e.keyCode==13){
+            $('#pollName').focus().keypress(function (e) {
+                if (e.keyCode == 13) {
                     $('#adding').find('input').focus();
                 }
             });
-            $('#blanc').find('input').val('Blanc').attr('disabled','disabled');
-            $('#abstencio').find('input').val('Abstenció').attr('disabled','disabled');
+            $('#blanc').find('input').val('Blanc').attr('disabled', 'disabled');
+            $('#abstencio').find('input').val('Abstenció').attr('disabled', 'disabled');
             $('#blanc').find('.btn').click(function () {
                 $(this).parent().remove();
                 $('#adding').find('input').focus();
@@ -229,73 +249,71 @@
                 $(this).parent().remove();
                 $('#adding').find('input').focus();
             });
-            var adding=$('#adding');
+            var adding = $('#adding');
             adding.click(function (e) {
-                if($(e.target).hasClass("input-pro")){
+                if ($(e.target).hasClass("input-pro")) {
                     $(this).find('input').focus();
                 }
             });
-            adding.find('input').keypress(function(e){
-                if(e.keyCode==13){
+            adding.find('input').keypress(function (e) {
+                if (e.keyCode == 13) {
                     $(this).parent().find('.btn').click();
                 }
             });
-            adding.find('.btn').click(function() {
+            adding.find('.btn').click(function () {
                 var oldInput = $(this).parent().find('input');
-                var value=oldInput.val();
-                if (value!='') {
+                var value = oldInput.val();
+                if (value != '') {
                     addOption(value);
                     oldInput.val('');
                 }
             });
 
-            $('#create').click(function(){
+            $('#create').click(function () {
                 $(this).blur();
 
 
-                var pollOptions=$('#pollOptions').find('.input-pro:not(#adding)').find('input')
-                	.toArray()
-                	.map(function(obj){return $(obj).val();})
-                	.filter(function(val){return val!="";});
+                var pollOptions = $('#pollOptions').find('.input-pro:not(#adding)').find('input')
+                    .toArray()
+                    .map(function (obj) { return $(obj).val(); })
+                    .filter(function (val) { return val != ""; });
 
 
-                var value= $('#adding').find('input').val();
-                if (value!='') {
-                	pollOptions.unshift(value);
+                var value = $('#adding').find('input').val();
+                if (value != '') {
+                    pollOptions.unshift(value);
                 }
 
-                var deadline=moment($('#deadline').val(),'DD/MM/YYYY HH:mm').toDate().getTime()/1000;
-                var isPrivate=$('#private').is(':checked');
-                var isPriority=$('#priority').is(':checked');
-                var targetGroup=$('#targetGroup').val().toLowerCase();
-                var pollName=$('#pollName').val();
-                if(targetGroup=='members')targetGroup='member';
-                if(targetGroup=='fulls')targetGroup='full';
-//                window.target=targetGroup;
-                if (pollName==""){
-                    error( 'Error', 'No name given' );
+                var deadline = moment($('#deadline').val(), 'DD/MM/YYYY HH:mm').toDate().getTime() / 1000;
+                var isPrivate = $('#private').is(':checked');
+                var isPriority = $('#priority').is(':checked');
+                var targetGroup = $('#targetGroup').val().toLowerCase();
+                var pollName = $('#pollName').val();
+                if (targetGroup == 'members') targetGroup = 'member';
+                if (targetGroup == 'fulls') targetGroup = 'full';
+                //                window.target=targetGroup;
+                if (pollName == "") {
+                    error('Error', 'No name given');
                 }
-                else if (pollOptions.length==0){
+                else if (pollOptions.length == 0) {
                     error('Error', 'No options given');
                 }
-                else{
+                else {
                     var xhr2 = new XMLHttpRequest();
-                    xhr2.open('POST', URL + '/createPoll');
+                    xhr2.open('POST', '/api/polls');
                     xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr2.onload = function() {
-                        console.log('hola');
-                        res=JSON.parse(xhr2.responseText);
-                        if (res.status!='0'){
-                            error('Error',res.message);
+                    xhr2.onload = function () {
+
+                        if (xhrRemove.status != 200) {
+                            error('Error', response.message, goHome);
+                            return 0;
                         }
-                        else{
-                            success('Success','Poll created successfully',goHome);
-                        }
-                    };
-                    window.sentText='idtoken=' + id_token + '&pollName=' + pollName + '&pollOptions=' + JSON.stringify(pollOptions)
-                        + '&targetGroup=' + targetGroup + '&isPrivate=' + isPrivate + '&isPriority=' + isPriority + '&pollDeadline=' + deadline;
-                    xhr2.send(window.sentText);
-                }
+                        else success('Success', 'Poll created successfully', goHome);
+                };
+                window.sentText = 'pollName=' + pollName + '&pollOptions=' + JSON.stringify(pollOptions)
+                    + '&targetGroup=' + targetGroup + '&isPrivate=' + isPrivate + '&isPriority=' + isPriority + '&pollDeadline=' + deadline;
+                xhr2.send(window.sentText);
+            }
             });
         });
 

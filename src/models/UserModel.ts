@@ -21,7 +21,7 @@ export default class UserModel {
         const updateCount: number = (
             await UserModel.getCollection().updateOne(
                 { userId },
-                { $set: { membership } },
+                { $set: { membership: membership } },
             )
         ).modifiedCount;
         return updateCount == 1;

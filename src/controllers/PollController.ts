@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { IPoll, IPollState } from '../interface/IPoll';
-import { IMembership, IUser } from '../interface/IUser';
+import { IUser } from '../interface/IUser';
 import ErrorHandler from '../models/ErrorHandler';
 import PollModel from '../models/PollModel';
 import UserController from './UserController';
@@ -42,27 +42,13 @@ export default class PollController {
         }
     }
 
-    public static async addPoll(
-        userId: string,
-        body: {
-            description: string;
-            isPriority: boolean;
-            isPrivate: boolean;
-            pollDeadline: number;
-            state: IPollState;
-            targetGroup: IMembership;
-            pollOptions: Array<string>;
-            pollName: string;
-        },
-    ): Promise<boolean> {
+    public static async addPoll(userId: string, body: IPoll): Promise<boolean> {
         if (await UserController.isAdmin(userId)) {
-            let newPoll: IPoll;
             try {
-                newPoll = body;
-                if (!Object.values(newPoll).every((item) => item)) {
+                if (!Object.values(body).every((item) => item !== undefined)) {
                     throw new ErrorHandler(400, 'Bad request body');
                 }
-                return PollModel.add(newPoll);
+                return PollModel.add(body);
             } catch {
                 throw new ErrorHandler(400, 'Bad request body');
             }

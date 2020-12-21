@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import UserController from '../controllers/UserController';
-import { IUser } from '../interface/IUser';
+import { IMembership, IUser } from '../interface/IUser';
 
 export default class UsersRouter {
     private _router = Router();
@@ -35,11 +35,33 @@ export default class UsersRouter {
             '/membership/:id',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
+                    const body: { membership: Array<IMembership> } = {
+                        membership: JSON.parse(
+                            JSON.parse(JSON.stringify(req.body)).membership,
+                        ),
+                    };
                     const result = await this._controller.updateMembership(
                         req.user['id'],
                         req.params.id,
-                        req.body,
+                        body,
                     );
+                    res.status(200).json(result);
+                } catch (error) {
+                    next(error);
+                }
+            },
+        );
+        this._router.get(
+            '/current',
+            async (req: Request, res: Response, next: NextFunction) => {
+                try {
+                    const result: {
+                        google: Express.User;
+                        web: IUser;
+                    } = {
+                        google: req.user,
+                        web: await this._controller.getUser(req.user['id']),
+                    };
                     res.status(200).json(result);
                 } catch (error) {
                     next(error);
@@ -54,16 +76,6 @@ export default class UsersRouter {
                         req.params.id,
                     );
                     res.status(200).json(result);
-                } catch (error) {
-                    next(error);
-                }
-            },
-        );
-        this._router.get(
-            '/current',
-            async (req: Request, res: Response, next: NextFunction) => {
-                try {
-                    res.status(200).json(req.user);
                 } catch (error) {
                     next(error);
                 }

@@ -40,73 +40,73 @@
 
 <body>
 
-<div id="wrapper">
+    <div id="wrapper">
 
-    <!-- Navigation -->
-    <div id="navbar"></div>
+        <!-- Navigation -->
+        <div id="navbar"></div>
 
-    <div id="page-wrapper">
+        <div id="page-wrapper">
 
-        <div style="padding: 10px"></div> <!-- per deixar un espai -->
-        <div class="container">
-            <div class="modal fade" id="errorModal" role="dialog">
-                <div class="modal-dialog" >
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header" id=header-box-errorModal>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title" id="modal-title-text">Error</h4>
-                        </div>
-                        <div class="modal-body" id=body-box-errorModal>
-                            <p id="modal-text"></p>
-                        </div>
-                        <div class="modal-footer" id=footer-box-errorModal>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div style="padding: 10px"></div> <!-- per deixar un espai -->
+            <div class="container">
+                <div class="modal fade" id="errorModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header" id=header-box-errorModal>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" id="modal-title-text">Error</h4>
+                            </div>
+                            <div class="modal-body" id=body-box-errorModal>
+                                <p id="modal-text"></p>
+                            </div>
+                            <div class="modal-footer" id=footer-box-errorModal>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <table class="table display" id="usersTable" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Member</th>
+                        <th>Full</th>
+                        <th>Admin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <p id="text"> </p>
         </div>
-
-        <table class="table display" id="usersTable"  cellspacing="0" width="100%">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Member</th>
-                <th>Full</th>
-                <th>Admin</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-
-        <p id="text"> </p>
+        <!-- /#page-wrapper -->
     </div>
-    <!-- /#page-wrapper -->
-</div>
-<!-- /#wrapper -->
+    <!-- /#wrapper -->
 
-<!-- jQuery -->
-<script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
-<!-- DataTables JavaScript -->
-<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
 
-<!-- Custom Theme JavaScript -->
-<script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
 
-<script src="js/cookie.js">  </script>
-<!--
+    <script src="js/cookie.js">  </script>
+    <!--
 <script>
     if (getCookie("idtoken") == ""){
         window.location = DOMAIN + "/login.html";
@@ -125,24 +125,24 @@
     }
 </script>
 -->
-<script src="js/navbar.js">  </script>
-<script>
+    <script src="js/navbar.js">  </script>
+    <script>
 
-    $("#navbar").load("navbar.html",function() {
-        initNavBar(JSON.parse(getCookie("profile")));
-        id_token = getCookie("idtoken");
+        $("#navbar").load("navbar.html");
+        var xhrAux = new XMLHttpRequest();
+        xhrAux.open('GET', '/api/users/current');
+        xhrAux.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhrAux.onload = function () {
+            console.log(xhrAux.response)
+            initNavBar(JSON.parse(xhrAux.response));
+        }
+        xhrAux.send();
+
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', URL + '/getUsers');
+        xhr.open('GET', '/api/users');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function () {
-            result = JSON.parse(xhr.responseText);
-            if (result.status != '0') {
-                error('Error',result.message,function () {
-                    window.location = DOMAIN + "/login.html";
-                });
-                return 0;
-            }
-            users = result.users;
+            users = JSON.parse(xhr.responseText);
             for (i in users) {
                 user = users[i];
                 var id = user.userId;
@@ -185,18 +185,14 @@
                 }
             });
         };
-        xhr.send('idtoken=' + id_token);
-        $("#navbar").load("navbar.html", function () {
-            initNavBar(JSON.parse(getCookie("profile")));
-        });
+        xhr.send();
         $(':root').keydown(function (e) {
             if (e.keyCode == 13) { //enter
                 var trToClick = $('#usersTable').find('tr:nth-child(1)');
                 if (trToClick.exists()) trToClick.click();
             }
         });
-    });
-</script>
+    </script>
 
 
 </body>
