@@ -6,7 +6,6 @@ import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised);
 
 import UserController from '../../controllers/UserController';
-import UserModel from '../../models/UserModel';
 import { IUser } from '../../interface/IUser';
 import PollModel from '../../models/PollModel';
 import { IPoll, IPollState } from '../../interface/IPoll';

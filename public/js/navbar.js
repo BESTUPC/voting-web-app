@@ -117,9 +117,8 @@ function initNavBar(profile) {
             xhrRemove.open('DELETE', urlRemove);
             xhrRemove.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhrRemove.onload = async function () {
-                var response = JSON.parse(xhrRemove.responseText);
                 if (xhrRemove.status != 200) {
-                    error('Error', response.message, goHome);
+                    error('Error' + xhrState.status, xhrRemove.responseTex, goHome);
                     return 0;
                 }
                 else success('Success', 'Poll removed successfully', goHome);

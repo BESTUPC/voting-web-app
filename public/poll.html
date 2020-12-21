@@ -59,7 +59,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-5" id="buttons" style="text-align: right">
-                    <button type="button" id="vote" class="btn btn-primary btn-lg" style="margin: 10px">Send vote</button>
+                    <button type="button" id="vote" class="btn btn-primary btn-lg" style="margin: 10px">Send
+                        vote</button>
                 </div>
             </div>
 
@@ -89,9 +90,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
-    <script src="js/cookie.js">  </script>
-<!--
+    <!--
     <script>
       function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
@@ -105,194 +104,202 @@
     <script src="js/navbar.js">  </script>
     <script>
 
-        pollId=gup('id');
-        id_token = getCookie("idtoken");
+        pollId = gup('id');
 
-        $("#navbar").load("navbar.html",function(){
-            initNavBar(JSON.parse(getCookie("profile")));
+        $("#navbar").load("navbar.html", function () {
+            var xhrAux = new XMLHttpRequest();
+            xhrAux.open('GET', '/api/users/current');
+            xhrAux.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhrAux.onload = function () {
+                initNavBar(JSON.parse(xhrAux.response));
+            }
+            xhrAux.send();
+            var urlReq = '/api/polls/' + pollId;
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', URL + '/getPollInfo');
+            xhr.open('GET', urlReq);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onload = function() {
-//                $('#text').append(xhr.responseText)
+            xhr.onload = function () {
+                //                $('#text').append(xhr.responseText)
+                if (xhr.status != 200) {
+                    error('Error' + xhr.status, xhr.responseText, goHome);
+                    return 0;
+                }
                 var poll = JSON.parse(xhr.responseText);
-                window.results=poll;
-                if (poll.state!= undefined && poll.state!='open'){
-                    error('Error','Poll is not open',function(){
-                        window.location= DOMAIN + "/results.html?id=" + pollId;
-                    });
-                    return 0;
-                }
-                if (poll.status!='0'){
-                    error('Error',poll.message,function(){
-                        window.location= DOMAIN + "/login.html";
+                window.results = poll;
+                if (poll.state != undefined && poll.state != 'open') {
+                    error('Error', 'Poll is not open', function () {
+                        window.location = DOMAIN + "/results.html?id=" + pollId;
                     });
                     return 0;
                 }
 
 
-                var state=poll.state;
-                if (state=='open')$('#selectState').val('Open');
-                if (state=='closed_private')$('#selectState').val('Closed hidden');
-                if (state=='closed')$('#selectState').val('Closed');
-                var pollOptions=poll.pollOptions;
+
+                var state = poll.state;
+                if (state == 'open') $('#selectState').val('Open');
+                if (state == 'closed_private') $('#selectState').val('Closed hidden');
+                if (state == 'closed') $('#selectState').val('Closed');
+                var pollOptions = poll.pollOptions;
                 //poll.pollOption='Bernat' //DEBUG
                 //$('#text').append(selectedOption) //DEBUG
-                var pollName=poll.pollName;
+                var pollName = poll.pollName;
                 $('title').text(pollName);
                 if (poll.isPrivate == "true") {
-                  pollName += "    <i class='fa fa-lock'></i>"
+                    pollName += "    <i class='fa fa-lock'></i>"
                 } else {
-                  pollName += "    <i class='fa fa-unlock'></i>"
+                    pollName += "    <i class='fa fa-unlock'></i>"
                 }
                 $('#pollName').append(pollName); //Add pollName to html
 
-                if (poll.isPriority == "true"){
+                if (poll.isPriority == "true") {
                     console.log(poll)
                     $('#pollInfo').append("This is a priority vote, please sort the following options:")
 
-                    if(poll.pollOption.length>0){
-                        pollOptions=JSON.parse(poll.pollOption);
+                    if (poll.pollOption.length > 0) {
+                        pollOptions = JSON.parse(poll.pollOption);
                     }
-                    for (i in pollOptions){    //For all poll options
-                        pollOption=pollOptions[i];
-                        var button=$('<div class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"></div>')//create button for this poll option
-                            .append(' '+pollOption) //add option name to button
-                            .attr('pos',i) //save position of this polloption in the button
+                    for (i in pollOptions) {    //For all poll options
+                        pollOption = pollOptions[i];
+                        var button = $('<div class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"></div>')//create button for this poll option
+                            .append(' ' + pollOption) //add option name to button
+                            .attr('pos', i) //save position of this polloption in the button
                         $('#pollOptions').append(button); //we add the button to the list of buttons
                     }
                     $('#pollOptions').sortable();
-                    vote=function(delegation){
+                    vote = function (delegation) {
                         $(this).blur(); //loose focus
                         var xhr2 = new XMLHttpRequest();
                         xhr2.open('POST', URL + '/sendVote');
                         xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                        xhr2.onload = function() {
-                            res=JSON.parse(xhr2.responseText);
-                            if (res.status!='0'){
-                                error('Error',res.message);
+                        xhr2.onload = function () {
+                            res = JSON.parse(xhr2.responseText);
+                            if (xhr2.status != 200) {
+                                error('Error ' + xhr2.status, xhr2.responseText, goHome);
+                                return 0;
                             }
-                            else{
-                                if (delegation){
-                                    success('Success','Delegated vote added successfully',location.reload);
+                            else {
+                                if (delegation) {
+                                    success('Success', 'Delegated vote added successfully', location.reload);
                                 }
-                                else{
-                                    success('Success','Vote sent successfully',goHome)
+                                else {
+                                    success('Success', 'Vote sent successfully', goHome)
                                 }
-                                
+
                             }
                         };
-                        option=$.map($("#pollOptions").children(),function( a ) {
-                          return a.innerText;
+                        option = $.map($("#pollOptions").children(), function (a) {
+                            return a.innerText;
                         })
-                        xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&delegation=' + delegation +'&option=' + JSON.stringify(option));
+                        xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&delegation=' + delegation + '&option=' + JSON.stringify(option));
                     }
-                    $('#vote').click(function(){
+                    $('#vote').click(function () {
                         vote(false)
                     });
                     $('#side-menu').append('<li><div style="padding:10px 5px 10px 15px; display:inline-block" id="del" class="text-primary"><i class="fas fa-vote-yea"></i>Add delegation</li>')
-                    $('#del').click(function(){
+                    $('#del').click(function () {
                         vote(true)
-                    }).css('cursor','pointer');
-                    $(':root').keydown(function(e){
-                        if(e.keyCode==13){ //enter
+                    }).css('cursor', 'pointer');
+                    $(':root').keydown(function (e) {
+                        if (e.keyCode == 13) { //enter
                             $('#vote').click();
 
-                        } 
+                        }
                     });
                 }
-                else{
-                    var selectedOption=pollOptions.indexOf(poll.pollOption); //find index of pollOption
-                    for (i in pollOptions){    //For all poll options
-                        pollOption=pollOptions[i];
-                        var button=$('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
-                            .append(' '+pollOption) //add option name to button
-                            .attr('pos',i) //save position of this polloption in the button
-                            .click(function(){ //What happens if we click this button?
+                else {
+                    var selectedOption = pollOptions.indexOf(poll.pollOption); //find index of pollOption
+                    for (i in pollOptions) {    //For all poll options
+                        pollOption = pollOptions[i];
+                        var button = $('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
+                            .append(' ' + pollOption) //add option name to button
+                            .attr('pos', i) //save position of this polloption in the button
+                            .click(function () { //What happens if we click this button?
                                 $(this).blur(); //remove focus
-                                ind=$(this).attr('pos'); //get position of this clicked option from the html
-                                if(selectedOption!=ind){ //do nothing if it's already selected
+                                ind = $(this).attr('pos'); //get position of this clicked option from the html
+                                if (selectedOption != ind) { //do nothing if it's already selected
                                     $(this).removeClass('btn-default').addClass('btn-primary')//change color to primary
                                     $(this).find('i').addClass('fa fa-check'); //add check icon
-                                    if(selectedOption!=-1){ //if there was another selected option
-                                        $(this).parent().find("[pos='"+selectedOption+"']") //find the previously selected option
+                                    if (selectedOption != -1) { //if there was another selected option
+                                        $(this).parent().find("[pos='" + selectedOption + "']") //find the previously selected option
                                             .removeClass('btn-primary').addClass('btn-default') //change its color
                                             .find('i').removeClass('fa fa-check'); //remove its check icon
                                     }
-                                    selectedOption=ind; //update selected option variable
+                                    selectedOption = ind; //update selected option variable
                                 };
                             });
-                        if (i==selectedOption){ //If button we are going to add was already selected
+                        if (i == selectedOption) { //If button we are going to add was already selected
                             button.removeClass('btn-default').addClass('btn-primary') //change its color
                                 .find('i').addClass('fa fa-check'); //add check icon
                         }
                         $('#pollOptions').append(button); //we add the button to the list of buttons
-                    } 
-                    vote=function(delegation){
+                    }
+                    vote = function (delegation) {
                         $(this).blur(); //loose focus
-                        if (selectedOption==-1){
-                            error( 'Error', 'No option selected' );
+                        if (selectedOption == -1) {
+                            error('Error', 'No option selected');
                         }
-                        else{
+                        else {
                             var xhr2 = new XMLHttpRequest();
                             xhr2.open('POST', URL + '/sendVote');
                             xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                            xhr2.onload = function() {
-                                res=JSON.parse(xhr2.responseText);
-                                if (res.status!='0'){
-                                    error('Error',res.message);
+                            xhr2.onload = function () {
+                                res = JSON.parse(xhr2.responseText);
+                                if (res.status != '0') {
+                                    error('Error', res.message);
                                 }
-                                else{
-                                    if (delegation){
-                                        success('Success','Delegated vote added successfully',location.reload);
+                                else {
+                                    if (delegation) {
+                                        success('Success', 'Delegated vote added successfully', location.reload);
                                     }
-                                    else{
-                                        success('Success','Vote sent successfully',goHome)
+                                    else {
+                                        success('Success', 'Vote sent successfully', goHome)
                                     }
                                 }
                             };
-                            xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&delegation=' + delegation +'&option=' + pollOptions[selectedOption]);
+                            xhr2.send('pollId=' + pollId + '&idtoken=' + id_token + '&delegation=' + delegation + '&option=' + pollOptions[selectedOption]);
                         }
                     }
-                    $('#vote').click(function(){
+                    $('#vote').click(function () {
                         vote(false)
                     });
                     $('#side-menu').append('<li><div style="padding:10px 5px 10px 15px; display:inline-block" id="del" class="text-primary"><i class="fas fa-vote-yea"></i>Add delegation</li>')
-                    $('#del').click(function(){
+                    $('#del').click(function () {
                         vote(true)
-                    }).css('cursor','pointer');
-                    $(':root').keydown(function(e){
+                    }).css('cursor', 'pointer');
+                    $(':root').keydown(function (e) {
                         //alert(e.keyCode)
-                        if(e.keyCode>=48 && e.keyCode<=57){ //number
-                            var pressedNumber = e.keyCode-48;
-                            var buttonToClick = $('#pollOptions').find('button:nth-child('+pressedNumber+')');
-                            if(buttonToClick.exists()) buttonToClick.click();
+                        if (e.keyCode >= 48 && e.keyCode <= 57) { //number
+                            var pressedNumber = e.keyCode - 48;
+                            var buttonToClick = $('#pollOptions').find('button:nth-child(' + pressedNumber + ')');
+                            if (buttonToClick.exists()) buttonToClick.click();
                         }
-                        if(e.keyCode==13){ //enter
+                        if (e.keyCode == 13) { //enter
                             $('#vote').click();
-                        } 
+                        }
                     });
                 }
                 $('#side-menu').append('<li><div style="padding:10px 5px 10px 15px; display:inline-block" id="remove-del" class="text-primary"><i class="fa fa-trash fa-fw"></i>Remove delegations</li>')
-                $('#remove-del').click(function(){
+                $('#remove-del').click(function () {
                     var xhr2 = new XMLHttpRequest();
                     xhr2.open('POST', URL + '/removeDelegations');
                     xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr2.onload = function() {
-                        res=JSON.parse(xhr2.responseText);
-                        if (res.status!='0'){
-                            error('Error',res.message);
+                    xhr2.onload = function () {
+                        res = JSON.parse(xhr2.responseText);
+                        if (res.status != '0') {
+                            error('Error', res.message);
                         }
-                        else{
-                            success('Success','Removed delegated votes',goHome);
+                        else {
+                            success('Success', 'Removed delegated votes', goHome);
                         }
                     };
                     xhr2.send('pollId=' + pollId + '&idtoken=' + id_token);
-                }).css('cursor','pointer');
+                }).css('cursor', 'pointer');
             };
-            xhr.send('pollId=' + pollId + '&idtoken=' + id_token);
+            xhr.send();
         });
-
+        function goHome() {
+            window.location = DOMAIN + '/index.html';
+        }
 
     </script>
 

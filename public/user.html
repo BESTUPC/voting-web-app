@@ -88,8 +88,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
-    <script src="js/cookie.js">  </script>
     <!--
 <script>
     function signOut() {
@@ -121,7 +119,7 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function () {
             if (xhrRemove.status != 200) {
-                error('Error', response.message, goHome);
+                error('Error ' + xhrRemove.status, xhrRemove.responseText, goHome);
                 return 0;
             }
             var response = JSON.parse(xhr.responseText);
@@ -179,7 +177,7 @@
                 xhrApply.onload = function () {
                     res = JSON.parse(xhrApply.responseText);
                     if (xhrRemove.status != 200) {
-                        error('Error', response.message, goHome);
+                        error('Error ' +  xhrApply.status, xhrApply.responseText, goHome);
                         return 0;
                     }
                     else success('Success', 'Membership changed successfully', goHome);
