@@ -22,7 +22,7 @@
 
 •  **ca**: string
 
-*Defined in [src/interface/ICertificates.ts:4](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/interface/ICertificates.ts#L4)*
+*Defined in [src/interface/ICertificates.ts:4](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/interface/ICertificates.ts#L4)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 •  **cert**: string
 
-*Defined in [src/interface/ICertificates.ts:3](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/interface/ICertificates.ts#L3)*
+*Defined in [src/interface/ICertificates.ts:3](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/interface/ICertificates.ts#L3)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 •  **key**: string
 
-*Defined in [src/interface/ICertificates.ts:2](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/interface/ICertificates.ts#L2)*
+*Defined in [src/interface/ICertificates.ts:2](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/interface/ICertificates.ts#L2)*

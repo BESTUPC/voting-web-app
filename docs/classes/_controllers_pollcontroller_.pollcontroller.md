@@ -26,7 +26,7 @@ Controller for the poll-related calls. It handles all the logic between routing 
 
 ▸ `Static`**addPoll**(`userId`: string, `body`: unknown): Promise<boolean\>
 
-*Defined in [src/controllers/PollController.ts:72](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/controllers/PollController.ts#L72)*
+*Defined in [src/controllers/PollController.ts:72](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/controllers/PollController.ts#L72)*
 
 If the user is admin it adds the given poll to the database.
 
@@ -51,7 +51,7 @@ ___
 
 ▸ `Static`**deletePoll**(`userId`: string, `_id`: string): Promise<boolean\>
 
-*Defined in [src/controllers/PollController.ts:93](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/controllers/PollController.ts#L93)*
+*Defined in [src/controllers/PollController.ts:93](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/controllers/PollController.ts#L93)*
 
 If the user is admin it adds deletes the given poll from the database.
 
@@ -76,7 +76,7 @@ ___
 
 ▸ `Static`**getPoll**(`userId`: string, `_id`: string): Promise<[IPoll](../interfaces/_interface_ipoll_.ipoll.md)\>
 
-*Defined in [src/controllers/PollController.ts:29](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/controllers/PollController.ts#L29)*
+*Defined in [src/controllers/PollController.ts:29](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/controllers/PollController.ts#L29)*
 
 If the user has the proper membership, it returns the poll with the id provided.
 
@@ -99,7 +99,7 @@ ___
 
 ▸ `Static`**getPolls**(`userId`: string): Promise<Array<[IPoll](../interfaces/_interface_ipoll_.ipoll.md)\>\>
 
-*Defined in [src/controllers/PollController.ts:17](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/controllers/PollController.ts#L17)*
+*Defined in [src/controllers/PollController.ts:17](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/controllers/PollController.ts#L17)*
 
 Returns the polls that the user's membership has permission to visualize.
 
@@ -119,7 +119,7 @@ ___
 
 ▸ `Static`**updateState**(`userId`: string, `_id`: string, `body`: unknown): Promise<boolean\>
 
-*Defined in [src/controllers/PollController.ts:48](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/controllers/PollController.ts#L48)*
+*Defined in [src/controllers/PollController.ts:48](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/controllers/PollController.ts#L48)*
 
 If the user is admin it updates the poll's state to the given new state.
 

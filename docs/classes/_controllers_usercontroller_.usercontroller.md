@@ -26,7 +26,7 @@ Controller for the user-related calls. It handles all the logic between routing 
 
 ▸ `Static`**addUser**(`body`: { displayName: string ; emails?: Array<{ type?: string ; value: string  }\> ; id: string  }): Promise<boolean\>
 
-*Defined in [src/controllers/UserController.ts:25](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/controllers/UserController.ts#L25)*
+*Defined in [src/controllers/UserController.ts:25](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/controllers/UserController.ts#L25)*
 
 #### Parameters:
 
@@ -42,7 +42,7 @@ ___
 
 ▸ `Static`**getUser**(`userId`: string): Promise<[IUser](../interfaces/_interface_iuser_.iuser.md)\>
 
-*Defined in [src/controllers/UserController.ts:47](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/controllers/UserController.ts#L47)*
+*Defined in [src/controllers/UserController.ts:47](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/controllers/UserController.ts#L47)*
 
 #### Parameters:
 
@@ -58,7 +58,7 @@ ___
 
 ▸ `Static`**getUsers**(`userId`: string): Promise<Array<[IUser](../interfaces/_interface_iuser_.iuser.md)\>\>
 
-*Defined in [src/controllers/UserController.ts:39](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/controllers/UserController.ts#L39)*
+*Defined in [src/controllers/UserController.ts:39](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/controllers/UserController.ts#L39)*
 
 #### Parameters:
 
@@ -74,7 +74,7 @@ ___
 
 ▸ `Static`**isAdmin**(`userId`: string): Promise<boolean\>
 
-*Defined in [src/controllers/UserController.ts:51](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/controllers/UserController.ts#L51)*
+*Defined in [src/controllers/UserController.ts:51](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/controllers/UserController.ts#L51)*
 
 #### Parameters:
 
@@ -90,7 +90,7 @@ ___
 
 ▸ `Static`**updateMembership**(`userId1`: string, `userId2`: string, `body`: unknown): Promise<boolean\>
 
-*Defined in [src/controllers/UserController.ts:9](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/controllers/UserController.ts#L9)*
+*Defined in [src/controllers/UserController.ts:9](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/controllers/UserController.ts#L9)*
 
 #### Parameters:
 

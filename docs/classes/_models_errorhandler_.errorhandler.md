@@ -30,7 +30,7 @@
 
 \+ **new ErrorHandler**(`statusCode`: number, `message`: string): [ErrorHandler](_models_errorhandler_.errorhandler.md)
 
-*Defined in [src/models/ErrorHandler.ts:1](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/models/ErrorHandler.ts#L1)*
+*Defined in [src/models/ErrorHandler.ts:1](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/models/ErrorHandler.ts#L1)*
 
 #### Parameters:
 
@@ -49,7 +49,7 @@ Name | Type |
 
 *Overrides void*
 
-*Defined in [src/models/ErrorHandler.ts:2](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/models/ErrorHandler.ts#L2)*
+*Defined in [src/models/ErrorHandler.ts:2](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/models/ErrorHandler.ts#L2)*
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 •  **statusCode**: number
 
-*Defined in [src/models/ErrorHandler.ts:2](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/models/ErrorHandler.ts#L2)*
+*Defined in [src/models/ErrorHandler.ts:2](https://github.com/BESTUPC/voting-web-app/blob/a4ae6c9/src/models/ErrorHandler.ts#L2)*
 
 ___
 
