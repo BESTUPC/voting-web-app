@@ -1,4 +1,4 @@
-import { IMembership, IUser } from '../interface/IUser';
+import { IMembership, isIMembershipArray, IUser } from '../interface/IUser';
 import ErrorHandler from '../models/ErrorHandler';
 import UserModel from '../models/UserModel';
 
@@ -6,18 +6,14 @@ export default class UserController {
     public static async updateMembership(
         userId1: string,
         userId2: string,
-        body: { membership: Array<IMembership> },
+        body: unknown,
     ): Promise<boolean> {
         if (await UserController.isAdmin(userId1)) {
-            let membership: Array<IMembership>;
-            try {
-                membership = body.membership;
-                if (!membership) {
-                    throw new ErrorHandler(400, 'Bad request body');
-                }
-            } catch {
+            if (!isIMembershipArray(body)) {
                 throw new ErrorHandler(400, 'Bad request body');
             }
+            const membership: Array<IMembership> = body;
+
             return UserModel.updateMembership(userId2, membership);
         } else {
             throw new ErrorHandler(401, 'Only admins are authorized');

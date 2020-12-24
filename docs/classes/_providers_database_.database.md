@@ -26,7 +26,7 @@
 
 ▪ `Static` `Private` **client**: MongoClient
 
-*Defined in [src/providers/Database.ts:4](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Database.ts#L4)*
+*Defined in [src/providers/Database.ts:4](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Database.ts#L4)*
 
 ## Methods
 
@@ -34,7 +34,7 @@
 
 ▸ `Static`**connect**(): Promise<void\>
 
-*Defined in [src/providers/Database.ts:20](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Database.ts#L20)*
+*Defined in [src/providers/Database.ts:20](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Database.ts#L20)*
 
 **Returns:** Promise<void\>
 
@@ -44,7 +44,7 @@ ___
 
 ▸ `Static` `Private`**createIndexes**(): Promise<void\>
 
-*Defined in [src/providers/Database.ts:5](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Database.ts#L5)*
+*Defined in [src/providers/Database.ts:5](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Database.ts#L5)*
 
 **Returns:** Promise<void\>
 
@@ -54,6 +54,6 @@ ___
 
 ▸ `Static`**getDb**(): Db
 
-*Defined in [src/providers/Database.ts:34](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Database.ts#L34)*
+*Defined in [src/providers/Database.ts:34](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Database.ts#L34)*
 
 **Returns:** Db

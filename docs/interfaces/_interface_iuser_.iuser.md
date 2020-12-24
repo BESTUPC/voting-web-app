@@ -24,7 +24,7 @@
 
 • `Optional` **\_id**: ObjectId
 
-*Defined in [src/interface/IUser.ts:3](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IUser.ts#L3)*
+*Defined in [src/interface/IUser.ts:3](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IUser.ts#L3)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 •  **email**: string
 
-*Defined in [src/interface/IUser.ts:7](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IUser.ts#L7)*
+*Defined in [src/interface/IUser.ts:7](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IUser.ts#L7)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 •  **membership**: Array<[IMembership](../modules/_interface_iuser_.md#imembership)\>
 
-*Defined in [src/interface/IUser.ts:5](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IUser.ts#L5)*
+*Defined in [src/interface/IUser.ts:5](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IUser.ts#L5)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 •  **name**: string
 
-*Defined in [src/interface/IUser.ts:6](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IUser.ts#L6)*
+*Defined in [src/interface/IUser.ts:6](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IUser.ts#L6)*
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 •  **userId**: string
 
-*Defined in [src/interface/IUser.ts:4](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IUser.ts#L4)*
+*Defined in [src/interface/IUser.ts:4](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IUser.ts#L4)*

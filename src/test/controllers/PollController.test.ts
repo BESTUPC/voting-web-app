@@ -30,9 +30,7 @@ describe('PollController', () => {
                 .resolves(true);
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
-            const body: { state: IPollState } = {
-                state: 'closed',
-            };
+            const body: IPollState = 'closed';
             const ret: boolean = await PollController.updateState(
                 userId1,
                 _id,
@@ -45,7 +43,7 @@ describe('PollController', () => {
             expect(setStateStub.firstCall.args[0]).to.deep.equal(
                 new ObjectId(_id),
             );
-            expect(setStateStub.firstCall.args[1]).to.equal(body.state);
+            expect(setStateStub.firstCall.args[1]).to.equal(body);
         });
         it('should return a bad request error', async () => {
             const isAdminStub = sandbox
@@ -53,9 +51,20 @@ describe('PollController', () => {
                 .resolves(true);
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
-            const body: { state: IPollState } = {
-                state: undefined,
-            };
+            const body: IPollState = undefined;
+            await expect(
+                PollController.updateState(userId1, _id, body),
+            ).to.be.rejectedWith('Bad request body');
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+        });
+        it('should return a bad request error', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId1 = 'IdUser';
+            const _id = '0123456789AB';
+            const body = 'wrong';
             await expect(
                 PollController.updateState(userId1, _id, body),
             ).to.be.rejectedWith('Bad request body');
@@ -68,9 +77,7 @@ describe('PollController', () => {
                 .resolves(false);
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
-            const body: { state: IPollState } = {
-                state: undefined,
-            };
+            const body: IPollState = 'closed';
             await expect(
                 PollController.updateState(userId1, _id, body),
             ).to.be.rejectedWith('Only admins are authorized');
@@ -122,6 +129,20 @@ describe('PollController', () => {
                 targetGroup: 'all',
                 pollOptions: ['yes', 'no'],
                 pollName: undefined,
+            };
+            await expect(
+                PollController.addPoll(userId, body),
+            ).to.be.rejectedWith('Bad request body');
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId);
+        });
+        it('should return a bad request error', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId = 'IdUser';
+            const body: unknown = {
+                wrongProperty: 'wrong',
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -263,7 +284,7 @@ describe('PollController', () => {
             const _id = '0123456789AB';
             await expect(
                 PollController.getPoll(userId, _id),
-            ).to.be.rejectedWith('Not authorized to see get this poll');
+            ).to.be.rejectedWith('Not authorized to get this poll');
             expect(getUserStub.calledOnce).to.be.true;
             expect(getUserStub.firstCall.args[0]).to.equal(userId);
             expect(getPollStub.calledOnce).to.be.true;

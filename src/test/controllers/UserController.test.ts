@@ -27,9 +27,7 @@ describe('UserController', () => {
                 .resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
-            const body: { membership: Array<IMembership> } = {
-                membership: ['all'],
-            };
+            const body: Array<IMembership> = ['all'];
             const ret: boolean = await UserController.updateMembership(
                 userId1,
                 userId2,
@@ -40,9 +38,7 @@ describe('UserController', () => {
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
             expect(updateMembershipStub.calledOnce).to.be.true;
             expect(updateMembershipStub.firstCall.args[0]).to.equal(userId2);
-            expect(updateMembershipStub.firstCall.args[1]).to.equal(
-                body.membership,
-            );
+            expect(updateMembershipStub.firstCall.args[1]).to.equal(body);
         });
         it('should return a bad request error', async () => {
             const isAdminStub = sandbox
@@ -50,9 +46,20 @@ describe('UserController', () => {
                 .resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
-            const body: { membership: Array<IMembership> } = {
-                membership: undefined,
-            };
+            const body = undefined;
+            await expect(
+                UserController.updateMembership(userId1, userId2, body),
+            ).to.be.rejectedWith('Bad request body');
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+        });
+        it('should return a bad request error', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId1 = 'ID1';
+            const userId2 = 'ID2';
+            const body = ['notMembership'];
             await expect(
                 UserController.updateMembership(userId1, userId2, body),
             ).to.be.rejectedWith('Bad request body');
@@ -65,9 +72,7 @@ describe('UserController', () => {
                 .resolves(false);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
-            const body: { membership: Array<IMembership> } = {
-                membership: undefined,
-            };
+            const body: Array<IMembership> = ['all'];
             await expect(
                 UserController.updateMembership(userId1, userId2, body),
             ).to.be.rejectedWith('Only admins are authorized');

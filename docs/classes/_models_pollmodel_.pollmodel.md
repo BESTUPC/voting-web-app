@@ -25,7 +25,7 @@
 
 ▸ `Static`**add**(`poll`: [IPoll](../interfaces/_interface_ipoll_.ipoll.md)): Promise<boolean\>
 
-*Defined in [src/models/PollModel.ts:23](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/models/PollModel.ts#L23)*
+*Defined in [src/models/PollModel.ts:23](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/PollModel.ts#L23)*
 
 #### Parameters:
 
@@ -41,7 +41,7 @@ ___
 
 ▸ `Static`**delete**(`_id`: ObjectId): Promise<boolean\>
 
-*Defined in [src/models/PollModel.ts:45](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/models/PollModel.ts#L45)*
+*Defined in [src/models/PollModel.ts:45](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/PollModel.ts#L45)*
 
 #### Parameters:
 
@@ -57,7 +57,7 @@ ___
 
 ▸ `Static`**get**(`_id`: ObjectId): Promise<[IPoll](../interfaces/_interface_ipoll_.ipoll.md) \| null\>
 
-*Defined in [src/models/PollModel.ts:19](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/models/PollModel.ts#L19)*
+*Defined in [src/models/PollModel.ts:19](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/PollModel.ts#L19)*
 
 #### Parameters:
 
@@ -73,7 +73,7 @@ ___
 
 ▸ `Static`**getAll**(`membership`: Array<[IMembership](../modules/_interface_iuser_.md#imembership)\>): Promise<Array<[IPoll](../interfaces/_interface_ipoll_.ipoll.md)\>\>
 
-*Defined in [src/models/PollModel.ts:11](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/models/PollModel.ts#L11)*
+*Defined in [src/models/PollModel.ts:11](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/PollModel.ts#L11)*
 
 #### Parameters:
 
@@ -89,7 +89,7 @@ ___
 
 ▸ `Static` `Private`**getCollection**(): Collection
 
-*Defined in [src/models/PollModel.ts:7](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/models/PollModel.ts#L7)*
+*Defined in [src/models/PollModel.ts:7](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/PollModel.ts#L7)*
 
 **Returns:** Collection
 
@@ -99,7 +99,7 @@ ___
 
 ▸ `Static`**setState**(`_id`: ObjectId, `state`: [IPollState](../modules/_interface_ipoll_.md#ipollstate)): Promise<boolean\>
 
-*Defined in [src/models/PollModel.ts:32](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/models/PollModel.ts#L32)*
+*Defined in [src/models/PollModel.ts:32](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/PollModel.ts#L32)*
 
 #### Parameters:
 

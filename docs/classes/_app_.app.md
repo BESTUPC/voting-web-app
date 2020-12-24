@@ -32,7 +32,7 @@ Express server application class
 
 \+ **new App**(): [App](_app_.app.md)
 
-*Defined in [src/app.ts:16](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/app.ts#L16)*
+*Defined in [src/app.ts:16](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/app.ts#L16)*
 
 Server class constructor
 
@@ -44,7 +44,7 @@ Server class constructor
 
 • `Private` **server**: [Server](_providers_server_.server.md)
 
-*Defined in [src/app.ts:16](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/app.ts#L16)*
+*Defined in [src/app.ts:16](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/app.ts#L16)*
 
 ## Methods
 
@@ -52,6 +52,6 @@ Server class constructor
 
 ▸ **start**(): Promise<void\>
 
-*Defined in [src/app.ts:24](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/app.ts#L24)*
+*Defined in [src/app.ts:24](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/app.ts#L24)*
 
 **Returns:** Promise<void\>

@@ -37,7 +37,7 @@ Express server application class
 
 \+ **new Server**(): [Server](_providers_server_.server.md)
 
-*Defined in [src/providers/Server.ts:17](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Server.ts#L17)*
+*Defined in [src/providers/Server.ts:17](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Server.ts#L17)*
 
 Server class constructor
 
@@ -49,7 +49,7 @@ Server class constructor
 
 • `Private` **server**: Express
 
-*Defined in [src/providers/Server.ts:17](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Server.ts#L17)*
+*Defined in [src/providers/Server.ts:17](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Server.ts#L17)*
 
 ## Methods
 
@@ -57,7 +57,7 @@ Server class constructor
 
 ▸ `Private`**_mountMiddlewares**(): void
 
-*Defined in [src/providers/Server.ts:29](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Server.ts#L29)*
+*Defined in [src/providers/Server.ts:29](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Server.ts#L29)*
 
 mountMiddlewares
 
@@ -69,7 +69,7 @@ ___
 
 ▸ `Private`**_mountRoutes**(): void
 
-*Defined in [src/providers/Server.ts:60](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Server.ts#L60)*
+*Defined in [src/providers/Server.ts:60](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Server.ts#L60)*
 
 mountRoutes
 
@@ -81,7 +81,7 @@ ___
 
 ▸ **configure**(): void
 
-*Defined in [src/providers/Server.ts:98](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Server.ts#L98)*
+*Defined in [src/providers/Server.ts:98](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Server.ts#L98)*
 
 **Returns:** void
 
@@ -91,7 +91,7 @@ ___
 
 ▸ **getServer**(): Express
 
-*Defined in [src/providers/Server.ts:94](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Server.ts#L94)*
+*Defined in [src/providers/Server.ts:94](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Server.ts#L94)*
 
 **Returns:** Express
 
@@ -101,7 +101,7 @@ ___
 
 ▸ **listen**(): void
 
-*Defined in [src/providers/Server.ts:106](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Server.ts#L106)*
+*Defined in [src/providers/Server.ts:106](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Server.ts#L106)*
 
 listen
 
@@ -113,7 +113,7 @@ ___
 
 ▸ `Static` `Private`**_getCertificates**(): [ICertificates](../interfaces/_interface_icertificates_.icertificates.md) \| null
 
-*Defined in [src/providers/Server.ts:68](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/providers/Server.ts#L68)*
+*Defined in [src/providers/Server.ts:68](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Server.ts#L68)*
 
 getCertificates
 

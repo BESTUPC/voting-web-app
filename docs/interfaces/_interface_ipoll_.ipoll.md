@@ -28,7 +28,7 @@
 
 • `Optional` **\_id**: ObjectId
 
-*Defined in [src/interface/IPoll.ts:6](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IPoll.ts#L6)*
+*Defined in [src/interface/IPoll.ts:6](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L6)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 •  **description**: string
 
-*Defined in [src/interface/IPoll.ts:7](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IPoll.ts#L7)*
+*Defined in [src/interface/IPoll.ts:7](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L7)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 •  **isPriority**: boolean
 
-*Defined in [src/interface/IPoll.ts:8](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IPoll.ts#L8)*
+*Defined in [src/interface/IPoll.ts:8](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L8)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 •  **isPrivate**: boolean
 
-*Defined in [src/interface/IPoll.ts:9](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IPoll.ts#L9)*
+*Defined in [src/interface/IPoll.ts:9](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L9)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 •  **pollDeadline**: number
 
-*Defined in [src/interface/IPoll.ts:10](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IPoll.ts#L10)*
+*Defined in [src/interface/IPoll.ts:10](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L10)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 •  **pollName**: string
 
-*Defined in [src/interface/IPoll.ts:14](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IPoll.ts#L14)*
+*Defined in [src/interface/IPoll.ts:14](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L14)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 •  **pollOptions**: Array<string\>
 
-*Defined in [src/interface/IPoll.ts:13](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IPoll.ts#L13)*
+*Defined in [src/interface/IPoll.ts:13](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L13)*
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 •  **state**: [IPollState](../modules/_interface_ipoll_.md#ipollstate)
 
-*Defined in [src/interface/IPoll.ts:11](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IPoll.ts#L11)*
+*Defined in [src/interface/IPoll.ts:11](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L11)*
 
 ___
 
@@ -92,4 +92,4 @@ ___
 
 •  **targetGroup**: [IMembership](../modules/_interface_iuser_.md#imembership)
 
-*Defined in [src/interface/IPoll.ts:12](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/IPoll.ts#L12)*
+*Defined in [src/interface/IPoll.ts:12](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L12)*

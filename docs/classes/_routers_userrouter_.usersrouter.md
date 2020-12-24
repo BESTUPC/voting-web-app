@@ -33,7 +33,7 @@
 
 \+ **new UsersRouter**(): [UsersRouter](_routers_userrouter_.usersrouter.md)
 
-*Defined in [src/routers/UserRouter.ts:11](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/routers/UserRouter.ts#L11)*
+*Defined in [src/routers/UserRouter.ts:11](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/UserRouter.ts#L11)*
 
 **Returns:** [UsersRouter](_routers_userrouter_.usersrouter.md)
 
@@ -43,7 +43,7 @@
 
 • `Private` **\_controller**: [UserController](_controllers_usercontroller_.usercontroller.md) = UserController
 
-*Defined in [src/routers/UserRouter.ts:7](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/routers/UserRouter.ts#L7)*
+*Defined in [src/routers/UserRouter.ts:7](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/UserRouter.ts#L7)*
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 • `Private` **\_router**: Router = Router()
 
-*Defined in [src/routers/UserRouter.ts:6](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/routers/UserRouter.ts#L6)*
+*Defined in [src/routers/UserRouter.ts:6](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/UserRouter.ts#L6)*
 
 ## Accessors
 
@@ -59,7 +59,7 @@ ___
 
 • get **router**(): Router
 
-*Defined in [src/routers/UserRouter.ts:9](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/routers/UserRouter.ts#L9)*
+*Defined in [src/routers/UserRouter.ts:9](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/UserRouter.ts#L9)*
 
 **Returns:** Router
 
@@ -69,7 +69,7 @@ ___
 
 ▸ `Private`**_configure**(): void
 
-*Defined in [src/routers/UserRouter.ts:20](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/routers/UserRouter.ts#L20)*
+*Defined in [src/routers/UserRouter.ts:20](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/UserRouter.ts#L20)*
 
 Connect routes to their matching controller endpoints.
 

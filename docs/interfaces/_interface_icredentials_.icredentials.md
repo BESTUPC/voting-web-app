@@ -22,7 +22,7 @@
 
 •  **callbackURL**: string
 
-*Defined in [src/interface/ICredentials.ts:4](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/ICredentials.ts#L4)*
+*Defined in [src/interface/ICredentials.ts:4](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/ICredentials.ts#L4)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 •  **clientID**: string
 
-*Defined in [src/interface/ICredentials.ts:2](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/ICredentials.ts#L2)*
+*Defined in [src/interface/ICredentials.ts:2](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/ICredentials.ts#L2)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 •  **clientSecret**: string
 
-*Defined in [src/interface/ICredentials.ts:3](https://github.com/BESTUPC/voting-web-app/blob/37e241c/src/interface/ICredentials.ts#L3)*
+*Defined in [src/interface/ICredentials.ts:3](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/ICredentials.ts#L3)*

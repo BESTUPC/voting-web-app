@@ -8,7 +8,8 @@
     "dev": "nodemon src/app.ts",
     "test": "mocha -r ts-node/register src/test/**/*.test.ts",
     "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix",
+    "docs": "typedoc"
   },
   "keywords": [
     "webapp",
