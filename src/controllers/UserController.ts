@@ -13,7 +13,6 @@ export default class UserController {
                 throw new ErrorHandler(400, 'Bad request body');
             }
             const membership: Array<IMembership> = body;
-
             return UserModel.updateMembership(userId2, membership);
         } else {
             throw new ErrorHandler(401, 'Only admins are authorized');
