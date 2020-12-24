@@ -1,6 +1,6 @@
 import { Collection, ObjectId } from 'mongodb';
-import { IMembership } from '../interface/IUser';
-import { IPoll, IPollState } from '../interface/IPoll';
+import { IMembership } from '../interfaces/IUser';
+import { IPoll, IPollState } from '../interfaces/IPoll';
 import Database from '../providers/Database';
 
 export default class PollModel {

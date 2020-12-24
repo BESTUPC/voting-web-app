@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
-import { IPoll, IPollState, isIPoll, isIPollState } from '../interface/IPoll';
-import { IUser } from '../interface/IUser';
+import { IPoll, IPollState, isIPoll, isIPollState } from '../interfaces/IPoll';
+import { IUser } from '../interfaces/IUser';
 import ErrorHandler from '../models/ErrorHandler';
 import PollModel from '../models/PollModel';
 import UserController from './UserController';
@@ -12,7 +12,7 @@ export default class PollController {
     /**
      * Returns the polls that the user's membership has permission to visualize.
      * @param userId id of the user making the request.
-     * @returns an array with the polls that the user can access.
+     * @returns Returns an array with the polls that the user can access.
      */
     public static async getPolls(userId: string): Promise<Array<IPoll>> {
         const user: IUser = await UserController.getUser(userId);
@@ -23,7 +23,7 @@ export default class PollController {
      * If the user has the proper membership, it returns the poll with the id provided.
      * @param userId id of the user making the request.
      * @param _id id of the poll.
-     * @returns the poll requested.
+     * @returns Returns the poll requested.
      * @throws Error 401 if the user is not authorized to get that poll.
      */
     public static async getPoll(userId: string, _id: string): Promise<IPoll> {
@@ -41,7 +41,7 @@ export default class PollController {
      * @param userId id of the user making the request.
      * @param _id id of the poll.
      * @param body new state to set. It should be a valid [[IPollState]].
-     * @returns true if the state could be set or false if otherwise and no errors arised.
+     * @returns Returns true if the state could be set or false if otherwise and no errors arised.
      * @throws Error 400 if the body is not a valid state or missing.
      * @throws Error 401 if the user is not admin.
      */

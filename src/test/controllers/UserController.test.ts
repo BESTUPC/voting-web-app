@@ -7,7 +7,7 @@ chai.use(chaiAsPromised);
 
 import UserController from '../../controllers/UserController';
 import UserModel from '../../models/UserModel';
-import { IMembership, IUser } from '../../interface/IUser';
+import { IMembership, IUser } from '../../interfaces/IUser';
 
 let sandbox: SinonSandbox;
 describe('UserController', () => {

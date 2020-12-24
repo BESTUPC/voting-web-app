@@ -3,7 +3,7 @@ import passport from 'passport';
 import { OAuth2Strategy, Profile } from 'passport-google-oauth';
 import cookieSession from 'cookie-session';
 import fs from 'fs';
-import { ICredentials } from '../interface/ICredentials';
+import { ICredentials } from '../interfaces/ICredentials';
 import UserController from '../controllers/UserController';
 
 export default abstract class Authentication {

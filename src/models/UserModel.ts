@@ -1,5 +1,5 @@
 import { Collection } from 'mongodb';
-import { IMembership, IUser } from '../interface/IUser';
+import { IMembership, IUser } from '../interfaces/IUser';
 import Database from '../providers/Database';
 
 export default class UserModel {

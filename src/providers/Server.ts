@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 import MasterRouter from '../routers/MasterRouter';
 import ErrorHandler from '../models/ErrorHandler';
 
-import { ICertificates } from '../interface/ICertificates';
+import { ICertificates } from '../interfaces/ICertificates';
 
 /**
  * Express server application class

@@ -1,4 +1,4 @@
-import { IMembership, isIMembershipArray, IUser } from '../interface/IUser';
+import { IMembership, isIMembershipArray, IUser } from '../interfaces/IUser';
 import ErrorHandler from '../models/ErrorHandler';
 import UserModel from '../models/UserModel';
 

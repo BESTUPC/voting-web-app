@@ -6,9 +6,9 @@ import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised);
 
 import UserController from '../../controllers/UserController';
-import { IUser } from '../../interface/IUser';
+import { IUser } from '../../interfaces/IUser';
 import PollModel from '../../models/PollModel';
-import { IPoll, IPollState } from '../../interface/IPoll';
+import { IPoll, IPollState } from '../../interfaces/IPoll';
 import PollController from '../../controllers/PollController';
 import { ObjectId } from 'mongodb';
 

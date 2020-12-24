@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import PollController from '../controllers/PollController';
-import { IPoll } from '../interface/IPoll';
+import { IPoll } from '../interfaces/IPoll';
 
 export default class PollRouter {
     private _router = Router();
