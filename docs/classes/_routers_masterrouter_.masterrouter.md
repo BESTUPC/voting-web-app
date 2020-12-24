@@ -34,7 +34,7 @@
 
 \+ **new MasterRouter**(): [MasterRouter](_routers_masterrouter_.masterrouter.md)
 
-*Defined in [src/routers/MasterRouter.ts:12](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/MasterRouter.ts#L12)*
+*Defined in [src/routers/MasterRouter.ts:12](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/routers/MasterRouter.ts#L12)*
 
 **Returns:** [MasterRouter](_routers_masterrouter_.masterrouter.md)
 
@@ -44,7 +44,7 @@
 
 • `Private` **\_pollRouter**: [PollRouter](_routers_pollrouter_.pollrouter.md)
 
-*Defined in [src/routers/MasterRouter.ts:8](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/MasterRouter.ts#L8)*
+*Defined in [src/routers/MasterRouter.ts:8](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/routers/MasterRouter.ts#L8)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • `Private` **\_router**: Router = Router()
 
-*Defined in [src/routers/MasterRouter.ts:6](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/MasterRouter.ts#L6)*
+*Defined in [src/routers/MasterRouter.ts:6](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/routers/MasterRouter.ts#L6)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • `Private` **\_userRouter**: UserRouter
 
-*Defined in [src/routers/MasterRouter.ts:7](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/MasterRouter.ts#L7)*
+*Defined in [src/routers/MasterRouter.ts:7](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/routers/MasterRouter.ts#L7)*
 
 ## Accessors
 
@@ -68,7 +68,7 @@ ___
 
 • get **router**(): Router
 
-*Defined in [src/routers/MasterRouter.ts:10](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/MasterRouter.ts#L10)*
+*Defined in [src/routers/MasterRouter.ts:10](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/routers/MasterRouter.ts#L10)*
 
 **Returns:** Router
 
@@ -78,7 +78,7 @@ ___
 
 ▸ `Private`**_configure**(): void
 
-*Defined in [src/routers/MasterRouter.ts:23](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/routers/MasterRouter.ts#L23)*
+*Defined in [src/routers/MasterRouter.ts:23](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/routers/MasterRouter.ts#L23)*
 
 Connect routes to their matching routers.
 

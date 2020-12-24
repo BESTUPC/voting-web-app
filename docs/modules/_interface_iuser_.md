@@ -26,7 +26,7 @@
 
 Ƭ  **IMembership**: \"all\" \| \"member\" \| \"full\" \| \"admin\"
 
-*Defined in [src/interface/IUser.ts:17](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IUser.ts#L17)*
+*Defined in [src/interface/IUser.ts:17](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/interface/IUser.ts#L17)*
 
 ## Functions
 
@@ -34,7 +34,7 @@
 
 ▸ **isIMembership**(`x`: unknown): x is IMembership
 
-*Defined in [src/interface/IUser.ts:24](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IUser.ts#L24)*
+*Defined in [src/interface/IUser.ts:24](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/interface/IUser.ts#L24)*
 
 #### Parameters:
 
@@ -50,7 +50,7 @@ ___
 
 ▸ **isIMembershipArray**(`x`: unknown): x is Array<IMembership\>
 
-*Defined in [src/interface/IUser.ts:19](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IUser.ts#L19)*
+*Defined in [src/interface/IUser.ts:19](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/interface/IUser.ts#L19)*
 
 #### Parameters:
 
@@ -66,7 +66,7 @@ ___
 
 ▸ **isIUser**(`x`: unknown): x is IUser
 
-*Defined in [src/interface/IUser.ts:10](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IUser.ts#L10)*
+*Defined in [src/interface/IUser.ts:10](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/interface/IUser.ts#L10)*
 
 #### Parameters:
 

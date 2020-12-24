@@ -2,6 +2,9 @@ import { IMembership, isIMembershipArray, IUser } from '../interface/IUser';
 import ErrorHandler from '../models/ErrorHandler';
 import UserModel from '../models/UserModel';
 
+/**
+ * Controller for the user-related calls. It handles all the logic between routing and the database access.
+ */
 export default class UserController {
     public static async updateMembership(
         userId1: string,

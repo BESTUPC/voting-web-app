@@ -24,7 +24,7 @@
 
 ▸ `Static`**add**(`user`: [IUser](../interfaces/_interface_iuser_.iuser.md)): Promise<boolean\>
 
-*Defined in [src/models/UserModel.ts:30](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/UserModel.ts#L30)*
+*Defined in [src/models/UserModel.ts:30](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/models/UserModel.ts#L30)*
 
 #### Parameters:
 
@@ -40,7 +40,7 @@ ___
 
 ▸ `Static`**get**(`userId`: string): Promise<[IUser](../interfaces/_interface_iuser_.iuser.md) \| null\>
 
-*Defined in [src/models/UserModel.ts:9](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/UserModel.ts#L9)*
+*Defined in [src/models/UserModel.ts:9](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/models/UserModel.ts#L9)*
 
 #### Parameters:
 
@@ -56,7 +56,7 @@ ___
 
 ▸ `Static`**getAll**(): Promise<Array<[IUser](../interfaces/_interface_iuser_.iuser.md)\>\>
 
-*Defined in [src/models/UserModel.ts:13](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/UserModel.ts#L13)*
+*Defined in [src/models/UserModel.ts:13](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/models/UserModel.ts#L13)*
 
 **Returns:** Promise<Array<[IUser](../interfaces/_interface_iuser_.iuser.md)\>\>
 
@@ -66,7 +66,7 @@ ___
 
 ▸ `Static` `Private`**getCollection**(): Collection
 
-*Defined in [src/models/UserModel.ts:6](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/UserModel.ts#L6)*
+*Defined in [src/models/UserModel.ts:6](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/models/UserModel.ts#L6)*
 
 **Returns:** Collection
 
@@ -76,7 +76,7 @@ ___
 
 ▸ `Static`**updateMembership**(`userId`: string, `membership`: Array<[IMembership](../modules/_interface_iuser_.md#imembership)\>): Promise<boolean\>
 
-*Defined in [src/models/UserModel.ts:17](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/models/UserModel.ts#L17)*
+*Defined in [src/models/UserModel.ts:17](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/models/UserModel.ts#L17)*
 
 #### Parameters:
 

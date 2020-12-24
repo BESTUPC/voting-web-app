@@ -25,7 +25,7 @@
 
 Ƭ  **IPollState**: \"open\" \| \"closed\"
 
-*Defined in [src/interface/IPoll.ts:24](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L24)*
+*Defined in [src/interface/IPoll.ts:24](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/interface/IPoll.ts#L24)*
 
 ## Functions
 
@@ -33,7 +33,7 @@
 
 ▸ **isIPoll**(`x`: unknown): x is IPoll
 
-*Defined in [src/interface/IPoll.ts:17](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L17)*
+*Defined in [src/interface/IPoll.ts:17](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/interface/IPoll.ts#L17)*
 
 #### Parameters:
 
@@ -49,7 +49,7 @@ ___
 
 ▸ **isIPollState**(`x`: unknown): x is IPollState
 
-*Defined in [src/interface/IPoll.ts:26](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/interface/IPoll.ts#L26)*
+*Defined in [src/interface/IPoll.ts:26](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/interface/IPoll.ts#L26)*
 
 #### Parameters:
 

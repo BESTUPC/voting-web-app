@@ -16,4 +16,4 @@
 
 • `Let` **sandbox**: SinonSandbox
 
-*Defined in [src/test/controllers/UserController.test.ts:12](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/test/controllers/UserController.test.ts#L12)*
+*Defined in [src/test/controllers/UserController.test.ts:12](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/test/controllers/UserController.test.ts#L12)*

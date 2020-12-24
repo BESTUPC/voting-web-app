@@ -22,7 +22,7 @@
 
 ▸ `Static` `Private`**_getCredentials**(): [ICredentials](../interfaces/_interface_icredentials_.icredentials.md) \| null
 
-*Defined in [src/providers/Authentication.ts:64](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Authentication.ts#L64)*
+*Defined in [src/providers/Authentication.ts:64](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/providers/Authentication.ts#L64)*
 
 **Returns:** [ICredentials](../interfaces/_interface_icredentials_.icredentials.md) \| null
 
@@ -32,7 +32,7 @@ ___
 
 ▸ `Static` `Private`**_isLoggedIn**(`req`: Request, `res`: Response, `next`: NextFunction): void
 
-*Defined in [src/providers/Authentication.ts:84](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Authentication.ts#L84)*
+*Defined in [src/providers/Authentication.ts:84](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/providers/Authentication.ts#L84)*
 
 #### Parameters:
 
@@ -50,7 +50,7 @@ ___
 
 ▸ `Static`**configure**(`app`: Express): void
 
-*Defined in [src/providers/Authentication.ts:10](https://github.com/BESTUPC/voting-web-app/blob/443129a/src/providers/Authentication.ts#L10)*
+*Defined in [src/providers/Authentication.ts:10](https://github.com/BESTUPC/voting-web-app/blob/08738de/src/providers/Authentication.ts#L10)*
 
 #### Parameters:
 
