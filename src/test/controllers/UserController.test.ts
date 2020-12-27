@@ -109,6 +109,18 @@ describe('UserController', () => {
             expect(addUserStub.calledOnce).to.be.true;
             expect(addUserStub.firstCall.args[0]).to.deep.equal(newUser);
         });
+        it('should return a bad request error', async () => {
+            const body: {
+                id: string;
+                emails: Array<{ value: string; verified: boolean }>;
+            } = {
+                id: 'ID',
+                emails: [{ value: 'email@test.com', verified: true }],
+            };
+            await expect(UserController.addUser(body)).to.be.rejectedWith(
+                'Bad request body',
+            );
+        });
     });
     describe('test getUsers', () => {
         beforeEach(() => {
@@ -163,6 +175,29 @@ describe('UserController', () => {
             sandbox.restore();
         });
         it("should call the model's get function", async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const user: IUser = {
+                userId: 'ID2',
+                name: 'name',
+                email: 'email',
+                membership: ['all'],
+            };
+            const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
+            const userId1 = 'ID1';
+            const userId2 = 'ID2';
+            const ret: IUser = await UserController.getUser(userId1, userId2);
+            expect(ret).to.deep.equal(user);
+            expect(getUserStub.calledOnce).to.be.true;
+            expect(getUserStub.firstCall.args[0]).to.equal(userId2);
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+        });
+        it("should call the model's get function", async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(false);
             const user: IUser = {
                 userId: 'ID',
                 name: 'name',
@@ -171,10 +206,24 @@ describe('UserController', () => {
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const userId = 'ID';
-            const ret: IUser = await UserController.getUser(userId);
+            const ret: IUser = await UserController.getUser(userId, userId);
             expect(ret).to.deep.equal(user);
             expect(getUserStub.calledOnce).to.be.true;
             expect(getUserStub.firstCall.args[0]).to.equal(userId);
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId);
+        });
+        it('should throw an unauthorized error', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(false);
+            const userId1 = 'ID1';
+            const userId2 = 'ID2';
+            await expect(
+                UserController.getUser(userId1, userId2),
+            ).to.be.rejectedWith('Only admins or same users are authorized');
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
     });
     describe('test isAdmin', () => {

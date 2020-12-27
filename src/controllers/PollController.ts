@@ -15,7 +15,7 @@ export default class PollController {
      * @returns Returns an array with the polls that the user can access.
      */
     public static async getPolls(userId: string): Promise<Array<IPoll>> {
-        const user: IUser = await UserController.getUser(userId);
+        const user: IUser = await UserController.getUser(userId, userId);
         return PollModel.getAll(user.membership);
     }
 
@@ -27,7 +27,7 @@ export default class PollController {
      * @throws Error 401 if the user is not authorized to get that poll.
      */
     public static async getPoll(userId: string, _id: string): Promise<IPoll> {
-        const user: IUser = await UserController.getUser(userId);
+        const user: IUser = await UserController.getUser(userId, userId);
         const poll: IPoll = await PollModel.get(new ObjectId(_id));
         if (user.membership.includes(poll.targetGroup)) {
             return poll;

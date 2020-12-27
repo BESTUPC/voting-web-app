@@ -1,6 +1,6 @@
 {
   "name": "webapp",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "The new voting webapp for BEST Barcelona",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,8 @@
     "test": "mocha -r ts-node/register src/test/**/*.test.ts",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "docs": "rm -r docs && typedoc"
+    "docs": "rm -r docs && typedoc",
+    "all": "mocha -r ts-node/register src/test/**/*.test.ts && eslint ./src && rm -r docs && typedoc"
   },
   "keywords": [
     "webapp",
@@ -18,7 +19,7 @@
     "BEST"
   ],
   "author": "Esteve Tarragó, Iñigo Moreno, Bernat Felip",
-  "repository": "TOFILL",
+  "repository": "https://github.com/BESTUPC/voting-web-app/",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",

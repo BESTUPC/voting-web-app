@@ -4,9 +4,7 @@
 
 # Class: Server
 
-Express server application class
-
-**`description`** Will later contain the routing system
+Custom server application class.
 
 ## Hierarchy
 
@@ -37,9 +35,9 @@ Express server application class
 
 \+ **new Server**(): [Server](providers.server.md)
 
-*Defined in [src/providers/Server.ts:17](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Server.ts#L17)*
+*Defined in [src/providers/Server.ts:19](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Server.ts#L19)*
 
-Server class constructor
+Server class constructor.
 
 **Returns:** [Server](providers.server.md)
 
@@ -49,7 +47,9 @@ Server class constructor
 
 • `Private` **server**: Express
 
-*Defined in [src/providers/Server.ts:17](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Server.ts#L17)*
+*Defined in [src/providers/Server.ts:19](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Server.ts#L19)*
+
+Express server instance to setup.
 
 ## Methods
 
@@ -57,9 +57,9 @@ Server class constructor
 
 ▸ `Private`**_mountMiddlewares**(): void
 
-*Defined in [src/providers/Server.ts:29](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Server.ts#L29)*
+*Defined in [src/providers/Server.ts:31](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Server.ts#L31)*
 
-mountMiddlewares
+Mounts the body parser and custom error handler middlewares.
 
 **Returns:** void
 
@@ -69,9 +69,9 @@ ___
 
 ▸ `Private`**_mountRoutes**(): void
 
-*Defined in [src/providers/Server.ts:60](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Server.ts#L60)*
+*Defined in [src/providers/Server.ts:61](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Server.ts#L61)*
 
-mountRoutes
+Configures the file serving and the api route.
 
 **Returns:** void
 
@@ -81,7 +81,9 @@ ___
 
 ▸ **configure**(): void
 
-*Defined in [src/providers/Server.ts:98](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Server.ts#L98)*
+*Defined in [src/providers/Server.ts:106](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Server.ts#L106)*
+
+Call the mount functions.
 
 **Returns:** void
 
@@ -91,7 +93,9 @@ ___
 
 ▸ **getServer**(): Express
 
-*Defined in [src/providers/Server.ts:94](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Server.ts#L94)*
+*Defined in [src/providers/Server.ts:99](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Server.ts#L99)*
+
+Function to access the server to share it with other providers.
 
 **Returns:** Express
 
@@ -101,9 +105,9 @@ ___
 
 ▸ **listen**(): void
 
-*Defined in [src/providers/Server.ts:106](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Server.ts#L106)*
+*Defined in [src/providers/Server.ts:114](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Server.ts#L114)*
 
-listen
+Start the server. If possible it will run both a HTTP and HTTPS port.
 
 **Returns:** void
 
@@ -111,10 +115,12 @@ ___
 
 ### \_getCertificates
 
-▸ `Static` `Private`**_getCertificates**(): [ICertificates](../interfaces/interface.icertificates.md) \| null
+▸ `Static` `Private`**_getCertificates**(): [ICertificates](../interfaces/interfaces.icertificates.md) \| null
 
-*Defined in [src/providers/Server.ts:68](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Server.ts#L68)*
+*Defined in [src/providers/Server.ts:70](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Server.ts#L70)*
 
-getCertificates
+Gets the SSL certificates.
 
-**Returns:** [ICertificates](../interfaces/interface.icertificates.md) \| null
+**Returns:** [ICertificates](../interfaces/interfaces.icertificates.md) \| null
+
+the SSL certificates if found or null otherwise.

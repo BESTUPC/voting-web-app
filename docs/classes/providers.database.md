@@ -4,6 +4,8 @@
 
 # Class: Database
 
+Class to control the MongoDB connection.
+
 ## Hierarchy
 
 * **Database**
@@ -12,7 +14,7 @@
 
 ### Properties
 
-* [client](providers.database.md#client)
+* [\_client](providers.database.md#_client)
 
 ### Methods
 
@@ -22,11 +24,13 @@
 
 ## Properties
 
-### client
+### \_client
 
-▪ `Static` `Private` **client**: MongoClient
+▪ `Static` `Private` **\_client**: MongoClient
 
-*Defined in [src/providers/Database.ts:4](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Database.ts#L4)*
+*Defined in [src/providers/Database.ts:10](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Database.ts#L10)*
+
+Client to save the connection.
 
 ## Methods
 
@@ -34,7 +38,9 @@
 
 ▸ `Static`**connect**(): Promise<void\>
 
-*Defined in [src/providers/Database.ts:20](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Database.ts#L20)*
+*Defined in [src/providers/Database.ts:37](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Database.ts#L37)*
+
+Connect to the database.
 
 **Returns:** Promise<void\>
 
@@ -44,7 +50,13 @@ ___
 
 ▸ `Static` `Private`**createIndexes**(): Promise<void\>
 
-*Defined in [src/providers/Database.ts:5](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Database.ts#L5)*
+*Defined in [src/providers/Database.ts:19](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Database.ts#L19)*
+
+Create indexes to ensure that:
+- Users collection - userId is unique.
+- Votes collection - the pair pollId and userId is unique.
+- askWithdrawal collection - the pair pollId and userId is unique.
+- askPrivate collection - the pair pollId and userId is unique.
 
 **Returns:** Promise<void\>
 
@@ -54,6 +66,10 @@ ___
 
 ▸ `Static`**getDb**(): Db
 
-*Defined in [src/providers/Database.ts:34](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/providers/Database.ts#L34)*
+*Defined in [src/providers/Database.ts:54](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Database.ts#L54)*
+
+Public function to allow all controllers access to the database.
 
 **Returns:** Db
+
+Returns the mongoDB database instance.

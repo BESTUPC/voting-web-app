@@ -3,9 +3,19 @@ import PollController from '../controllers/PollController';
 import { IPoll } from '../interfaces/IPoll';
 
 export default class PollRouter {
+    /**
+     * Express router instance.
+     */
     private _router = Router();
+
+    /**
+     * Controller to use in this router.
+     */
     private _controller = PollController;
 
+    /**
+     * Get function for the express router.
+     */
     get router(): Router {
         return this._router;
     }
@@ -18,6 +28,11 @@ export default class PollRouter {
      * Connect routes to their matching controller endpoints.
      */
     private _configure() {
+        /**
+         * What does this do?
+         * @param req
+         * @returns Respons
+         */
         this._router.get(
             '/',
             async (req: Request, res: Response, next: NextFunction) => {

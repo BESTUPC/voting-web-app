@@ -120,7 +120,7 @@ describe('PollController', () => {
                 .stub(UserController, 'isAdmin')
                 .resolves(true);
             const userId = 'IdUser';
-            const body: IPoll = {
+            const body: unknown = {
                 description: 'Test description',
                 isPriority: false,
                 isPrivate: true,
@@ -128,7 +128,6 @@ describe('PollController', () => {
                 state: 'open',
                 targetGroup: 'all',
                 pollOptions: ['yes', 'no'],
-                pollName: undefined,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -217,6 +216,7 @@ describe('PollController', () => {
             expect(ret).to.deep.equal([poll1, poll2]);
             expect(getUserStub.calledOnce).to.be.true;
             expect(getUserStub.firstCall.args[0]).to.equal(userId);
+            expect(getUserStub.firstCall.args[1]).to.equal(userId);
             expect(getAllStub.calledOnce).to.be.true;
         });
     });
@@ -254,6 +254,7 @@ describe('PollController', () => {
             expect(ret).to.deep.equal(poll);
             expect(getUserStub.calledOnce).to.be.true;
             expect(getUserStub.firstCall.args[0]).to.equal(userId);
+            expect(getUserStub.firstCall.args[1]).to.equal(userId);
             expect(getPollStub.calledOnce).to.be.true;
             expect(getPollStub.firstCall.args[0]).to.deep.equal(
                 new ObjectId(_id),
@@ -287,6 +288,7 @@ describe('PollController', () => {
             ).to.be.rejectedWith('Not authorized to get this poll');
             expect(getUserStub.calledOnce).to.be.true;
             expect(getUserStub.firstCall.args[0]).to.equal(userId);
+            expect(getUserStub.firstCall.args[1]).to.equal(userId);
             expect(getPollStub.calledOnce).to.be.true;
             expect(getPollStub.firstCall.args[0]).to.deep.equal(
                 new ObjectId(_id),

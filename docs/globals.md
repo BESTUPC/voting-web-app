@@ -9,7 +9,7 @@
 ### Modules
 
 * [controllers](modules/controllers.md)
-* [interface](modules/interface.md)
+* [interfaces](modules/interfaces.md)
 * [models](modules/models.md)
 * [providers](modules/providers.md)
 * [root](modules/root.md)

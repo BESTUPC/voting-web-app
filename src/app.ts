@@ -9,10 +9,12 @@ dotenv.config({
 });
 
 /**
- * Express server application class
- * @description Will later contain the routing system
+ * Final application class
  */
 class App {
+    /**
+     * Custom application instance
+     */
     private server: Server;
     /**
      * Server class constructor
@@ -21,6 +23,9 @@ class App {
         this.server = new Server();
     }
 
+    /**
+     * Connect the database, configure the server and start it.
+     */
     public async start(): Promise<void> {
         await Database.connect();
         Authentication.configure(this.server.getServer());
@@ -29,6 +34,6 @@ class App {
     }
 }
 
-// initialize server app
+// Start the server
 const app: App = new App();
 app.start();

@@ -1,7 +1,21 @@
 import { Db, MongoClient } from 'mongodb';
 
+/**
+ * Class to control the MongoDB connection.
+ */
 export default class Database {
-    private static client: MongoClient;
+    /**
+     * Client to save the connection.
+     */
+    private static _client: MongoClient;
+
+    /**
+     * Create indexes to ensure that:
+     * - Users collection - userId is unique.
+     * - Votes collection - the pair pollId and userId is unique.
+     * - askWithdrawal collection - the pair pollId and userId is unique.
+     * - askPrivate collection - the pair pollId and userId is unique.
+     */
     private static async createIndexes(): Promise<void> {
         await this.getDb()
             .collection('users')
@@ -17,21 +31,27 @@ export default class Database {
             .createIndex({ pollId: 1, userId: 1 }, { unique: true });
     }
 
+    /**
+     * Connect to the database.
+     */
     public static async connect(): Promise<void> {
         try {
-            this.client = await MongoClient.connect(process.env.MONGO_URI, {
+            this._client = await MongoClient.connect(process.env.MONGO_URI, {
                 useUnifiedTopology: true,
                 connectTimeoutMS: parseInt(process.env.MONGO_TIMEOUT),
                 serverSelectionTimeoutMS: parseInt(process.env.MONGO_TIMEOUT),
             });
             await this.createIndexes();
         } catch (e) {
-            console.log(e);
             return null;
         }
     }
 
+    /**
+     * Public function to allow all controllers access to the database.
+     * @returns Returns the mongoDB database instance.
+     */
     public static getDb(): Db {
-        return this.client.db(process.env.MONGO_DBNAME);
+        return this._client.db(process.env.MONGO_DBNAME);
     }
 }

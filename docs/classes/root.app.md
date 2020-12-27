@@ -4,9 +4,7 @@
 
 # Class: App
 
-Express server application class
-
-**`description`** Will later contain the routing system
+Final application class
 
 ## Hierarchy
 
@@ -32,7 +30,7 @@ Express server application class
 
 \+ **new App**(): [App](root.app.md)
 
-*Defined in [src/app.ts:16](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/app.ts#L16)*
+*Defined in [src/app.ts:18](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/app.ts#L18)*
 
 Server class constructor
 
@@ -44,7 +42,9 @@ Server class constructor
 
 • `Private` **server**: [Server](providers.server.md)
 
-*Defined in [src/app.ts:16](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/app.ts#L16)*
+*Defined in [src/app.ts:18](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/app.ts#L18)*
+
+Custom application instance
 
 ## Methods
 
@@ -52,6 +52,8 @@ Server class constructor
 
 ▸ **start**(): Promise<void\>
 
-*Defined in [src/app.ts:24](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/app.ts#L24)*
+*Defined in [src/app.ts:29](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/app.ts#L29)*
+
+Connect the database, configure the server and start it.
 
 **Returns:** Promise<void\>

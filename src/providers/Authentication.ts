@@ -6,18 +6,25 @@ import fs from 'fs';
 import { ICredentials } from '../interfaces/ICredentials';
 import UserController from '../controllers/UserController';
 
+/**
+ * Class to setup the Passport.js and cookie-session middleware.
+ */
 export default abstract class Authentication {
+    /**
+     * Configures the serialization of user, gets the OAuth Google credentials, sets up the cookie session and the authentication endpoints.
+     * @param app Express app to setup.
+     */
     public static configure(app: Express): void {
-        passport.serializeUser(function (user, done) {
-            done(null, user);
-        });
-        passport.deserializeUser(function (user, done) {
-            done(null, user);
-        });
         const creds: ICredentials | null = Authentication._getCredentials();
         if (!creds) {
             return null;
         } else {
+            passport.serializeUser(function (user, done) {
+                done(null, user);
+            });
+            passport.deserializeUser(function (user, done) {
+                done(null, user);
+            });
             passport.use(
                 new OAuth2Strategy(
                     creds,
@@ -32,35 +39,44 @@ export default abstract class Authentication {
                     },
                 ),
             );
-        }
-        app.use(
-            cookieSession({
-                name: 'google-auth-session',
-                keys: [process.env.COOKIE_KEY1, process.env.COOKIE_KEY2],
-            }),
-        );
-        app.use(passport.initialize());
-        app.use(passport.session());
 
-        app.get(
-            '/auth',
-            passport.authenticate('google', { scope: ['profile', 'email'] }),
-        );
-        app.get(
-            '/auth/redirect',
-            passport.authenticate('google', { failureRedirect: '/login.html' }),
-            function (_req, res) {
-                res.redirect('/');
-            },
-        );
-        app.get('/auth/logout', async (req, res) => {
-            req.session = null;
-            req.logout();
-            res.redirect('/login.html');
-        });
-        app.use(Authentication._isLoggedIn);
+            app.use(
+                cookieSession({
+                    name: 'google-auth-session',
+                    keys: [process.env.COOKIE_KEY1, process.env.COOKIE_KEY2],
+                }),
+            );
+            app.use(passport.initialize());
+            app.use(passport.session());
+
+            app.get(
+                '/auth',
+                passport.authenticate('google', {
+                    scope: ['profile', 'email'],
+                }),
+            );
+            app.get(
+                '/auth/redirect',
+                passport.authenticate('google', {
+                    failureRedirect: '/login.html',
+                }),
+                function (_req, res) {
+                    res.redirect('/');
+                },
+            );
+            app.get('/auth/logout', async (req, res) => {
+                req.session = null;
+                req.logout();
+                res.redirect('/login.html');
+            });
+            app.use(Authentication._isLoggedIn);
+        }
     }
 
+    /**
+     * In charge of opening the files with Google OAuth credentials.
+     * @returns Returns the credentials obtained or null if not found.
+     */
     private static _getCredentials(): ICredentials | null {
         if (fs.existsSync(process.env.CRED_PATH)) {
             try {
@@ -81,6 +97,12 @@ export default abstract class Authentication {
         }
     }
 
+    /**
+     * Auxiliary middleware function to controll logged in access.
+     * @param req server request.
+     * @param res response to the request.
+     * @param next function to execute next.
+     */
     private static _isLoggedIn(
         req: Request,
         res: Response,

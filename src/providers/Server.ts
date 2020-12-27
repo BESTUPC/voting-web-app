@@ -10,21 +10,23 @@ import ErrorHandler from '../models/ErrorHandler';
 import { ICertificates } from '../interfaces/ICertificates';
 
 /**
- * Express server application class
- * @description Will later contain the routing system
+ * Custom server application class.
  */
 export default class Server {
+    /**
+     * Express server instance to setup.
+     */
     private server: Express;
 
     /**
-     * Server class constructor
+     * Server class constructor.
      */
     constructor() {
         this.server = express();
     }
 
     /**
-     * mountMiddlewares
+     * Mounts the body parser and custom error handler middlewares.
      */
     private _mountMiddlewares(): void {
         this.server.use(function (_req, res, next) {
@@ -35,7 +37,6 @@ export default class Server {
             );
             next();
         });
-        //Here we are configuring express to use body-parser as middle-ware.
         this.server.use(bodyParser.urlencoded({ extended: false }));
         this.server.use(bodyParser.json());
         this.server.use(
@@ -55,7 +56,7 @@ export default class Server {
     }
 
     /**
-     * mountRoutes
+     * Configures the file serving and the api route.
      */
     private _mountRoutes(): void {
         this.server.use(express.static('public'));
@@ -63,7 +64,8 @@ export default class Server {
     }
 
     /**
-     * getCertificates
+     * Gets the SSL certificates.
+     * @returns the SSL certificates if found or null otherwise.
      */
     private static _getCertificates(): ICertificates | null {
         if (
@@ -91,17 +93,23 @@ export default class Server {
         }
     }
 
+    /**
+     * Function to access the server to share it with other providers.
+     */
     public getServer(): Express {
         return this.server;
     }
 
+    /**
+     * Call the mount functions.
+     */
     public configure(): void {
         this._mountMiddlewares();
         this._mountRoutes();
     }
 
     /**
-     * listen
+     * Start the server. If possible it will run both a HTTP and HTTPS port.
      */
     public listen(): void {
         const certificate: ICertificates | null = Server._getCertificates();
@@ -112,7 +120,6 @@ export default class Server {
                 this.server,
             );
 
-            //also open http on other port
             httpServer.listen(process.env.PORT2, () => {
                 console.log('HTTP Server running on port ' + process.env.PORT2);
             });
@@ -123,7 +130,6 @@ export default class Server {
                 );
             });
         } else {
-            //we dont have the certificates, open http only
             console.log('No https certificates found, opening only http');
             const httpServer = http.createServer(this.server);
             httpServer.listen(process.env.PORT1, () => {

@@ -3,13 +3,26 @@ import UserController from '../controllers/UserController';
 import { IMembership, IUser } from '../interfaces/IUser';
 
 export default class UsersRouter {
+    /**
+     * Express router instance.
+     */
     private _router = Router();
+
+    /**
+     * Controller to use in this router.
+     */
     private _controller = UserController;
 
+    /**
+     * Get function for the express router.
+     */
     get router(): Router {
         return this._router;
     }
 
+    /**
+     * Configures the router.
+     */
     constructor() {
         this._configure();
     }
@@ -60,7 +73,10 @@ export default class UsersRouter {
                         web: IUser;
                     } = {
                         google: req.user,
-                        web: await this._controller.getUser(req.user['id']),
+                        web: await this._controller.getUser(
+                            req.user['id'],
+                            req.user['id'],
+                        ),
                     };
                     res.status(200).json(result);
                 } catch (error) {
@@ -73,6 +89,7 @@ export default class UsersRouter {
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
                     const result = await this._controller.getUser(
+                        req.user['id'],
                         req.params.id,
                     );
                     res.status(200).json(result);

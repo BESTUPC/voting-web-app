@@ -33,7 +33,7 @@
 
 \+ **new PollRouter**(): [PollRouter](routers.pollrouter.md)
 
-*Defined in [src/routers/PollRouter.ts:11](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/routers/PollRouter.ts#L11)*
+*Defined in [src/routers/PollRouter.ts:21](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/PollRouter.ts#L21)*
 
 **Returns:** [PollRouter](routers.pollrouter.md)
 
@@ -43,7 +43,9 @@
 
 • `Private` **\_controller**: [PollController](controllers.pollcontroller.md) = PollController
 
-*Defined in [src/routers/PollRouter.ts:7](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/routers/PollRouter.ts#L7)*
+*Defined in [src/routers/PollRouter.ts:14](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/PollRouter.ts#L14)*
+
+Controller to use in this router.
 
 ___
 
@@ -51,7 +53,9 @@ ___
 
 • `Private` **\_router**: Router = Router()
 
-*Defined in [src/routers/PollRouter.ts:6](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/routers/PollRouter.ts#L6)*
+*Defined in [src/routers/PollRouter.ts:9](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/PollRouter.ts#L9)*
+
+Express router instance.
 
 ## Accessors
 
@@ -59,7 +63,9 @@ ___
 
 • get **router**(): Router
 
-*Defined in [src/routers/PollRouter.ts:9](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/routers/PollRouter.ts#L9)*
+*Defined in [src/routers/PollRouter.ts:19](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/PollRouter.ts#L19)*
+
+Get function for the express router.
 
 **Returns:** Router
 
@@ -69,7 +75,7 @@ ___
 
 ▸ `Private`**_configure**(): void
 
-*Defined in [src/routers/PollRouter.ts:20](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/routers/PollRouter.ts#L20)*
+*Defined in [src/routers/PollRouter.ts:30](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/PollRouter.ts#L30)*
 
 Connect routes to their matching controller endpoints.
 

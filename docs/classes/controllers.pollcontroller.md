@@ -26,7 +26,7 @@ Controller for the poll-related calls. It handles all the logic between routing 
 
 ▸ `Static`**addPoll**(`userId`: string, `body`: unknown): Promise<boolean\>
 
-*Defined in [src/controllers/PollController.ts:72](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/controllers/PollController.ts#L72)*
+*Defined in [src/controllers/PollController.ts:72](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/PollController.ts#L72)*
 
 If the user is admin it adds the given poll to the database.
 
@@ -51,7 +51,7 @@ ___
 
 ▸ `Static`**deletePoll**(`userId`: string, `_id`: string): Promise<boolean\>
 
-*Defined in [src/controllers/PollController.ts:93](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/controllers/PollController.ts#L93)*
+*Defined in [src/controllers/PollController.ts:93](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/PollController.ts#L93)*
 
 If the user is admin it adds deletes the given poll from the database.
 
@@ -74,9 +74,9 @@ ___
 
 ### getPoll
 
-▸ `Static`**getPoll**(`userId`: string, `_id`: string): Promise<[IPoll](../interfaces/interface.ipoll.md)\>
+▸ `Static`**getPoll**(`userId`: string, `_id`: string): Promise<[IPoll](../interfaces/interfaces.ipoll.md)\>
 
-*Defined in [src/controllers/PollController.ts:29](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/controllers/PollController.ts#L29)*
+*Defined in [src/controllers/PollController.ts:29](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/PollController.ts#L29)*
 
 If the user has the proper membership, it returns the poll with the id provided.
 
@@ -89,17 +89,17 @@ Name | Type | Description |
 `userId` | string | id of the user making the request. |
 `_id` | string | id of the poll. |
 
-**Returns:** Promise<[IPoll](../interfaces/interface.ipoll.md)\>
+**Returns:** Promise<[IPoll](../interfaces/interfaces.ipoll.md)\>
 
-the poll requested.
+Returns the poll requested.
 
 ___
 
 ### getPolls
 
-▸ `Static`**getPolls**(`userId`: string): Promise<Array<[IPoll](../interfaces/interface.ipoll.md)\>\>
+▸ `Static`**getPolls**(`userId`: string): Promise<Array<[IPoll](../interfaces/interfaces.ipoll.md)\>\>
 
-*Defined in [src/controllers/PollController.ts:17](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/controllers/PollController.ts#L17)*
+*Defined in [src/controllers/PollController.ts:17](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/PollController.ts#L17)*
 
 Returns the polls that the user's membership has permission to visualize.
 
@@ -109,9 +109,9 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `userId` | string | id of the user making the request. |
 
-**Returns:** Promise<Array<[IPoll](../interfaces/interface.ipoll.md)\>\>
+**Returns:** Promise<Array<[IPoll](../interfaces/interfaces.ipoll.md)\>\>
 
-an array with the polls that the user can access.
+Returns an array with the polls that the user can access.
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 ▸ `Static`**updateState**(`userId`: string, `_id`: string, `body`: unknown): Promise<boolean\>
 
-*Defined in [src/controllers/PollController.ts:48](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/controllers/PollController.ts#L48)*
+*Defined in [src/controllers/PollController.ts:48](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/PollController.ts#L48)*
 
 If the user is admin it updates the poll's state to the given new state.
 
@@ -133,8 +133,8 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `userId` | string | id of the user making the request. |
 `_id` | string | id of the poll. |
-`body` | unknown | new state to set. It should be a valid [IPollState](../modules/interface.md#ipollstate). |
+`body` | unknown | new state to set. It should be a valid [IPollState](../modules/interfaces.md#ipollstate). |
 
 **Returns:** Promise<boolean\>
 
-true if the state could be set or false if otherwise and no errors arised.
+Returns true if the state could be set or false if otherwise and no errors arised.

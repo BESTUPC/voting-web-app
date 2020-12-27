@@ -4,6 +4,8 @@
 
 # Class: UserModel
 
+Class for communication between controller and users database.
+
 ## Hierarchy
 
 * **UserModel**
@@ -12,77 +14,95 @@
 
 ### Methods
 
+* [\_getCollection](models.usermodel.md#_getcollection)
 * [add](models.usermodel.md#add)
 * [get](models.usermodel.md#get)
 * [getAll](models.usermodel.md#getall)
-* [getCollection](models.usermodel.md#getcollection)
 * [updateMembership](models.usermodel.md#updatemembership)
 
 ## Methods
 
-### add
+### \_getCollection
 
-▸ `Static`**add**(`user`: [IUser](../interfaces/interface.iuser.md)): Promise<boolean\>
+▸ `Static` `Private`**_getCollection**(): Collection
 
-*Defined in [src/models/UserModel.ts:30](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/models/UserModel.ts#L30)*
+*Defined in [src/models/UserModel.ts:12](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/UserModel.ts#L12)*
 
-#### Parameters:
-
-Name | Type |
------- | ------ |
-`user` | [IUser](../interfaces/interface.iuser.md) |
-
-**Returns:** Promise<boolean\>
-
-___
-
-### get
-
-▸ `Static`**get**(`userId`: string): Promise<[IUser](../interfaces/interface.iuser.md) \| null\>
-
-*Defined in [src/models/UserModel.ts:9](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/models/UserModel.ts#L9)*
-
-#### Parameters:
-
-Name | Type |
------- | ------ |
-`userId` | string |
-
-**Returns:** Promise<[IUser](../interfaces/interface.iuser.md) \| null\>
-
-___
-
-### getAll
-
-▸ `Static`**getAll**(): Promise<Array<[IUser](../interfaces/interface.iuser.md)\>\>
-
-*Defined in [src/models/UserModel.ts:13](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/models/UserModel.ts#L13)*
-
-**Returns:** Promise<Array<[IUser](../interfaces/interface.iuser.md)\>\>
-
-___
-
-### getCollection
-
-▸ `Static` `Private`**getCollection**(): Collection
-
-*Defined in [src/models/UserModel.ts:6](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/models/UserModel.ts#L6)*
+Auxiliary function to get the right collection.
 
 **Returns:** Collection
 
 ___
 
-### updateMembership
+### add
 
-▸ `Static`**updateMembership**(`userId`: string, `membership`: Array<[IMembership](../modules/interface.md#imembership)\>): Promise<boolean\>
+▸ `Static`**add**(`user`: [IUser](../interfaces/interfaces.iuser.md)): Promise<boolean\>
 
-*Defined in [src/models/UserModel.ts:17](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/models/UserModel.ts#L17)*
+*Defined in [src/models/UserModel.ts:57](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/UserModel.ts#L57)*
+
+Add the user.
 
 #### Parameters:
 
-Name | Type |
------- | ------ |
-`userId` | string |
-`membership` | Array<[IMembership](../modules/interface.md#imembership)\> |
+Name | Type | Description |
+------ | ------ | ------ |
+`user` | [IUser](../interfaces/interfaces.iuser.md) | user object to add. |
 
 **Returns:** Promise<boolean\>
+
+Returns true if added, false otherwise.
+
+___
+
+### get
+
+▸ `Static`**get**(`userId`: string): Promise<[IUser](../interfaces/interfaces.iuser.md) \| null\>
+
+*Defined in [src/models/UserModel.ts:21](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/UserModel.ts#L21)*
+
+Get the user.
+
+#### Parameters:
+
+Name | Type | Description |
+------ | ------ | ------ |
+`userId` | string | googleId of the user to get. |
+
+**Returns:** Promise<[IUser](../interfaces/interfaces.iuser.md) \| null\>
+
+Returns the requested user or null if not found.
+
+___
+
+### getAll
+
+▸ `Static`**getAll**(): Promise<Array<[IUser](../interfaces/interfaces.iuser.md)\>\>
+
+*Defined in [src/models/UserModel.ts:29](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/UserModel.ts#L29)*
+
+Gets all the users.
+
+**Returns:** Promise<Array<[IUser](../interfaces/interfaces.iuser.md)\>\>
+
+Returns an array of users.
+
+___
+
+### updateMembership
+
+▸ `Static`**updateMembership**(`userId`: string, `membership`: Array<[IMembership](../modules/interfaces.md#imembership)\>): Promise<boolean\>
+
+*Defined in [src/models/UserModel.ts:39](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/UserModel.ts#L39)*
+
+Change the user membership.
+
+#### Parameters:
+
+Name | Type | Description |
+------ | ------ | ------ |
+`userId` | string | id of the user to modify. |
+`membership` | Array<[IMembership](../modules/interfaces.md#imembership)\> | array of memberships to set to the user. |
+
+**Returns:** Promise<boolean\>
+
+Returns true if updated, false otherwise.

@@ -24,49 +24,68 @@ Controller for the user-related calls. It handles all the logic between routing 
 
 ### addUser
 
-▸ `Static`**addUser**(`body`: { displayName: string ; emails?: Array<{ type?: string ; value: string  }\> ; id: string  }): Promise<boolean\>
+▸ `Static`**addUser**(`body`: unknown): Promise<boolean\>
 
-*Defined in [src/controllers/UserController.ts:25](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/controllers/UserController.ts#L25)*
+*Defined in [src/controllers/UserController.ts:44](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/UserController.ts#L44)*
+
+Tries to add the user to the database.
+
+**`throws`** Error 400 if the body is not a valid user.
 
 #### Parameters:
 
-Name | Type |
------- | ------ |
-`body` | { displayName: string ; emails?: Array<{ type?: string ; value: string  }\> ; id: string  } |
+Name | Type | Description |
+------ | ------ | ------ |
+`body` | unknown | user to add, should be castable to [IGoogleUser](../interfaces/interfaces.igoogleuser.md). |
 
 **Returns:** Promise<boolean\>
+
+true if the user could be added or false if otherwise and no errors arised.
 
 ___
 
 ### getUser
 
-▸ `Static`**getUser**(`userId`: string): Promise<[IUser](../interfaces/interface.iuser.md)\>
+▸ `Static`**getUser**(`userId1`: string, `userId2`: string): Promise<[IUser](../interfaces/interfaces.iuser.md)\>
 
-*Defined in [src/controllers/UserController.ts:47](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/controllers/UserController.ts#L47)*
+*Defined in [src/controllers/UserController.ts:78](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/UserController.ts#L78)*
+
+Returns the user requested.
+
+**`throws`** Error 401 if the user is not admin or the ids are not the same.
 
 #### Parameters:
 
-Name | Type |
------- | ------ |
-`userId` | string |
+Name | Type | Description |
+------ | ------ | ------ |
+`userId1` | string | id of the user making the request. |
+`userId2` | string | id of the user requested. |
 
-**Returns:** Promise<[IUser](../interfaces/interface.iuser.md)\>
+**Returns:** Promise<[IUser](../interfaces/interfaces.iuser.md)\>
+
+Returns the user as [IUser](../interfaces/interfaces.iuser.md).
 
 ___
 
 ### getUsers
 
-▸ `Static`**getUsers**(`userId`: string): Promise<Array<[IUser](../interfaces/interface.iuser.md)\>\>
+▸ `Static`**getUsers**(`userId`: string): Promise<Array<[IUser](../interfaces/interfaces.iuser.md)\>\>
 
-*Defined in [src/controllers/UserController.ts:39](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/controllers/UserController.ts#L39)*
+*Defined in [src/controllers/UserController.ts:63](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/UserController.ts#L63)*
+
+Returns the users if the requester is admin.
+
+**`throws`** Error 401 if the user is not admin.
 
 #### Parameters:
 
-Name | Type |
------- | ------ |
-`userId` | string |
+Name | Type | Description |
+------ | ------ | ------ |
+`userId` | string | id of the user making the request. |
 
-**Returns:** Promise<Array<[IUser](../interfaces/interface.iuser.md)\>\>
+**Returns:** Promise<Array<[IUser](../interfaces/interfaces.iuser.md)\>\>
+
+Returns an array with the users as [IUser](../interfaces/interfaces.iuser.md).
 
 ___
 
@@ -74,15 +93,19 @@ ___
 
 ▸ `Static`**isAdmin**(`userId`: string): Promise<boolean\>
 
-*Defined in [src/controllers/UserController.ts:51](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/controllers/UserController.ts#L51)*
+*Defined in [src/controllers/UserController.ts:97](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/UserController.ts#L97)*
+
+Returns true if the user is admin, false otherwise.
 
 #### Parameters:
 
-Name | Type |
------- | ------ |
-`userId` | string |
+Name | Type | Description |
+------ | ------ | ------ |
+`userId` | string | id of the user. |
 
 **Returns:** Promise<boolean\>
+
+Returns true or false, according to the membership status of the user.
 
 ___
 
@@ -90,14 +113,22 @@ ___
 
 ▸ `Static`**updateMembership**(`userId1`: string, `userId2`: string, `body`: unknown): Promise<boolean\>
 
-*Defined in [src/controllers/UserController.ts:9](https://github.com/BESTUPC/voting-web-app/blob/67fed0c/src/controllers/UserController.ts#L9)*
+*Defined in [src/controllers/UserController.ts:23](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/UserController.ts#L23)*
+
+If the user identified by userId1 is admin it updates the membership of the user identified by userId2 to the membership given.
+
+**`throws`** Error 400 if the body is not a valid membership array or missing.
+
+**`throws`** Error 401 if the user is not admin.
 
 #### Parameters:
 
-Name | Type |
------- | ------ |
-`userId1` | string |
-`userId2` | string |
-`body` | unknown |
+Name | Type | Description |
+------ | ------ | ------ |
+`userId1` | string | id of the user making the request. |
+`userId2` | string | id of the poll. |
+`body` | unknown | new membershep to set. It should be an array of valid [IMembership](../modules/interfaces.md#imembership). |
 
 **Returns:** Promise<boolean\>
+
+Returns true if the membership could be set or false if otherwise and no errors arised.
