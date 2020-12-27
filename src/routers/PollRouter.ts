@@ -28,11 +28,6 @@ export default class PollRouter {
      * Connect routes to their matching controller endpoints.
      */
     private _configure() {
-        /**
-         * What does this do?
-         * @param req
-         * @returns Respons
-         */
         this._router.get(
             '/',
             async (req: Request, res: Response, next: NextFunction) => {
