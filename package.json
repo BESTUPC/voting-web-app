@@ -10,8 +10,8 @@
     "test": "mocha -r ts-node/register src/test/**/*.test.ts",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "docs": "rm -r docs && typedoc",
-    "all": "mocha -r ts-node/register src/test/**/*.test.ts && eslint ./src && rm -r docs && typedoc"
+    "docs": "rm -r docs && typedoc --exclude \"./src/**/*.ts\"",
+    "all": "mocha -r ts-node/register src/test/**/*.test.ts && eslint ./src && rm -r docs && typedoc --exclude \"./src/test/**/*.ts\""
   },
   "keywords": [
     "webapp",

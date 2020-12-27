@@ -26,7 +26,7 @@ Interface for the user saved in the database.
 
 • `Optional` **\_id**: ObjectId
 
-*Defined in [src/interfaces/IUser.ts:7](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L7)*
+*Defined in [src/interfaces/IUser.ts:7](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L7)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 •  **email**: string
 
-*Defined in [src/interfaces/IUser.ts:11](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L11)*
+*Defined in [src/interfaces/IUser.ts:11](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L11)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 •  **membership**: Array<[IMembership](../modules/interfaces.md#imembership)\>
 
-*Defined in [src/interfaces/IUser.ts:9](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L9)*
+*Defined in [src/interfaces/IUser.ts:9](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L9)*
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 •  **name**: string
 
-*Defined in [src/interfaces/IUser.ts:10](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L10)*
+*Defined in [src/interfaces/IUser.ts:10](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L10)*
 
 ___
 
@@ -58,4 +58,4 @@ ___
 
 •  **userId**: string
 
-*Defined in [src/interfaces/IUser.ts:8](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L8)*
+*Defined in [src/interfaces/IUser.ts:8](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L8)*

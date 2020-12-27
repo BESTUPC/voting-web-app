@@ -20,4 +20,4 @@
 
 • `Const` **app**: [App](../classes/root.app.md) = new App()
 
-*Defined in [src/app.ts:38](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/app.ts#L38)*
+*Defined in [src/app.ts:38](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/app.ts#L38)*

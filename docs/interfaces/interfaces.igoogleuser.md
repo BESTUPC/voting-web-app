@@ -24,7 +24,7 @@ Interface for the user we get through the authentication middleware.
 
 •  **displayName**: string
 
-*Defined in [src/interfaces/IUser.ts:19](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L19)*
+*Defined in [src/interfaces/IUser.ts:19](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L19)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • `Optional` **emails**: Array<{ type?: string ; value: string  }\>
 
-*Defined in [src/interfaces/IUser.ts:20](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L20)*
+*Defined in [src/interfaces/IUser.ts:20](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L20)*
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 •  **id**: string
 
-*Defined in [src/interfaces/IUser.ts:18](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L18)*
+*Defined in [src/interfaces/IUser.ts:18](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L18)*

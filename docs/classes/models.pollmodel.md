@@ -27,7 +27,7 @@ Class for communication between controller and polls database.
 
 ▸ `Static` `Private`**_getCollection**(): Collection
 
-*Defined in [src/models/PollModel.ts:13](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/PollModel.ts#L13)*
+*Defined in [src/models/PollModel.ts:13](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/PollModel.ts#L13)*
 
 Auxiliary function to get the right collection.
 
@@ -39,7 +39,7 @@ ___
 
 ▸ `Static`**add**(`poll`: [IPoll](../interfaces/interfaces.ipoll.md)): Promise<boolean\>
 
-*Defined in [src/models/PollModel.ts:44](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/PollModel.ts#L44)*
+*Defined in [src/models/PollModel.ts:44](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/PollModel.ts#L44)*
 
 Add the poll.
 
@@ -59,7 +59,7 @@ ___
 
 ▸ `Static`**delete**(`_id`: ObjectId): Promise<boolean\>
 
-*Defined in [src/models/PollModel.ts:77](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/PollModel.ts#L77)*
+*Defined in [src/models/PollModel.ts:77](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/PollModel.ts#L77)*
 
 Delete the poll.
 
@@ -79,7 +79,7 @@ ___
 
 ▸ `Static`**get**(`_id`: ObjectId): Promise<[IPoll](../interfaces/interfaces.ipoll.md) \| null\>
 
-*Defined in [src/models/PollModel.ts:35](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/PollModel.ts#L35)*
+*Defined in [src/models/PollModel.ts:35](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/PollModel.ts#L35)*
 
 Get the poll.
 
@@ -99,7 +99,7 @@ ___
 
 ▸ `Static`**getAll**(`membership`: Array<[IMembership](../modules/interfaces.md#imembership)\>): Promise<Array<[IPoll](../interfaces/interfaces.ipoll.md)\>\>
 
-*Defined in [src/models/PollModel.ts:22](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/PollModel.ts#L22)*
+*Defined in [src/models/PollModel.ts:22](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/PollModel.ts#L22)*
 
 Gets all the polls that contain the given membership.
 
@@ -119,7 +119,7 @@ ___
 
 ▸ `Static`**setState**(`_id`: ObjectId, `state`: [IPollState](../modules/interfaces.md#ipollstate)): Promise<boolean\>
 
-*Defined in [src/models/PollModel.ts:59](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/PollModel.ts#L59)*
+*Defined in [src/models/PollModel.ts:59](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/PollModel.ts#L59)*
 
 Change the poll state.
 

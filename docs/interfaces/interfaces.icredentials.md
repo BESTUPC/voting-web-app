@@ -24,7 +24,7 @@ Interface for the data obtain from the google auth credentials file.
 
 •  **callbackURL**: string
 
-*Defined in [src/interfaces/ICredentials.ts:7](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/ICredentials.ts#L7)*
+*Defined in [src/interfaces/ICredentials.ts:7](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/ICredentials.ts#L7)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 •  **clientID**: string
 
-*Defined in [src/interfaces/ICredentials.ts:5](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/ICredentials.ts#L5)*
+*Defined in [src/interfaces/ICredentials.ts:5](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/ICredentials.ts#L5)*
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 •  **clientSecret**: string
 
-*Defined in [src/interfaces/ICredentials.ts:6](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/ICredentials.ts#L6)*
+*Defined in [src/interfaces/ICredentials.ts:6](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/ICredentials.ts#L6)*

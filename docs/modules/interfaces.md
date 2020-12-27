@@ -33,7 +33,7 @@
 
 Ƭ  **IMembership**: \"all\" \| \"member\" \| \"full\" \| \"admin\"
 
-*Defined in [src/interfaces/IUser.ts:35](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L35)*
+*Defined in [src/interfaces/IUser.ts:35](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L35)*
 
 Custom type for the different memberships a user can have.
 
@@ -43,7 +43,7 @@ ___
 
 Ƭ  **IPollState**: \"open\" \| \"closed\" \| \"closed\_hidden\"
 
-*Defined in [src/interfaces/IPoll.ts:43](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IPoll.ts#L43)*
+*Defined in [src/interfaces/IPoll.ts:43](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IPoll.ts#L43)*
 
 Custom type for the different states the poll can have.
 
@@ -53,7 +53,7 @@ Custom type for the different states the poll can have.
 
 ▸ **isIGoogleUser**(`x`: unknown): x is IGoogleUser
 
-*Defined in [src/interfaces/IUser.ts:27](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L27)*
+*Defined in [src/interfaces/IUser.ts:27](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L27)*
 
 Typeguard for [IGoogleUser](../interfaces/interfaces.igoogleuser.md).
 
@@ -71,7 +71,7 @@ ___
 
 ▸ **isIMembership**(`x`: unknown): x is IMembership
 
-*Defined in [src/interfaces/IUser.ts:51](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L51)*
+*Defined in [src/interfaces/IUser.ts:51](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L51)*
 
 Typeguard for [IMembership](interfaces.md#imembership).
 
@@ -89,7 +89,7 @@ ___
 
 ▸ **isIMembershipArray**(`x`: unknown): x is Array<IMembership\>
 
-*Defined in [src/interfaces/IUser.ts:41](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IUser.ts#L41)*
+*Defined in [src/interfaces/IUser.ts:41](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IUser.ts#L41)*
 
 Typeguard for array of [IMembership](interfaces.md#imembership).
 
@@ -107,7 +107,7 @@ ___
 
 ▸ **isIPoll**(`x`: unknown): x is IPoll
 
-*Defined in [src/interfaces/IPoll.ts:24](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IPoll.ts#L24)*
+*Defined in [src/interfaces/IPoll.ts:24](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IPoll.ts#L24)*
 
 Typeguard for [IPoll](../interfaces/interfaces.ipoll.md).
 
@@ -125,7 +125,7 @@ ___
 
 ▸ **isIPollState**(`x`: unknown): x is IPollState
 
-*Defined in [src/interfaces/IPoll.ts:49](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/IPoll.ts#L49)*
+*Defined in [src/interfaces/IPoll.ts:49](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/IPoll.ts#L49)*
 
 Typeguard for [IPollState](interfaces.md#ipollstate).
 

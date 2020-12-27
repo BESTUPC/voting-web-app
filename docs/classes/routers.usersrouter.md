@@ -33,7 +33,7 @@
 
 \+ **new UsersRouter**(): [UsersRouter](routers.usersrouter.md)
 
-*Defined in [src/routers/UserRouter.ts:21](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/UserRouter.ts#L21)*
+*Defined in [src/routers/UserRouter.ts:21](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/UserRouter.ts#L21)*
 
 Configures the router.
 
@@ -45,7 +45,7 @@ Configures the router.
 
 • `Private` **\_controller**: [UserController](controllers.usercontroller.md) = UserController
 
-*Defined in [src/routers/UserRouter.ts:14](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/UserRouter.ts#L14)*
+*Defined in [src/routers/UserRouter.ts:14](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/UserRouter.ts#L14)*
 
 Controller to use in this router.
 
@@ -55,7 +55,7 @@ ___
 
 • `Private` **\_router**: Router = Router()
 
-*Defined in [src/routers/UserRouter.ts:9](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/UserRouter.ts#L9)*
+*Defined in [src/routers/UserRouter.ts:9](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/UserRouter.ts#L9)*
 
 Express router instance.
 
@@ -65,7 +65,7 @@ Express router instance.
 
 • get **router**(): Router
 
-*Defined in [src/routers/UserRouter.ts:19](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/UserRouter.ts#L19)*
+*Defined in [src/routers/UserRouter.ts:19](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/UserRouter.ts#L19)*
 
 Get function for the express router.
 
@@ -77,7 +77,7 @@ Get function for the express router.
 
 ▸ `Private`**_configure**(): void
 
-*Defined in [src/routers/UserRouter.ts:33](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/UserRouter.ts#L33)*
+*Defined in [src/routers/UserRouter.ts:33](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/UserRouter.ts#L33)*
 
 Connect routes to their matching controller endpoints.
 

@@ -28,7 +28,7 @@ Class to control the MongoDB connection.
 
 ▪ `Static` `Private` **\_client**: MongoClient
 
-*Defined in [src/providers/Database.ts:10](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Database.ts#L10)*
+*Defined in [src/providers/Database.ts:10](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/providers/Database.ts#L10)*
 
 Client to save the connection.
 
@@ -38,7 +38,7 @@ Client to save the connection.
 
 ▸ `Static`**connect**(): Promise<void\>
 
-*Defined in [src/providers/Database.ts:37](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Database.ts#L37)*
+*Defined in [src/providers/Database.ts:37](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/providers/Database.ts#L37)*
 
 Connect to the database.
 
@@ -50,7 +50,7 @@ ___
 
 ▸ `Static` `Private`**createIndexes**(): Promise<void\>
 
-*Defined in [src/providers/Database.ts:19](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Database.ts#L19)*
+*Defined in [src/providers/Database.ts:19](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/providers/Database.ts#L19)*
 
 Create indexes to ensure that:
 - Users collection - userId is unique.
@@ -66,7 +66,7 @@ ___
 
 ▸ `Static`**getDb**(): Db
 
-*Defined in [src/providers/Database.ts:54](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Database.ts#L54)*
+*Defined in [src/providers/Database.ts:54](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/providers/Database.ts#L54)*
 
 Public function to allow all controllers access to the database.
 

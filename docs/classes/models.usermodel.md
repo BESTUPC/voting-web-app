@@ -26,7 +26,7 @@ Class for communication between controller and users database.
 
 ▸ `Static` `Private`**_getCollection**(): Collection
 
-*Defined in [src/models/UserModel.ts:12](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/UserModel.ts#L12)*
+*Defined in [src/models/UserModel.ts:12](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/UserModel.ts#L12)*
 
 Auxiliary function to get the right collection.
 
@@ -38,7 +38,7 @@ ___
 
 ▸ `Static`**add**(`user`: [IUser](../interfaces/interfaces.iuser.md)): Promise<boolean\>
 
-*Defined in [src/models/UserModel.ts:57](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/UserModel.ts#L57)*
+*Defined in [src/models/UserModel.ts:57](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/UserModel.ts#L57)*
 
 Add the user.
 
@@ -58,7 +58,7 @@ ___
 
 ▸ `Static`**get**(`userId`: string): Promise<[IUser](../interfaces/interfaces.iuser.md) \| null\>
 
-*Defined in [src/models/UserModel.ts:21](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/UserModel.ts#L21)*
+*Defined in [src/models/UserModel.ts:21](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/UserModel.ts#L21)*
 
 Get the user.
 
@@ -78,7 +78,7 @@ ___
 
 ▸ `Static`**getAll**(): Promise<Array<[IUser](../interfaces/interfaces.iuser.md)\>\>
 
-*Defined in [src/models/UserModel.ts:29](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/UserModel.ts#L29)*
+*Defined in [src/models/UserModel.ts:29](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/UserModel.ts#L29)*
 
 Gets all the users.
 
@@ -92,7 +92,7 @@ ___
 
 ▸ `Static`**updateMembership**(`userId`: string, `membership`: Array<[IMembership](../modules/interfaces.md#imembership)\>): Promise<boolean\>
 
-*Defined in [src/models/UserModel.ts:39](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/UserModel.ts#L39)*
+*Defined in [src/models/UserModel.ts:39](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/UserModel.ts#L39)*
 
 Change the user membership.
 

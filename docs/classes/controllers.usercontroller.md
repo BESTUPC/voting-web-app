@@ -26,7 +26,7 @@ Controller for the user-related calls. It handles all the logic between routing 
 
 ▸ `Static`**addUser**(`body`: unknown): Promise<boolean\>
 
-*Defined in [src/controllers/UserController.ts:44](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/UserController.ts#L44)*
+*Defined in [src/controllers/UserController.ts:44](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/controllers/UserController.ts#L44)*
 
 Tries to add the user to the database.
 
@@ -48,7 +48,7 @@ ___
 
 ▸ `Static`**getUser**(`userId1`: string, `userId2`: string): Promise<[IUser](../interfaces/interfaces.iuser.md)\>
 
-*Defined in [src/controllers/UserController.ts:78](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/UserController.ts#L78)*
+*Defined in [src/controllers/UserController.ts:78](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/controllers/UserController.ts#L78)*
 
 Returns the user requested.
 
@@ -71,7 +71,7 @@ ___
 
 ▸ `Static`**getUsers**(`userId`: string): Promise<Array<[IUser](../interfaces/interfaces.iuser.md)\>\>
 
-*Defined in [src/controllers/UserController.ts:63](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/UserController.ts#L63)*
+*Defined in [src/controllers/UserController.ts:63](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/controllers/UserController.ts#L63)*
 
 Returns the users if the requester is admin.
 
@@ -93,7 +93,7 @@ ___
 
 ▸ `Static`**isAdmin**(`userId`: string): Promise<boolean\>
 
-*Defined in [src/controllers/UserController.ts:97](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/UserController.ts#L97)*
+*Defined in [src/controllers/UserController.ts:97](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/controllers/UserController.ts#L97)*
 
 Returns true if the user is admin, false otherwise.
 
@@ -113,7 +113,7 @@ ___
 
 ▸ `Static`**updateMembership**(`userId1`: string, `userId2`: string, `body`: unknown): Promise<boolean\>
 
-*Defined in [src/controllers/UserController.ts:23](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/controllers/UserController.ts#L23)*
+*Defined in [src/controllers/UserController.ts:23](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/controllers/UserController.ts#L23)*
 
 If the user identified by userId1 is admin it updates the membership of the user identified by userId2 to the membership given.
 

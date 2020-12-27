@@ -32,7 +32,7 @@ Custom error handling class.
 
 \+ **new ErrorHandler**(`statusCode`: number, `message`: string): [ErrorHandler](models.errorhandler.md)
 
-*Defined in [src/models/ErrorHandler.ts:4](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/ErrorHandler.ts#L4)*
+*Defined in [src/models/ErrorHandler.ts:4](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/ErrorHandler.ts#L4)*
 
 Constructor for errors, adds code number and custom message.
 
@@ -53,7 +53,7 @@ Name | Type | Description |
 
 *Overrides void*
 
-*Defined in [src/models/ErrorHandler.ts:10](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/ErrorHandler.ts#L10)*
+*Defined in [src/models/ErrorHandler.ts:10](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/ErrorHandler.ts#L10)*
 
 message for the error.
 
@@ -83,7 +83,7 @@ ___
 
 •  **statusCode**: number
 
-*Defined in [src/models/ErrorHandler.ts:10](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/models/ErrorHandler.ts#L10)*
+*Defined in [src/models/ErrorHandler.ts:10](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/models/ErrorHandler.ts#L10)*
 
 code number for the error.
 

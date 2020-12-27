@@ -24,7 +24,7 @@ Interface for the data obtained from the SSL files.
 
 •  **ca**: string
 
-*Defined in [src/interfaces/ICertificates.ts:7](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/ICertificates.ts#L7)*
+*Defined in [src/interfaces/ICertificates.ts:7](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/ICertificates.ts#L7)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 •  **cert**: string
 
-*Defined in [src/interfaces/ICertificates.ts:6](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/ICertificates.ts#L6)*
+*Defined in [src/interfaces/ICertificates.ts:6](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/ICertificates.ts#L6)*
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 •  **key**: string
 
-*Defined in [src/interfaces/ICertificates.ts:5](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/interfaces/ICertificates.ts#L5)*
+*Defined in [src/interfaces/ICertificates.ts:5](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/interfaces/ICertificates.ts#L5)*

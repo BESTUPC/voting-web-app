@@ -24,7 +24,7 @@ Class to setup the Passport.js and cookie-session middleware.
 
 ▸ `Static` `Private`**_getCredentials**(): [ICredentials](../interfaces/interfaces.icredentials.md) \| null
 
-*Defined in [src/providers/Authentication.ts:80](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Authentication.ts#L80)*
+*Defined in [src/providers/Authentication.ts:80](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/providers/Authentication.ts#L80)*
 
 In charge of opening the files with Google OAuth credentials.
 
@@ -38,7 +38,7 @@ ___
 
 ▸ `Static` `Private`**_isLoggedIn**(`req`: Request, `res`: Response, `next`: NextFunction): void
 
-*Defined in [src/providers/Authentication.ts:106](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Authentication.ts#L106)*
+*Defined in [src/providers/Authentication.ts:106](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/providers/Authentication.ts#L106)*
 
 Auxiliary middleware function to controll logged in access.
 
@@ -58,7 +58,7 @@ ___
 
 ▸ `Static`**configure**(`app`: Express): void
 
-*Defined in [src/providers/Authentication.ts:17](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/providers/Authentication.ts#L17)*
+*Defined in [src/providers/Authentication.ts:17](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/providers/Authentication.ts#L17)*
 
 Configures the serialization of user, gets the OAuth Google credentials, sets up the cookie session and the authentication endpoints.
 

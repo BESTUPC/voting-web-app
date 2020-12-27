@@ -30,7 +30,7 @@ Final application class
 
 \+ **new App**(): [App](root.app.md)
 
-*Defined in [src/app.ts:18](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/app.ts#L18)*
+*Defined in [src/app.ts:18](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/app.ts#L18)*
 
 Server class constructor
 
@@ -42,7 +42,7 @@ Server class constructor
 
 • `Private` **server**: [Server](providers.server.md)
 
-*Defined in [src/app.ts:18](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/app.ts#L18)*
+*Defined in [src/app.ts:18](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/app.ts#L18)*
 
 Custom application instance
 
@@ -52,7 +52,7 @@ Custom application instance
 
 ▸ **start**(): Promise<void\>
 
-*Defined in [src/app.ts:29](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/app.ts#L29)*
+*Defined in [src/app.ts:29](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/app.ts#L29)*
 
 Connect the database, configure the server and start it.
 

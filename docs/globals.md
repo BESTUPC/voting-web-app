@@ -14,4 +14,3 @@
 * [providers](modules/providers.md)
 * [root](modules/root.md)
 * [routers](modules/routers.md)
-* [test/controllers](modules/test_controllers.md)

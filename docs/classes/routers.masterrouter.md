@@ -36,7 +36,7 @@ Class to unite all the routers.
 
 \+ **new MasterRouter**(): [MasterRouter](routers.masterrouter.md)
 
-*Defined in [src/routers/MasterRouter.ts:29](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/MasterRouter.ts#L29)*
+*Defined in [src/routers/MasterRouter.ts:29](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/MasterRouter.ts#L29)*
 
 Creates all the subrouters and configures the main one.
 
@@ -48,7 +48,7 @@ Creates all the subrouters and configures the main one.
 
 • `Private` **\_pollRouter**: [PollRouter](routers.pollrouter.md)
 
-*Defined in [src/routers/MasterRouter.ts:22](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/MasterRouter.ts#L22)*
+*Defined in [src/routers/MasterRouter.ts:22](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/MasterRouter.ts#L22)*
 
 Poll router instance.
 
@@ -58,7 +58,7 @@ ___
 
 • `Private` **\_router**: Router = Router()
 
-*Defined in [src/routers/MasterRouter.ts:12](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/MasterRouter.ts#L12)*
+*Defined in [src/routers/MasterRouter.ts:12](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/MasterRouter.ts#L12)*
 
 Express router instance.
 
@@ -68,7 +68,7 @@ ___
 
 • `Private` **\_userRouter**: UserRouter
 
-*Defined in [src/routers/MasterRouter.ts:17](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/MasterRouter.ts#L17)*
+*Defined in [src/routers/MasterRouter.ts:17](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/MasterRouter.ts#L17)*
 
 User router instance.
 
@@ -78,7 +78,7 @@ User router instance.
 
 • get **router**(): Router
 
-*Defined in [src/routers/MasterRouter.ts:27](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/MasterRouter.ts#L27)*
+*Defined in [src/routers/MasterRouter.ts:27](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/MasterRouter.ts#L27)*
 
 Get function for the express router.
 
@@ -90,7 +90,7 @@ Get function for the express router.
 
 ▸ `Private`**_configure**(): void
 
-*Defined in [src/routers/MasterRouter.ts:43](https://github.com/BESTUPC/voting-web-app/blob/807b76c/src/routers/MasterRouter.ts#L43)*
+*Defined in [src/routers/MasterRouter.ts:43](https://github.com/BESTUPC/voting-web-app/blob/3f5c425/src/routers/MasterRouter.ts#L43)*
 
 Connect routes to their matching routers.
 
