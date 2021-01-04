@@ -1,5 +1,4 @@
 import { Collection } from 'mongodb';
-import { IUser } from '../interfaces/IUser';
 import { IVote } from '../interfaces/IVote';
 import Database from '../providers/Database';
 

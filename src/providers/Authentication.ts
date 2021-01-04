@@ -3,9 +3,14 @@ import passport from 'passport';
 import { OAuth2Strategy, Profile } from 'passport-google-oauth';
 import cookieSession from 'cookie-session';
 import fs from 'fs';
+import dotenv from 'dotenv';
+
 import { ICredentials } from '../interfaces/ICredentials';
 import UserController from '../controllers/UserController';
 
+dotenv.config({
+    path: '.env',
+});
 /**
  * Class to setup the Passport.js and cookie-session middleware.
  */

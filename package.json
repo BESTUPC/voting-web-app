@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/app.ts",
+    "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
     "test": "mocha -r ts-node/register src/test/**/*.test.ts",
     "lint": "eslint ./src",
@@ -54,7 +54,7 @@
     "prettier": "^2.2.1",
     "sinon": "^9.2.2",
     "ts-node": "^9.1.1",
-    "typedoc": "^0.19.2",
+    "typedoc": "^0.20.11",
     "typedoc-plugin-external-module-name": "^4.0.6",
     "typedoc-plugin-markdown": "^3.2.1",
     "typescript": "^4.1.3"
