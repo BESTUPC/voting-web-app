@@ -1,5 +1,5 @@
 import { Collection } from 'mongodb';
-import { IMembership, IUser } from '../interfaces/IUser';
+import { IUser } from '../interfaces/IUser';
 import { IVote } from '../interfaces/IVote';
 import Database from '../providers/Database';
 
@@ -75,19 +75,5 @@ export default class VoteModel {
             )
         ).modifiedCount;
         return updateCount == 1;
-    }
-
-    /**
-     * Add the user.
-     * @param user user object to add.
-     * @returns Returns true if added, false otherwise.
-     */
-    public static async add(user: IUser): Promise<boolean> {
-        try {
-            await VoteModel._getCollection().insertOne(user);
-        } catch (e) {
-            return false;
-        }
-        return true;
     }
 }
