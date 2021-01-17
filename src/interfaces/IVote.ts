@@ -7,7 +7,8 @@ export interface IVote {
     _id?: ObjectId;
     userId: string;
     pollId: string;
-    option: string;
+    option: string | string[];
+    delegated: boolean;
 }
 
 /**
@@ -19,6 +20,7 @@ export function isIVote(x: unknown): x is IVote {
     return (
         y.userId !== undefined &&
         y.pollId !== undefined &&
-        y.option !== undefined
+        y.option !== undefined &&
+        y.delegated !== undefined
     );
 }

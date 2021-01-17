@@ -27,10 +27,17 @@ class App {
      * Connect the database, configure the server and start it.
      */
     public async start(): Promise<void> {
-        await Database.connect();
-        Authentication.configure(this.server.getServer());
-        this.server.configure();
-        this.server.listen();
+        if (
+            !(
+                (await Database.connect()) &&
+                (await Authentication.configure(this.server.getServer())) &&
+                this.server.configure() &&
+                (await this.server.listen())
+            )
+        ) {
+            console.log('Shutting down app.');
+            process.exit(22);
+        }
     }
 }
 

@@ -23,18 +23,12 @@ export default class Database {
         await this.getDb()
             .collection('votes')
             .createIndex({ pollId: 1, userId: 1 }, { unique: true });
-        await this.getDb()
-            .collection('askWithdrawal')
-            .createIndex({ pollId: 1, userId: 1 }, { unique: true });
-        await this.getDb()
-            .collection('askPrivate')
-            .createIndex({ pollId: 1, userId: 1 }, { unique: true });
     }
 
     /**
      * Connect to the database.
      */
-    public static async connect(): Promise<void> {
+    public static async connect(): Promise<boolean> {
         try {
             this._client = await MongoClient.connect(process.env.MONGO_URI, {
                 useUnifiedTopology: true,
@@ -42,8 +36,10 @@ export default class Database {
                 serverSelectionTimeoutMS: parseInt(process.env.MONGO_TIMEOUT),
             });
             await this.createIndexes();
+            return true;
         } catch (e) {
-            return null;
+            console.log("Couldn't start MongoDB connection");
+            return false;
         }
     }
 

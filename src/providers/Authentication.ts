@@ -16,35 +16,68 @@ dotenv.config({
  */
 export default abstract class Authentication {
     /**
+     * Mounts the authentication endpoints.
+     * @param app Express app to setup.
+     */
+    private static _mountAuthEndpoints(app: Express): void {
+        app.get(
+            '/auth',
+            passport.authenticate('google', {
+                scope: ['profile', 'email'],
+            }),
+        );
+        app.get(
+            '/auth/redirect',
+            passport.authenticate('google', {
+                failureRedirect: '/login.html',
+            }),
+            function (_req, res) {
+                res.redirect('/');
+            },
+        );
+        app.get('/auth/logout', async (req, res) => {
+            req.session = null;
+            req.logout();
+            res.redirect('/login.html');
+        });
+        app.use(Authentication._isLoggedIn);
+    }
+
+    /**
+     * Sets up the Passport.js OAuth2 strategy.
+     * @param creds The GoogleAuth credentials.
+     */
+    private static _setupPassport(creds: ICredentials) {
+        passport.serializeUser(function (user, done) {
+            done(null, user);
+        });
+        passport.deserializeUser(function (user, done) {
+            done(null, user);
+        });
+        passport.use(
+            new OAuth2Strategy(
+                creds,
+                async function (
+                    _accessToken: string,
+                    _refreshToken: string,
+                    profile: Profile,
+                    done,
+                ) {
+                    await UserController.addUser(profile);
+                    return done(null, profile);
+                },
+            ),
+        );
+    }
+
+    /**
      * Configures the serialization of user, gets the OAuth Google credentials, sets up the cookie session and the authentication endpoints.
      * @param app Express app to setup.
      */
-    public static configure(app: Express): void {
-        const creds: ICredentials | null = Authentication._getCredentials();
-        if (!creds) {
-            return null;
-        } else {
-            passport.serializeUser(function (user, done) {
-                done(null, user);
-            });
-            passport.deserializeUser(function (user, done) {
-                done(null, user);
-            });
-            passport.use(
-                new OAuth2Strategy(
-                    creds,
-                    async function (
-                        _accessToken: string,
-                        _refreshToken: string,
-                        profile: Profile,
-                        done,
-                    ) {
-                        await UserController.addUser(profile);
-                        return done(null, profile);
-                    },
-                ),
-            );
-
+    public static async configure(app: Express): Promise<boolean> {
+        const creds: ICredentials | null = await Authentication._getCredentials();
+        if (creds) {
+            Authentication._setupPassport(creds);
             app.use(
                 cookieSession({
                     name: 'google-auth-session',
@@ -53,28 +86,11 @@ export default abstract class Authentication {
             );
             app.use(passport.initialize());
             app.use(passport.session());
-
-            app.get(
-                '/auth',
-                passport.authenticate('google', {
-                    scope: ['profile', 'email'],
-                }),
-            );
-            app.get(
-                '/auth/redirect',
-                passport.authenticate('google', {
-                    failureRedirect: '/login.html',
-                }),
-                function (_req, res) {
-                    res.redirect('/');
-                },
-            );
-            app.get('/auth/logout', async (req, res) => {
-                req.session = null;
-                req.logout();
-                res.redirect('/login.html');
-            });
-            app.use(Authentication._isLoggedIn);
+            Authentication._mountAuthEndpoints(app);
+            return true;
+        } else {
+            console.log("Couldn't setup authentication middleware");
+            return false;
         }
     }
 
@@ -82,22 +98,18 @@ export default abstract class Authentication {
      * In charge of opening the files with Google OAuth credentials.
      * @returns Returns the credentials obtained or null if not found.
      */
-    private static _getCredentials(): ICredentials | null {
-        if (fs.existsSync(process.env.CRED_PATH)) {
-            try {
-                const parsedCreds = JSON.parse(
-                    fs.readFileSync(process.env.CRED_PATH, 'utf8'),
-                );
-                const creds: ICredentials = {
-                    clientID: parsedCreds['web']['client_id'],
-                    clientSecret: parsedCreds['web']['client_secret'],
-                    callbackURL: parsedCreds['web']['redirect_uris'][2],
-                };
-                return creds;
-            } catch {
-                return null;
-            }
-        } else {
+    private static async _getCredentials(): Promise<ICredentials | null> {
+        try {
+            const parsedCreds = JSON.parse(
+                await fs.promises.readFile(process.env.CRED_PATH, 'utf8'),
+            );
+            const creds: ICredentials = {
+                clientID: parsedCreds['web']['client_id'],
+                clientSecret: parsedCreds['web']['client_secret'],
+                callbackURL: parsedCreds['web']['redirect_uris'][2],
+            };
+            return creds;
+        } catch {
             return null;
         }
     }
@@ -113,12 +125,9 @@ export default abstract class Authentication {
         res: Response,
         next: NextFunction,
     ): void {
-        const auxRef: string = req.headers.referer ? req.headers.referer : '';
-        if (
-            req.isAuthenticated() ||
-            req.path.includes('/login.html') ||
-            auxRef.includes('/login.html')
-        ) {
+        const auxRef: string =
+            (req.headers.referer ? req.headers.referer : '') + req.path;
+        if (req.isAuthenticated() || auxRef.includes('/login.html')) {
             next();
         } else {
             res.redirect('/login.html');

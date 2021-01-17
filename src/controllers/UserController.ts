@@ -19,6 +19,7 @@ export default class UserController {
      * @returns Returns true if the membership could be set or false if otherwise and no errors arised.
      * @throws Error 400 if the body is not a valid membership array or missing.
      * @throws Error 401 if the user is not admin.
+     * @throws Error 404 if the users are not found.
      */
     public static async updateMembership(
         userId1: string,
@@ -30,6 +31,9 @@ export default class UserController {
                 throw new ErrorHandler(400, 'Bad request body');
             }
             const membership: Array<IMembership> = body;
+            const user = await UserModel.get(userId2);
+            if (!!!user)
+                throw new ErrorHandler(404, `User ${userId2} not found.`);
             return UserModel.updateMembership(userId2, membership);
         } else {
             throw new ErrorHandler(401, 'Only admins are authorized');
@@ -59,6 +63,7 @@ export default class UserController {
      * @param userId id of the user making the request.
      * @returns Returns an array with the users as [[IUser]].
      * @throws Error 401 if the user is not admin.
+     * @throws Error 404 if the user is not found.
      */
     public static async getUsers(userId: string): Promise<Array<IUser>> {
         if (await UserController.isAdmin(userId)) {
@@ -74,13 +79,17 @@ export default class UserController {
      * @param userId2 id of the user requested.
      * @returns Returns the user as [[IUser]].
      * @throws Error 401 if the user is not admin or the ids are not the same.
+     * @throws Error 404 if the users are not found.
      */
     public static async getUser(
         userId1: string,
         userId2: string,
     ): Promise<IUser> {
         if ((await UserController.isAdmin(userId1)) || userId1 === userId2) {
-            return UserModel.get(userId2);
+            const user = await UserModel.get(userId2);
+            if (!!!user)
+                throw new ErrorHandler(404, `User ${userId2} not found.`);
+            return user;
         } else {
             throw new ErrorHandler(
                 401,
@@ -93,8 +102,11 @@ export default class UserController {
      * Returns true if the user is admin, false otherwise.
      * @param userId id of the user.
      * @returns Returns true or false, according to the membership status of the user.
+     * @throws Error 404 if the user is not found.
      */
     public static async isAdmin(userId: string): Promise<boolean> {
-        return (await UserModel.get(userId)).membership.includes('admin');
+        const user = await UserModel.get(userId);
+        if (!!!user) throw new ErrorHandler(404, `User ${userId} not found.`);
+        return user.membership.includes('admin');
     }
 }

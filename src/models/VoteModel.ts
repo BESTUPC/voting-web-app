@@ -27,49 +27,23 @@ export default class VoteModel {
     }
 
     /**
-     * Gets all the delegated votes for a poll.
-     * @param pollId id of the votes' poll.
-     * @returns Returns an array of votes.
-     */
-    public static async getAllDelegated(pollId: string): Promise<Array<IVote>> {
-        return VoteModel._getCollection()
-            .find({ userId: /^delegation_/, pollId })
-            .toArray();
-    }
-
-    /**
-     * Removes all the delegated votes for a poll.
-     * @param pollId id of the votes' poll.
-     * @returns Returns true if removed, false otherwise.
-     */
-    public static async removeAllDelegated(pollId: string): Promise<boolean> {
-        try {
-            await VoteModel._getCollection().deleteMany({
-                userId: /^delegation_/,
-                pollId,
-            });
-        } catch {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Add or update a vote.
      * @param userId googleId of the vote's user.
      * @param pollId id of the vote's poll.
      * @param option the option to set.
+     * @param delegated the delegation option to set.
      * @returns Returns true if updated or set, false otherwise.
      */
-    public static async addOrUpdateVote(
-        userId: string,
-        pollId: string,
-        option: string,
-    ): Promise<boolean> {
+    public static async addOrUpdateVote({
+        userId,
+        pollId,
+        option,
+        delegated,
+    }: IVote): Promise<boolean> {
         const updateCount: number = (
             await VoteModel._getCollection().updateOne(
                 { userId, pollId },
-                { $set: { option } },
+                { $set: { option, delegated } },
                 { upsert: true },
             )
         ).modifiedCount;

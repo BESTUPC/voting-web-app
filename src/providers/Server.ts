@@ -1,13 +1,10 @@
-import express, { NextFunction, Request, Response, Express } from 'express';
-import fs from 'fs';
-import http from 'http';
-import https from 'https';
 import bodyParser from 'body-parser';
-
-import MasterRouter from '../routers/MasterRouter';
-import ErrorHandler from '../models/ErrorHandler';
-
+import express, { Express, NextFunction, Request, Response } from 'express';
+import fs from 'fs';
+import https from 'https';
 import { ICertificates } from '../interfaces/ICertificates';
+import ErrorHandler from '../models/ErrorHandler';
+import MasterRouter from '../routers/MasterRouter';
 
 /**
  * Custom server application class.
@@ -67,28 +64,24 @@ export default class Server {
      * Gets the SSL certificates.
      * @returns the SSL certificates if found or null otherwise.
      */
-    private static _getCertificates(): ICertificates | null {
-        if (
-            fs.existsSync(process.env.CERT_PATH + 'privkey.pem') &&
-            fs.existsSync(process.env.CERT_PATH + 'cert.pem') &&
-            fs.existsSync(process.env.CERT_PATH + 'chain.pem')
-        ) {
+    private static async _getCertificates(): Promise<ICertificates | null> {
+        try {
             const certificate: ICertificates = {
-                key: fs.readFileSync(
+                key: await fs.promises.readFile(
                     process.env.CERT_PATH + 'privkey.pem',
                     'utf8',
                 ),
-                cert: fs.readFileSync(
+                cert: await fs.promises.readFile(
                     process.env.CERT_PATH + 'cert.pem',
                     'utf8',
                 ),
-                ca: fs.readFileSync(
+                ca: await fs.promises.readFile(
                     process.env.CERT_PATH + 'chain.pem',
                     'utf8',
                 ),
             };
             return certificate;
-        } else {
+        } catch {
             return null;
         }
     }
@@ -103,38 +96,36 @@ export default class Server {
     /**
      * Call the mount functions.
      */
-    public configure(): void {
-        this._mountMiddlewares();
-        this._mountRoutes();
+    public configure(): boolean {
+        try {
+            this._mountMiddlewares();
+            this._mountRoutes();
+            return true;
+        } catch {
+            console.log("Couldn't configure server routes and middlewares");
+            return false;
+        }
     }
 
     /**
      * Start the server. If possible it will run both a HTTP and HTTPS port.
      */
-    public listen(): void {
-        const certificate: ICertificates | null = Server._getCertificates();
+    public async listen(): Promise<boolean> {
+        const certificate: ICertificates | null = await Server._getCertificates();
         if (certificate) {
-            const httpServer: http.Server = http.createServer(this.server);
             const httpsServer: https.Server = https.createServer(
                 certificate,
                 this.server,
             );
-
-            httpServer.listen(process.env.PORT2, () => {
-                console.log('HTTP Server running on port ' + process.env.PORT2);
-            });
-
             httpsServer.listen(process.env.PORT1, () => {
                 console.log(
                     'HTTPS Server running on port ' + process.env.PORT1,
                 );
             });
+            return true;
         } else {
-            console.log('No https certificates found, opening only http');
-            const httpServer = http.createServer(this.server);
-            httpServer.listen(process.env.PORT1, () => {
-                console.log('HTTP Server running on port ' + process.env.PORT1);
-            });
+            console.log("Couldn't run server, no certificates found");
+            return false;
         }
     }
 }

@@ -28,13 +28,6 @@
 
   <link rel="icon" type="image/png" href="../images/BEST_logomark.png">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
 </head>
 
 <body>
@@ -81,31 +74,10 @@
 
   <!-- Custom Theme JavaScript -->
   <script src="../dist/js/sb-admin-2.js"></script>
-  <!--
-  <script>
-    function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
-    }
-  </script>
--->
   <script src="js/navbar.js">  </script>
   <script>
 
     $("#navbar").load("navbar.html");
-
-    /*if (getCookie("idtoken") == ""){
-        setCookie('profile',"",1);
-        setCookie('idtoken',"",1);
-        error('Error','idtoken cookie not found',goLogin);
-        return 0;
-    }*/
-    /*
-    id_token = getCookie("idtoken");
-    console.log(getCookie())*/
-    //initNavBar(JSON.parse(getCookie("profile")));
     var xhrAux = new XMLHttpRequest();
     xhrAux.open('GET', '/api/users/current');
     xhrAux.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -193,7 +165,6 @@
           }
         });
     };
-    //xhr.send('idtoken=' + id_token);
     xhr.send();
   </script>
 

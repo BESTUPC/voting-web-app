@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import UserRouter from './UserRouter';
 import PollRouter from './PollRouter';
+import VoteRouter from './VoteRouter';
 
 /**
  * Class to unite all the routers.
@@ -22,6 +23,11 @@ export default class MasterRouter {
     private _pollRouter: PollRouter;
 
     /**
+     * VOte router instance.
+     */
+    private _voteRouter: VoteRouter;
+
+    /**
      * Get function for the express router.
      */
     get router(): Router {
@@ -34,6 +40,7 @@ export default class MasterRouter {
     constructor() {
         this._userRouter = new UserRouter();
         this._pollRouter = new PollRouter();
+        this._voteRouter = new VoteRouter();
         this._configure();
     }
 
@@ -43,5 +50,6 @@ export default class MasterRouter {
     private _configure() {
         this._router.use('/users', this._userRouter.router);
         this._router.use('/polls', this._pollRouter.router);
+        this._router.use('/votes', this._voteRouter.router);
     }
 }
