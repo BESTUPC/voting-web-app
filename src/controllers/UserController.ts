@@ -106,7 +106,7 @@ export default class UserController {
      */
     public static async isAdmin(userId: string): Promise<boolean> {
         const user = await UserModel.get(userId);
-        if (!!!user) throw new ErrorHandler(404, `User ${userId} not found.`);
+        if (!user) throw new ErrorHandler(404, `User ${userId} not found.`);
         return user.membership.includes('admin');
     }
 }
