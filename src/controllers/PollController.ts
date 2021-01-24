@@ -90,7 +90,7 @@ export default class PollController {
         }
     }
     /**
-     * If the user is admin it adds deletes the given poll from the database.
+     * If the user is admin it deletes the given poll from the database.
      * @param userId id of the user making the request.
      * @param _id id of the poll to delete.
      * @returns true if the poll could be deleted or false if otherwise and no errors arised.

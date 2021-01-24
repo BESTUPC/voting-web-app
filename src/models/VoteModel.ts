@@ -38,12 +38,11 @@ export default class VoteModel {
         userId,
         pollId,
         option,
-        delegated,
     }: IVote): Promise<boolean> {
         const updateCount: number = (
             await VoteModel._getCollection().updateOne(
                 { userId, pollId },
-                { $set: { option, delegated } },
+                { $set: { option } },
                 { upsert: true },
             )
         ).modifiedCount;

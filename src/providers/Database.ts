@@ -21,6 +21,12 @@ export default class Database {
             .collection('users')
             .createIndex({ userId: 1 }, { unique: true });
         await this.getDb()
+            .collection('delegations')
+            .createIndex(
+                { userIdDelegator: 1, userIdReceiver: 1 },
+                { unique: true },
+            );
+        await this.getDb()
             .collection('votes')
             .createIndex({ pollId: 1, userId: 1 }, { unique: true });
     }

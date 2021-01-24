@@ -71,7 +71,7 @@ export default class PollModel {
 
     /**
      * Delete the poll.
-     * @param poll poll object to delete.
+     * @param _id  id of the poll to delete.
      * @returns Returns true if deleted, false otherwise.
      */
     public static async delete(_id: ObjectId): Promise<boolean> {

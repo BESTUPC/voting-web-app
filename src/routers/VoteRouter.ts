@@ -58,5 +58,19 @@ export default class VoteRouter {
                 }
             },
         );
+        this._router.post(
+            '/:givenDelegationId',
+            async (req: Request, res: Response, next: NextFunction) => {
+                try {
+                    const result: boolean = await this._controller.addorUpdateVote(
+                        req.params.givenDelegationId,
+                        JSON.parse(JSON.stringify(req.body)),
+                    );
+                    res.status(200).json(result);
+                } catch (error) {
+                    next(error);
+                }
+            },
+        );
     }
 }

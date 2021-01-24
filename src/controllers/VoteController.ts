@@ -46,7 +46,7 @@ export default class VoteController {
 
     /**
      * If the user making the request has access to the poll, is the same as the vote's user and the poll is open it adds or updates the vote.
-     * @param userId id of the user making the request.
+     * @param userId id of the user making the request (or delegated the vote).
      * @param body vote to add or update. It should be a valid [[IVote]].
      * @returns true if the vote could be added/updated or false if otherwise and no errors arised.
      * @throws Error 400 if the body is not a valid vote or missing.
