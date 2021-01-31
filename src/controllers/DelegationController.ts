@@ -1,15 +1,7 @@
-import { deepEqual } from 'assert';
 import { ObjectId } from 'mongodb';
 import { IDelegation } from '../interfaces/IDelegation';
-import {
-    IMembership,
-    isIGoogleUser,
-    isIMembershipArray,
-    IUser,
-} from '../interfaces/IUser';
 import DelegationModel from '../models/DelegationModel';
 import ErrorHandler from '../models/ErrorHandler';
-import UserModel from '../models/UserModel';
 import UserController from './UserController';
 
 /**
@@ -33,6 +25,20 @@ export default class DelegationController {
                 401,
                 'Not authorized to get all delegations',
             );
+    }
+
+    /**
+     * Returns all the delegations if the user is admin.
+     * @param userId id of the user making the request.
+     * @returns Returns an array with the polls.
+     * @throws Error 404 if the user is not found.
+     * @throws Error 401 if the user is not admin.
+     */
+    public static async check(
+        userIdReceiver: string,
+        userIdDelegator: string,
+    ): Promise<boolean> {
+        return DelegationModel.check(userIdReceiver, userIdDelegator);
     }
 
     /**

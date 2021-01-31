@@ -27,6 +27,24 @@ export default class DelegationModel {
     }
 
     /**
+     * Check if the pair of id's matches a delegation.
+     * @param userIdReceiver googleId of the receiver.
+     * @param userIdDelegator googleId of the delegator.
+     * @returns Returns if the delegation exists.
+     */
+    public static async check(
+        userIdReceiver: string,
+        userIdDelegator: string,
+    ): Promise<boolean> {
+        return (
+            (await DelegationModel._getCollection().findOne({
+                userIdReceiver,
+                userIdDelegator,
+            })) !== null
+        );
+    }
+
+    /**
      * Gets all the delegations.
      * @returns Returns an array of delegations.
      */

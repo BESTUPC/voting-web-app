@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import VoteController from '../controllers/VoteController';
-import { IPoll } from '../interfaces/IPoll';
 import { IVote } from '../interfaces/IVote';
 
 export default class VoteRouter {
@@ -63,8 +62,9 @@ export default class VoteRouter {
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
                     const result: boolean = await this._controller.addorUpdateVote(
-                        req.params.givenDelegationId,
+                        req.user['id'],
                         JSON.parse(JSON.stringify(req.body)),
+                        req.params.givenDelegationId,
                     );
                     res.status(200).json(result);
                 } catch (error) {

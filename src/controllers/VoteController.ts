@@ -1,13 +1,9 @@
-import { ObjectId } from 'mongodb';
-import { use } from 'passport';
-import { IPoll, IPollState, isIPoll, isIPollState } from '../interfaces/IPoll';
-import { IUser } from '../interfaces/IUser';
+import { IPoll } from '../interfaces/IPoll';
 import { isIVote, IVote } from '../interfaces/IVote';
 import ErrorHandler from '../models/ErrorHandler';
-import PollModel from '../models/PollModel';
 import VoteModel from '../models/VoteModel';
+import DelegationController from './DelegationController';
 import PollController from './PollController';
-import UserController from './UserController';
 
 /**
  * Controller for the poll-related calls. It handles all the logic between routing and the database access.
@@ -46,22 +42,37 @@ export default class VoteController {
 
     /**
      * If the user making the request has access to the poll, is the same as the vote's user and the poll is open it adds or updates the vote.
-     * @param userId id of the user making the request (or delegated the vote).
+     * @param userId id of the user making the request.
      * @param body vote to add or update. It should be a valid [[IVote]].
+     * @param delegatedId id of the user who we will vote for.
      * @returns true if the vote could be added/updated or false if otherwise and no errors arised.
      * @throws Error 400 if the body is not a valid vote or missing.
-     * @throws Error 401 if the user is not the same or has no access or the poll is closed.
+     * @throws Error 401 if the user is not the same or has no access or the poll is closed or the delegation is not present.
      * @throws Error 404 if the user or poll is not found.
      */
     public static async addorUpdateVote(
         userId: string,
         body: unknown,
+        delegatedId?: string,
     ): Promise<boolean> {
         if (!isIVote(body)) {
             throw new ErrorHandler(400, 'Bad request body');
         } else {
-            if (userId === body.userId) {
-                await PollController.getPoll(userId, body.pollId);
+            if (
+                delegatedId &&
+                !(await DelegationController.check(userId, delegatedId))
+            ) {
+                throw new ErrorHandler(401, "The delegation doesn't exist");
+            }
+            const auxUserId = !delegatedId ? userId : delegatedId;
+            if (auxUserId === body.userId) {
+                const poll = await PollController.getPoll(
+                    auxUserId,
+                    body.pollId,
+                );
+                if (poll.state !== 'open') {
+                    throw new ErrorHandler(401, 'Poll is now closed');
+                }
 
                 return await VoteModel.addOrUpdateVote(body);
             } else {
