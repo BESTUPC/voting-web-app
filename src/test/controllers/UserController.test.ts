@@ -22,6 +22,13 @@ describe('UserController', () => {
             const isAdminStub = sandbox
                 .stub(UserController, 'isAdmin')
                 .resolves(true);
+            const user: IUser = {
+                userId: 'ID',
+                name: 'name',
+                email: 'email',
+                membership: ['all', 'admin'],
+            };
+            const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const updateMembershipStub = sandbox
                 .stub(UserModel, 'updateMembership')
                 .resolves(true);
@@ -36,6 +43,8 @@ describe('UserController', () => {
             expect(ret).to.be.true;
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+            expect(getUserStub.calledOnce).to.be.true;
+            expect(getUserStub.firstCall.args[0]).to.equal(userId2);
             expect(updateMembershipStub.calledOnce).to.be.true;
             expect(updateMembershipStub.firstCall.args[0]).to.equal(userId2);
             expect(updateMembershipStub.firstCall.args[1]).to.equal(body);

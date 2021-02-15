@@ -11,6 +11,7 @@ import PollModel from '../../models/PollModel';
 import { IPoll, IPollState } from '../../interfaces/IPoll';
 import PollController from '../../controllers/PollController';
 import { ObjectId } from 'mongodb';
+import { toUnicode } from 'punycode';
 
 let sandbox: SinonSandbox;
 describe('PollController', () => {
@@ -25,6 +26,17 @@ describe('PollController', () => {
             const isAdminStub = sandbox
                 .stub(UserController, 'isAdmin')
                 .resolves(true);
+            const poll: IPoll = {
+                description: 'Test description',
+                isPriority: false,
+                isPrivate: true,
+                pollDeadline: 1000000,
+                state: 'open',
+                targetGroup: 'all',
+                pollOptions: ['yes', 'no'],
+                pollName: 'Test Name',
+            };
+            const getPollStub = sandbox.stub(PollModel, 'get').resolves(poll);
             const setStateStub = sandbox
                 .stub(PollModel, 'setState')
                 .resolves(true);
@@ -39,6 +51,10 @@ describe('PollController', () => {
             expect(ret).to.be.true;
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+            expect(getPollStub.calledOnce).to.be.true;
+            expect(getPollStub.firstCall.args[0]).to.deep.equal(
+                new ObjectId(_id),
+            );
             expect(setStateStub.calledOnce).to.be.true;
             expect(setStateStub.firstCall.args[0]).to.deep.equal(
                 new ObjectId(_id),
@@ -83,6 +99,24 @@ describe('PollController', () => {
             ).to.be.rejectedWith('Only admins are authorized');
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+        });
+        it('should return a not found error', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const getPollStub = sandbox.stub(PollModel, 'get').resolves(null);
+            const userId1 = 'IdUser';
+            const _id = '0123456789AB';
+            const body: IPollState = 'closed';
+            await expect(
+                PollController.updateState(userId1, _id, body),
+            ).to.be.rejectedWith(`Poll ${_id} not found.`);
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+            expect(getPollStub.calledOnce).to.be.true;
+            expect(getPollStub.firstCall.args[0]).to.deep.equal(
+                new ObjectId(_id),
+            );
         });
     });
     describe('test addPoll', () => {
@@ -306,6 +340,17 @@ describe('PollController', () => {
             const isAdminStub = sandbox
                 .stub(UserController, 'isAdmin')
                 .resolves(true);
+            const poll: IPoll = {
+                description: 'Test description',
+                isPriority: false,
+                isPrivate: true,
+                pollDeadline: 1000000,
+                state: 'open',
+                targetGroup: 'all',
+                pollOptions: ['yes', 'no'],
+                pollName: 'Test Name',
+            };
+            const getPollStub = sandbox.stub(PollModel, 'get').resolves(poll);
             const deleteStub = sandbox.stub(PollModel, 'delete').resolves(true);
             const userId = 'ID';
             const _id = '0123456789AB';
@@ -313,6 +358,10 @@ describe('PollController', () => {
             expect(ret).to.equal(true);
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId);
+            expect(getPollStub.calledOnce).to.be.true;
+            expect(getPollStub.firstCall.args[0]).to.deep.equal(
+                new ObjectId(_id),
+            );
             expect(deleteStub.calledOnce).to.be.true;
             expect(deleteStub.firstCall.args[0]).to.deep.equal(
                 new ObjectId(_id),
