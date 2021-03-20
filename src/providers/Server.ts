@@ -2,7 +2,7 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import https from 'https';
 import { ICertificates } from '../interfaces/ICertificates';
-import ErrorHandler from '../dtos/ErrorHandler';
+import ErrorHandler from '../utils/ErrorHandler';
 import MasterRouter from '../routers/MasterRouter';
 import morganMiddleware from '../utils/MorganMiddleware';
 import Logger from '../utils/Logger';

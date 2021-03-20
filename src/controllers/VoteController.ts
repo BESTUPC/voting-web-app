@@ -2,10 +2,11 @@ import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { VoteAddDTO } from '../dtos/VoteAddDTO';
 import { IPoll } from '../interfaces/IPoll';
 import { IVote } from '../interfaces/IVote';
-import ErrorHandler from '../dtos/ErrorHandler';
+import ErrorHandler from '../utils/ErrorHandler';
 import VoteModel from '../models/VoteModel';
 import DelegationController from './DelegationController';
 import PollController from './PollController';
+import UserModel from '../models/UserModel';
 
 /**
  * Controller for the poll-related calls. It handles all the logic between routing and the database access.
@@ -28,6 +29,7 @@ export default class VoteController {
         userId2: string,
         pollId: string,
     ): Promise<IVote> {
+        console.log(pollId);
         const poll: IPoll = await PollController.getPoll(userId1, pollId);
         if (poll.isPrivate && userId1 !== userId2) {
             throw new ErrorHandler(401, 'Not authorized to get this vote');
@@ -57,29 +59,23 @@ export default class VoteController {
         body: unknown,
         delegatedId?: string,
     ): Promise<boolean> {
-        const vote: IVote = await validatorGeneric<VoteAddDTO>(
-            VoteAddDTO,
-            body,
-        );
+        const auxUserId = !delegatedId ? userId : delegatedId;
+        const vote: IVote = {
+            ...(await validatorGeneric<VoteAddDTO>(VoteAddDTO, body)),
+            userId: auxUserId,
+        };
         if (
             delegatedId &&
             !(await DelegationController.check(userId, delegatedId))
         ) {
             throw new ErrorHandler(401, "The delegation doesn't exist");
         }
-        const auxUserId = !delegatedId ? userId : delegatedId;
-        if (auxUserId === vote.userId) {
-            const poll = await PollController.getPoll(auxUserId, vote.pollId);
-            if (poll.state !== 'open') {
-                throw new ErrorHandler(401, 'Poll is now closed');
-            }
 
-            return await VoteModel.addOrUpdateVote(vote);
-        } else {
-            throw new ErrorHandler(
-                401,
-                "Not allowed to modify someone else's vote",
-            );
+        const poll = await PollController.getPoll(auxUserId, vote.pollId);
+        if (poll.state !== 'open') {
+            throw new ErrorHandler(401, 'Poll is now closed');
         }
+
+        return await VoteModel.addOrUpdateVote(vote);
     }
 }

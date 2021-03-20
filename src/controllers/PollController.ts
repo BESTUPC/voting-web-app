@@ -4,7 +4,7 @@ import { PollCreateDTO } from '../dtos/PollCreateDTO';
 import { PollUpdateStateDTO } from '../dtos/PollUpdateStateDTO';
 import { EPollState, IPoll } from '../interfaces/IPoll';
 import { IUser } from '../interfaces/IUser';
-import ErrorHandler from '../dtos/ErrorHandler';
+import ErrorHandler from '../utils/ErrorHandler';
 import PollModel from '../models/PollModel';
 import UserController from './UserController';
 

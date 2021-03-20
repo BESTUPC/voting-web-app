@@ -185,7 +185,7 @@
             $('#pollName').text(result.name);
             var state = result.state;
             if (state=='open')$('#selectState').val('Open');
-            if (state=='closed_private')$('#selectState').val('Closed hidden');
+            if (state=='closed_hidden')$('#selectState').val('Closed hidden');
             if (state=='closed')$('#selectState').val('Closed');
 
             var data = {

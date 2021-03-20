@@ -9,6 +9,9 @@ import {
 import { IPoll } from '../interfaces/IPoll';
 import { EMembership } from '../interfaces/IUser';
 
+/**
+ * Data transfer object for poll creation
+ */
 export class PollCreateDTO implements Omit<IPoll, '_id' | 'state'> {
     @Expose()
     @IsBoolean()

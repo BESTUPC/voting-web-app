@@ -1,25 +1,24 @@
 import { plainToClass, ClassConstructor } from 'class-transformer';
 import { validate } from 'class-validator';
-import ErrorHandler from './ErrorHandler';
+import ErrorHandler from '../utils/ErrorHandler';
 
 /**
  * Generic validator for given class
- * @param classToBeCasted
- * @param objectWithProperties
- * @param excludeExtraneousValues
- * @throws ResponseError when the data is empty or when there is a validation error
+ * @param classToBeCasted what object we expect
+ * @param objectWithProperties the object to parse
+ * @returns The validated object
+ * @throws Error when the data is empty or when there is a validation error
  */
 export async function validatorGeneric<T>(
     classToBeCasted: ClassConstructor<T>,
     objectWithProperties: unknown,
-    excludeExtraneousValues = true,
 ): Promise<T> {
     try {
         const parsedClass = plainToClass(
             classToBeCasted,
             objectWithProperties,
             {
-                excludeExtraneousValues,
+                excludeExtraneousValues: true,
             },
         );
 

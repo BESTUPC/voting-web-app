@@ -2,11 +2,10 @@ import { Expose } from 'class-transformer';
 import { IsArray, IsString } from 'class-validator';
 import { IVote } from '../interfaces/IVote';
 
-export class VoteAddDTO implements Omit<IVote, '_id'> {
-    @Expose()
-    @IsString()
-    userId: string;
-
+/**
+ * Data transfer object for vote adding
+ */
+export class VoteAddDTO implements Omit<IVote, '_id' | 'userId'> {
     @Expose()
     @IsString()
     pollId: string;

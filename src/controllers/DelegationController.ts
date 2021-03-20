@@ -1,7 +1,9 @@
 import { ObjectId } from 'mongodb';
 import { IDelegation } from '../interfaces/IDelegation';
+import { IUser } from '../interfaces/IUser';
 import DelegationModel from '../models/DelegationModel';
-import ErrorHandler from '../dtos/ErrorHandler';
+import UserModel from '../models/UserModel';
+import ErrorHandler from '../utils/ErrorHandler';
 import UserController from './UserController';
 
 /**
@@ -28,11 +30,10 @@ export default class DelegationController {
     }
 
     /**
-     * Returns all the delegations if the user is admin.
-     * @param userId id of the user making the request.
-     * @returns Returns an array with the polls.
-     * @throws Error 404 if the user is not found.
-     * @throws Error 401 if the user is not admin.
+     * Chechs if the delegation exists.
+     * @param userIdReceiver id of the user who receives the delegation.
+     * @param userIdDelegator id of the user who gives the delegation.
+     * @returns
      */
     public static async check(
         userIdReceiver: string,
@@ -72,16 +73,21 @@ export default class DelegationController {
      * If the user is admin or trying to access it's own delegations, it returns the delegations.
      * @param userId1 id of the user making the request.
      * @param userId2 id of the user whose delegation we want.
-     * @returns Returns the delegation requested.
+     * @returns Returns the users for which the user identified by userId2 has delegations.
      * @throws Error 401 if the user is not authorized to get the delegation.
      * @throws Error 404 if the user1 is not found.
      */
     public static async getDelegation(
         userId1: string,
         userId2: string,
-    ): Promise<Array<IDelegation>> {
+    ): Promise<Array<IUser>> {
         if (userId1 === userId2 || (await UserController.isAdmin(userId1))) {
-            return DelegationModel.get(userId2);
+            const delegations = (await DelegationModel.get(userId2)).map(
+                (delegation) => delegation.userIdDelegator,
+            );
+            return (await UserModel.getAll()).filter((user) =>
+                delegations.includes(user.userId),
+            );
         } else {
             throw new ErrorHandler(401, 'Not authorized to get the delegation');
         }

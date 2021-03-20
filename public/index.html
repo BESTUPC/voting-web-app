@@ -119,7 +119,7 @@
                 window.location = DOMAIN + '/results.html?id=' + $(this).attr('id').substr(4);
               });
           }
-          else if (poll.state == 'closed_private') {
+          else if (poll.state == 'closed_hidden') {
             row.css('background-color', '#d5d5d5')
               .hover(function () {
                 $(this).css('background-color', '#c5c5c5').find('td').css('text-decoration', 'underline');

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import DelegationController from '../controllers/DelegationController';
 import { IDelegation } from '../interfaces/IDelegation';
+import { IUser } from '../interfaces/IUser';
 
 export default class DelegationRouter {
     /**
@@ -45,7 +46,7 @@ export default class DelegationRouter {
             '/:id',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
-                    const result: Array<IDelegation> = await this._controller.getDelegation(
+                    const result: Array<IUser> = await this._controller.getDelegation(
                         req.user['id'],
                         req.params.id,
                     );

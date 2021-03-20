@@ -93,7 +93,7 @@ function initNavBar(profile) {
             // /setState(idtoken, pollID, state)
             var state;
             if (val == 'Open') state = 'open';
-            if (val == 'Closed hidden') state = 'closed_private';
+            if (val == 'Closed hidden') state = 'closed_hidden';
             if (val == 'Closed') state = 'closed';
 
             var xhrState = new XMLHttpRequest();
