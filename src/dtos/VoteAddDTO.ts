@@ -1,15 +1,8 @@
 import { Expose } from 'class-transformer';
-import {
-    IsArray,
-
-
-
-
-    IsString
-} from 'class-validator';
+import { IsArray, IsString } from 'class-validator';
 import { IVote } from '../interfaces/IVote';
 
-export class VoteAddDTO implements Omit<IVote, '_id'  > {
+export class VoteAddDTO implements Omit<IVote, '_id'> {
     @Expose()
     @IsString()
     userId: string;
@@ -20,7 +13,6 @@ export class VoteAddDTO implements Omit<IVote, '_id'  > {
 
     @Expose()
     @IsArray()
-    @IsString({each: true})
+    @IsString({ each: true })
     option: string[];
-    
 }

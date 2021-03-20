@@ -1,7 +1,7 @@
-import { describe } from 'mocha';
-import chai, { expect } from 'chai';
-import sinon, { SinonSandbox } from 'sinon';
+import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
+import { describe } from 'mocha';
+import sinon, { SinonSandbox } from 'sinon';
 
 chai.use(chaiAsPromised);
 

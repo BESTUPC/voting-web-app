@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import UserController from '../controllers/UserController';
-import { EMembership, IUser } from '../interfaces/IUser';
+import { IUser } from '../interfaces/IUser';
 
 export default class UsersRouter {
     /**

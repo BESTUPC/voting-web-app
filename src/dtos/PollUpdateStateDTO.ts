@@ -1,14 +1,6 @@
-import { Expose, Transform } from 'class-transformer';
-import {
-    IsArray,
-    IsBoolean,
-    IsDate,
-    IsEnum,
-    IsOptional,
-    IsString,
-} from 'class-validator';
-import { IPoll, EPollState } from '../interfaces/IPoll';
-import { EMembership } from '../interfaces/IUser';
+import { Expose } from 'class-transformer';
+import { IsEnum } from 'class-validator';
+import { EPollState, IPoll } from '../interfaces/IPoll';
 
 export class PollUpdateStateDTO implements Pick<IPoll, 'state'> {
     @Expose()

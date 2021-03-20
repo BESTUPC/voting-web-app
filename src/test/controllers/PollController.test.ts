@@ -1,17 +1,15 @@
-import { describe } from 'mocha';
 import chai, { expect } from 'chai';
-import sinon, { SinonSandbox } from 'sinon';
 import chaiAsPromised from 'chai-as-promised';
-
-chai.use(chaiAsPromised);
-
+import { describe } from 'mocha';
+import { ObjectId } from 'mongodb';
+import sinon, { SinonSandbox } from 'sinon';
+import PollController from '../../controllers/PollController';
 import UserController from '../../controllers/UserController';
+import { EPollState, IPoll } from '../../interfaces/IPoll';
 import { EMembership, IUser } from '../../interfaces/IUser';
 import PollModel from '../../models/PollModel';
-import { IPoll, EPollState } from '../../interfaces/IPoll';
-import PollController from '../../controllers/PollController';
-import { ObjectId } from 'mongodb';
-import { toUnicode } from 'punycode';
+
+chai.use(chaiAsPromised);
 
 let sandbox: SinonSandbox;
 describe('PollController', () => {
@@ -32,7 +30,7 @@ describe('PollController', () => {
                 isPrivate: true,
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
-                targetGroup:  EMembership.ALL,
+                targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
             };
@@ -346,7 +344,7 @@ describe('PollController', () => {
                 isPrivate: true,
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
-                targetGroup:  EMembership.ALL,
+                targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
             };

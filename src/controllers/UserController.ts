@@ -1,11 +1,6 @@
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { UserUpdateMembershipDTO } from '../dtos/UserUpdateMembershipDTO';
-import {
-    EMembership,
-    isIGoogleUser,
-
-    IUser
-} from '../interfaces/IUser';
+import { EMembership, isIGoogleUser, IUser } from '../interfaces/IUser';
 import ErrorHandler from '../models/ErrorHandler';
 import UserModel from '../models/UserModel';
 
