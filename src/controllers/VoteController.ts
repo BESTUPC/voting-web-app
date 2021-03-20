@@ -2,11 +2,10 @@ import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { VoteAddDTO } from '../dtos/VoteAddDTO';
 import { IPoll } from '../interfaces/IPoll';
 import { IVote } from '../interfaces/IVote';
-import ErrorHandler from '../utils/ErrorHandler';
 import VoteModel from '../models/VoteModel';
+import ErrorHandler from '../utils/ErrorHandler';
 import DelegationController from './DelegationController';
 import PollController from './PollController';
-import UserModel from '../models/UserModel';
 
 /**
  * Controller for the poll-related calls. It handles all the logic between routing and the database access.
