@@ -2,8 +2,10 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import https from 'https';
 import { ICertificates } from '../interfaces/ICertificates';
-import ErrorHandler from '../models/ErrorHandler';
+import ErrorHandler from '../dtos/ErrorHandler';
 import MasterRouter from '../routers/MasterRouter';
+import morganMiddleware from '../utils/MorganMiddleware';
+import Logger from '../utils/Logger';
 
 /**
  * Custom server application class.
@@ -33,6 +35,7 @@ export default class Server {
             );
             next();
         });
+        this.server.use(morganMiddleware);
         this.server.use(express.json());
         this.server.use(express.urlencoded({ extended: true }));
         this.server.use(
@@ -101,7 +104,7 @@ export default class Server {
             this._mountRoutes();
             return true;
         } catch {
-            console.log("Couldn't configure server routes and middlewares");
+            Logger.error("Couldn't configure server routes and middlewares");
             return false;
         }
     }
@@ -117,13 +120,13 @@ export default class Server {
                 this.server,
             );
             httpsServer.listen(process.env.PORT1, () => {
-                console.log(
+                Logger.info(
                     'HTTPS Server running on port ' + process.env.PORT1,
                 );
             });
             return true;
         } else {
-            console.log("Couldn't run server, no certificates found");
+            Logger.error("Couldn't run server, no certificates found");
             return false;
         }
     }

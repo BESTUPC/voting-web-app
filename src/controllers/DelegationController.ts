@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { IDelegation } from '../interfaces/IDelegation';
 import DelegationModel from '../models/DelegationModel';
-import ErrorHandler from '../models/ErrorHandler';
+import ErrorHandler from '../dtos/ErrorHandler';
 import UserController from './UserController';
 
 /**

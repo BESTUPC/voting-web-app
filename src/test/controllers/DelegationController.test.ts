@@ -15,8 +15,6 @@ describe('DelegationController', () => {
             sandbox.restore();
         });
 
-        xit('should ot be executed', async () => {
-            console.log('NOTHING');
-        });
+        xit('should not be executed', async () => {});
     });
 });

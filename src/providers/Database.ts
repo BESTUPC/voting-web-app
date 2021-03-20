@@ -1,4 +1,5 @@
 import { Db, MongoClient } from 'mongodb';
+import Logger from '../utils/Logger';
 
 /**
  * Class to control the MongoDB connection.
@@ -44,7 +45,7 @@ export default class Database {
             await this.createIndexes();
             return true;
         } catch (e) {
-            console.log("Couldn't start MongoDB connection");
+            Logger.error("Couldn't start MongoDB connection");
             return false;
         }
     }

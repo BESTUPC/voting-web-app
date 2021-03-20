@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import Server from './providers/Server';
 import Authentication from './providers/Authentication';
 import Database from './providers/Database';
+import Logger from './utils/Logger';
 
 dotenv.config({
     path: '.env',
@@ -35,7 +36,7 @@ class App {
                 (await this.server.listen())
             )
         ) {
-            console.log('Shutting down app.');
+            Logger.info('Shutting down app.');
             process.exit(22);
         }
     }

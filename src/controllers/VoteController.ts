@@ -2,7 +2,7 @@ import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { VoteAddDTO } from '../dtos/VoteAddDTO';
 import { IPoll } from '../interfaces/IPoll';
 import { IVote } from '../interfaces/IVote';
-import ErrorHandler from '../models/ErrorHandler';
+import ErrorHandler from '../dtos/ErrorHandler';
 import VoteModel from '../models/VoteModel';
 import DelegationController from './DelegationController';
 import PollController from './PollController';

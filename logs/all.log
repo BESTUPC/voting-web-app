@@ -1,0 +1,821 @@
+2021-03-20 17:30:04:304 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET / 200 6051 - 4.838 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/bootstrap/css/bootstrap.min.css 304 - - 1.274 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/datatables-plugins/dataTables.bootstrap.css 304 - - 1.945 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/metisMenu/metisMenu.min.css 304 - - 7.656 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /dist/css/sb-admin-2.css 304 - - 6.162 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/font-awesome/css/font-awesome.min.css 304 - - 5.334 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/jquery/jquery.min.js 304 - - 4.118 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/bootstrap/js/bootstrap.min.js 304 - - 2.943 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/metisMenu/metisMenu.min.js 304 - - 6.325 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/datatables/js/jquery.dataTables.min.js 304 - - 5.459 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/datatables-plugins/dataTables.bootstrap.min.js 304 - - 4.617 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/datatables-responsive/dataTables.responsive.js 304 - - 4.526 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /dist/js/sb-admin-2.js 304 - - 3.754 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /js/navbar.js 304 - - 3.206 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/bootstrap/css/bootstrap.min.css.map 404 181 - 2.107 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /navbar.html 304 - - 3.398 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /api/users/current 304 - - 17.914 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /api/polls 304 - - 22.988 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /js/url.js 304 - - 3.630 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /images/BEST_logomark.svg 304 - - 0.466 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /vendor/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3 304 - - 1.369 ms[39m
+[35m[39m
+2021-03-20 17:30:12:3012 [35mhttp[39m: [35mGET /images/BEST_logomark.png 200 6721 - 1.781 ms[39m
+[35m[39m
+2021-03-20 17:31:36:3136 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+2021-03-20 17:31:51:3151 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+2021-03-20 17:32:35:3235 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+2021-03-20 17:32:55:3255 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+2021-03-20 17:33:44:3344 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET / 304 - - 2.561 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/bootstrap/css/bootstrap.min.css 304 - - 1.516 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/datatables-plugins/dataTables.bootstrap.css 304 - - 8.928 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /dist/css/sb-admin-2.css 304 - - 3.832 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/font-awesome/css/font-awesome.min.css 304 - - 2.806 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/jquery/jquery.min.js 304 - - 1.968 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/metisMenu/metisMenu.min.css 304 - - 8.018 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/datatables/js/jquery.dataTables.min.js 304 - - 3.516 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/datatables-plugins/dataTables.bootstrap.min.js 304 - - 2.658 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/datatables-responsive/dataTables.responsive.js 304 - - 1.940 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/bootstrap/js/bootstrap.min.js 304 - - 7.773 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/metisMenu/metisMenu.min.js 304 - - 6.778 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /js/navbar.js 304 - - 1.694 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /dist/js/sb-admin-2.js 304 - - 2.645 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/bootstrap/css/bootstrap.min.css.map 404 181 - 2.931 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /navbar.html 304 - - 5.980 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /api/users/current 304 - - 18.841 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /js/url.js 304 - - 4.352 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /api/polls 304 - - 31.984 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /images/BEST_logomark.svg 304 - - 0.843 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /vendor/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3 304 - - 0.795 ms[39m
+[35m[39m
+2021-03-20 17:33:44:3344 [35mhttp[39m: [35mGET /images/BEST_logomark.png 200 6721 - 3.045 ms[39m
+[35m[39m
+2021-03-20 17:34:24:3424 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+2021-03-20 17:34:37:3437 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:36:09:369 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:37:16:3716 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:37:32:3732 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:37:37:3737 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:37:38:3738 [35mhttp[39m: [35mGET /api/users/current 304 - - 14.448 ms[39m
+[35m[39m
+20/03/21 17:37:39:3739 [35mhttp[39m: [35mGET /api/polls 304 - - 22.698 ms[39m
+[35m[39m
+20/03/21 17:37:49:3749 [35mhttp[39m: [35mGET /api/users/current 304 - - 8.369 ms[39m
+[35m[39m
+20/03/21 17:37:49:3749 [35mhttp[39m: [35mGET /api/polls 304 - - 10.584 ms[39m
+[35m[39m
+20/03/21 17:37:51:3751 [35mhttp[39m: [35mGET /api/users/current 304 - - 8.637 ms[39m
+[35m[39m
+20/03/21 17:38:00:380 [35mhttp[39m: [35mPOST /api/polls 200 4 - 34.226 ms[39m
+[35m[39m
+20/03/21 17:38:02:382 [35mhttp[39m: [35mGET /api/users/current 304 - - 5.034 ms[39m
+[35m[39m
+20/03/21 17:38:02:382 [35mhttp[39m: [35mGET /api/polls 200 237 - 9.833 ms[39m
+[35m[39m
+20/03/21 17:38:05:385 [35mhttp[39m: [35mGET /api/users/current 304 - - 6.205 ms[39m
+[35m[39m
+20/03/21 17:38:05:385 [35mhttp[39m: [35mGET /api/polls 304 - - 9.836 ms[39m
+[35m[39m
+20/03/21 17:38:13:3813 [35mhttp[39m: [35mGET /api/users/current 304 - - 7.996 ms[39m
+[35m[39m
+20/03/21 17:38:13:3813 [35mhttp[39m: [35mGET /api/users 304 - - 8.656 ms[39m
+[35m[39m
+20/03/21 17:38:14:3814 [35mhttp[39m: [35mGET /api/users/current 304 - - 5.970 ms[39m
+[35m[39m
+20/03/21 17:38:14:3814 [35mhttp[39m: [35mGET /api/users/106976813205507781793 200 152 - 6.855 ms[39m
+[35m[39m
+20/03/21 17:38:16:3816 [35mhttp[39m: [35mPATCH /api/users/membership/106976813205507781793 200 4 - 6.131 ms[39m
+[35m[39m
+20/03/21 17:38:18:3818 [35mhttp[39m: [35mGET /api/users/current 200 1127 - 7.712 ms[39m
+[35m[39m
+20/03/21 17:38:18:3818 [35mhttp[39m: [35mGET /api/users 200 170 - 8.028 ms[39m
+[35m[39m
+20/03/21 17:38:20:3820 [35mhttp[39m: [35mGET /api/users/current 304 - - 9.322 ms[39m
+[35m[39m
+20/03/21 17:38:20:3820 [35mhttp[39m: [35mGET /api/polls 200 448 - 12.529 ms[39m
+[35m[39m
+20/03/21 17:41:29:4129 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:42:16:4216 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m3.882 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/createPoll.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m1.281 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m27.162 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m7.151 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m6.492 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m5.330 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m4.280 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m3.795 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m3.730 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m6.030 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m4.202 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m3.499 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m3.101 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m2.653 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m3.020 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m1.627 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m16.611 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m14.381 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m2.685 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:16:4216 [35mhttp[39m: [35m[39m
+
+
+[35m [38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m1.600 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:16 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m [39m
+
+
+
+[35m[39m
+20/03/21 17:42:31:4231 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m6.534 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m6.457 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m3.995 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m8.111 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m5.590 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m5.134 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m5.815 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m5.764 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m4.637 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m5.362 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m4.969 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m4.637 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m4.242 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m4.121 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m1.899 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m0.722 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m2.446 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m1.768 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m29.013 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:42:37:4237 [35mhttp[39m: [35m[38;2;255;71;87m[1m🍄  Morgan --> [22m[35m [38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m27.806 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:42:37 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:43:06:436 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:43:53:4353 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:44:14:4414 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:44:20:4420 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m2.926 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m0.790 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m9.960 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m3.782 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m3.330 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m2.895 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m2.369 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m4.772 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m3.898 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m2.713 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m2.178 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m5.932 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m5.288 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m3.667 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m2.218 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m3.967 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m22.698 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m4.425 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m3.958 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:20:4420 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m33.301 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:20 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:31:4431 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m3.657 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m7.421 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m3.208 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m2.541 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m1.930 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m7.665 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m2.767 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m2.136 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m1.759 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m11.008 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m10.662 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m7.830 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m7.444 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m3.449 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m2.292 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m3.231 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m17.135 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m23.004 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m3.220 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m0.483 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3[22m[35m [38;2;46;213;115m[1m0.463 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:32:4432 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m200[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.png[22m[35m [38;2;46;213;115m[1m3.067 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:32 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m3.234 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m0.543 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m9.989 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m4.379 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m3.208 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m2.414 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m1.518 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m4.905 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m4.208 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m3.578 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m2.845 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m6.480 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m5.809 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m1.863 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m1.761 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m3.099 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m16.122 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m20.818 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m2.216 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:41:4441 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m4.438 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:41 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:42:4442 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3[22m[35m [38;2;46;213;115m[1m1.230 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:44:42:4442 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m200[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.png[22m[35m [38;2;46;213;115m[1m3.845 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:44:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:20:4520 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m3.891 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m0.952 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m9.073 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m8.784 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m3.766 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m2.930 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m2.224 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m3.519 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m2.712 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m2.057 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m6.523 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m5.785 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m5.194 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m2.300 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m1.794 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m2.698 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m23.246 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m6.363 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m3.703 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m32.790 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:21:4521 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3[22m[35m [38;2;46;213;115m[1m0.507 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:21 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m3.736 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m10.741 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m4.315 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m3.478 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m2.878 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m1.981 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m5.171 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m4.297 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m3.370 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m10.400 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m7.729 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m6.950 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m3.461 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m2.784 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m1.750 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m3.889 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m0.978 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m22.156 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m1.893 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m31.334 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:45:51:4551 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3[22m[35m [38;2;46;213;115m[1m1.141 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:45:51 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:46:05:465 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:46:22:4622 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:47:41:4741 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m3.355 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m0.735 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m7.909 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m3.294 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m2.669 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m2.026 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m9.195 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m3.803 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m3.201 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m2.604 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m6.941 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m5.508 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m1.600 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m3.902 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m1.841 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m4.120 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m17.033 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m2.644 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m22.772 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m0.799 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3[22m[35m [38;2;46;213;115m[1m0.474 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:44:4744 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m200[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.png[22m[35m [38;2;46;213;115m[1m2.534 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:44 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m0.769 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m4.920 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m3.685 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m2.815 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m4.007 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m3.086 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m4.761 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m3.845 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m3.192 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m7.646 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m6.562 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m5.584 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m4.373 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m3.683 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m0.817 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m1.145 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m7.011 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m9.608 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m0.633 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:47:50:4750 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m0.590 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:47:50 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:03:483 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m3.911 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m29.092 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m5.890 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m5.140 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m4.415 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m3.611 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m2.802 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m2.040 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m1.269 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m4.966 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m4.191 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m3.544 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m3.196 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m2.895 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m1.560 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m3.983 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m19.349 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m3.293 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m28.433 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:05:485 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m4.627 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:05 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:14:4814 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m3.385 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m7.698 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m7.222 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m2.746 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m2.016 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m7.696 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m2.081 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m1.451 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m6.608 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m6.430 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m6.024 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m3.364 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m2.866 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m7.670 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m2.018 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m2.830 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m17.806 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m23.746 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m3.166 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m0.562 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3[22m[35m [38;2;46;213;115m[1m0.543 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:17:4817 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m200[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.png[22m[35m [38;2;46;213;115m[1m3.499 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:17 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:39:4839 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/index.html[22m[35m [38;2;46;213;115m[1m3.479 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css[22m[35m [38;2;46;213;115m[1m9.374 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.css[22m[35m [38;2;46;213;115m[1m4.451 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.css[22m[35m [38;2;46;213;115m[1m3.514 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/css/sb-admin-2.css[22m[35m [38;2;46;213;115m[1m2.429 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;46;213;115m[1m10.300 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/metisMenu/metisMenu.min.js[22m[35m [38;2;46;213;115m[1m3.575 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables/js/jquery.dataTables.min.js[22m[35m [38;2;46;213;115m[1m2.686 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-plugins/dataTables.bootstrap.min.js[22m[35m [38;2;46;213;115m[1m2.108 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/jquery/jquery.min.js[22m[35m [38;2;46;213;115m[1m9.845 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/js/bootstrap.min.js[22m[35m [38;2;46;213;115m[1m9.200 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/dist/js/sb-admin-2.js[22m[35m [38;2;46;213;115m[1m3.840 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/navbar.js[22m[35m [38;2;46;213;115m[1m3.124 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/datatables-responsive/dataTables.responsive.js[22m[35m [38;2;46;213;115m[1m4.727 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m404[22m[35m [38;2;255;82;82m[1m/vendor/bootstrap/css/bootstrap.min.css.map[22m[35m [38;2;46;213;115m[1m1.812 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom undefined[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/navbar.html[22m[35m [38;2;46;213;115m[1m2.389 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m19.069 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.svg[22m[35m [38;2;46;213;115m[1m3.358 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m31.630 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/js/url.js[22m[35m [38;2;46;213;115m[1m7.669 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/vendor/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3[22m[35m [38;2;46;213;115m[1m0.593 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/vendor/font-awesome/css/font-awesome.min.css[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:48:42:4842 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m200[22m[35m [38;2;255;82;82m[1m/images/BEST_logomark.png[22m[35m [38;2;46;213;115m[1m2.310 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:48:42 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:49:19:4919 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:49:22:4922 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m22.608 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:49:22 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:49:22:4922 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m30.210 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:49:22 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:49:27:4927 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m8.253 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:49:27 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:49:27:4927 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;255;177;66m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m10.901 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:49:27 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:53:05:535 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:53:36:5336 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:54:52:5452 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:55:07:557 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:55:32:5532 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:56:36:5636 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:56:41:5641 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:56:54:5654 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;255;82;82m[1m/api/users/current[22m[35m [38;2;46;213;115m[1m17.834 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:56:54 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:56:54:5654 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;255;82;82m[1m/api/polls[22m[35m [38;2;46;213;115m[1m26.141 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:56:54 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:57:23:5723 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:57:23:5723 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;52;172;224m[1m/api/users/current[22m[35m [38;2;52;172;224m[1m17.684 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:57:23 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:57:23:5723 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;52;172;224m[1m/api/polls[22m[35m [38;2;52;172;224m[1m29.888 ms[22m[35m [38;2;247;143;179m[1m@ Sat, 20 Mar 2021 16:57:23 GMT[22m[35m [33m::1[35m [38;2;255;250;101m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;30;144;255mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:58:09:589 [32minfo[39m: [32mHTTPS Server running on port 3000[39m
+20/03/21 17:58:10:5810 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;52;172;224m[1m/api/users/current[22m[35m [38;2;52;172;224m[1m16.367 ms[22m[35m [38;2;52;172;224m[1m@ Sat, 20 Mar 2021 16:58:10 GMT[22m[35m [38;2;52;172;224m[1m::1[22m[35m [38;2;52;172;224m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;52;172;224mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:58:10:5810 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;52;172;224m[1m/api/polls[22m[35m [38;2;52;172;224m[1m22.820 ms[22m[35m [38;2;52;172;224m[1m@ Sat, 20 Mar 2021 16:58:10 GMT[22m[35m [38;2;52;172;224m[1m::1[22m[35m [38;2;52;172;224m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;52;172;224mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:58:28:5828 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;52;172;224m[1m/api/users/current[22m[35m [38;2;52;172;224m[1m7.738 ms[22m[35m [38;2;52;172;224m[1m@ Sat, 20 Mar 2021 16:58:28 GMT[22m[35m [38;2;52;172;224m[1m::1[22m[35m [38;2;52;172;224m[1mfrom https://localhost:3000/poll.html?id=605624e895047b82e4d9f918[22m[35m [38;2;52;172;224mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 17:58:28:5828 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;46;213;115m[1m200[22m[35m [38;2;52;172;224m[1m/api/polls/605624e895047b82e4d9f918[22m[35m [38;2;52;172;224m[1m11.171 ms[22m[35m [38;2;52;172;224m[1m@ Sat, 20 Mar 2021 16:58:28 GMT[22m[35m [38;2;52;172;224m[1m::1[22m[35m [38;2;52;172;224m[1mfrom https://localhost:3000/poll.html?id=605624e895047b82e4d9f918[22m[35m [38;2;52;172;224mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 18:00:10:010 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;52;172;224m[1m/api/users/current[22m[35m [38;2;52;172;224m[1m5.918 ms[22m[35m [38;2;52;172;224m[1m@ Sat, 20 Mar 2021 17:00:10 GMT[22m[35m [38;2;52;172;224m[1m::1[22m[35m [38;2;52;172;224m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;52;172;224mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 18:00:10:010 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;52;172;224m[1m/api/polls[22m[35m [38;2;52;172;224m[1m10.425 ms[22m[35m [38;2;52;172;224m[1m@ Sat, 20 Mar 2021 17:00:10 GMT[22m[35m [38;2;52;172;224m[1m::1[22m[35m [38;2;52;172;224m[1mfrom https://localhost:3000/index.html[22m[35m [38;2;52;172;224mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 18:00:37:037 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;52;172;224m[1m/api/users/current[22m[35m [38;2;52;172;224m[1m4.065 ms[22m[35m [38;2;52;172;224m[1m@ Sat, 20 Mar 2021 17:00:37 GMT[22m[35m [38;2;52;172;224m[1m::1[22m[35m [38;2;52;172;224m[1mfrom https://localhost:3000/poll.html?id=605624e895047b82e4d9f918[22m[35m [38;2;52;172;224mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m
+20/03/21 18:00:37:037 [35mhttp[39m: [35m[38;2;52;172;224m[1mGET[22m[35m [38;2;30;144;255m[1m304[22m[35m [38;2;52;172;224m[1m/api/polls/605624e895047b82e4d9f918[22m[35m [38;2;52;172;224m[1m6.916 ms[22m[35m [38;2;52;172;224m[1m@ Sat, 20 Mar 2021 17:00:37 GMT[22m[35m [38;2;52;172;224m[1m::1[22m[35m [38;2;52;172;224m[1mfrom https://localhost:3000/poll.html?id=605624e895047b82e4d9f918[22m[35m [38;2;52;172;224mMozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36[35m[39m
+[35m[39m

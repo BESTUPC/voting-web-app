@@ -1,6 +1,6 @@
 import { plainToClass, ClassConstructor } from 'class-transformer';
 import { validate } from 'class-validator';
-import ErrorHandler from '../models/ErrorHandler';
+import ErrorHandler from './ErrorHandler';
 
 /**
  * Generic validator for given class
