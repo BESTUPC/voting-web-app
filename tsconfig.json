@@ -10,7 +10,8 @@
       "es6",
       "dom"
     ],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "experimentalDecorators": true
   },
   "include": [
     "src/**/*.ts",

@@ -1,5 +1,8 @@
 import { ObjectId } from 'mongodb';
-import { IPoll, IPollState, isIPoll, isIPollState } from '../interfaces/IPoll';
+import { validatorGeneric } from '../dtos/GenericDTOValidator';
+import { PollCreateDTO } from '../dtos/PollCreateDTO';
+import { PollUpdateStateDTO } from '../dtos/PollUpdateStateDTO';
+import { EPollState, IPoll } from '../interfaces/IPoll';
 import { IUser } from '../interfaces/IUser';
 import ErrorHandler from '../models/ErrorHandler';
 import PollModel from '../models/PollModel';
@@ -31,7 +34,7 @@ export default class PollController {
     public static async getPoll(userId: string, _id: string): Promise<IPoll> {
         const user: IUser = await UserController.getUser(userId, userId);
         const poll: IPoll = await PollModel.get(new ObjectId(_id));
-        if (!!!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
+        if (!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
         if (user.membership.includes(poll.targetGroup)) {
             return poll;
         } else {
@@ -55,12 +58,14 @@ export default class PollController {
         body: unknown,
     ): Promise<boolean> {
         if (await UserController.isAdmin(userId)) {
-            if (!isIPollState(body)) {
-                throw new ErrorHandler(400, 'Bad request body');
-            }
-            const state: IPollState = body;
+            const state: EPollState = (
+                await validatorGeneric<PollUpdateStateDTO>(
+                    PollUpdateStateDTO,
+                    body,
+                )
+            ).state;
             const poll: IPoll = await PollModel.get(new ObjectId(_id));
-            if (!!!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
+            if (!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
             return PollModel.setState(new ObjectId(_id), state);
         } else {
             throw new ErrorHandler(401, 'Only admins are authorized');
@@ -81,10 +86,11 @@ export default class PollController {
         body: unknown,
     ): Promise<boolean> {
         if (await UserController.isAdmin(userId)) {
-            if (!isIPoll(body)) {
-                throw new ErrorHandler(400, 'Bad request body');
-            }
-            return PollModel.add(body);
+            const poll: IPoll = {
+                ...(await validatorGeneric<PollCreateDTO>(PollCreateDTO, body)),
+                state: EPollState.OPEN,
+            };
+            return PollModel.add(poll);
         } else {
             throw new ErrorHandler(401, 'Only admins are authorized');
         }
@@ -104,7 +110,7 @@ export default class PollController {
     ): Promise<boolean> {
         if (await UserController.isAdmin(userId)) {
             const poll: IPoll = await PollModel.get(new ObjectId(_id));
-            if (!!!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
+            if (!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
             return PollModel.delete(new ObjectId(_id));
         } else {
             throw new ErrorHandler(401, 'Only admins are authorized');

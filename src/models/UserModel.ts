@@ -1,5 +1,5 @@
 import { Collection } from 'mongodb';
-import { IMembership, IUser } from '../interfaces/IUser';
+import { EMembership, IUser } from '../interfaces/IUser';
 import Database from '../providers/Database';
 
 /**
@@ -38,7 +38,7 @@ export default class UserModel {
      */
     public static async updateMembership(
         userId: string,
-        membership: Array<IMembership>,
+        membership: Array<EMembership>,
     ): Promise<boolean> {
         const updateCount: number = (
             await UserModel._getCollection().updateOne(

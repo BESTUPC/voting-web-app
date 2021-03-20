@@ -7,7 +7,7 @@ chai.use(chaiAsPromised);
 
 import UserController from '../../controllers/UserController';
 import UserModel from '../../models/UserModel';
-import { IMembership, IUser } from '../../interfaces/IUser';
+import { EMembership, IUser } from '../../interfaces/IUser';
 
 let sandbox: SinonSandbox;
 describe('UserController', () => {
@@ -26,7 +26,7 @@ describe('UserController', () => {
                 userId: 'ID',
                 name: 'name',
                 email: 'email',
-                membership: ['all', 'admin'],
+                membership: [EMembership.ALL, EMembership.ADMIN],
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const updateMembershipStub = sandbox
@@ -34,7 +34,7 @@ describe('UserController', () => {
                 .resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
-            const body: Array<IMembership> = ['all'];
+            const body: Array<EMembership> = [EMembership.ALL];
             const ret: boolean = await UserController.updateMembership(
                 userId1,
                 userId2,
@@ -81,7 +81,7 @@ describe('UserController', () => {
                 .resolves(false);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
-            const body: Array<IMembership> = ['all'];
+            const body: Array<EMembership> = [EMembership.ALL];
             await expect(
                 UserController.updateMembership(userId1, userId2, body),
             ).to.be.rejectedWith('Only admins are authorized');
@@ -111,7 +111,7 @@ describe('UserController', () => {
                 userId: body.id,
                 email: body.emails[0].value,
                 name: body.displayName,
-                membership: ['all'],
+                membership: [EMembership.ALL],
             };
             const ret: boolean = await UserController.addUser(body);
             expect(ret).to.be.true;
@@ -147,13 +147,13 @@ describe('UserController', () => {
                 userId: 'ID1',
                 name: 'name1',
                 email: 'email1',
-                membership: ['all'],
+                membership: [EMembership.ALL],
             };
             const user2: IUser = {
                 userId: 'ID2',
                 name: 'name2',
                 email: 'email2',
-                membership: ['all'],
+                membership: [EMembership.ALL],
             };
             const getAllStub = sandbox
                 .stub(UserModel, 'getAll')
@@ -191,7 +191,7 @@ describe('UserController', () => {
                 userId: 'ID2',
                 name: 'name',
                 email: 'email',
-                membership: ['all'],
+                membership: [EMembership.ALL],
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const userId1 = 'ID1';
@@ -211,7 +211,7 @@ describe('UserController', () => {
                 userId: 'ID',
                 name: 'name',
                 email: 'email',
-                membership: ['all'],
+                membership: [EMembership.ALL],
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const userId = 'ID';
@@ -247,7 +247,7 @@ describe('UserController', () => {
                 userId: 'ID',
                 name: 'name',
                 email: 'email',
-                membership: ['all', 'admin'],
+                membership: [EMembership.ALL, EMembership.ADMIN],
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const userId = 'ID';
@@ -261,7 +261,7 @@ describe('UserController', () => {
                 userId: 'ID',
                 name: 'name',
                 email: 'email',
-                membership: ['all'],
+                membership: [EMembership.ALL],
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const userId = 'ID';

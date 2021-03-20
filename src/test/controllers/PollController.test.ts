@@ -6,9 +6,9 @@ import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised);
 
 import UserController from '../../controllers/UserController';
-import { IUser } from '../../interfaces/IUser';
+import { EMembership, IUser } from '../../interfaces/IUser';
 import PollModel from '../../models/PollModel';
-import { IPoll, IPollState } from '../../interfaces/IPoll';
+import { IPoll, EPollState } from '../../interfaces/IPoll';
 import PollController from '../../controllers/PollController';
 import { ObjectId } from 'mongodb';
 import { toUnicode } from 'punycode';
@@ -31,8 +31,8 @@ describe('PollController', () => {
                 isPriority: false,
                 isPrivate: true,
                 pollDeadline: 1000000,
-                state: 'open',
-                targetGroup: 'all',
+                state: EPollState.OPEN,
+                targetGroup:  EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
             };
@@ -42,7 +42,7 @@ describe('PollController', () => {
                 .resolves(true);
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
-            const body: IPollState = 'closed';
+            const body: EPollState = EPollState.CLOSED;
             const ret: boolean = await PollController.updateState(
                 userId1,
                 _id,
@@ -67,7 +67,7 @@ describe('PollController', () => {
                 .resolves(true);
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
-            const body: IPollState = undefined;
+            const body: EPollState = undefined;
             await expect(
                 PollController.updateState(userId1, _id, body),
             ).to.be.rejectedWith('Bad request body');
@@ -93,7 +93,7 @@ describe('PollController', () => {
                 .resolves(false);
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
-            const body: IPollState = 'closed';
+            const body: EPollState = EPollState.CLOSED;
             await expect(
                 PollController.updateState(userId1, _id, body),
             ).to.be.rejectedWith('Only admins are authorized');
@@ -107,7 +107,7 @@ describe('PollController', () => {
             const getPollStub = sandbox.stub(PollModel, 'get').resolves(null);
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
-            const body: IPollState = 'closed';
+            const body: EPollState = EPollState.CLOSED;
             await expect(
                 PollController.updateState(userId1, _id, body),
             ).to.be.rejectedWith(`Poll ${_id} not found.`);
@@ -137,8 +137,8 @@ describe('PollController', () => {
                 isPriority: false,
                 isPrivate: true,
                 pollDeadline: 1000000,
-                state: 'open',
-                targetGroup: 'all',
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
             };
@@ -159,7 +159,7 @@ describe('PollController', () => {
                 isPriority: false,
                 isPrivate: true,
                 pollDeadline: 1000000,
-                state: 'open',
+                state: EPollState.OPEN,
                 targetGroup: 'all',
                 pollOptions: ['yes', 'no'],
             };
@@ -193,8 +193,8 @@ describe('PollController', () => {
                 isPriority: false,
                 isPrivate: true,
                 pollDeadline: 1000000,
-                state: 'open',
-                targetGroup: 'all',
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
             };
@@ -217,7 +217,7 @@ describe('PollController', () => {
                 userId: 'ID',
                 name: 'name1',
                 email: 'email1',
-                membership: ['all'],
+                membership: [EMembership.ALL],
             };
             const getUserStub = sandbox
                 .stub(UserController, 'getUser')
@@ -228,8 +228,8 @@ describe('PollController', () => {
                 isPriority: false,
                 isPrivate: true,
                 pollDeadline: 1000000,
-                state: 'open',
-                targetGroup: 'all',
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name 1',
             };
@@ -238,8 +238,8 @@ describe('PollController', () => {
                 isPriority: false,
                 isPrivate: true,
                 pollDeadline: 1000000,
-                state: 'open',
-                targetGroup: 'all',
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name 2',
             };
@@ -266,15 +266,15 @@ describe('PollController', () => {
                 userId: 'ID',
                 name: 'name',
                 email: 'email',
-                membership: ['all'],
+                membership: [EMembership.ALL],
             };
             const poll: IPoll = {
                 description: 'Test description',
                 isPriority: false,
                 isPrivate: true,
                 pollDeadline: 1000000,
-                state: 'open',
-                targetGroup: 'all',
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
             };
@@ -299,15 +299,15 @@ describe('PollController', () => {
                 userId: 'ID',
                 name: 'name',
                 email: 'email',
-                membership: ['all'],
+                membership: [EMembership.ALL],
             };
             const poll: IPoll = {
                 description: 'Test description',
                 isPriority: false,
                 isPrivate: true,
                 pollDeadline: 1000000,
-                state: 'open',
-                targetGroup: 'full',
+                state: EPollState.OPEN,
+                targetGroup: EMembership.FULL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
             };
@@ -345,8 +345,8 @@ describe('PollController', () => {
                 isPriority: false,
                 isPrivate: true,
                 pollDeadline: 1000000,
-                state: 'open',
-                targetGroup: 'all',
+                state: EPollState.OPEN,
+                targetGroup:  EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
             };

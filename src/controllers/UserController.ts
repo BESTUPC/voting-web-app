@@ -1,8 +1,10 @@
+import { validatorGeneric } from '../dtos/GenericDTOValidator';
+import { UserUpdateMembershipDTO } from '../dtos/UserUpdateMembershipDTO';
 import {
-    IMembership,
+    EMembership,
     isIGoogleUser,
-    isIMembershipArray,
-    IUser,
+
+    IUser
 } from '../interfaces/IUser';
 import ErrorHandler from '../models/ErrorHandler';
 import UserModel from '../models/UserModel';
@@ -27,10 +29,12 @@ export default class UserController {
         body: unknown,
     ): Promise<boolean> {
         if (await UserController.isAdmin(userId1)) {
-            if (!isIMembershipArray(body)) {
-                throw new ErrorHandler(400, 'Bad request body');
-            }
-            const membership: Array<IMembership> = body;
+            const membership: Array<EMembership> = (
+                await validatorGeneric<UserUpdateMembershipDTO>(
+                    UserUpdateMembershipDTO,
+                    body,
+                )
+            ).membership;
             const user = await UserModel.get(userId2);
             if (!!!user)
                 throw new ErrorHandler(404, `User ${userId2} not found.`);
@@ -53,7 +57,7 @@ export default class UserController {
             userId: body.id,
             email: body.emails ? body.emails[0].value : 'notAvailable',
             name: body.displayName,
-            membership: ['all'],
+            membership: [EMembership.ALL],
         };
         return UserModel.add(newUser);
     }
@@ -107,6 +111,6 @@ export default class UserController {
     public static async isAdmin(userId: string): Promise<boolean> {
         const user = await UserModel.get(userId);
         if (!user) throw new ErrorHandler(404, `User ${userId} not found.`);
-        return user.membership.includes('admin');
+        return user.membership.includes(EMembership.ADMIN);
     }
 }

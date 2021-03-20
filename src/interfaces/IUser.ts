@@ -6,7 +6,7 @@ import { ObjectId } from 'mongodb';
 export interface IUser {
     _id?: ObjectId;
     userId: string;
-    membership: Array<IMembership>;
+    membership: Array<EMembership>;
     name: string;
     email: string;
 }
@@ -30,26 +30,11 @@ export function isIGoogleUser(x: unknown): x is IGoogleUser {
 }
 
 /**
- * Custom type for the different memberships a user can have.
+ * Custom enum for the different memberships a user can have.
  */
-export type IMembership = 'all' | 'member' | 'full' | 'admin';
-
-/**
- * Typeguard for array of [[IMembership]].
- * @param x object to check.
- */
-export function isIMembershipArray(x: unknown): x is Array<IMembership> {
-    if (x instanceof Array) {
-        return x.every((item) => isIMembership(item));
-    } else return false;
-}
-
-/**
- * Typeguard for [[IMembership]].
- * @param x object to check.
- */
-export function isIMembership(x: unknown): x is IMembership {
-    if (typeof x === 'string') {
-        return ['all', 'member', 'full', 'admin'].includes(x);
-    } else return false;
+export enum EMembership {
+    ALL = 'all',
+    MEMBER = 'member',
+    FULL = 'full',
+    ADMIN = 'admin',
 }

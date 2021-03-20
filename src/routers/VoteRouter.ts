@@ -49,7 +49,7 @@ export default class VoteRouter {
                 try {
                     const result: boolean = await this._controller.addorUpdateVote(
                         req.user['id'],
-                        JSON.parse(JSON.stringify(req.body)),
+                        req.body,
                     );
                     res.status(200).json(result);
                 } catch (error) {
@@ -63,7 +63,7 @@ export default class VoteRouter {
                 try {
                     const result: boolean = await this._controller.addorUpdateVote(
                         req.user['id'],
-                        JSON.parse(JSON.stringify(req.body)),
+                        req.body,
                         req.params.givenDelegationId,
                     );
                     res.status(200).json(result);

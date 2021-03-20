@@ -1,6 +1,6 @@
 import { Collection, ObjectId } from 'mongodb';
-import { IMembership } from '../interfaces/IUser';
-import { IPoll, IPollState } from '../interfaces/IPoll';
+import { EMembership } from '../interfaces/IUser';
+import { IPoll, EPollState } from '../interfaces/IPoll';
 import Database from '../providers/Database';
 
 /**
@@ -20,7 +20,7 @@ export default class PollModel {
      * @returns Returns an array of polls.
      */
     public static async getAll(
-        membership: Array<IMembership>,
+        membership: Array<EMembership>,
     ): Promise<Array<IPoll>> {
         return PollModel._getCollection()
             .find({ targetGroup: { $in: membership } })
@@ -58,7 +58,7 @@ export default class PollModel {
      */
     public static async setState(
         _id: ObjectId,
-        state: IPollState,
+        state: EPollState,
     ): Promise<boolean> {
         const updateCount: number = (
             await PollModel._getCollection().updateOne(

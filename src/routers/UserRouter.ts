@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import UserController from '../controllers/UserController';
-import { IMembership, IUser } from '../interfaces/IUser';
+import { EMembership, IUser } from '../interfaces/IUser';
 
 export default class UsersRouter {
     /**
@@ -48,15 +48,10 @@ export default class UsersRouter {
             '/membership/:id',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
-                    const body: { membership: Array<IMembership> } = {
-                        membership: JSON.parse(
-                            JSON.parse(JSON.stringify(req.body)).membership,
-                        ),
-                    };
                     const result = await this._controller.updateMembership(
                         req.user['id'],
                         req.params.id,
-                        body,
+                        req.body,
                     );
                     res.status(200).json(result);
                 } catch (error) {

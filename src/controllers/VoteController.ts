@@ -1,5 +1,7 @@
+import { validatorGeneric } from '../dtos/GenericDTOValidator';
+import { VoteAddDTO } from '../dtos/VoteAddDTO';
 import { IPoll } from '../interfaces/IPoll';
-import { isIVote, IVote } from '../interfaces/IVote';
+import { IVote } from '../interfaces/IVote';
 import ErrorHandler from '../models/ErrorHandler';
 import VoteModel from '../models/VoteModel';
 import DelegationController from './DelegationController';
@@ -55,32 +57,29 @@ export default class VoteController {
         body: unknown,
         delegatedId?: string,
     ): Promise<boolean> {
-        if (!isIVote(body)) {
-            throw new ErrorHandler(400, 'Bad request body');
-        } else {
-            if (
-                delegatedId &&
-                !(await DelegationController.check(userId, delegatedId))
-            ) {
-                throw new ErrorHandler(401, "The delegation doesn't exist");
+        const vote: IVote = await validatorGeneric<VoteAddDTO>(
+            VoteAddDTO,
+            body,
+        );
+        if (
+            delegatedId &&
+            !(await DelegationController.check(userId, delegatedId))
+        ) {
+            throw new ErrorHandler(401, "The delegation doesn't exist");
+        }
+        const auxUserId = !delegatedId ? userId : delegatedId;
+        if (auxUserId === vote.userId) {
+            const poll = await PollController.getPoll(auxUserId, vote.pollId);
+            if (poll.state !== 'open') {
+                throw new ErrorHandler(401, 'Poll is now closed');
             }
-            const auxUserId = !delegatedId ? userId : delegatedId;
-            if (auxUserId === body.userId) {
-                const poll = await PollController.getPoll(
-                    auxUserId,
-                    body.pollId,
-                );
-                if (poll.state !== 'open') {
-                    throw new ErrorHandler(401, 'Poll is now closed');
-                }
 
-                return await VoteModel.addOrUpdateVote(body);
-            } else {
-                throw new ErrorHandler(
-                    401,
-                    "Not allowed to modify someone else's vote",
-                );
-            }
+            return await VoteModel.addOrUpdateVote(vote);
+        } else {
+            throw new ErrorHandler(
+                401,
+                "Not allowed to modify someone else's vote",
+            );
         }
     }
 }

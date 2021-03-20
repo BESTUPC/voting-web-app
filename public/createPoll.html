@@ -301,7 +301,7 @@
                 else {
                     var xhr2 = new XMLHttpRequest();
                     xhr2.open('POST', '/api/polls');
-                    xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr2.setRequestHeader('Content-Type', 'application/json');
                     xhr2.onload = function () {
 
                         if (xhr2.status != 200) {
@@ -310,9 +310,18 @@
                         }
                         else success('Success', 'Poll created successfully', goHome);
                 };
-                window.sentText = 'pollName=' + pollName + '&pollOptions=' + JSON.stringify(pollOptions)
-                    + '&targetGroup=' + targetGroup + '&isPrivate=' + isPrivate + '&isPriority=' + isPriority + '&pollDeadline=' + deadline;
-                xhr2.send(window.sentText);
+                console.log(pollOptions);
+                var body = {
+                    pollName,
+                    pollOptions,
+                    targetGroup,
+                    isPriority,
+                    isPrivate,
+                    deadline
+                }
+                console.log(JSON.stringify(body))
+                
+                xhr2.send(JSON.stringify(body));
             }
             });
         });

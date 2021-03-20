@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import express, { Express, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import https from 'https';
@@ -34,8 +33,8 @@ export default class Server {
             );
             next();
         });
-        this.server.use(bodyParser.urlencoded({ extended: false }));
-        this.server.use(bodyParser.json());
+        this.server.use(express.json());
+        this.server.use(express.urlencoded({ extended: true }));
         this.server.use(
             (
                 err: ErrorHandler,
