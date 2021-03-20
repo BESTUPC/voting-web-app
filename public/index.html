@@ -152,7 +152,7 @@
           stateSave: true,
           "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
             //canvia la data a un string, no es fa abans perque aixi quan li dones a ordenar ho fa per els milisegons i no per el string de la data
-            var date = new Date(parseInt(aData[1]));
+            var date = new Date(parseInt(aData[1])/1000);
             $('td:eq(1)', nRow).html(date.toLocaleString().slice(0, -3));
           },
           "aoColumns": [{ "bSearchable": true }, { "bSearchable": false }]

@@ -1,5 +1,5 @@
 import { Expose, Transform } from 'class-transformer';
-import { IsArray, IsBoolean, IsDate, IsEnum, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsDate, IsEnum, IsNumber, IsString } from 'class-validator';
 import { IPoll } from '../interfaces/IPoll';
 import { EMembership } from '../interfaces/IUser';
 
@@ -13,7 +13,10 @@ export class PollCreateDTO implements Omit<IPoll, '_id' | 'state'> {
     isPrivate: boolean;
 
     @Expose()
-    @IsDate()
+    @IsNumber()
+    @Transform(({ value }: { value: unknown }) =>
+        typeof value !== 'number' ? new Date().getTime() : value * 1000,
+    )
     pollDeadline: number;
 
     @Expose()
