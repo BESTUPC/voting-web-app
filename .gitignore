@@ -7,3 +7,10 @@ cert.pem
 chain.pem
 googlecredentials.pswd
 privkey.pem
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
