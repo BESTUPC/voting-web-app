@@ -17,14 +17,15 @@
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
     "docs": "rm -r docs && typedoc --exclude \"./src/**/*.ts\"",
-    "all": "mocha -r ts-node/register src/test/**/*.test.ts && eslint ./src && rm -r docs && typedoc --exclude \"./src/test/**/*.ts\""
+    "all": "mocha -r ts-node/register src/test/**/*.test.ts && eslint ./src && rm -r docs && typedoc --exclude \"./src/test/**/*.ts\"",
+    "deploy": "docker-compose up --build"
   },
   "keywords": [
     "webapp",
     "voting",
     "BEST"
   ],
-  "author": "Esteve Tarragó, Iñigo Moreno, Bernat Felip",
+  "author": "Bernat Felip, Esteve Tarragó, Iñigo Moreno",
   "repository": "https://github.com/BESTUPC/voting-web-app/",
   "license": "ISC",
   "dependencies": {

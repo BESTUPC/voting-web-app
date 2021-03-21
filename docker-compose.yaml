@@ -4,6 +4,8 @@ services:
     build: .
     networks:
       - voting-webapp
+    volumes:
+      - logs-volume:/src/logs
     ports:
       - 3000:3000
     depends_on:
@@ -33,5 +35,6 @@ services:
       - MONGO_INITDB_DATABASE=votacions
 volumes:
   mongo-volume:
+  logs-volume:
 networks:
   voting-webapp:
