@@ -41,10 +41,15 @@ export default class Database {
                 useUnifiedTopology: true,
                 connectTimeoutMS: parseInt(process.env.MONGO_TIMEOUT),
                 serverSelectionTimeoutMS: parseInt(process.env.MONGO_TIMEOUT),
+                auth: {
+                    user: process.env.MONGO_USER,
+                    password: process.env.MONGO_PASSWORD,
+                },
             });
             await this.createIndexes();
             return true;
         } catch (e) {
+            Logger.error(e);
             Logger.error("Couldn't start MongoDB connection");
             return false;
         }

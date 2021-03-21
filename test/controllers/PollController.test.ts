@@ -3,11 +3,11 @@ import chaiAsPromised from 'chai-as-promised';
 import { describe } from 'mocha';
 import { ObjectId } from 'mongodb';
 import sinon, { SinonSandbox } from 'sinon';
-import PollController from '../../controllers/PollController';
-import UserController from '../../controllers/UserController';
-import { EPollState, IPoll } from '../../interfaces/IPoll';
-import { EMembership, IUser } from '../../interfaces/IUser';
-import PollModel from '../../models/PollModel';
+import PollController from '../../src/controllers/PollController';
+import UserController from '../../src/controllers/UserController';
+import { EPollState, IPoll } from '../../src/interfaces/IPoll';
+import { EMembership, IUser } from '../../src/interfaces/IUser';
+import PollModel from '../../src/models/PollModel';
 
 chai.use(chaiAsPromised);
 

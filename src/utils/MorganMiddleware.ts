@@ -7,8 +7,6 @@ import Logger from './Logger';
 const stream: StreamOptions = {
     // Use the http severity
     write: (message) => {
-        //const address = message.split(' ')[2].substr(1, 3);
-        //if (address === 'api') Logger.http(message);
         const hasAddress = message.split(' ')[2].includes('/api/');
         if (hasAddress) Logger.http(message);
     },

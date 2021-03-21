@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    networks:
+      - voting-webapp
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    environment:
+      - FORCE_COLOR=1
+      - PORT1=3000
+      - PORT2=3003
+      - MONGO_URI=mongodb://mongo:27017/
+      - MONGO_DBNAME=votacions
+      - MONGO_USER=bestbarcelona
+      - MONGO_PASSWORD=password
+      - MONGO_TIMEOUT=5000
+      - CERT_PATH=./
+      - CRED_PATH=./googlecredentials.pswd
+      - COOKIE_KEY1=key1
+      - COOKIE_KEY2=key2
+  mongo:
+    image: mongo
+    networks:
+      - voting-webapp
+    volumes:
+      - mongo-volume:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=bestbarcelona
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=votacions
+volumes:
+  mongo-volume:
+networks:
+  voting-webapp:
