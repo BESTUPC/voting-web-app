@@ -1,11 +1,12 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
+import helmet from 'helmet';
 import https from 'https';
 import { ICertificates } from '../interfaces/ICertificates';
-import ErrorHandler from '../utils/ErrorHandler';
 import MasterRouter from '../routers/MasterRouter';
-import morganMiddleware from '../utils/MorganMiddleware';
+import ErrorHandler from '../utils/ErrorHandler';
 import Logger from '../utils/Logger';
+import morganMiddleware from '../utils/MorganMiddleware';
 
 /**
  * Custom server application class.
@@ -27,6 +28,7 @@ export default class Server {
      * Mounts the body parser and custom error handler middlewares.
      */
     private _mountMiddlewares(): void {
+        this.server.use(helmet());
         this.server.use(function (_req, res, next) {
             res.header('Access-Control-Allow-Origin', '*');
             res.header(

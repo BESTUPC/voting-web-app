@@ -61,6 +61,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:2ba7b7bf1e154764f9cb0681eb8bbcdae6bd0bbe9ec38e8eb6228eeb0441f4e79b8c4f80c93eaac09aa4c36cbd708eeb660042e7144fcf9761cbc5e5b7e888d8#npm:8.1.0"],
             ["eslint-plugin-prettier", "virtual:2ba7b7bf1e154764f9cb0681eb8bbcdae6bd0bbe9ec38e8eb6228eeb0441f4e79b8c4f80c93eaac09aa4c36cbd708eeb660042e7144fcf9761cbc5e5b7e888d8#npm:3.3.1"],
             ["express", "npm:4.17.1"],
+            ["helmet", "npm:4.4.1"],
             ["https", "npm:1.0.0"],
             ["husky", "npm:5.1.3"],
             ["logform", "npm:2.2.0"],
@@ -3230,6 +3231,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["helmet", [
+        ["npm:4.4.1", {
+          "packageLocation": "./.yarn/cache/helmet-npm-4.4.1-286ac392ee-32f5ca0517.zip/node_modules/helmet/",
+          "packageDependencies": [
+            ["helmet", "npm:4.4.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["html-escaper", [
         ["npm:2.0.2", {
           "packageLocation": "./.yarn/cache/html-escaper-npm-2.0.2-38e51ef294-a216ae96fa.zip/node_modules/html-escaper/",
@@ -6392,6 +6402,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:2ba7b7bf1e154764f9cb0681eb8bbcdae6bd0bbe9ec38e8eb6228eeb0441f4e79b8c4f80c93eaac09aa4c36cbd708eeb660042e7144fcf9761cbc5e5b7e888d8#npm:8.1.0"],
             ["eslint-plugin-prettier", "virtual:2ba7b7bf1e154764f9cb0681eb8bbcdae6bd0bbe9ec38e8eb6228eeb0441f4e79b8c4f80c93eaac09aa4c36cbd708eeb660042e7144fcf9761cbc5e5b7e888d8#npm:3.3.1"],
             ["express", "npm:4.17.1"],
+            ["helmet", "npm:4.4.1"],
             ["https", "npm:1.0.0"],
             ["husky", "npm:5.1.3"],
             ["logform", "npm:2.2.0"],
