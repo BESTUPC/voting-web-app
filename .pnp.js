@@ -72,6 +72,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["nyc", "npm:15.1.0"],
             ["passport", "npm:0.4.1"],
             ["passport-google-oauth", "npm:2.0.0"],
+            ["path", "npm:0.12.7"],
             ["prettier", "npm:2.2.1"],
             ["sinon", "npm:9.2.4"],
             ["ts-node", "virtual:2ba7b7bf1e154764f9cb0681eb8bbcdae6bd0bbe9ec38e8eb6228eeb0441f4e79b8c4f80c93eaac09aa4c36cbd708eeb660042e7144fcf9761cbc5e5b7e888d8#npm:9.1.1"],
@@ -4813,6 +4814,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["path", [
+        ["npm:0.12.7", {
+          "packageLocation": "./.yarn/cache/path-npm-0.12.7-bddabe2e86-0e2d3342ca.zip/node_modules/path/",
+          "packageDependencies": [
+            ["path", "npm:0.12.7"],
+            ["process", "npm:0.11.10"],
+            ["util", "npm:0.10.4"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["path-exists", [
         ["npm:4.0.0", {
           "packageLocation": "./.yarn/cache/path-exists-npm-4.0.0-e9e4f63eb0-6ab15000c5.zip/node_modules/path-exists/",
@@ -4954,6 +4966,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["prettier-linter-helpers", "npm:1.0.0"],
             ["fast-diff", "npm:1.2.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["process", [
+        ["npm:0.11.10", {
+          "packageLocation": "./.yarn/cache/process-npm-0.11.10-aeb3b641ae-ed93a85e91.zip/node_modules/process/",
+          "packageDependencies": [
+            ["process", "npm:0.11.10"]
           ],
           "linkType": "HARD",
         }]
@@ -6298,6 +6319,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["util", [
+        ["npm:0.10.4", {
+          "packageLocation": "./.yarn/cache/util-npm-0.10.4-7c577db41a-6682ea8239.zip/node_modules/util/",
+          "packageDependencies": [
+            ["util", "npm:0.10.4"],
+            ["inherits", "npm:2.0.3"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["util-deprecate", [
         ["npm:1.0.2", {
           "packageLocation": "./.yarn/cache/util-deprecate-npm-1.0.2-e3fe1a219c-73c2b1cf02.zip/node_modules/util-deprecate/",
@@ -6413,6 +6444,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["nyc", "npm:15.1.0"],
             ["passport", "npm:0.4.1"],
             ["passport-google-oauth", "npm:2.0.0"],
+            ["path", "npm:0.12.7"],
             ["prettier", "npm:2.2.1"],
             ["sinon", "npm:9.2.4"],
             ["ts-node", "virtual:2ba7b7bf1e154764f9cb0681eb8bbcdae6bd0bbe9ec38e8eb6228eeb0441f4e79b8c4f80c93eaac09aa4c36cbd708eeb660042e7144fcf9761cbc5e5b7e888d8#npm:9.1.1"],

@@ -4114,6 +4114,16 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"path@npm:^0.12.7":
+  version: 0.12.7
+  resolution: "path@npm:0.12.7"
+  dependencies:
+    process: ^0.11.1
+    util: ^0.10.3
+  checksum: 0e2d3342ca6f91aba8e514919cae8a08ad12071297a3a99da6e3ea493f5296d9bb323ca9bece4d035fc280e91b701a740ce1e48ff65802004deaaae2f2cd623e
+  languageName: node
+  linkType: hard
+
 "pathval@npm:^1.1.1":
   version: 1.1.1
   resolution: "pathval@npm:1.1.1"
@@ -4196,6 +4206,13 @@ fsevents@~2.3.1:
   dependencies:
     fromentries: ^1.2.0
   checksum: 91b18f68bb31180e12708e9a947963265ad65d147673d914519995f0fbc619f9fa953e96c91f0c363c3afefbe2937b1c5881c0c334e7c460154165193a10ae3b
+  languageName: node
+  linkType: hard
+
+"process@npm:^0.11.1":
+  version: 0.11.10
+  resolution: "process@npm:0.11.10"
+  checksum: ed93a85e9185b40fb01788c588a87c1a9da0eb925ef7cebebbe1b8bbf0eba1802130366603a29e3b689c116969d4fe018de6aed3474bbeb5aefb3716b85d6449
   languageName: node
   linkType: hard
 
@@ -5372,6 +5389,15 @@ typescript@^4.2.3:
   languageName: node
   linkType: hard
 
+"util@npm:^0.10.3":
+  version: 0.10.4
+  resolution: "util@npm:0.10.4"
+  dependencies:
+    inherits: 2.0.3
+  checksum: 6682ea8239076243495c45e81f19c2c002e02805de4de08554dc815500805923f27f504ec1a9c7599d420b62bf7452efbab6fa078219d529188b0ca830f142a5
+  languageName: node
+  linkType: hard
+
 "utils-merge@npm:1.0.1, utils-merge@npm:1.x.x":
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
@@ -5466,6 +5492,7 @@ typescript@^4.2.3:
     nyc: ^15.1.0
     passport: ^0.4.1
     passport-google-oauth: ^2.0.0
+    path: ^0.12.7
     prettier: ^2.2.1
     sinon: ^9.2.4
     ts-node: ^9.1.1

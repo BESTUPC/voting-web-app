@@ -2,6 +2,8 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import helmet from 'helmet';
 import https from 'https';
+import { dirname } from 'node:path';
+import path from 'path';
 import { ICertificates } from '../interfaces/ICertificates';
 import MasterRouter from '../routers/MasterRouter';
 import ErrorHandler from '../utils/ErrorHandler';
@@ -28,7 +30,7 @@ export default class Server {
      * Mounts the body parser and custom error handler middlewares.
      */
     private _mountMiddlewares(): void {
-        // this.server.use(helmet());
+        this.server.use(helmet());
         this.server.use(function (_req, res, next) {
             res.header('Access-Control-Allow-Origin', '*');
             res.header(
@@ -60,7 +62,7 @@ export default class Server {
      * Configures the file serving and the api route.
      */
     private _mountRoutes(): void {
-        this.server.use(express.static('public'));
+        this.server.use('/', express.static(path.join(process.env.ROOT_DIR, 'public')));
         this.server.use('/api', new MasterRouter().router);
     }
 

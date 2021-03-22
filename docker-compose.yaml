@@ -23,6 +23,7 @@ services:
       - CRED_PATH=./googlecredentials.pswd
       - COOKIE_KEY1=key1
       - COOKIE_KEY2=key2
+      - ROOT_DIR=./
   mongo:
     image: mongo
     networks:
