@@ -1,11 +1,11 @@
-import { Expose, Transform } from 'class-transformer';
+import { Expose } from 'class-transformer';
 import {
     ArrayMinSize,
     IsArray,
     IsBoolean,
     IsEnum,
     IsNumber,
-    IsString,
+    IsString
 } from 'class-validator';
 import { IPoll } from '../interfaces/IPoll';
 import { EMembership } from '../interfaces/IUser';
