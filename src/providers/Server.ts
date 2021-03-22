@@ -2,7 +2,6 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import helmet from 'helmet';
 import https from 'https';
-import { dirname } from 'node:path';
 import path from 'path';
 import { ICertificates } from '../interfaces/ICertificates';
 import MasterRouter from '../routers/MasterRouter';
@@ -62,11 +61,15 @@ export default class Server {
      * Configures the file serving and the api route.
      */
     private _mountRoutes(): void {
-        this.server.use('/', express.static(path.join(process.env.ROOT_DIR, 'public')));
+        this.server.use(
+            '/',
+            express.static(path.join(process.env.ROOT_DIR, 'public')),
+        );
         this.server.use('/api', new MasterRouter().router);
     }
 
-    /**
+    /**        console.log(path.join(process.env.ROOT_DIR, 'public'));
+
      * Gets the SSL certificates.
      * @returns the SSL certificates if found or null otherwise.
      */
