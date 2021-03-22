@@ -1,13 +1,13 @@
-import { describe } from 'mocha';
 import chai, { expect } from 'chai';
-import sinon, { SinonSandbox } from 'sinon';
 import chaiAsPromised from 'chai-as-promised';
+import { describe } from 'mocha';
+import sinon, { SinonSandbox } from 'sinon';
+import UserController from '../../src/controllers/UserController';
+import { UserUpdateMembershipDTO } from '../../src/dtos/UserUpdateMembershipDTO';
+import { EMembership, IUser } from '../../src/interfaces/IUser';
+import UserModel from '../../src/models/UserModel';
 
 chai.use(chaiAsPromised);
-
-import UserController from '../../src/controllers/UserController';
-import UserModel from '../../src/models/UserModel';
-import { EMembership, IUser } from '../../src/interfaces/IUser';
 
 let sandbox: SinonSandbox;
 describe('UserController', () => {
@@ -34,7 +34,9 @@ describe('UserController', () => {
                 .resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
-            const body: Array<EMembership> = [EMembership.ALL];
+            const body: UserUpdateMembershipDTO = {
+                membership: [EMembership.ALL],
+            };
             const ret: boolean = await UserController.updateMembership(
                 userId1,
                 userId2,
@@ -47,9 +49,38 @@ describe('UserController', () => {
             expect(getUserStub.firstCall.args[0]).to.equal(userId2);
             expect(updateMembershipStub.calledOnce).to.be.true;
             expect(updateMembershipStub.firstCall.args[0]).to.equal(userId2);
-            expect(updateMembershipStub.firstCall.args[1]).to.equal(body);
+            expect(updateMembershipStub.firstCall.args[1]).to.deep.equal(
+                body.membership,
+            );
         });
-        it('should return a bad request error', async () => {
+        it('should return a not found user error', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const user: IUser = {
+                userId: 'ID',
+                name: 'name',
+                email: 'email',
+                membership: [EMembership.ALL, EMembership.ADMIN],
+            };
+            const getUserStub = sandbox.stub(UserModel, 'get').resolves(null);
+            const updateMembershipStub = sandbox
+                .stub(UserModel, 'updateMembership')
+                .resolves(true);
+            const userId1 = 'ID1';
+            const userId2 = 'ID2';
+            const body: UserUpdateMembershipDTO = {
+                membership: [EMembership.ALL],
+            };
+            await expect(
+                UserController.updateMembership(userId1, userId2, body),
+            ).to.be.rejectedWith(`User ${userId2} not found.`);
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+            expect(getUserStub.calledOnce).to.be.true;
+            expect(getUserStub.firstCall.args[0]).to.equal(userId2);
+        });
+        it('should return a no object in request body error if no body is sent', async () => {
             const isAdminStub = sandbox
                 .stub(UserController, 'isAdmin')
                 .resolves(true);
@@ -58,20 +89,50 @@ describe('UserController', () => {
             const body = undefined;
             await expect(
                 UserController.updateMembership(userId1, userId2, body),
-            ).to.be.rejectedWith('Bad request body');
+            ).to.be.rejectedWith('No object in request body');
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
-        it('should return a bad request error', async () => {
+        it('should return a no object in request body error if the body is not an object', async () => {
             const isAdminStub = sandbox
                 .stub(UserController, 'isAdmin')
                 .resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
-            const body = ['notMembership'];
+            const body = 'notMembership';
             await expect(
                 UserController.updateMembership(userId1, userId2, body),
-            ).to.be.rejectedWith('Bad request body');
+            ).to.be.rejectedWith('No object in request body');
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+        });
+        it('should return a DTO validator error if the membership is not the proper enum', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId1 = 'ID1';
+            const userId2 = 'ID2';
+            const body = { membership: ['notMembership'] };
+            await expect(
+                UserController.updateMembership(userId1, userId2, body),
+            ).to.be.rejectedWith(
+                'An instance of UserUpdateMembershipDTO has failed the validation',
+            );
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+        });
+        it('should return a DTO validator error if the membership is not an array', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId1 = 'ID1';
+            const userId2 = 'ID2';
+            const body = { membership: 'notMembership' };
+            await expect(
+                UserController.updateMembership(userId1, userId2, body),
+            ).to.be.rejectedWith(
+                'An instance of UserUpdateMembershipDTO has failed the validation',
+            );
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
@@ -110,6 +171,28 @@ describe('UserController', () => {
             const newUser: IUser = {
                 userId: body.id,
                 email: body.emails[0].value,
+                name: body.displayName,
+                membership: [EMembership.ALL],
+            };
+            const ret: boolean = await UserController.addUser(body);
+            expect(ret).to.be.true;
+            expect(addUserStub.calledOnce).to.be.true;
+            expect(addUserStub.firstCall.args[0]).to.deep.equal(newUser);
+        });
+        it("should call the model's add function even though the email is not available", async () => {
+            const addUserStub = sandbox.stub(UserModel, 'add').resolves(true);
+            const body: {
+                id: string;
+                displayName: string;
+                emails: Array<{ value: string; verified: boolean }>;
+            } = {
+                id: 'ID',
+                emails: [],
+                displayName: 'test',
+            };
+            const newUser: IUser = {
+                userId: body.id,
+                email: 'notAvailable',
                 name: body.displayName,
                 membership: [EMembership.ALL],
             };
@@ -234,6 +317,19 @@ describe('UserController', () => {
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
+        it('should throw a not found error', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const getUserStub = sandbox.stub(UserModel, 'get').resolves(null);
+            const userId1 = 'ID1';
+            const userId2 = 'ID2';
+            await expect(
+                UserController.getUser(userId1, userId2),
+            ).to.be.rejectedWith(`User ${userId2} not found.`);
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+        });
     });
     describe('test isAdmin', () => {
         beforeEach(() => {
@@ -267,6 +363,21 @@ describe('UserController', () => {
             const userId = 'ID';
             const ret: boolean = await UserController.isAdmin(userId);
             expect(ret).to.equal(false);
+            expect(getUserStub.calledOnce).to.be.true;
+            expect(getUserStub.firstCall.args[0]).to.equal(userId);
+        });
+        it("should call the model's get function and return a not found error", async () => {
+            const user: IUser = {
+                userId: 'ID',
+                name: 'name',
+                email: 'email',
+                membership: [EMembership.ALL],
+            };
+            const getUserStub = sandbox.stub(UserModel, 'get').resolves(null);
+            const userId = 'ID';
+            await expect(UserController.isAdmin(userId)).to.be.rejectedWith(
+                `User ${userId} not found.`,
+            );
             expect(getUserStub.calledOnce).to.be.true;
             expect(getUserStub.firstCall.args[0]).to.equal(userId);
         });

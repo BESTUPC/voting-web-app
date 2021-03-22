@@ -34,7 +34,7 @@ export default class VoteController {
             throw new ErrorHandler(401, 'Not authorized to get this vote');
         } else {
             const vote = await VoteModel.get(userId2, pollId);
-            if (!!!vote)
+            if (!vote)
                 throw new ErrorHandler(
                     404,
                     `Vote from user ${userId2} on poll ${pollId} not found.`,

@@ -1,8 +1,8 @@
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { UserUpdateMembershipDTO } from '../dtos/UserUpdateMembershipDTO';
 import { EMembership, isIGoogleUser, IUser } from '../interfaces/IUser';
-import ErrorHandler from '../utils/ErrorHandler';
 import UserModel from '../models/UserModel';
+import ErrorHandler from '../utils/ErrorHandler';
 
 /**
  * Controller for the user-related calls. It handles all the logic between routing and the database access.
@@ -31,7 +31,7 @@ export default class UserController {
                 )
             ).membership;
             const user = await UserModel.get(userId2);
-            if (!!!user)
+            if (!user)
                 throw new ErrorHandler(404, `User ${userId2} not found.`);
             return UserModel.updateMembership(userId2, membership);
         } else {
@@ -50,7 +50,10 @@ export default class UserController {
         }
         const newUser: IUser = {
             userId: body.id,
-            email: body.emails ? body.emails[0].value : 'notAvailable',
+            email:
+                Array.isArray(body.emails) && body.emails.length > 0
+                    ? body.emails[0].value
+                    : 'notAvailable',
             name: body.displayName,
             membership: [EMembership.ALL],
         };
@@ -86,7 +89,7 @@ export default class UserController {
     ): Promise<IUser> {
         if ((await UserController.isAdmin(userId1)) || userId1 === userId2) {
             const user = await UserModel.get(userId2);
-            if (!!!user)
+            if (!user)
                 throw new ErrorHandler(404, `User ${userId2} not found.`);
             return user;
         } else {

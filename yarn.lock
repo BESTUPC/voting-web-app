@@ -4363,6 +4363,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"reflect-metadata@npm:^0.1.13":
+  version: 0.1.13
+  resolution: "reflect-metadata@npm:0.1.13"
+  checksum: 629101e6c8b7e0d3166fa51953f908f45b5c73dbaf1375c4f8c3ed62221b870c951343b9b031d0c49957e7262a88020f41be25731ee85b5d779f12c7cec66005
+  languageName: node
+  linkType: hard
+
 "regexpp@npm:^3.0.0, regexpp@npm:^3.1.0":
   version: 3.1.0
   resolution: "regexpp@npm:3.1.0"
@@ -5467,6 +5474,7 @@ typescript@^4.2.3:
     passport: ^0.4.1
     passport-google-oauth: ^2.0.0
     prettier: ^2.2.1
+    reflect-metadata: ^0.1.13
     sinon: ^9.2.4
     ts-node: ^9.1.1
     typedoc: ^0.20.32

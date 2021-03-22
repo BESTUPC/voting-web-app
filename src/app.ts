@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import 'reflect-metadata';
 
 import Server from './providers/Server';
 import Authentication from './providers/Authentication';

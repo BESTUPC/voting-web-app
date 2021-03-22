@@ -6,8 +6,8 @@ import sinon, { SinonSandbox } from 'sinon';
 chai.use(chaiAsPromised);
 
 let sandbox: SinonSandbox;
-describe('VotesController', () => {
-    describe('test updateMembership', () => {
+describe('VoteController', () => {
+    describe('unimplemented', () => {
         beforeEach(() => {
             sandbox = sinon.createSandbox();
         });

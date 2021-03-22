@@ -1,5 +1,6 @@
 import { Expose, Transform } from 'class-transformer';
 import {
+    ArrayMinSize,
     IsArray,
     IsBoolean,
     IsEnum,
@@ -23,9 +24,6 @@ export class PollCreateDTO implements Omit<IPoll, '_id' | 'state'> {
 
     @Expose()
     @IsNumber()
-    @Transform(({ value }: { value: unknown }) =>
-        typeof value !== 'number' ? new Date().getTime() : value * 1000,
-    )
     pollDeadline: number;
 
     @Expose()
@@ -35,13 +33,11 @@ export class PollCreateDTO implements Omit<IPoll, '_id' | 'state'> {
     @Expose()
     @IsArray()
     @IsString({ each: true })
+    @ArrayMinSize(2)
     pollOptions: string[];
 
     @Expose()
     @IsString()
-    @Transform(({ value }: { value: unknown }) =>
-        value === undefined ? '' : value,
-    )
     description: string;
 
     @Expose()

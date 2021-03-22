@@ -7,7 +7,7 @@ chai.use(chaiAsPromised);
 
 let sandbox: SinonSandbox;
 describe('DelegationController', () => {
-    describe('test updateMembership', () => {
+    describe('unimplemented', () => {
         beforeEach(() => {
             sandbox = sinon.createSandbox();
         });
