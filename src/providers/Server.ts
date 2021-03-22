@@ -28,7 +28,7 @@ export default class Server {
      * Mounts the body parser and custom error handler middlewares.
      */
     private _mountMiddlewares(): void {
-        this.server.use(helmet());
+        // this.server.use(helmet());
         this.server.use(function (_req, res, next) {
             res.header('Access-Control-Allow-Origin', '*');
             res.header(
