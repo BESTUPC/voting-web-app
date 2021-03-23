@@ -1,174 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <style>
+            iframe[seamless] {
+                border: none;
+            }
+        </style>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="Best Barcelona" />
 
-<head>
+        <title>WebApp Votacions BEST Barcelona</title>
+        <base href="/" />
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Best Barcelona">
+        <!-- Bootstrap Core CSS -->
+        <link
+            href="../vendor/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
 
-  <title>WebApp Votacions BEST Barcelona</title>
-  <base href="/">
+        <!-- DataTables CSS -->
+        <link
+            href="../vendor/datatables-plugins/dataTables.bootstrap.css"
+            rel="stylesheet"
+        />
 
-  <!-- Bootstrap Core CSS -->
-  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet" />
 
-  <!-- DataTables CSS -->
-  <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="../dist/css/sb-admin-2.css" rel="stylesheet" />
 
-  <!-- MetisMenu CSS -->
-  <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link
+            href="../vendor/font-awesome/css/font-awesome.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
 
-  <!-- Custom CSS -->
-  <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+        <link rel="icon" type="image/png" href="../images/BEST_logomark.png" />
+    </head>
 
-  <!-- Custom Fonts -->
-  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <body>
+        <div id="wrapper">
+            <iframe src="navbar.html" seamless></iframe>
 
-  <link rel="icon" type="image/png" href="../images/BEST_logomark.png">
+            <div id="page-wrapper">
+                <!-- <div class="table-responsive"> -->
+                <div style="padding: 10px">
+                    <!-- per deixar un espai -->
+                </div>
+                <table
+                    class="table display"
+                    id="pollListTable"
+                    cellspacing="0"
+                    width="100%"
+                >
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Deadline</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pollListContent"></tbody>
+                </table>
+                <!-- </div> -->
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+        <!-- /#wrapper -->
 
-</head>
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
 
-<body>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  <div id="wrapper">
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
-    <div id="navbar"></div>
+        <!-- DataTables JavaScript -->
+        <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+        <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
 
-    <div id="page-wrapper">
-      <!-- <div class="table-responsive"> -->
-      <div style="padding: 10px">
-        <!-- per deixar un espai -->
-      </div>
-      <table class="table display" id="pollListTable" cellspacing="0" width="100%">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Deadline</th>
-          </tr>
-        </thead>
-        <tbody id="pollListContent">
-        </tbody>
-      </table>
-      <!-- </div> -->
-    </div>
-    <!-- /#page-wrapper -->
-
-  </div>
-  <!-- /#wrapper -->
-
-  <!-- jQuery -->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-
-  <!-- Bootstrap Core JavaScript -->
-  <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-
-  <!-- Metis Menu Plugin JavaScript -->
-  <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-
-  <!-- DataTables JavaScript -->
-  <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-  <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
-
-  <!-- Custom Theme JavaScript -->
-  <script src="../dist/js/sb-admin-2.js"></script>
-  <script src="js/navbar.js">  </script>
-  <script>
-
-    $("#navbar").load("navbar.html");
-    var xhrAux = new XMLHttpRequest();
-    xhrAux.open('GET', '/api/users/current');
-    xhrAux.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhrAux.onload = function () {
-      initNavBar(JSON.parse(xhrAux.response));
-    }
-    xhrAux.send();
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/api/polls');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function () {
-        var pollList = JSON.parse(xhr.responseText);
-        /*if (result.status!='0'){
-            setCookie('profile',"",1);
-            setCookie('idtoken',"",1);
-            error('Error',result.message,goLogin);
-            return 0;
-        }*/
-        //console.log(result);
-        for (var i in pollList) {
-          //alert(JSON.stringify(pollList[i]))
-          var poll = pollList[i];
-          var id = poll._id;
-          var name = poll.pollName;
-          var date_ms = poll.pollDeadline * 1000;
-          //crea una nova fila amb el nom i la deadline
-          var row = $('<tr><td>' + name + '</td><td>' + date_ms.toString() + '</td></tr>')
-            .attr('id', 'poll' + id) //afegeix link a la fila
-            .css('cursor', 'pointer');
-          if (poll.state == 'closed') {
-            row.css('background-color', 'White')
-              .hover(function () {
-                $(this).css('background-color', '#e5e5e5').find('td').css('text-decoration', 'underline');
-              }, function () {
-                $(this).css('background-color', 'White').find('td').css('text-decoration', 'none');
-              })
-              .click(function () {
-                window.location = DOMAIN + '/results.html?id=' + $(this).attr('id').substr(4);
-              });
-          }
-          else if (poll.state == 'closed_hidden') {
-            row.css('background-color', '#d5d5d5')
-              .hover(function () {
-                $(this).css('background-color', '#c5c5c5').find('td').css('text-decoration', 'underline');
-              }, function () {
-                $(this).css('background-color', '#d5d5d5').find('td').css('text-decoration', 'none');
-              })
-              .click(function () {
-                window.location = DOMAIN + '/results.html?id=' + $(this).attr('id').substr(4);
-              });
-          }
-          else {
-            row.css('background-color', '#B7E797')
-              .hover(function () {
-                $(this).css('background-color', '#a4cf87').find('td').css('text-decoration', 'underline');
-              }, function () {
-                $(this).css('background-color', '#B7E797').find('td').css('text-decoration', 'none');
-              })
-              .click(function () {
-                window.location = DOMAIN + '/poll.html?id=' + $(this).attr('id').substr(4);
-              });
-          }
-
-
-          $('#pollListContent').append(row); //afegeix fila a la taula
-        }
-
-
-        var table = $('#pollListTable').DataTable({
-          "order": [[1, "desc"]],//ordena per DL
-          stateSave: true,
-          "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-            //canvia la data a un string, no es fa abans perque aixi quan li dones a ordenar ho fa per els milisegons i no per el string de la data
-            var date = new Date(parseInt(aData[1])/1000);
-            $('td:eq(1)', nRow).html(date.toLocaleString().slice(0, -3));
-          },
-          "aoColumns": [{ "bSearchable": true }, { "bSearchable": false }]
-        });
-
-        $(':root').keydown(function (e) {
-          if (e.keyCode == 13) { //enter
-            var trToClick = $('#pollListContent').find('tr:nth-child(1)');
-            if (trToClick.exists()) trToClick.click();
-          }
-        });
-    };
-    xhr.send();
-  </script>
-
-</body>
-
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
+        <script src="js/navbar.js"></script>
+        <script src="index.js"></script>
+    </body>
 </html>

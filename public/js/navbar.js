@@ -27,14 +27,14 @@ function success(title, message, f) {
 function goHome() {
     setTimeout(function () {
 
-        window.location = DOMAIN + '/index.html';
+        window.location = '/index.html';
 
     }, 500);
 }
 function goLogin() {
     setTimeout(function () {
 
-        window.location = DOMAIN + '/login.html';
+        window.location = '/login.html';
 
     }, 500);
 }
@@ -167,3 +167,4 @@ function initNavBar(profile) {
         window.location.href = 'http://www.youtube.com/watch?v=dQw4w9WgXcQ';
     }
 }
+

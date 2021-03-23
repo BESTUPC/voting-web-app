@@ -1,7 +1,10 @@
 <!-- Navigation -->
 <head xmlns:display="http://www.w3.org/1999/xhtml" xmlns:display="http://www.w3.org/1999/xhtml">
   <meta name="google-signin-client_id" content="260328757466-cmmgec2o5sfm626bl33o5h1dekrmvfir">
+  <script src="./vendor/jquery/jquery.min.js"></script>
+
   <script src="js/url.js"> </script>
+
 </head>
 <style id="page-wrapper-style">
     @media (min-width: 768px) { #page-wrapper { margin: 0 0 0 0px; }  }
@@ -49,7 +52,7 @@
               <span class="pull-right text-muted" id="membership" style="display:block">
               </span>
             </div>
-            <button type="button" class="btn btn-primary" onclick="location.href='/auth/logout'">Sign out</button>
+            <button id="signout" type="button" class="btn btn-primary">Sign out</button>
           </a>
         </li>
       </ul>

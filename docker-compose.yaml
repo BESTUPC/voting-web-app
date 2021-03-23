@@ -24,6 +24,7 @@ services:
       - COOKIE_KEY1=key1
       - COOKIE_KEY2=key2
       - ROOT_DIR=./
+      - NODE_ENV=prod
   mongo:
     image: mongo
     networks:

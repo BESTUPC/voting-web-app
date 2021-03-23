@@ -36,15 +36,19 @@ export default class Database {
      * Connect to the database.
      */
     public static async connect(): Promise<boolean> {
+        const auth =
+            process.env.NODE_ENV === 'dev'
+                ? {}
+                : {
+                      user: process.env.MONGO_USER,
+                      password: process.env.MONGO_PASSWORD,
+                  };
         try {
             this._client = await MongoClient.connect(process.env.MONGO_URI, {
                 useUnifiedTopology: true,
                 connectTimeoutMS: parseInt(process.env.MONGO_TIMEOUT),
                 serverSelectionTimeoutMS: parseInt(process.env.MONGO_TIMEOUT),
-                auth: {
-                    user: process.env.MONGO_USER,
-                    password: process.env.MONGO_PASSWORD,
-                },
+                ...auth,
             });
             await this.createIndexes();
             return true;
