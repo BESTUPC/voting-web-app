@@ -1,198 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
 
-<head>
+        <title>WebApp Votacions BEST Barcelona</title>
+        <base href="/" />
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        <!-- Bootstrap Core CSS -->
+        <link
+            href="../vendor/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
 
-    <title>WebApp Votacions BEST Barcelona</title>
+        <!-- MetisMenu CSS -->
+        <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet" />
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="../dist/css/sb-admin-2.css" rel="stylesheet" />
 
-    <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <!-- DataTables CSS -->
+        <link
+            href="../vendor/datatables-plugins/dataTables.bootstrap.css"
+            rel="stylesheet"
+        />
 
-    <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link
+            href="../vendor/font-awesome/css/font-awesome.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
 
-    <!-- DataTables CSS -->
-    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+        <link rel="icon" type="image/png" href="../images/BEST_logomark.png" />
+    </head>
 
-    <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <body>
+        <div id="wrapper">
+            <!-- Navigation -->
+            <div data-include="navbar"></div>
 
-    <link rel="icon" type="image/png" href="../images/BEST_logomark.png">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-
-</head>
-
-<body>
-
-    <div id="wrapper">
-
-        <!-- Navigation -->
-        <div id="navbar"></div>
-
-        <div id="page-wrapper">
-
-            <div style="padding: 10px"></div> <!-- per deixar un espai -->
-            <div class="container">
-                <div class="modal fade" id="errorModal" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header" id=header-box-errorModal>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title" id="modal-title-text">Error</h4>
-                            </div>
-                            <div class="modal-body" id=body-box-errorModal>
-                                <p id="modal-text"></p>
-                            </div>
-                            <div class="modal-footer" id=footer-box-errorModal>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div id="page-wrapper">
+                <div style="padding: 10px"></div>
+                <!-- per deixar un espai -->
+                <div class="container">
+                    <div class="modal fade" id="errorModal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div
+                                    class="modal-header"
+                                    id="header-box-errorModal"
+                                >
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                    >
+                                        &times;
+                                    </button>
+                                    <h4
+                                        class="modal-title"
+                                        id="modal-title-text"
+                                    >
+                                        Error
+                                    </h4>
+                                </div>
+                                <div
+                                    class="modal-body"
+                                    id="body-box-errorModal"
+                                >
+                                    <p id="modal-text"></p>
+                                </div>
+                                <div
+                                    class="modal-footer"
+                                    id="footer-box-errorModal"
+                                >
+                                    <button
+                                        type="button"
+                                        class="btn btn-default"
+                                        data-dismiss="modal"
+                                    >
+                                        Close
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <table
+                    class="table display"
+                    id="usersTable"
+                    cellspacing="0"
+                    width="100%"
+                >
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Member</th>
+                            <th>Full</th>
+                            <th>Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <p id="text"></p>
             </div>
-
-            <table class="table display" id="usersTable" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Member</th>
-                        <th>Full</th>
-                        <th>Admin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-
-            <p id="text"> </p>
+            <!-- /#page-wrapper -->
         </div>
-        <!-- /#page-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+        <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+        <!-- DataTables JavaScript -->
+        <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+        <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
-    <!--
-<script>
-    if (getCookie("idtoken") == ""){
-        window.location = DOMAIN + "/login.html";
-    }
-    else{
-        //alert(getCookie("idtoken"))
-    }
-</script>
-
-<script>
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-            console.log('User signed out.');
-        });
-    }
-</script>
--->
-    <script src="js/navbar.js">  </script>
-    <script>
-
-        $("#navbar").load("navbar.html");
-        var xhrAux = new XMLHttpRequest();
-        xhrAux.open('GET', '/api/users/current');
-        xhrAux.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhrAux.onload = function () {
-            console.log(xhrAux.response)
-            initNavBar(JSON.parse(xhrAux.response));
-        }
-        xhrAux.send();
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/api/users');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function () {
-            users = JSON.parse(xhr.responseText);
-            for (i in users) {
-                user = users[i];
-                var id = user.userId;
-                var name = user.name;
-                var email = user.email;
-                var membership = user.membership;
-                var member = '';
-                var full = '';
-                var admin = '';
-                for (i in membership) {
-                    if (membership[i] == 'member') member = 'member';
-                    if (membership[i] == 'full') full = 'full';
-                    if (membership[i] == 'admin') admin = 'admin';
-                }
-                //crea una nova fila amb el nom i la deadline
-                var row = $('<tr><td>' + name + '</td><td>' + email + '</td><td>' + member + '</td><td>' + full + '</td><td>' + admin + '</td></tr>')
-                    .attr('id', 'poll' + id) //afegeix link a la fila
-                    .click(function () {
-                        window.location = DOMAIN + '/user.html?id=' + $(this).attr('id').substr(4);
-                    })
-                    .css('cursor', 'pointer')
-                    .hover(function () {
-                        $(this).css('background-color', '#eff0f1').find('td').css('text-decoration', 'underline');
-                    }, function () {
-                        $(this).css('background-color', '#ffffff').find('td').css('text-decoration', 'none');
-                    });
-                $('#usersTable tbody').append(row); //afegeix fila a la taula
-            }
-
-            var table = $('#usersTable').DataTable({
-                //            "order": [[1,"desc"]],
-                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                    var isMember = aData[2] == 'member';
-                    var isFull = aData[3] == 'full';
-                    var isAdmin = aData[4] == 'admin';
-                    $('td:eq(2)', nRow).html(isMember ? '<i class="fa fa-check"></i>' : '<i class="fa fa-close"></i>');
-                    $('td:eq(3)', nRow).html(isFull ? '<i class="fa fa-check"></i>' : '<i class="fa fa-close"></i>');
-                    $('td:eq(4)', nRow).html(isAdmin ? '<i class="fa fa-check"></i>' : '<i class="fa fa-close"></i>');
-                    //                $('td:eq(2)', nRow).html('hola')
-                }
-            });
-        };
-        xhr.send();
-        $(':root').keydown(function (e) {
-            if (e.keyCode == 13) { //enter
-                var trToClick = $('#usersTable').find('tr:nth-child(1)');
-                if (trToClick.exists()) trToClick.click();
-            }
-        });
-    </script>
-
-
-</body>
-
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
+        <script src="js/navbar.js"></script>
+        <script src="users.js"></script>
+    </body>
 </html>

@@ -3,7 +3,8 @@ var DOMAIN = 'https://localhost:3000';
 
 function signOut() {
     console.log('Fuck');
-    location.href = '/auth/logout';
+    window.location = '/auth/logout';
+
 }
 
 $('#signout').click(function () {
@@ -11,9 +12,3 @@ $('#signout').click(function () {
 });
 
 // clickme.js
-$(document).ready(function(){
-    // jQuery will wait until the document is loaded
-    // before executing code inside here
-
-    signOut();
-});
