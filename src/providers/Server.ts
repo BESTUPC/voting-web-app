@@ -61,10 +61,6 @@ export default class Server {
      * Configures the file serving and the api route.
      */
     private _mountRoutes(): void {
-        this.server.use(
-            '/',
-            express.static(path.join(process.env.ROOT_DIR, 'public')),
-        );
         this.server.use('/api', new MasterRouter().router);
     }
 
