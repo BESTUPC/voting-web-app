@@ -1,12 +1,3 @@
-node_modules
-dist
-coverage
-logs
-.nyc_output
-cert.pem
-chain.pem
-googlecredentials.pswd
-privkey.pem
 .yarn/*
 !.yarn/cache
 !.yarn/patches
@@ -14,3 +5,4 @@ privkey.pem
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+node_modules

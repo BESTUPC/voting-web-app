@@ -2,7 +2,6 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import helmet from 'helmet';
 import https from 'https';
-import path from 'path';
 import { ICertificates } from '../interfaces/ICertificates';
 import MasterRouter from '../routers/MasterRouter';
 import ErrorHandler from '../utils/ErrorHandler';
