@@ -30,6 +30,16 @@ export default class Server {
      */
     private _mountMiddlewares(): void {
         this.server.use(helmet());
+        this.server.use(
+            helmet.contentSecurityPolicy({
+                directives: {
+                    defaultSrc: ["'self'"],
+                    scriptSrc: ["'self'", 'cdn.jsdelivr.net'],
+                    styleSrc: ["'self'", 'cdn.jsdelivr.net'],
+                    fontSrc: ["'self'", 'cdn.jsdelivr.net'],
+                },
+            }),
+        );
         this.server.use(function (_req, res, next) {
             res.header('Access-Control-Allow-Origin', '*');
             res.header(
@@ -61,10 +71,6 @@ export default class Server {
      * Configures the file serving and the api route.
      */
     private _mountRoutes(): void {
-        this.server.use(
-            '/',
-            express.static(path.join(process.env.ROOT_DIR, 'public')),
-        );
         this.server.use('/api', new MasterRouter().router);
     }
 
@@ -107,6 +113,10 @@ export default class Server {
      */
     public configure(): boolean {
         try {
+            this.server.use(
+                '/',
+                express.static(path.join(process.env.ROOT_DIR, 'public')),
+            );
             this._mountMiddlewares();
             this._mountRoutes();
             return true;
