@@ -12,73 +12,29 @@
             integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
             crossorigin="anonymous"
         />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/datatables.min.css"
+        />
         <link href="css/navbar.css" rel="stylesheet" />
+        <link href="css/index.css" rel="stylesheet" />
     </head>
     <body>
-        <div class="collapse" id="navbarToggleExternalContent">
-            <div class="d-flex bg-dark p-4">
-                <h5 class="text-white h4">Collapsed content</h5>
-                <span class="text-muted">Toggleable via the navbar brand.</span>
-            </div>
-        </div>
-        <nav class="navbar navbar-light bg-light">
-            <div class="container-fluid">
-                <div>
-                    <img
-                        src="images/BEST_LOGO.svg"
-                        style="height: 50px; margin: 2px; margin-right: 8px"
-                    />
-                    <h class="title">WebApp Votacions</h>
-                </div>
-                <div class="d-flex">
-                    <div class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            id="navbarDropdownMenuLink"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            <img src="images/BEST_LOGO.svg" style="height: 50px;" />
-                        </a>
-                        <ul
-                            class="dropdown-menu"
-                            aria-labelledby="navbarDropdownMenuLink"
-                        >
-                            <li>
-                                <a class="dropdown-item" href="#">Action</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                    >Another action</a
-                                >
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                    >Something else here</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
-                    <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarToggleExternalContent"
-                        aria-controls="navbarToggleExternalContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-            </div>
-        </nav>
-        <div
-            class="d-flex flex-column justify-content-center align-items-center"
-        >
-            <h6>Hello</h6>
+        <div id="navbar"></div>
+        <div class="d-flex flex-column justify-content-center m-5">
+            <table
+                class="table responsive nowrap hover"
+                id="pollListTable"
+                width="100%"
+            >
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Deadline</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
 
         <script
@@ -86,6 +42,11 @@
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
             crossorigin="anonymous"
         ></script>
-        <script src="js/login.js"></script>
+        <script
+            type="text/javascript"
+            src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/datatables.min.js"
+        ></script>
+        <script src="js/index.js"></script>
+        <script src="js/navbar.js"></script>
     </body>
 </html>
