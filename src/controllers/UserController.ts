@@ -3,6 +3,7 @@ import { UserUpdateMembershipDTO } from '../dtos/UserUpdateMembershipDTO';
 import { EMembership, isIGoogleUser, IUser } from '../interfaces/IUser';
 import UserModel from '../models/UserModel';
 import ErrorHandler from '../utils/ErrorHandler';
+import Logger from '../utils/Logger';
 
 /**
  * Controller for the user-related calls. It handles all the logic between routing and the database access.
