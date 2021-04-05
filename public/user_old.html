@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WebApp Votacions BEST Barcelona</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <!--<link href="../vendor/morrisjs/morris.css" rel="stylesheet">-->
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="icon" type="image/png" href="../images/BEST_logomark.png">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <div id="navbar"></div>
+
+        <div id="page-wrapper">
+
+            <div class="row page-header" style="margin-top: 0">
+                <div class="col-lg-12">
+                    <h1 id="name"></h1>
+                </div>
+                <p class="col-lg-12 text-muted" id="email">
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-lg-5" id="memberships">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5" style="text-align: right">
+                    <button type="button" id="apply" class="btn btn-primary btn-lg" style="margin: 10px">Apply
+                        changes</button>
+                </div>
+            </div>
+
+            <p id="text"> </p>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../vendor/raphael/raphael.min.js"></script>
+    <!--<script src="../vendor/morrisjs/morris.min.js"></script>-->
+    <!--<script src="../data/morris-data.js"></script>-->
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!--
+<script>
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+</script>
+-->
+    <script src="js/navbar.js">  </script>
+    <script>
+        $("#navbar").load("navbar.html");
+
+        var xhrAux = new XMLHttpRequest();
+        xhrAux.open('GET', '/api/users/current');
+        xhrAux.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhrAux.onload = function () {
+            initNavBar(JSON.parse(xhrAux.response));
+        }
+        xhrAux.send();
+
+        var id = gup('id');
+
+
+        var xhr = new XMLHttpRequest();
+        let url = '/api/users/' + id;
+        xhr.open('GET', url);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            if (xhr.status != 200) {
+                error('Error ' + xhr.status, xhr.responseText, goHome);
+                return 0;
+            }
+            var response = JSON.parse(xhr.responseText);
+            //error loop surt aqui
+            /*if (response.status != '0') {
+                setCookie('profile',"",1);
+                setCookie('idtoken',"",1);
+                error('Error',response.message,function (){});
+                return 0;
+            }*/
+            var membership = response.membership; //get membership
+            $('#name').text(response.name); //add name to html
+            $('title').text(response.name); //add name to page name
+            $('#email').text(response.email); //add email to html
+            var possibleMemberships = ['member', 'full', 'admin']; //list of memberships the user doesn't have, will be updated in next for
+            membership.sort(); //sort memberships
+            for (i in possibleMemberships) {
+                var role = possibleMemberships[i];
+                //item is the div where the current role will be showed
+                //var item=$('<div class="well" style="overflow:hidden; padding:10px"><h4 style="display:inline; margin-top: 15px; margin-bottom: 15px">Normal Well</h4><button type="button" class="btn btn-danger btn-circle btn-lg pull-right"><i class="fa fa-trash"></i></button></div>');
+                var item = $('<button type="button" class="btn btn-default btn-lg btn-block no-focus    " style="text-align: left"><div class="btn btn-default btn-circle"><i class=""></i></div></button>') //create button for this poll option
+                    .append(' ' + role) //add text to item
+                    .attr('id', role)        //add an id (needed for the button)
+                    .click(function () { //when the admin clicks on the delete button
+                        $(this).blur();
+                        var roleClicked = $(this).parent().attr('id'); //get role from id
+                        if ($(this).hasClass('btn-primary')) {
+                            $(this).removeClass('btn-primary').addClass('btn-default'); //change its color
+                            $(this).find('i').removeClass('fa fa-check'); //remove its check icon
+                        }
+                        else {
+                            $(this).removeClass('btn-default').addClass('btn-primary');//change color to primary
+                            $(this).find('i').addClass('fa fa-check'); //add check icon
+                        }
+                        //alert(membership);
+                    });
+                $('#memberships').append(item);
+                if (membership.indexOf(role) != -1) item.click();
+            }
+            $('#apply').click(function () {
+                $(this).blur()
+                var possibleMemberships = ['member', 'full', 'admin'];
+                var newMembership = ['all'];
+                for (i in possibleMemberships) {
+                    role = possibleMemberships[i];
+                    var item = $('#memberships').find('[id=' + role + ']');
+                    if (item.hasClass('btn-primary')) newMembership.push(role);
+                }
+                //alert(newMembership);
+
+                var xhrApply = new XMLHttpRequest();
+                let url1 = '/api/users/membership/' + id;
+                xhrApply.open('PATCH', url1);
+                xhrApply.setRequestHeader('Content-Type', 'application/json');
+                xhrApply.onload = function () {
+                    res = JSON.parse(xhrApply.responseText);
+                    if (xhrApply.status != 200) {
+                        error('Error ' +  xhrApply.status, xhrApply.responseText, goHome);
+                        return 0;
+                    }
+                    else success('Success', 'Membership changed successfully', goHome);
+                };
+                xhrApply.send(JSON.stringify({membership:newMembership}));
+            });
+
+        };
+        xhr.send();
+
+        $(':root').keydown(function (e) {
+            //alert(e.keyCode)
+            if (e.keyCode >= 48 && e.keyCode <= 57) { //number
+                var pressedNumber = e.keyCode - 48;
+                var buttonToClick = $('#memberships').find('button:nth-child(' + pressedNumber + ')');
+                if (buttonToClick.exists()) buttonToClick.click();
+            }
+            if (e.keyCode == 13) { //enter
+                $('#apply').click();
+            } //TODO MAYBE: Numeros per seleccionar vot
+        });
+        function goHome() {
+            window.location = DOMAIN + '/users.html';
+        }
+    </script>
+
+
+</body>
+
+</html>

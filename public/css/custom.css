@@ -7,3 +7,10 @@ a:hover {
 .even:hover {
     cursor: pointer;
 }
+
+#homeTitle:hover {
+    cursor: pointer;
+}
+.title {
+    color: gray;
+}
