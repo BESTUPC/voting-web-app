@@ -1,19 +1,16 @@
-function userRequestListener() {
+function createRequestListener() {
     if (this.readyState === 4 && this.status === 200) {
         try {
             var response = JSON.parse(this.responseText);
-            $('#name').text(response.name); //add name to html
-            $('title').text(response.name); //add name to page name
-            $('#email').text(response.email); //add email to html
-            var membershipList = response.membership; //get membership
-            var checkedMember = membershipList.includes('member')
-                ? 'on'
-                : 'off';
-            var checkedFull = membershipList.includes('full') ? 'on' : 'off';
-            var checkedAdmin = membershipList.includes('admin') ? 'on' : 'off';
-            $('#member').bootstrapToggle(checkedMember);
-            $('#full').bootstrapToggle(checkedFull);
-            $('#admin').bootstrapToggle(checkedAdmin);
+            if (response) {
+                showModal('Success', 'Poll created without issue', false);
+            } else {
+                showModal(
+                    'Error',
+                    'There was some issue creating the poll',
+                    false,
+                );
+            }
         } catch {
             showModal(
                 'Error',
@@ -63,20 +60,37 @@ function removeColumn(reference) {
 }
 
 function addColumn(reference) {
-    $(reference).click(function () {
-        removeColumn(reference);
-    });
-    var newColumn = $(reference).parent().clone();
-    newColumn.find('.form-control')[0].value = '';
-    newColumn.appendTo('#options');
-    var thisColumn = $(reference).parent();
-    thisColumn.find('.form-control')[0].disabled = true;
-    thisColumn[0].classList.add('removable');
-    thisColumn.find('.fa')[0].classList.remove('fa-plus');
-    thisColumn.find('.fa')[0].classList.add('fa-close');
-    thisColumn.find('.btn').click(function () {
-        addColumn(reference);
-    });
+    if ($(reference).parent().find('.form-control')[0].value === '') {
+        $(reference)
+            .parent()[0]
+            .classList.add('animate__animated', 'animate__shakeX');
+        $(reference)
+            .parent()[0]
+            .addEventListener('animationend', () => {
+                $(reference)
+                    .parent()[0]
+                    .classList.remove('animate__animated', 'animate__shakeX');
+            });
+    } else {
+        $(reference).unbind();
+        var newColumn = $(reference).parent().clone();
+        newColumn.find('.form-control')[0].value = '';
+        newColumn.find('.form-control')[0].placeholder = 'New Option';
+        newColumn[0].classList.remove('animate__animated', 'animate__shakeX');
+        newColumn.appendTo('#options');
+        newColumn.find('.btn').click(function () {
+            addColumn(this);
+        });
+        var thisColumn = $(reference).parent();
+        thisColumn.find('.form-control')[0].disabled = true;
+        thisColumn[0].classList.add('removable');
+        thisColumn[0].classList.remove('addable');
+        thisColumn.find('.fa')[0].classList.remove('fa-plus');
+        thisColumn.find('.fa')[0].classList.add('fa-close');
+        $(reference).click(function () {
+            removeColumn(reference);
+        });
+    }
 }
 
 var globalVarsUser = {
@@ -91,29 +105,49 @@ $(document).ready(function () {
         .click(function () {
             removeColumn(this);
         });
-    $('#add')
+    $('.addable')
         .find('.btn')
         .click(function () {
             addColumn(this);
         });
-    $('#apply').click(function () {
-        var applyRequest = new XMLHttpRequest();
-        applyRequest.addEventListener('load', applyRequestListener);
-        applyRequest.open('PATCH', '/api/users/membership/' + id);
-        applyRequest.setRequestHeader('Content-Type', 'application/json');
-        var membership = ['all'];
-        if ($('#member').prop('checked')) {
-            membership.push('member');
+    $('#create').click(function () {
+        var isPriority = $('#priority')[0].checked;
+        var isPrivate = $('#private')[0].checked;
+        var pollName = $('#title')[0].value;
+        if (pollName === '') {
+            showModal('Error', 'The poll name can not be empty', false);
+            return;
         }
-        if ($('#admin').prop('checked')) {
-            membership.push('admin');
+        var description = $('#description')[0].value;
+        var targetGroup = $('#target')[0].value;
+        var deadline = new Date($('#datetime')[0].value);
+        if ($('#datetime')[0].value === '') {
+            showModal('Error', 'The deadline should be set', false);
+            return;
         }
-        if ($('#full').prop('checked')) {
-            membership.push('full');
+        var pollDeadline = deadline.getTime();
+        var optionElements = $('.removable').find('.form-control');
+        var pollOptions = [];
+        for (opt of optionElements) {
+            pollOptions.push(opt.value);
+        }
+        if (pollOptions.length < 2) {
+            showModal('Error', 'There should be at least 2 options', false);
+            return;
         }
         var body = {
-            membership,
+            isPriority,
+            isPrivate,
+            pollDeadline,
+            targetGroup,
+            pollOptions,
+            description,
+            pollName,
         };
-        applyRequest.send(JSON.stringify(body));
+        var createRequest = new XMLHttpRequest();
+        createRequest.addEventListener('load', createRequestListener);
+        createRequest.open('POST', '/api/polls');
+        createRequest.setRequestHeader('Content-Type', 'application/json');
+        createRequest.send(JSON.stringify(body));
     });
 });
