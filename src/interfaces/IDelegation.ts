@@ -8,12 +8,3 @@ export interface IDelegation {
     userIdDelegator: string;
     userIdReceiver: string;
 }
-
-/**
- * Typeguard for [[IDelegation]].
- * @param x object to check.
- */
-export function isIDelegation(x: unknown): x is IDelegation {
-    const y: IDelegation = x as IDelegation;
-    return y.userIdDelegator !== undefined && y.userIdReceiver !== undefined;
-}

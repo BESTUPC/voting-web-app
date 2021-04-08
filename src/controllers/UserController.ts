@@ -1,6 +1,7 @@
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
+import { UserCreateDTO } from '../dtos/UserCreateDTO';
 import { UserUpdateMembershipDTO } from '../dtos/UserUpdateMembershipDTO';
-import { EMembership, isIGoogleUser, IUser } from '../interfaces/IUser';
+import { EMembership, IGoogleUser, IUser } from '../interfaces/IUser';
 import UserModel from '../models/UserModel';
 import ErrorHandler from '../utils/ErrorHandler';
 
@@ -45,16 +46,17 @@ export default class UserController {
      * @throws Error 400 if the body is not a valid user.
      */
     public static async addUser(body: unknown): Promise<boolean> {
-        if (!isIGoogleUser(body)) {
-            throw new ErrorHandler(400, 'Bad request body');
-        }
+        const googleUser: IGoogleUser = await validatorGeneric<UserCreateDTO>(
+            UserCreateDTO,
+            body,
+        );
         const newUser: IUser = {
-            userId: body.id,
+            userId: googleUser.id,
             email:
-                Array.isArray(body.emails) && body.emails.length > 0
-                    ? body.emails[0].value
+                Array.isArray(googleUser.emails) && googleUser.emails.length > 0
+                    ? googleUser.emails[0].value
                     : 'notAvailable',
-            name: body.displayName,
+            name: googleUser.displayName,
             membership: [EMembership.ALL],
         };
         return UserModel.add(newUser);

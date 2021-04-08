@@ -49,13 +49,16 @@ function showModal(title, message, logOut) {
             keyboard: false,
         },
     );
-    if (logOut) {
-        document
-            .getElementById('infoModal')
-            .addEventListener('hidden.bs.modal', function (event) {
+    document
+        .getElementById('infoModal')
+        .addEventListener('hidden.bs.modal', function (event) {
+            if (logOut) {
                 window.location.href = '/auth/logout';
-            });
-    }
+            } else {
+                window.location.reload();
+            }
+        });
+
     modalBootstrap.show();
 }
 

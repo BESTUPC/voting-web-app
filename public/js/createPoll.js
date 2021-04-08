@@ -36,25 +36,6 @@ var globalVarsNav = {
     membershipList: [],
 };
 
-function showModal(title, message, logOut) {
-    document.getElementById('infoModalTitle').innerHTML = title;
-    document.getElementById('infoModalBody').innerHTML = message;
-    var modalBootstrap = new bootstrap.Modal(
-        document.getElementById('infoModal'),
-        {
-            keyboard: false,
-        },
-    );
-    if (logOut) {
-        document
-            .getElementById('infoModal')
-            .addEventListener('hidden.bs.modal', function (event) {
-                window.location.href = '/auth/logout';
-            });
-    }
-    modalBootstrap.show();
-}
-
 function removeColumn(reference) {
     $(reference).parent().remove();
 }

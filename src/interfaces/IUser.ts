@@ -17,16 +17,7 @@ export interface IUser {
 export interface IGoogleUser {
     id: string;
     displayName: string;
-    emails?: Array<{ value: string; type?: string }>;
-}
-
-/**
- * Typeguard for [[IGoogleUser]].
- * @param x object to check.
- */
-export function isIGoogleUser(x: unknown): x is IGoogleUser {
-    const y: IGoogleUser = x as IGoogleUser;
-    return y.id !== undefined && y.displayName !== undefined;
+    emails?: Array<{ value: string }>;
 }
 
 /**

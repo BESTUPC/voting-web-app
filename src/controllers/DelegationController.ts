@@ -57,10 +57,15 @@ export default class DelegationController {
         userId3: string,
     ): Promise<boolean> {
         if (
-            (await UserController.isAdmin(userId1)) &&
-            !(await DelegationModel.find(userId2)) &&
-            !(await DelegationModel.find(userId3))
+            (await DelegationModel.find(userId2)) &&
+            (await DelegationModel.find(userId3))
         ) {
+            throw new ErrorHandler(
+                409,
+                'The delegation already exists or would cause a circular delegation',
+            );
+        }
+        if (await UserController.isAdmin(userId1)) {
             return DelegationModel.add(userId2, userId3);
         } else {
             throw new ErrorHandler(
