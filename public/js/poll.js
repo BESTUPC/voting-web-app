@@ -27,16 +27,40 @@ function getDelegationsRequestListener() {
     if (this.readyState === 4 && this.status === 200) {
         var response = JSON.parse(this.responseText);
         console.log(response);
-        for (delegation of response) {
-            $('#voter').append(
-                '<option value="' +
-                    delegation.userIdDelegator +
-                    '">' +
-                    delegation.userIdDelegator +
-                    '</option>',
-            );
-        }
-        $('.selectpicker').selectpicker('refresh');
+        var getUsersDelegatedRequest = new XMLHttpRequest();
+        getUsersDelegatedRequest.addEventListener('load', function () {
+            if (
+                getUsersDelegatedRequest.readyState === 4 &&
+                getUsersDelegatedRequest.status === 200
+            ) {
+                var users = JSON.parse(getUsersDelegatedRequest.responseText);
+                for (delegation of response) {
+                    var delegatorUser = users.find(
+                        (user) => user.userId === delegation.userIdDelegator,
+                    );
+                    console.log(delegatorUser);
+                    $('#voter').append(
+                        '<option value="' +
+                            delegation.userIdDelegator +
+                            '">' +
+                            delegatorUser.name +
+                            '</option>',
+                    );
+                }
+                $('#voter').append(
+                    '<option selected style="" value="' +
+                        globalVarsNav.userId +
+                        '">' +
+                        'Current User' +
+                        '</option>',
+                );
+                $('.selectpicker').selectpicker('refresh');
+            } else {
+                showModal('Error', "We couldn't get the users", false);
+            }
+        });
+        getUsersDelegatedRequest.open('GET', '/api/users');
+        getUsersDelegatedRequest.send();
     } else {
         showModal('Error', "We couldn't get the delegations", false);
     }
@@ -50,10 +74,6 @@ function applyRequestListener() {
         showModal('Error', "We couldn't update the memberships", false);
     }
 }
-
-var globalVarsNav = {
-    membershipList: [],
-};
 
 function removeColumn(reference) {
     $(reference).parent().remove();
@@ -107,10 +127,6 @@ function getUsersDelegatedRequestListener() {
     }
 }
 
-var globalVarsUser = {
-    id: '',
-};
-
 $(document).ready(function () {
     $('#navbar').load('navbar.html');
     $('#create').click(function () {
@@ -163,11 +179,4 @@ $(document).ready(function () {
         `/api/delegations/${globalVarsNav.userId}`,
     );
     getDelegationsRequest.send();
-    var getUsersDelegatedRequest = new XMLHttpRequest();
-    getUsersDelegatedRequest.addEventListener(
-        'load',
-        getUsersDelegatedRequestListener,
-    );
-    getUsersDelegatedRequest.open('GET', '/api/users');
-    getUsersDelegatedRequest.send();
 });

@@ -22,6 +22,18 @@ function createRequestListener() {
     }
 }
 
+function deleteRequestListener() {
+    if (this.readyState === 4 && this.status === 200) {
+        var response = JSON.parse(this.responseText);
+        if (response) showModal('Info', 'Delegation deleted', false);
+        else {
+            showModal('Error', "We couldn't delete the delegation", false);
+        }
+    } else {
+        showModal('Error', "We couldn't delete the delegation", false);
+    }
+}
+
 function getUsersRequestListener() {
     if (this.readyState === 4 && this.status === 200) {
         var response = JSON.parse(this.responseText);
@@ -77,7 +89,8 @@ $(document).ready(function () {
         createRequest.open('POST', `/api/delegations/${delegator}/${receiver}`);
         createRequest.send();
     });
-    $('#delegationListTable').DataTable({
+
+    var table = $('#delegationListTable').DataTable({
         ajax: {
             url: '/api/delegations',
             dataSrc: '',
@@ -103,6 +116,13 @@ $(document).ready(function () {
             getUsersDelegatedRequest.send();
         },
         aoColumns: [{ bSearchable: true }, { bSearchable: true }],
+    });
+    $('#delegationListTable tbody').on('click', 'tr', function () {
+        var data = table.row(this).data();
+        var deleteRequest = new XMLHttpRequest();
+        deleteRequest.addEventListener('load', deleteRequestListener);
+        deleteRequest.open('DELETE', `/api/delegations/${data._id}`);
+        deleteRequest.send();
     });
     var getUsersRequest = new XMLHttpRequest();
     getUsersRequest.addEventListener('load', getUsersRequestListener);

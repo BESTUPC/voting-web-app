@@ -74,10 +74,6 @@ function addColumn(reference) {
     }
 }
 
-var globalVarsUser = {
-    id: '',
-};
-
 $(document).ready(function () {
     $('#navbar').load('navbar.html');
 

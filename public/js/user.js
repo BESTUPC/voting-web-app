@@ -35,10 +35,6 @@ function applyRequestListener() {
     }
 }
 
-var globalVarsNav = {
-    membershipList: [],
-};
-
 var globalVarsUser = {
     id: '',
 };
