@@ -6,6 +6,7 @@ import VoteModel from '../models/VoteModel';
 import ErrorHandler from '../utils/ErrorHandler';
 import DelegationController from './DelegationController';
 import PollController from './PollController';
+import UserController from './UserController';
 
 /**
  * Controller for the poll-related calls. It handles all the logic between routing and the database access.
@@ -28,7 +29,6 @@ export default class VoteController {
         userId2: string,
         pollId: string,
     ): Promise<IVote> {
-        console.log(pollId);
         const poll: IPoll = await PollController.getPoll(userId1, pollId);
         if (poll.isPrivate && userId1 !== userId2) {
             throw new ErrorHandler(401, 'Not authorized to get this vote');
@@ -40,6 +40,28 @@ export default class VoteController {
                     `Vote from user ${userId2} on poll ${pollId} not found.`,
                 );
             return vote;
+        }
+    }
+
+    /**
+     * It deletes all votes to a particular poll.
+     *
+     * @param userId id of the user making the request.
+     * @param pollId id of the poll.
+     * @returns Returns the true if the votes could be deleted.
+     * @throws Error 401 if the user is not authorized to delete the votes.
+     */
+    public static async deleteVotesByPollId(
+        userId: string,
+        pollId: string,
+    ): Promise<boolean> {
+        if (UserController.isAdmin(userId)) {
+            throw new ErrorHandler(401, 'Not authorized to delete votes');
+        }
+        try {
+            return VoteModel.deleteByPollId(pollId);
+        } catch {
+            throw new ErrorHandler(500, 'Somethinge went wrong.');
         }
     }
 

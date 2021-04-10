@@ -6,6 +6,7 @@ function currentProfileRequestListener() {
             document.getElementById('profileImage').src = profileImageURL;
             var membershipList = response.web.membership;
             globalVarsNav.membershipList = membershipList;
+            globalVarsNav.userId = response.web.userId;
             var select = document.getElementById('membershipList');
             for (var i = 0; i < membershipList.length; i++) {
                 var opt = membershipList[i];
@@ -38,6 +39,7 @@ function currentProfileRequestListener() {
 
 var globalVarsNav = {
     membershipList: [],
+    userId: '',
 };
 
 function showModal(title, message, logOut) {

@@ -7,6 +7,7 @@ import { IUser } from '../interfaces/IUser';
 import ErrorHandler from '../utils/ErrorHandler';
 import PollModel from '../models/PollModel';
 import UserController from './UserController';
+import VoteController from './VoteController';
 
 /**
  * Controller for the poll-related calls. It handles all the logic between routing and the database access.
@@ -111,6 +112,7 @@ export default class PollController {
         if (await UserController.isAdmin(userId)) {
             const poll: IPoll = await PollModel.get(new ObjectId(_id));
             if (!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
+            VoteController.deleteVotesByPollId(userId, _id);
             return PollModel.delete(new ObjectId(_id));
         } else {
             throw new ErrorHandler(401, 'Only admins are authorized');

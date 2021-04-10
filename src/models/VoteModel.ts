@@ -14,10 +14,10 @@ export default class VoteModel {
     }
 
     /**
-     * Get the user.
+     * Get the vote.
      * @param userId googleId of the vote's user.
      * @param pollId id of the vote's poll.
-     * @returns Returns the requested poll or null if not found.
+     * @returns Returns the requested vote or null if not found.
      */
     public static async get(
         userId: string,
@@ -46,6 +46,19 @@ export default class VoteModel {
                 { upsert: true },
             )
         ).modifiedCount;
+        return updateCount == 1;
+    }
+
+    /**
+     * Delete the votes by poll id.
+     * @param pollId id of the vote's poll.
+     * @param option the option to set.
+     * @returns Returns true if deleted, false otherwise.
+     */
+    public static async deleteByPollId(pollId: string): Promise<boolean> {
+        const updateCount: number = (
+            await VoteModel._getCollection().deleteMany({ pollId })
+        ).deletedCount;
         return updateCount == 1;
     }
 }
