@@ -1,32 +1,23 @@
-function createRequestListener() {
+function sendVoteRequestListener() {
     if (this.readyState === 4 && this.status === 200) {
         try {
             var response = JSON.parse(this.responseText);
             if (response) {
-                showModal('Success', 'Poll created without issue', false);
+                showModal('Success', 'Vote updated', false);
             } else {
-                showModal(
-                    'Error',
-                    'There was some issue creating the poll',
-                    false,
-                );
+                showModal('Success', 'Vote option was already set', false);
             }
         } catch {
-            showModal(
-                'Error',
-                "We couldn't parse the user's information",
-                false,
-            );
+            showModal('Error', 'There was some issue sending the vote', false);
         }
     } else {
-        showModal('Error', "We couldn't access the user's information", false);
+        showModal('Error', 'There was some issue sending the vote', false);
     }
 }
 
 function getDelegationsRequestListener() {
     if (this.readyState === 4 && this.status === 200) {
         var response = JSON.parse(this.responseText);
-        console.log(response);
         var getUsersDelegatedRequest = new XMLHttpRequest();
         getUsersDelegatedRequest.addEventListener('load', function () {
             if (
@@ -34,27 +25,115 @@ function getDelegationsRequestListener() {
                 getUsersDelegatedRequest.status === 200
             ) {
                 var users = JSON.parse(getUsersDelegatedRequest.responseText);
-                for (delegation of response) {
-                    var delegatorUser = users.find(
-                        (user) => user.userId === delegation.userIdDelegator,
-                    );
-                    console.log(delegatorUser);
-                    $('#voter').append(
-                        '<option value="' +
-                            delegation.userIdDelegator +
-                            '">' +
-                            delegatorUser.name +
-                            '</option>',
-                    );
-                }
-                $('#voter').append(
-                    '<option selected style="" value="' +
-                        globalVarsNav.userId +
-                        '">' +
-                        'Current User' +
-                        '</option>',
-                );
-                $('.selectpicker').selectpicker('refresh');
+                var getPollRequest = new XMLHttpRequest();
+                getPollRequest.addEventListener('load', function () {
+                    if (
+                        getPollRequest.readyState === 4 &&
+                        getPollRequest.status === 200
+                    ) {
+                        var poll = JSON.parse(getPollRequest.responseText);
+                        var getVoteRequest = new XMLHttpRequest();
+                        getVoteRequest.addEventListener('load', function () {
+                            if (
+                                getVoteRequest.readyState === 4 &&
+                                (getVoteRequest.status === 200 ||
+                                    getVoteRequest.status === 404)
+                            ) {
+                                if (getVoteRequest.status === 200) {
+                                    var vote = JSON.parse(
+                                        getVoteRequest.responseText,
+                                    );
+                                    var optionSelected =
+                                        vote.option.length > 0
+                                            ? vote.option[0]
+                                            : '';
+                                } else {
+                                    var optionSelected = '';
+                                }
+                                $('#title').text(poll.pollName);
+                                $('#description').text(poll.description);
+                                $('#private').css({
+                                    display: poll.isPrivate ? 'unset' : 'none',
+                                });
+                                $('#priority').css({
+                                    display: poll.isPriority ? 'unset' : 'none',
+                                });
+                                for (var option of poll.pollOptions) {
+                                    var html = '';
+                                    if (option === optionSelected) {
+                                        html = `<div style="margin-bottom: 20px"><input
+                                                    type="radio"
+                                                    class="btn-check"
+                                                    name="options"
+                                                    id="${option}"
+                                                    value=${option}
+                                                    autocomplete="off"
+                                                    checked
+                                                />
+                                                <label class="btn btn-outline-primary" for="${option}"
+                                                    >${option}</label
+                                                ></div>`;
+                                    } else {
+                                        html = `<div style="margin-bottom: 20px"><input
+                                                    type="radio"
+                                                    class="btn-check"
+                                                    name="options"
+                                                    id="${option}"
+                                                    value=${option}
+                                                    autocomplete="off"
+                                                />
+                                                <label class="btn btn-outline-primary" for="${option}"
+                                                    >${option}</label
+                                                ></div>`;
+                                    }
+
+                                    $('#options').append(html);
+                                }
+                                for (delegation of response) {
+                                    var delegatorUser = users.find(
+                                        (user) =>
+                                            user.userId ===
+                                            delegation.userIdDelegator,
+                                    );
+                                    $('#voter').append(
+                                        '<option value="' +
+                                            delegation.userIdDelegator +
+                                            '">' +
+                                            delegatorUser.name +
+                                            '</option>',
+                                    );
+                                }
+                                $('#voter').append(
+                                    '<option selected style="" value="' +
+                                        globalVarsNav.userId +
+                                        '">' +
+                                        'Current User' +
+                                        '</option>',
+                                );
+                                $('.selectpicker').selectpicker('refresh');
+                            } else {
+                                showModal(
+                                    'Error',
+                                    "We couldn't get the vote",
+                                    false,
+                                );
+                            }
+                        });
+                        getVoteRequest.open(
+                            'GET',
+                            `/api/votes/${globalVarsNav.userId}/${globalVarsPoll.id}`,
+                        );
+                        getVoteRequest.send();
+                    } else {
+                        showModal(
+                            'Error',
+                            "We couldn't update the memberships",
+                            false,
+                        );
+                    }
+                });
+                getPollRequest.open('GET', `/api/polls/${globalVarsPoll.id}`);
+                getPollRequest.send();
             } else {
                 showModal('Error', "We couldn't get the users", false);
             }
@@ -127,47 +206,39 @@ function getUsersDelegatedRequestListener() {
     }
 }
 
+var globalVarsPoll = {
+    id: '',
+};
+
 $(document).ready(function () {
     $('#navbar').load('navbar.html');
-    $('#create').click(function () {
-        var isPriority = $('#priority')[0].checked;
-        var isPrivate = $('#private')[0].checked;
-        var pollName = $('#title')[0].value;
-        if (pollName === '') {
-            showModal('Error', 'The poll name can not be empty', false);
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    globalVarsPoll.id = urlParams.get('id');
+    $('#send').click(function () {
+        var selectedOption = $("input[name='options']:checked").val();
+        if (selectedOption === undefined) {
+            showModal('Error', 'An option should be selected', false);
             return;
         }
-        var description = $('#description')[0].value;
-        var targetGroup = $('#target')[0].value;
-        var deadline = new Date($('#datetime')[0].value);
-        if ($('#datetime')[0].value === '') {
-            showModal('Error', 'The deadline should be set', false);
-            return;
-        }
-        var pollDeadline = deadline.getTime();
-        var optionElements = $('.removable').find('.form-control');
-        var pollOptions = [];
-        for (opt of optionElements) {
-            pollOptions.push(opt.value);
-        }
-        if (pollOptions.length < 2) {
-            showModal('Error', 'There should be at least 2 options', false);
+        var voter = $('#voter').selectpicker('val');
+        if (voter === undefined) {
+            showModal('Error', 'A voter should be selected', false);
             return;
         }
         var body = {
-            isPriority,
-            isPrivate,
-            pollDeadline,
-            targetGroup,
-            pollOptions,
-            description,
-            pollName,
+            pollId: globalVarsPoll.id,
+            option: [selectedOption],
         };
-        var createRequest = new XMLHttpRequest();
-        createRequest.addEventListener('load', createRequestListener);
-        createRequest.open('POST', '/api/polls');
-        createRequest.setRequestHeader('Content-Type', 'application/json');
-        createRequest.send(JSON.stringify(body));
+        var uri =
+            voter === globalVarsNav.userId
+                ? '/api/votes'
+                : '/api/votes/' + voter;
+        var sendVoteRequest = new XMLHttpRequest();
+        sendVoteRequest.addEventListener('load', sendVoteRequestListener);
+        sendVoteRequest.open('POST', uri);
+        sendVoteRequest.setRequestHeader('Content-Type', 'application/json');
+        sendVoteRequest.send(JSON.stringify(body));
     });
     var getDelegationsRequest = new XMLHttpRequest();
     getDelegationsRequest.addEventListener(
@@ -179,4 +250,40 @@ $(document).ready(function () {
         `/api/delegations/${globalVarsNav.userId}`,
     );
     getDelegationsRequest.send();
+    $('#voter').on(
+        'changed.bs.select',
+        function (e, clickedIndex, isSelected, previousValue) {
+            var getVoteRequest = new XMLHttpRequest();
+            getVoteRequest.addEventListener('load', function () {
+                if (
+                    getVoteRequest.readyState === 4 &&
+                    getVoteRequest.status === 200
+                ) {
+                    var vote = JSON.parse(getVoteRequest.responseText);
+                    var optionSelected =
+                        vote.option.length > 0 ? vote.option[0] : '';
+                    for (var check of $('.btn-check')) {
+                        if (check.value === optionSelected) {
+                            check.checked = true;
+                        } else {
+                            check.checked = false;
+                        }
+                    }
+                } else if (getVoteRequest.status === 404) {
+                    for (var check of $('.btn-check')) {
+                        check.checked = false;
+                    }
+                } else {
+                    showModal('Error', "We couldn't get the vote", false);
+                }
+            });
+            getVoteRequest.open(
+                'GET',
+                `/api/votes/${$('#voter').selectpicker('val')}/${
+                    globalVarsPoll.id
+                }`,
+            );
+            getVoteRequest.send();
+        },
+    );
 });

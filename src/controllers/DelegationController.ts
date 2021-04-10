@@ -50,12 +50,16 @@ export default class DelegationController {
      * @returns Returns the true if delegation is created.
      * @throws Error 401 if the user1 is not admin.
      * @throws Error 404 if the user1 is not found.
+     * @throws Error 400 if the user2 and user3 are the same.
      */
     public static async giveDelegation(
         userId1: string,
         userId2: string,
         userId3: string,
     ): Promise<boolean> {
+        if (userId2 === userId3) {
+            throw new ErrorHandler(400, 'Cannot give delegation to oneself');
+        }
         if (
             (await DelegationModel.find(userId2)) &&
             (await DelegationModel.find(userId3))

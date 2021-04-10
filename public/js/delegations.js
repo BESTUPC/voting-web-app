@@ -63,10 +63,12 @@ function getUsersDelegatedRequestListener() {
     if (this.readyState === 4 && this.status === 200) {
         var response = JSON.parse(this.responseText);
         var i = 0;
-        for (row of $('tbody tr td')) {
-            row.innerHTML = response.find(
-                (user) => user.userId === row.innerHTML,
-            ).name;
+        for (var row of $('tbody tr td')) {
+            var name = response.find((user) => user.userId === row.innerHTML);
+            if (name !== undefined)
+                row.innerHTML = response.find(
+                    (user) => user.userId === row.innerHTML,
+                ).name;
         }
     } else {
         showModal('Error', "We couldn't get the users", false);

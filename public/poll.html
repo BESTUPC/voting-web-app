@@ -33,22 +33,27 @@
     <body>
         <div id="navbar"></div>
         <div id="d-flex" style="margin: 50px">
-            <h3 id="title">Poll Name</h3>
+            <div class="d-flex flex-row align-items-center">
+                <h3 id="title" style="margin-right: 20px">Poll Name</h3>
+                <i
+                    id="private"
+                    class="fa fa-lock"
+                    style="display: none; margin-right: 10px"
+                ></i>
+                <i
+                    id="priority"
+                    class="fa fa-sort-numeric-asc"
+                    style="display: none"
+                ></i>
+            </div>
+
             <h6 id="description">Poll Description</h6>
             <div class="row row-cols-auto" style="margin-top: 40px">
-                <div class="col" id="options" style="margin-right: 100px">
-                    <input
-                        type="radio"
-                        class="btn-check"
-                        name="options"
-                        id="option1"
-                        autocomplete="off"
-                        checked
-                    />
-                    <label class="btn btn-outline-primary" for="option1"
-                        >Checked</label
-                    >
-                </div>
+                <div
+                    class="d-flex flex-column"
+                    id="options"
+                    style="margin-right: 100px"
+                ></div>
                 <div class="col">
                     <div
                         class="d-flex align-items-center justify-content-between"
