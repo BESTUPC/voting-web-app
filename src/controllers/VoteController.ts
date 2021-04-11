@@ -1,6 +1,6 @@
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { VoteAddDTO } from '../dtos/VoteAddDTO';
-import { IPoll } from '../interfaces/IPoll';
+import { EPollState, IPoll } from '../interfaces/IPoll';
 import { IVote } from '../interfaces/IVote';
 import VoteModel from '../models/VoteModel';
 import ErrorHandler from '../utils/ErrorHandler';
@@ -30,7 +30,17 @@ export default class VoteController {
         pollId: string,
     ): Promise<IVote> {
         const poll: IPoll = await PollController.getPoll(userId1, pollId);
-        if (poll.isPrivate && userId1 !== userId2) {
+        const delegationIds = (
+            await DelegationController.getDelegation(userId1, userId1)
+        ).map((user) => user.userId);
+        if (
+            (poll.isPrivate &&
+                userId1 !== userId2 &&
+                !delegationIds.includes(userId2)) ||
+            (poll.isPrivate &&
+                userId1 !== userId2 &&
+                poll.state !== EPollState.OPEN)
+        ) {
             throw new ErrorHandler(401, 'Not authorized to get this vote');
         } else {
             const vote = await VoteModel.get(userId2, pollId);

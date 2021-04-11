@@ -43,10 +43,14 @@ function getDelegationsRequestListener() {
                                     var vote = JSON.parse(
                                         getVoteRequest.responseText,
                                     );
-                                    var optionSelected =
-                                        vote.option.length > 0
-                                            ? vote.option[0]
-                                            : '';
+                                    if (poll.isPriority) {
+                                        var optionSelected = vote.option;
+                                    } else {
+                                        var optionSelected =
+                                            vote.option.length > 0
+                                                ? vote.option[0]
+                                                : '';
+                                    }
                                 } else {
                                     var optionSelected = '';
                                 }
@@ -58,10 +62,15 @@ function getDelegationsRequestListener() {
                                 $('#priority').css({
                                     display: poll.isPriority ? 'unset' : 'none',
                                 });
-                                for (var option of poll.pollOptions) {
+                                globalVarsPoll.isPriority = poll.isPriority;
+                                var optionsSorted =
+                                    poll.isPriority && optionSelected.length > 0
+                                        ? optionSelected
+                                        : poll.pollOptions;
+                                for (var option of optionsSorted) {
                                     var html = '';
                                     if (option === optionSelected) {
-                                        html = `<div style="margin-bottom: 20px"><input
+                                        html = `<div data-id="${option}" style="margin-bottom: 20px"><input
                                                     type="radio"
                                                     class="btn-check"
                                                     name="options"
@@ -73,12 +82,26 @@ function getDelegationsRequestListener() {
                                                 <label class="btn btn-outline-primary" for="${option}"
                                                     >${option}</label
                                                 ></div>`;
-                                    } else {
-                                        html = `<div style="margin-bottom: 20px"><input
+                                    } else if (poll.isPriority) {
+                                        html = `<div data-id="${option}" style="margin-bottom: 20px" ><input
                                                     type="radio"
                                                     class="btn-check"
                                                     name="options"
                                                     id="${option}"
+                                                    value=${option}
+                                                    autocomplete="off"
+                                                    disabled
+                                                />
+                                                <label class="btn btn-outline-primary" for="${option}"
+                                                    >${option}</label
+                                                ></div>`;
+                                    } else {
+                                        html = `<div data-id="${option}" style="margin-bottom: 20px"><input
+                                                    type="radio"
+                                                    class="btn-check"
+                                                    name="options"
+                                                    id="${option}"
+                                                    data-id="${option}"
                                                     value=${option}
                                                     autocomplete="off"
                                                 />
@@ -88,6 +111,17 @@ function getDelegationsRequestListener() {
                                     }
 
                                     $('#options').append(html);
+                                }
+                                if (poll.isPriority) {
+                                    var optionsDraggable = document.getElementById(
+                                        'options',
+                                    );
+                                    globalVarsPoll.sortable = Sortable.create(
+                                        optionsDraggable,
+                                        {
+                                            /* options */
+                                        },
+                                    );
                                 }
                                 for (delegation of response) {
                                     var delegatorUser = users.find(
@@ -208,6 +242,8 @@ function getUsersDelegatedRequestListener() {
 
 var globalVarsPoll = {
     id: '',
+    sortable: '',
+    isPriority: false,
 };
 
 $(document).ready(function () {
@@ -216,10 +252,15 @@ $(document).ready(function () {
     var urlParams = new URLSearchParams(queryString);
     globalVarsPoll.id = urlParams.get('id');
     $('#send').click(function () {
-        var selectedOption = $("input[name='options']:checked").val();
-        if (selectedOption === undefined) {
-            showModal('Error', 'An option should be selected', false);
-            return;
+        if (!globalVarsPoll.isPriority) {
+            var selectedOption = $("input[name='options']:checked").val();
+            if (selectedOption === undefined) {
+                showModal('Error', 'An option should be selected', false);
+                return;
+            }
+            selectedOption = [selectedOption];
+        } else {
+            var selectedOption = globalVarsPoll.sortable.toArray();
         }
         var voter = $('#voter').selectpicker('val');
         if (voter === undefined) {
@@ -228,7 +269,7 @@ $(document).ready(function () {
         }
         var body = {
             pollId: globalVarsPoll.id,
-            option: [selectedOption],
+            option: selectedOption,
         };
         var uri =
             voter === globalVarsNav.userId
@@ -261,13 +302,17 @@ $(document).ready(function () {
                 ) {
                     var vote = JSON.parse(getVoteRequest.responseText);
                     var optionSelected =
-                        vote.option.length > 0 ? vote.option[0] : '';
-                    for (var check of $('.btn-check')) {
-                        if (check.value === optionSelected) {
-                            check.checked = true;
-                        } else {
-                            check.checked = false;
+                        vote.option.length === 1 ? vote.option[0] : vote.option;
+                    if (!globalVarsPoll.isPriority) {
+                        for (var check of $('.btn-check')) {
+                            if (check.value === optionSelected) {
+                                check.checked = true;
+                            } else {
+                                check.checked = false;
+                            }
                         }
+                    } else {
+                        globalVarsPoll.sortable.sort(optionSelected);
                     }
                 } else if (getVoteRequest.status === 404) {
                     for (var check of $('.btn-check')) {
