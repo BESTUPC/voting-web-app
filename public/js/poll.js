@@ -251,6 +251,25 @@ $(document).ready(function () {
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
     globalVarsPoll.id = urlParams.get('id');
+    $('#update').click(function () {
+        var updatePollRequest = new XMLHttpRequest();
+        updatePollRequest.addEventListener('load', function () {
+            if (this.readyState === 4 && this.status === 200) {
+                var response = JSON.parse(this.responseText);
+                if (response) {
+                    showModal('Success', 'We updated the state', false);
+                } else {
+                    showModal('Error', "We couldn't update the state", false);
+                }
+            } else {
+                showModal('Error', "We couldn't update the state", false);
+            }
+        });
+        updatePollRequest.open('PATCH', '/api/polls/state/' + id);
+        updatePollRequest.setRequestHeader('Content-Type', 'application/json');
+        updatePollRequest.send();
+    });
+
     $('#send').click(function () {
         if (!globalVarsPoll.isPriority) {
             var selectedOption = $("input[name='options']:checked").val();
