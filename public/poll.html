@@ -48,15 +48,18 @@
             </div>
 
             <h6 id="description">Poll Description</h6>
-            <div class="row row-cols-auto" style="margin-top: 40px">
+            <div class="row row-cols-auto justify-content-between" style="margin-top: 40px">
                 <div
                     class="d-flex flex-column"
                     id="options"
                     style="margin-right: 100px"
                 ></div>
-                <div class="col">
+                <div
+                    class="col"
+                    style="margin-right: 30px; margin-bottom: 10px"
+                >
                     <div
-                        class="d-flex align-items-center justify-content-between"
+                        class="d-flex align-items-center"
                         style="margin-bottom: 10px"
                     >
                         <label
@@ -76,9 +79,30 @@
                             type="button"
                             id="send"
                             class="btn btn-primary btn-lg"
-                            style="margin-top: 50px"
+                            style="margin-top: 68px; margin-bottom: 60px"
                         >
                             Send Vote
+                        </button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div id="adminTools" class="row" style="display: none">
+                        <h6>Admin Tools</h6>
+                        <button
+                            type="button"
+                            id="send"
+                            class="btn btn-secondary btn-sm"
+                            style="margin-top: 10px"
+                        >
+                            Update State
+                        </button>
+                        <button
+                            type="button"
+                            id="send"
+                            class="btn btn-danger btn-sm"
+                            style="margin-top: 10px"
+                        >
+                            Delete Poll
                         </button>
                     </div>
                 </div>

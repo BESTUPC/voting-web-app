@@ -1,8 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { PollCreateDTO } from '../dtos/PollCreateDTO';
-import { PollUpdateStateDTO } from '../dtos/PollUpdateStateDTO';
-import { EPollState, IPoll } from '../interfaces/IPoll';
+import { EPollState, getNextState, IPoll } from '../interfaces/IPoll';
 import { IUser } from '../interfaces/IUser';
 import ErrorHandler from '../utils/ErrorHandler';
 import PollModel from '../models/PollModel';
@@ -56,18 +55,18 @@ export default class PollController {
     public static async updateState(
         userId: string,
         _id: string,
-        body: unknown,
     ): Promise<boolean> {
         if (await UserController.isAdmin(userId)) {
-            const state: EPollState = (
-                await validatorGeneric<PollUpdateStateDTO>(
-                    PollUpdateStateDTO,
-                    body,
-                )
-            ).state;
             const poll: IPoll = await PollModel.get(new ObjectId(_id));
             if (!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
-            return PollModel.setState(new ObjectId(_id), state);
+            const newState = getNextState(poll.state);
+            if (newState === undefined) {
+                throw new ErrorHandler(
+                    404,
+                    'Poll can not have any other states',
+                );
+            }
+            return PollModel.setState(new ObjectId(_id), newState);
         } else {
             throw new ErrorHandler(401, 'Only admins are authorized');
         }

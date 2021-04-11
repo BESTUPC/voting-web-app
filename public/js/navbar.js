@@ -17,8 +17,12 @@ function currentProfileRequestListener() {
             }
             if (membershipList.includes('admin')) {
                 document.getElementById('navToggler').style.display = 'unset';
+                const adminTools = document.getElementById('adminTools');
+                if (adminTools !== null) adminTools.style.display = 'flex';
             } else {
-                document.getElementById('navToggler').style.display = 'nonde';
+                document.getElementById('navToggler').style.display = 'none';
+                const adminTools = document.getElementById('adminTools');
+                if (adminTools !== null) adminTools.style.display = 'none';
             }
         } catch {
             showModal(

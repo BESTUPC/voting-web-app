@@ -247,7 +247,7 @@ var globalVarsPoll = {
 };
 
 $(document).ready(function () {
-    $('#navbar').load('navbar.html');
+    $('#navbar').load('navbar.html', function () {});
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
     globalVarsPoll.id = urlParams.get('id');

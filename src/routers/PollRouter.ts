@@ -48,7 +48,6 @@ export default class PollRouter {
                     const result: boolean = await this._controller.updateState(
                         req.user['id'],
                         req.params.id,
-                        req.body,
                     );
                     res.status(200).json(result);
                 } catch (error) {
