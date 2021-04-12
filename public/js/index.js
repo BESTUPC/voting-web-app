@@ -5,9 +5,6 @@ $(document).ready(function () {
             url: '/api/polls',
             dataSrc: '',
         },
-        responsive: {
-            responsive: true,
-        },
         columns: [{ data: 'pollName' }, { data: 'pollDeadline' }],
         order: [[1, 'desc']],
         stateSave: true,
@@ -17,6 +14,14 @@ $(document).ready(function () {
             iDisplayIndex,
             iDisplayIndexFull,
         ) {
+            var state = aData.state;
+            if (state === 'open') {
+                nRow.style.backgroundColor = 'rgba(63, 191, 63, 0.3)';
+            } else if (state === 'closed_hidden') {
+                nRow.style.backgroundColor = 'rgba(100, 100, 100, 0.3)';
+            } else {
+                nRow.style.backgroundColor = 'white';
+            }
             var date = new Date(parseInt(aData.pollDeadline));
             $('td:eq(1)', nRow).html(date.toLocaleString().slice(0, -3));
         },
@@ -33,3 +38,4 @@ $(document).ready(function () {
         }
     });
 });
+var row = '';

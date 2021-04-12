@@ -1,11 +1,20 @@
+td {
+    font-size: 12px;
+}
+
+th {
+    font-size: 12px;
+}
 a:hover {
     background-color: rgba(1, 1, 1, 0.1);
 }
 .odd:hover {
     cursor: pointer;
+    filter: brightness(0.6);
 }
 .even:hover {
     cursor: pointer;
+    filter: brightness(0.6);
 }
 
 #homeTitle:hover {

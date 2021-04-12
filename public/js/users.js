@@ -5,9 +5,6 @@ $(document).ready(function () {
             url: '/api/users',
             dataSrc: '',
         },
-        responsive: {
-            responsive: true,
-        },
         columns: [
             { data: 'name' },
             { data: 'email' },
@@ -46,8 +43,23 @@ $(document).ready(function () {
             { bSearchable: true },
         ],
     });
+
+    table.on(
+        'responsive-display',
+        function (e, datatable, row, showHide, update) {
+            console.log(
+                'Details for row ' +
+                    row.index() +
+                    ' ' +
+                    (showHide ? 'shown' : 'hidden'),
+            );
+            globalRow = row;
+            console.log(globalRow.data());
+        },
+    );
     $('#userListTable tbody').on('click', 'tr', function () {
         var data = table.row(this).data();
         window.location = '/user.html?id=' + data.userId;
     });
 });
+var globalRow = '';

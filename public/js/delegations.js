@@ -97,9 +97,6 @@ $(document).ready(function () {
             url: '/api/delegations',
             dataSrc: '',
         },
-        responsive: {
-            responsive: true,
-        },
         columns: [{ data: 'userIdDelegator' }, { data: 'userIdReceiver' }],
         order: [[1, 'desc']],
         stateSave: true,
