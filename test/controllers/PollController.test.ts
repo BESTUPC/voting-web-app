@@ -609,16 +609,6 @@ describe('PollController', () => {
             const isAdminStub = sandbox
                 .stub(UserController, 'isAdmin')
                 .resolves(true);
-            const poll: IPoll = {
-                description: 'Test description',
-                isPriority: false,
-                isPrivate: true,
-                pollDeadline: 1000000,
-                state: EPollState.OPEN,
-                targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
-                pollName: 'Test Name',
-            };
             const getPollStub = sandbox.stub(PollModel, 'get').resolves(null);
             const userId = 'ID';
             const _id = '0123456789AB';

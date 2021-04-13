@@ -57,16 +57,7 @@ describe('UserController', () => {
             const isAdminStub = sandbox
                 .stub(UserController, 'isAdmin')
                 .resolves(true);
-            const user: IUser = {
-                userId: 'ID',
-                name: 'name',
-                email: 'email',
-                membership: [EMembership.ALL, EMembership.ADMIN],
-            };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(null);
-            const updateMembershipStub = sandbox
-                .stub(UserModel, 'updateMembership')
-                .resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
             const body: UserUpdateMembershipDTO = {
@@ -329,6 +320,8 @@ describe('UserController', () => {
             ).to.be.rejectedWith(`User ${userId2} not found.`);
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+            expect(getUserStub.calledOnce).to.be.true;
+            expect(getUserStub.firstCall.args[0]).to.equal(userId2);
         });
     });
     describe('test isAdmin', () => {
@@ -367,12 +360,6 @@ describe('UserController', () => {
             expect(getUserStub.firstCall.args[0]).to.equal(userId);
         });
         it("should call the model's get function and return a not found error", async () => {
-            const user: IUser = {
-                userId: 'ID',
-                name: 'name',
-                email: 'email',
-                membership: [EMembership.ALL],
-            };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(null);
             const userId = 'ID';
             await expect(UserController.isAdmin(userId)).to.be.rejectedWith(

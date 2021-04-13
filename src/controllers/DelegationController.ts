@@ -61,7 +61,7 @@ export default class DelegationController {
             throw new ErrorHandler(400, 'Cannot give delegation to oneself');
         }
         if (
-            (await DelegationModel.find(userId2)) &&
+            (await DelegationModel.find(userId2)) ||
             (await DelegationModel.find(userId3))
         ) {
             throw new ErrorHandler(
