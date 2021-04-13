@@ -5,7 +5,6 @@ import { ObjectId } from 'mongodb';
 import sinon, { SinonSandbox } from 'sinon';
 import PollController from '../../src/controllers/PollController';
 import UserController from '../../src/controllers/UserController';
-import { PollUpdateStateDTO } from '../../src/dtos/PollUpdateStateDTO';
 import { EPollState, IPoll } from '../../src/interfaces/IPoll';
 import { EMembership, IUser } from '../../src/interfaces/IUser';
 import PollModel from '../../src/models/PollModel';
@@ -41,12 +40,7 @@ describe('PollController', () => {
                 .resolves(true);
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
-            const body: PollUpdateStateDTO = { state: EPollState.CLOSED };
-            const ret: boolean = await PollController.updateState(
-                userId1,
-                _id,
-                body,
-            );
+            const ret: boolean = await PollController.updateState(userId1, _id);
             expect(ret).to.be.true;
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
@@ -58,67 +52,66 @@ describe('PollController', () => {
             expect(setStateStub.firstCall.args[0]).to.deep.equal(
                 new ObjectId(_id),
             );
-            expect(setStateStub.firstCall.args[1]).to.equal(body.state);
         });
-        it('should return a dto validation error if the property state is not present', async () => {
+        it("should call the model's update state function", async () => {
             const isAdminStub = sandbox
                 .stub(UserController, 'isAdmin')
                 .resolves(true);
-            const userId1 = 'IdUser';
-            const _id = '0123456789AB';
-            const body = {
-                test: 'wrong',
+            const poll: IPoll = {
+                description: 'Test description',
+                isPriority: false,
+                isPrivate: true,
+                pollDeadline: 1000000,
+                state: EPollState.CLOSED_HIDDEN,
+                targetGroup: EMembership.ALL,
+                pollOptions: ['yes', 'no'],
+                pollName: 'Test Name',
             };
-            await expect(
-                PollController.updateState(userId1, _id, body),
-            ).to.be.rejectedWith(
-                'An instance of PollUpdateStateDTO has failed the validation',
-            );
-            expect(isAdminStub.calledOnce).to.be.true;
-            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
-        });
-        it('should return a dto validation error if the property state is not the proper enum', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
+            const getPollStub = sandbox.stub(PollModel, 'get').resolves(poll);
+            const setStateStub = sandbox
+                .stub(PollModel, 'setState')
                 .resolves(true);
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
-            const body = {
-                state: 'wrong',
+            const ret: boolean = await PollController.updateState(userId1, _id);
+            expect(ret).to.be.true;
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+            expect(getPollStub.calledOnce).to.be.true;
+            expect(getPollStub.firstCall.args[0]).to.deep.equal(
+                new ObjectId(_id),
+            );
+            expect(setStateStub.calledOnce).to.be.true;
+            expect(setStateStub.firstCall.args[0]).to.deep.equal(
+                new ObjectId(_id),
+            );
+        });
+        it('should not be able to update it', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const poll: IPoll = {
+                description: 'Test description',
+                isPriority: false,
+                isPrivate: true,
+                pollDeadline: 1000000,
+                state: EPollState.CLOSED,
+                targetGroup: EMembership.ALL,
+                pollOptions: ['yes', 'no'],
+                pollName: 'Test Name',
             };
+            const getPollStub = sandbox.stub(PollModel, 'get').resolves(poll);
+            const userId1 = 'IdUser';
+            const _id = '0123456789AB';
             await expect(
-                PollController.updateState(userId1, _id, body),
-            ).to.be.rejectedWith(
-                'An instance of PollUpdateStateDTO has failed the validation',
+                PollController.updateState(userId1, _id),
+            ).to.be.rejectedWith('Poll can not have any other states');
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
+            expect(getPollStub.calledOnce).to.be.true;
+            expect(getPollStub.firstCall.args[0]).to.deep.equal(
+                new ObjectId(_id),
             );
-            expect(isAdminStub.calledOnce).to.be.true;
-            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
-        });
-        it('should return a no object in request body error if nothing is sent', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
-            const userId1 = 'IdUser';
-            const _id = '0123456789AB';
-            const body = undefined;
-            await expect(
-                PollController.updateState(userId1, _id, body),
-            ).to.be.rejectedWith('No object in request body');
-            expect(isAdminStub.calledOnce).to.be.true;
-            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
-        });
-        it('should return a no object in request body error if the body is not an object', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
-            const userId1 = 'IdUser';
-            const _id = '0123456789AB';
-            const body = 'wrong';
-            await expect(
-                PollController.updateState(userId1, _id, body),
-            ).to.be.rejectedWith('No object in request body');
-            expect(isAdminStub.calledOnce).to.be.true;
-            expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
         it('should return an unauthorized error', async () => {
             const isAdminStub = sandbox
@@ -127,7 +120,7 @@ describe('PollController', () => {
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
             await expect(
-                PollController.updateState(userId1, _id, undefined),
+                PollController.updateState(userId1, _id),
             ).to.be.rejectedWith('Only admins are authorized');
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
@@ -139,9 +132,8 @@ describe('PollController', () => {
             const getPollStub = sandbox.stub(PollModel, 'get').resolves(null);
             const userId1 = 'IdUser';
             const _id = '0123456789AB';
-            const body: PollUpdateStateDTO = { state: EPollState.CLOSED };
             await expect(
-                PollController.updateState(userId1, _id, body),
+                PollController.updateState(userId1, _id),
             ).to.be.rejectedWith(`Poll ${_id} not found.`);
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
@@ -602,7 +594,7 @@ describe('PollController', () => {
             const _id = '0123456789AB';
             const ret: boolean = await PollController.deletePoll(userId, _id);
             expect(ret).to.equal(true);
-            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.calledTwice).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId);
             expect(getPollStub.calledOnce).to.be.true;
             expect(getPollStub.firstCall.args[0]).to.deep.equal(

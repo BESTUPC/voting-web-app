@@ -210,7 +210,7 @@ describe('UserController', () => {
                 emails: [{ value: 'email@test.com', verified: true }],
             };
             await expect(UserController.addUser(body)).to.be.rejectedWith(
-                'Bad request body',
+                'An instance of UserCreateDTO',
             );
         });
     });
