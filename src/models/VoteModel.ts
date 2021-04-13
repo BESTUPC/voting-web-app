@@ -1,11 +1,11 @@
 import { Collection } from 'mongodb';
 import { IVote } from '../interfaces/IVote';
-import Database from '../providers/Database';
+import { Database } from '../providers/Database';
 
 /**
  * Class for communication between controller and votes database.
  */
-export default class VoteModel {
+export class VoteModel {
     /**
      * Auxiliary function to get the right collection.
      */

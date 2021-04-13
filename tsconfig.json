@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "commonjs",
-    "rootDir": "src",
     "outDir": "dist",
     "sourceMap": true,
     "resolveJsonModule": true,

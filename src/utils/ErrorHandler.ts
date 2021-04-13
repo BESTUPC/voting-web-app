@@ -1,7 +1,7 @@
 /**
  * Custom error handling class.
  */
-export default class ErrorHandler extends Error {
+export class ErrorHandler extends Error {
     /**
      * Constructor for errors, adds code number and custom message.
      * @param statusCode code number for the error.

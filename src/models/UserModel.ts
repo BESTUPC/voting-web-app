@@ -1,11 +1,11 @@
 import { Collection } from 'mongodb';
 import { EMembership, IUser } from '../interfaces/IUser';
-import Database from '../providers/Database';
+import { Database } from '../providers/Database';
 
 /**
  * Class for communication between controller and users database.
  */
-export default class UserModel {
+export class UserModel {
     /**
      * Auxiliary function to get the right collection.
      */

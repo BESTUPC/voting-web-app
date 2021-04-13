@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import DelegationController from '../controllers/DelegationController';
+import { DelegationController } from '../controllers/DelegationController';
 import { IDelegation } from '../interfaces/IDelegation';
 import { IUser } from '../interfaces/IUser';
 
-export default class DelegationRouter {
+export class DelegationRouter {
     /**
      * Express router instance.
      */

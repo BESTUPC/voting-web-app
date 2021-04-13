@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 
-import Server from './providers/Server';
-import Authentication from './providers/Authentication';
-import Database from './providers/Database';
-import Logger from './utils/Logger';
+import { Server } from './providers/Server';
+import { Authentication } from './providers/Authentication';
+import { Database } from './providers/Database';
+import { Logger } from './utils/Logger';
 
 dotenv.config({
     path: '.env',

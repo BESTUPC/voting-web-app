@@ -3,12 +3,12 @@ import chaiAsPromised from 'chai-as-promised';
 import { describe } from 'mocha';
 import { ObjectId } from 'mongodb';
 import sinon, { SinonSandbox } from 'sinon';
-import DelegationController from '../../src/controllers/DelegationController';
-import UserController from '../../src/controllers/UserController';
+import { DelegationController } from '../../src/controllers/DelegationController';
+import { UserController } from '../../src/controllers/UserController';
 import { IDelegation } from '../../src/interfaces/IDelegation';
 import { EMembership, IUser } from '../../src/interfaces/IUser';
-import DelegationModel from '../../src/models/DelegationModel';
-import UserModel from '../../src/models/UserModel';
+import { DelegationModel } from '../../src/models/DelegationModel';
+import { UserModel } from '../../src/models/UserModel';
 
 chai.use(chaiAsPromised);
 

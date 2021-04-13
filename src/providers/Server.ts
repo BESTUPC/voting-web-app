@@ -4,15 +4,15 @@ import helmet from 'helmet';
 import https from 'https';
 import path from 'path';
 import { ICertificates } from '../interfaces/ICertificates';
-import MasterRouter from '../routers/MasterRouter';
-import ErrorHandler from '../utils/ErrorHandler';
-import Logger from '../utils/Logger';
-import morganMiddleware from '../utils/MorganMiddleware';
+import { MasterRouter } from '../routers/MasterRouter';
+import { ErrorHandler } from '../utils/ErrorHandler';
+import { Logger } from '../utils/Logger';
+import { morganMiddleware } from '../utils/MorganMiddleware';
 
 /**
  * Custom server application class.
  */
-export default class Server {
+export class Server {
     /**
      * Express server instance to setup.
      */

@@ -2,13 +2,13 @@ import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { UserCreateDTO } from '../dtos/UserCreateDTO';
 import { UserUpdateMembershipDTO } from '../dtos/UserUpdateMembershipDTO';
 import { EMembership, IGoogleUser, IUser } from '../interfaces/IUser';
-import UserModel from '../models/UserModel';
-import ErrorHandler from '../utils/ErrorHandler';
+import { UserModel } from '../models/UserModel';
+import { ErrorHandler } from '../utils/ErrorHandler';
 
 /**
  * Controller for the user-related calls. It handles all the logic between routing and the database access.
  */
-export default class UserController {
+export class UserController {
     /**
      * If the user identified by userId1 is admin it updates the membership of the user identified by userId2 to the membership given.
      * @param userId1 id of the user making the request.

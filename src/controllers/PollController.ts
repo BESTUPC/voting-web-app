@@ -3,15 +3,15 @@ import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { PollCreateDTO } from '../dtos/PollCreateDTO';
 import { EPollState, getNextState, IPoll } from '../interfaces/IPoll';
 import { IUser } from '../interfaces/IUser';
-import ErrorHandler from '../utils/ErrorHandler';
-import PollModel from '../models/PollModel';
-import UserController from './UserController';
-import VoteController from './VoteController';
+import { ErrorHandler } from '../utils/ErrorHandler';
+import { PollModel } from '../models/PollModel';
+import { UserController } from './UserController';
+import { VoteController } from './VoteController';
 
 /**
  * Controller for the poll-related calls. It handles all the logic between routing and the database access.
  */
-export default class PollController {
+export class PollController {
     /**
      * Returns the polls that the user's membership has permission to visualize.
      * @param userId id of the user making the request.

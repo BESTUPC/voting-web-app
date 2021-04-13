@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import PollController from '../controllers/PollController';
+import { PollController } from '../controllers/PollController';
 import { IPoll } from '../interfaces/IPoll';
 
-export default class PollRouter {
+export class PollRouter {
     /**
      * Express router instance.
      */

@@ -6,8 +6,8 @@ import fs from 'fs';
 import dotenv from 'dotenv';
 
 import { ICredentials } from '../interfaces/ICredentials';
-import UserController from '../controllers/UserController';
-import Logger from '../utils/Logger';
+import { UserController } from '../controllers/UserController';
+import { Logger } from '../utils/Logger';
 
 dotenv.config({
     path: '.env',
@@ -15,7 +15,7 @@ dotenv.config({
 /**
  * Class to setup the Passport.js and cookie-session middleware.
  */
-export default abstract class Authentication {
+export abstract class Authentication {
     /**
      * Mounts the authentication endpoints.
      * @param app Express app to setup.

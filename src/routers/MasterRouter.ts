@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import UserRouter from './UserRouter';
-import PollRouter from './PollRouter';
-import VoteRouter from './VoteRouter';
-import DelegationRouter from './DelegationRouter';
+import { UserRouter } from './UserRouter';
+import { PollRouter } from './PollRouter';
+import { VoteRouter } from './VoteRouter';
+import { DelegationRouter } from './DelegationRouter';
 
 /**
  * Class to unite all the routers.
  */
-export default class MasterRouter {
+export class MasterRouter {
     /**
      * Express router instance.
      */

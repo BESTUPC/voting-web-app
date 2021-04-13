@@ -1,6 +1,6 @@
 import morgan, { StreamOptions } from 'morgan';
 import chalk from 'chalk';
-import Logger from './Logger';
+import { Logger } from './Logger';
 
 // Override the stream method by telling
 // Morgan to use our custom logger instead of the console.log.
@@ -41,7 +41,7 @@ const statusColorMapper = (status: string): string => {
 };
 
 // Build the morgan middleware
-const morganMiddleware = morgan(
+export const morganMiddleware = morgan(
     function (tokens, req, res) {
         const color = statusColorMapper(tokens.status(req, res));
         return [
@@ -61,5 +61,3 @@ const morganMiddleware = morgan(
     // See the methods above.
     { stream, skip },
 );
-
-export default morganMiddleware;

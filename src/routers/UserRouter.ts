@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import UserController from '../controllers/UserController';
+import { UserController } from '../controllers/UserController';
 import { IUser } from '../interfaces/IUser';
 
-export default class UsersRouter {
+export class UserRouter {
     /**
      * Express router instance.
      */

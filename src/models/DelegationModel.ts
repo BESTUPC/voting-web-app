@@ -1,11 +1,11 @@
 import { Collection, ObjectId } from 'mongodb';
 import { IDelegation } from '../interfaces/IDelegation';
-import Database from '../providers/Database';
+import { Database } from '../providers/Database';
 
 /**
  * Class for communication between controller and delegations database.
  */
-export default class DelegationModel {
+export class DelegationModel {
     /**
      * Auxiliary function to get the right collection.
      */

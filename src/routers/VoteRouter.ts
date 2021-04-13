@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import VoteController from '../controllers/VoteController';
+import { VoteController } from '../controllers/VoteController';
 import { IVote } from '../interfaces/IVote';
 
-export default class VoteRouter {
+export class VoteRouter {
     /**
      * Express router instance.
      */

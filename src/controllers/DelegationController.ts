@@ -1,15 +1,15 @@
 import { ObjectId } from 'mongodb';
 import { IDelegation } from '../interfaces/IDelegation';
 import { IUser } from '../interfaces/IUser';
-import DelegationModel from '../models/DelegationModel';
-import UserModel from '../models/UserModel';
-import ErrorHandler from '../utils/ErrorHandler';
-import UserController from './UserController';
+import { DelegationModel } from '../models/DelegationModel';
+import { UserModel } from '../models/UserModel';
+import { ErrorHandler } from '../utils/ErrorHandler';
+import { UserController } from './UserController';
 
 /**
  * Controller for the delegation-related calls. It handles all the logic between routing and the database access.
  */
-export default class DelegationController {
+export class DelegationController {
     /**
      * Returns all the delegations if the user is admin.
      * @param userId id of the user making the request.

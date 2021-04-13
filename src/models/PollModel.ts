@@ -1,12 +1,12 @@
 import { Collection, ObjectId } from 'mongodb';
 import { EMembership } from '../interfaces/IUser';
 import { IPoll, EPollState } from '../interfaces/IPoll';
-import Database from '../providers/Database';
+import { Database } from '../providers/Database';
 
 /**
  * Class for communication between controller and polls database.
  */
-export default class PollModel {
+export class PollModel {
     /**
      * Auxiliary function to get the right collection.
      */

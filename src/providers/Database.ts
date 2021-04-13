@@ -1,10 +1,10 @@
 import { Db, MongoClient } from 'mongodb';
-import Logger from '../utils/Logger';
+import { Logger } from '../utils/Logger';
 
 /**
  * Class to control the MongoDB connection.
  */
-export default class Database {
+export class Database {
     /**
      * Client to save the connection.
      */

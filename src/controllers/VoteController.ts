@@ -2,16 +2,16 @@ import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { VoteAddDTO } from '../dtos/VoteAddDTO';
 import { EPollState, IPoll } from '../interfaces/IPoll';
 import { IVote } from '../interfaces/IVote';
-import VoteModel from '../models/VoteModel';
-import ErrorHandler from '../utils/ErrorHandler';
-import DelegationController from './DelegationController';
-import PollController from './PollController';
-import UserController from './UserController';
+import { VoteModel } from '../models/VoteModel';
+import { ErrorHandler } from '../utils/ErrorHandler';
+import { DelegationController } from './DelegationController';
+import { PollController } from './PollController';
+import { UserController } from './UserController';
 
 /**
  * Controller for the poll-related calls. It handles all the logic between routing and the database access.
  */
-export default class VoteController {
+export class VoteController {
     /**
      * It returns the vote with the ids provided. More precisely, the vote (if it exists) will be returned if:
      *  * The poll is public and the user making the request has access to the poll.

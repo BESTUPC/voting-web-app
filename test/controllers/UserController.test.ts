@@ -2,10 +2,10 @@ import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import { describe } from 'mocha';
 import sinon, { SinonSandbox } from 'sinon';
-import UserController from '../../src/controllers/UserController';
+import { UserController } from '../../src/controllers/UserController';
 import { UserUpdateMembershipDTO } from '../../src/dtos/UserUpdateMembershipDTO';
 import { EMembership, IUser } from '../../src/interfaces/IUser';
-import UserModel from '../../src/models/UserModel';
+import { UserModel } from '../../src/models/UserModel';
 
 chai.use(chaiAsPromised);
 
