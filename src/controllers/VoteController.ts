@@ -128,7 +128,7 @@ export class VoteController {
         return results.sort((r1, r2) => r1[1] - r2[1]);
     }
     private static async getPriorityResults(
-        pollId: string,
+        _pollId: string,
     ): Promise<Array<[string, number]>> {
         return [];
     }
