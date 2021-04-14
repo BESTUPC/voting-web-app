@@ -1,7 +1,9 @@
+import { ObjectId } from 'mongodb';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { VoteAddDTO } from '../dtos/VoteAddDTO';
 import { EPollState, IPoll } from '../interfaces/IPoll';
 import { IVote } from '../interfaces/IVote';
+import { PollModel } from '../models/PollModel';
 import { VoteModel } from '../models/VoteModel';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import { DelegationController } from './DelegationController';
@@ -108,5 +110,50 @@ export class VoteController {
         }
 
         return await VoteModel.addOrUpdateVote(vote);
+    }
+
+    private static async getNormalResults(
+        pollId: string,
+        options: string[],
+    ): Promise<Array<[string, number]>> {
+        const votes: IVote[] = await VoteModel.getFromPollId(pollId);
+        const results: Array<[string, number]> = [];
+        for (const option of options) {
+            const votesOption = votes.filter(
+                (vote) => vote.option[0] === option,
+            );
+            const result: [string, number] = [option, votesOption.length];
+            results.push(result);
+        }
+        return results.sort((r1, r2) => r1[1] - r2[1]);
+    }
+    private static async getPriorityResults(
+        pollId: string,
+    ): Promise<Array<[string, number]>> {
+        return [];
+    }
+
+    public static async getResults(
+        userId: string,
+        pollId: string,
+    ): Promise<Array<[string, number]>> {
+        const poll: IPoll = await PollModel.get(new ObjectId(pollId));
+        if (poll) {
+            throw new ErrorHandler(404, 'Poll not found');
+        }
+        if (
+            poll.state === EPollState.OPEN ||
+            (poll.state === EPollState.CLOSED_HIDDEN &&
+                !(await UserController.isAdmin(userId)))
+        ) {
+            throw new ErrorHandler(
+                401,
+                'Not authorized to access results in the current state',
+            );
+        }
+        if (poll.isPriority) {
+            return this.getPriorityResults(pollId);
+        }
+        return this.getNormalResults(pollId, poll.pollOptions);
     }
 }

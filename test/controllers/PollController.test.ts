@@ -5,7 +5,11 @@ import { ObjectId } from 'mongodb';
 import sinon, { SinonSandbox } from 'sinon';
 import { PollController } from '../../src/controllers/PollController';
 import { UserController } from '../../src/controllers/UserController';
-import { EPollState, IPoll } from '../../src/interfaces/IPoll';
+import {
+    EPollApprovalRatio,
+    EPollState,
+    IPoll,
+} from '../../src/interfaces/IPoll';
 import { EMembership, IUser } from '../../src/interfaces/IUser';
 import { PollModel } from '../../src/models/PollModel';
 
@@ -33,6 +37,8 @@ describe('PollController', () => {
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             const getPollStub = sandbox.stub(PollModel, 'get').resolves(poll);
             const setStateStub = sandbox
@@ -66,6 +72,8 @@ describe('PollController', () => {
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             const getPollStub = sandbox.stub(PollModel, 'get').resolves(poll);
             const setStateStub = sandbox
@@ -99,6 +107,8 @@ describe('PollController', () => {
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             const getPollStub = sandbox.stub(PollModel, 'get').resolves(poll);
             const userId1 = 'IdUser';
@@ -165,6 +175,8 @@ describe('PollController', () => {
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             const ret: boolean = await PollController.addPoll(userId, body);
             expect(ret).to.be.true;
@@ -210,6 +222,8 @@ describe('PollController', () => {
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -232,6 +246,8 @@ describe('PollController', () => {
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -254,6 +270,8 @@ describe('PollController', () => {
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -276,6 +294,8 @@ describe('PollController', () => {
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -298,6 +318,8 @@ describe('PollController', () => {
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -320,6 +342,8 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 pollOptions: ['yes', 'no'],
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -343,6 +367,8 @@ describe('PollController', () => {
                 state: EPollState.OPEN,
                 targetGroup: 'wrong',
                 pollOptions: ['yes', 'no'],
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -365,6 +391,8 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -388,6 +416,106 @@ describe('PollController', () => {
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes'],
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
+            };
+            await expect(
+                PollController.addPoll(userId, body),
+            ).to.be.rejectedWith(
+                'An instance of PollCreateDTO has failed the validation',
+            );
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId);
+        });
+        it('should return a dto validation failed error if abstentionIsValid is not a boolean', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId = 'IdUser';
+            const body = {
+                pollName: 'Test Name',
+                description: 'Test',
+                isProprity: true,
+                isPrivate: true,
+                pollDeadline: 1000000,
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
+                pollOptions: ['yes', 'no'],
+                abstentionIsValid: 19,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
+            };
+            await expect(
+                PollController.addPoll(userId, body),
+            ).to.be.rejectedWith(
+                'An instance of PollCreateDTO has failed the validation',
+            );
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId);
+        });
+        it('should return a dto validation failed error if abstentionIsValid is not present', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId = 'IdUser';
+            const body = {
+                pollName: 'Test Name',
+                description: 'Test',
+                isProprity: true,
+                isPrivate: true,
+                pollDeadline: 1000000,
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
+                pollOptions: ['yes', 'no'],
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
+            };
+            await expect(
+                PollController.addPoll(userId, body),
+            ).to.be.rejectedWith(
+                'An instance of PollCreateDTO has failed the validation',
+            );
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId);
+        });
+        it('should return a dto validation failed error if approvalRatio is not enum', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId = 'IdUser';
+            const body = {
+                pollName: 'Test Name',
+                description: 'Test',
+                isProprity: true,
+                isPrivate: true,
+                pollDeadline: 1000000,
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
+                pollOptions: ['yes', 'no'],
+                abstentionIsValid: false,
+                approvalRatio: 'bad',
+            };
+            await expect(
+                PollController.addPoll(userId, body),
+            ).to.be.rejectedWith(
+                'An instance of PollCreateDTO has failed the validation',
+            );
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId);
+        });
+        it('should return a dto validation failed error if approvalRatio is not present', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId = 'IdUser';
+            const body = {
+                pollName: 'Test Name',
+                description: 'Test',
+                isProprity: true,
+                isPrivate: true,
+                pollDeadline: 1000000,
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
+                pollOptions: ['yes', 'no'],
+                abstentionIsValid: false,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -411,6 +539,8 @@ describe('PollController', () => {
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -446,6 +576,8 @@ describe('PollController', () => {
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name 1',
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             const poll2: IPoll = {
                 description: 'Test description',
@@ -456,6 +588,8 @@ describe('PollController', () => {
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name 2',
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             const getAllStub = sandbox
                 .stub(PollModel, 'getAll')
@@ -491,6 +625,8 @@ describe('PollController', () => {
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             const getUserStub = sandbox
                 .stub(UserController, 'getUser')
@@ -548,6 +684,8 @@ describe('PollController', () => {
                 targetGroup: EMembership.FULL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             const getUserStub = sandbox
                 .stub(UserController, 'getUser')
@@ -587,6 +725,8 @@ describe('PollController', () => {
                 targetGroup: EMembership.ALL,
                 pollOptions: ['yes', 'no'],
                 pollName: 'Test Name',
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             const getPollStub = sandbox.stub(PollModel, 'get').resolves(poll);
             const deleteStub = sandbox.stub(PollModel, 'delete').resolves(true);

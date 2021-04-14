@@ -19,10 +19,7 @@ export class VoteModel {
      * @param pollId id of the vote's poll.
      * @returns Returns the requested vote or null if not found.
      */
-    public static async get(
-        userId: string,
-        pollId: string,
-    ): Promise<IVote | null> {
+    public static get(userId: string, pollId: string): Promise<IVote | null> {
         return VoteModel._getCollection().findOne({ userId, pollId });
     }
 
@@ -60,5 +57,9 @@ export class VoteModel {
             await VoteModel._getCollection().deleteMany({ pollId })
         ).deletedCount;
         return updateCount == 1;
+    }
+
+    public static getFromPollId(pollId: string): Promise<IVote[]> {
+        return VoteModel._getCollection().find({ pollId }).toArray();
     }
 }

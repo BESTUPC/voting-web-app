@@ -15,6 +15,18 @@ export interface IPoll {
     targetGroup: EMembership;
     pollOptions: Array<string>;
     pollName: string;
+    approvalRatio: EPollApprovalRatio;
+    abstentionIsValid: boolean;
+}
+
+/**
+ * Enum for the different poll abrobation ratios
+ *
+ */
+export enum EPollApprovalRatio {
+    SIMPLE = 'SIMPLE',
+    ABSOLUTE = 'ABSOLUTE',
+    TWO_THIRDS = 'TWO_THIRDS',
 }
 
 /**
