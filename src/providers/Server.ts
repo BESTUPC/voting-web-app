@@ -3,11 +3,10 @@ import fs from 'fs';
 import helmet from 'helmet';
 import https from 'https';
 import path from 'path';
+import morgan from 'morgan';
 import { ICertificates } from '../interfaces/ICertificates';
 import { MasterRouter } from '../routers/MasterRouter';
 import { ErrorHandler } from '../utils/ErrorHandler';
-import { Logger } from '../utils/Logger';
-import { morganMiddleware } from '../utils/MorganMiddleware';
 
 /**
  * Custom server application class.
@@ -48,7 +47,7 @@ export class Server {
             );
             next();
         });
-        this.server.use(morganMiddleware);
+        this.server.use(morgan('tiny'));
         this.server.use(express.json());
         this.server.use(express.urlencoded({ extended: true }));
         this.server.use(
@@ -121,7 +120,7 @@ export class Server {
             this._mountRoutes();
             return true;
         } catch {
-            Logger.error("Couldn't configure server routes and middlewares");
+            console.error("Couldn't configure server routes and middlewares");
             return false;
         }
     }
@@ -137,13 +136,13 @@ export class Server {
                 this.server,
             );
             httpsServer.listen(process.env.PORT1, () => {
-                Logger.info(
+                console.info(
                     'HTTPS Server running on port ' + process.env.PORT1,
                 );
             });
             return true;
         } else {
-            Logger.error("Couldn't run server, no certificates found");
+            console.error("Couldn't run server, no certificates found");
             return false;
         }
     }

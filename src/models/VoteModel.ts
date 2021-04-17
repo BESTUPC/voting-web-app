@@ -41,7 +41,6 @@ export class VoteModel {
             { $set: { option } },
             { upsert: true },
         );
-        console.log(updateResult);
         return (
             updateResult.modifiedCount == 1 ||
             updateResult.upsertedCount == 1 ||

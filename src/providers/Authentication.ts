@@ -7,7 +7,6 @@ import dotenv from 'dotenv';
 
 import { ICredentials } from '../interfaces/ICredentials';
 import { UserController } from '../controllers/UserController';
-import { Logger } from '../utils/Logger';
 
 dotenv.config({
     path: '.env',
@@ -90,7 +89,7 @@ export abstract class Authentication {
             Authentication._mountAuthEndpoints(app);
             return true;
         } else {
-            Logger.error("Couldn't setup authentication middleware");
+            console.error("Couldn't setup authentication middleware");
             return false;
         }
     }

@@ -4,7 +4,6 @@ import 'reflect-metadata';
 import { Server } from './providers/Server';
 import { Authentication } from './providers/Authentication';
 import { Database } from './providers/Database';
-import { Logger } from './utils/Logger';
 
 dotenv.config({
     path: '.env',
@@ -37,7 +36,7 @@ class App {
                 (await this.server.listen())
             )
         ) {
-            Logger.info('Shutting down app.');
+            console.info('Shutting down app.');
             process.exit(22);
         }
     }
