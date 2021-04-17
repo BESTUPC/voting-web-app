@@ -1,9 +1,16 @@
 import { ObjectId } from 'mongodb';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { VoteAddDTO } from '../dtos/VoteAddDTO';
-import { EPollState, IPoll, IPollOption } from '../interfaces/IPoll';
+import {
+    EPollApprovalRatio,
+    EPollState,
+    IPoll,
+    IPollOption,
+} from '../interfaces/IPoll';
+import { IUser } from '../interfaces/IUser';
 import { IVote } from '../interfaces/IVote';
 import { PollModel } from '../models/PollModel';
+import { UserModel } from '../models/UserModel';
 import { VoteModel } from '../models/VoteModel';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import { DelegationController } from './DelegationController';
@@ -115,28 +122,63 @@ export class VoteController {
     private static async getNormalResults(
         pollId: string,
         options: IPollOption[],
-    ): Promise<Array<[IPollOption, number]>> {
-        const votes: IVote[] = await VoteModel.getFromPollId(pollId);
-        const results: Array<[IPollOption, number]> = [];
+        isPrivate: boolean,
+        _approvalRatio: EPollApprovalRatio,
+        _abstentionIsValid: boolean,
+    ): Promise<{
+        votes: Array<[string, number]>;
+        voters: Array<[string, string[]]>;
+    }> {
+        const votesFound: IVote[] = await VoteModel.getFromPollId(pollId);
+        const users: IUser[] = await UserModel.getAll();
+        const votes: Array<[string, number]> = [];
+        let voters: Array<[string, string[]]> = [];
         for (const option of options) {
-            const votesOption = votes.filter(
+            const votesOption = votesFound.filter(
                 (vote) => vote.option[0] === option.name,
             );
-            const result: [IPollOption, number] = [option, votesOption.length];
-            results.push(result);
+            const userIdsOption = votesOption.map((opt) => opt.userId);
+            const usersOption = users.filter((user) =>
+                userIdsOption.includes(user.userId),
+            );
+            const voter: [string, string[]] = [
+                option.name,
+                usersOption.map((user) => user.name),
+            ];
+            const vote: [string, number] = [option.name, votesOption.length];
+            votes.push(vote);
+            voters.push(voter);
         }
-        return results.sort((r1, r2) => r1[1] - r2[1]);
+        if (isPrivate) {
+            voters = [
+                [
+                    'Voters',
+                    voters.reduce((acc: string[], curr) => {
+                        return acc.concat(curr[1]);
+                    }, []),
+                ],
+            ];
+        }
+        return { votes, voters };
     }
     private static async getPriorityResults(
         _pollId: string,
-    ): Promise<Array<[IPollOption, number]>> {
-        return [];
+        _options: IPollOption[],
+        _isPrivate: boolean,
+    ): Promise<{
+        votes: Array<[string, number]>;
+        voters: Array<[string, string[]]>;
+    }> {
+        return { votes: [], voters: [] };
     }
 
     public static async getResults(
         userId: string,
         pollId: string,
-    ): Promise<Array<[IPollOption, number]>> {
+    ): Promise<{
+        votes: Array<[string, number]>;
+        voters: Array<[string, string[]]>;
+    }> {
         const poll: IPoll = await PollModel.get(new ObjectId(pollId));
         if (poll) {
             throw new ErrorHandler(404, 'Poll not found');
@@ -152,8 +194,18 @@ export class VoteController {
             );
         }
         if (poll.isPriority) {
-            return this.getPriorityResults(pollId);
+            return this.getPriorityResults(
+                pollId,
+                poll.pollOptions,
+                poll.isPrivate,
+            );
         }
-        return this.getNormalResults(pollId, poll.pollOptions);
+        return this.getNormalResults(
+            pollId,
+            poll.pollOptions,
+            poll.isPrivate,
+            poll.approvalRatio,
+            poll.abstentionIsValid,
+        );
     }
 }
