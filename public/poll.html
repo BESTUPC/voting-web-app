@@ -35,24 +35,65 @@
         <div id="d-flex" style="margin: 50px">
             <div class="d-flex flex-row align-items-center">
                 <h3 id="title" style="margin-right: 20px">Poll Name</h3>
+                <b
+                    id="TWO_THIRDS"
+                    style="display: none; margin-right: 10px"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="The approval ratio of this poll is two thirds."
+                    >&frac23;</b
+                >
+                <i
+                    id="ABSOLUTE"
+                    class="fa fa-pie-chart"
+                    style="display: none;  margin-right: 10px"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="The approval ratio of this poll is absolute."
+                ></i>
+                <i
+                    id="SIMPLE"
+                    class="fa fa-trophy"
+                    style="display: none;  margin-right: 10px"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="The approval ratio of this poll is simple."
+                ></i>
+                <i
+                    id="abstention"
+                    class="fa fa-plus-square"
+                    style="display: none; margin-right: 10px"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="This abstention counts as a valid vote"
+                ></i>
                 <i
                     id="private"
                     class="fa fa-lock"
                     style="display: none; margin-right: 10px"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="This poll is private"
                 ></i>
                 <i
                     id="priority"
                     class="fa fa-sort-numeric-asc"
                     style="display: none"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="This is a priority poll"
                 ></i>
             </div>
 
             <h6 id="description">Poll Description</h6>
-            <div class="row row-cols-auto justify-content-between" style="margin-top: 40px">
+            <div
+                class="row row-cols-auto justify-content-between"
+                style="margin-top: 40px"
+            >
                 <div
-                    class="d-flex flex-column"
+                    class="col"
                     id="options"
-                    style="margin-right: 100px"
+                    style="margin-right: 100px;"
                 ></div>
                 <div
                     class="col"

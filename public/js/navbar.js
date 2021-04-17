@@ -29,6 +29,7 @@ function currentProfileRequestListener() {
                 'Error',
                 "We couldn't parse your user's information, you will be logged out",
                 true,
+                '',
             );
         }
     } else {
@@ -37,6 +38,7 @@ function currentProfileRequestListener() {
             'Error',
             "We couldn't access your user's information, you will be logged out",
             true,
+            '',
         );
     }
 }
@@ -46,7 +48,7 @@ var globalVarsNav = {
     userId: '',
 };
 
-function showModal(title, message, logOut) {
+function showModal(title, message, logOut, redirect) {
     document.getElementById('infoModalTitle').innerHTML = title;
     document.getElementById('infoModalBody').innerHTML = message;
     var modalBootstrap = new bootstrap.Modal(
@@ -64,6 +66,9 @@ function showModal(title, message, logOut) {
                 window.location.reload();
             }
         });
+    if (redirect !== '') {
+        window.location.href = redirect;
+    }
 
     modalBootstrap.show();
 }

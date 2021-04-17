@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import { describe } from 'mocha';
@@ -35,7 +36,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 pollName: 'Test Name',
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
@@ -70,7 +74,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.CLOSED_HIDDEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 pollName: 'Test Name',
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
@@ -105,7 +112,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.CLOSED,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 pollName: 'Test Name',
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
@@ -173,7 +183,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 pollName: 'Test Name',
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
@@ -221,7 +234,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
@@ -245,7 +261,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
@@ -269,7 +288,10 @@ describe('PollController', () => {
                 isPrivate: true,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
@@ -293,7 +315,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
@@ -317,7 +342,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
@@ -341,7 +369,10 @@ describe('PollController', () => {
                 isPrivate: true,
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
@@ -366,7 +397,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: 'wrong',
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
@@ -415,7 +449,37 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                ],
+                abstentionIsValid: false,
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
+            };
+            await expect(
+                PollController.addPoll(userId, body),
+            ).to.be.rejectedWith(
+                'An instance of PollCreateDTO has failed the validation',
+            );
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId);
+        });
+        it('should return a dto validation failed error if polloptions has repeated names', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId = 'IdUser';
+            const body = {
+                pollName: 'Test Name',
+                description: 'Test',
+                isProprity: true,
+                isPrivate: true,
+                pollDeadline: 1000000,
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
@@ -440,7 +504,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: 19,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
@@ -465,8 +532,39 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
+            };
+            await expect(
+                PollController.addPoll(userId, body),
+            ).to.be.rejectedWith(
+                'An instance of PollCreateDTO has failed the validation',
+            );
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(userId);
+        });
+        it('should return a dto validation failed error if an option is both abstention and against', async () => {
+            const isAdminStub = sandbox
+                .stub(UserController, 'isAdmin')
+                .resolves(true);
+            const userId = 'IdUser';
+            const body = {
+                pollName: 'Test Name',
+                description: 'Test',
+                isProprity: true,
+                isPrivate: true,
+                pollDeadline: 1000000,
+                state: EPollState.OPEN,
+                targetGroup: EMembership.ALL,
+                pollOptions: [
+                    { name: 'yes', isAbstention: true, isAgainst: true },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
+                approvalRatio: EPollApprovalRatio.ABSOLUTE,
+                abstentionValid: true,
             };
             await expect(
                 PollController.addPoll(userId, body),
@@ -489,7 +587,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: false,
                 approvalRatio: 'bad',
             };
@@ -514,7 +615,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 abstentionIsValid: false,
             };
             await expect(
@@ -537,7 +641,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 pollName: 'Test Name',
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
@@ -574,7 +681,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 pollName: 'Test Name 1',
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
@@ -586,7 +696,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 pollName: 'Test Name 2',
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
@@ -623,7 +736,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 pollName: 'Test Name',
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
@@ -682,7 +798,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.FULL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 pollName: 'Test Name',
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
@@ -723,7 +842,10 @@ describe('PollController', () => {
                 pollDeadline: 1000000,
                 state: EPollState.OPEN,
                 targetGroup: EMembership.ALL,
-                pollOptions: ['yes', 'no'],
+                pollOptions: [
+                    { name: 'yes', isAbstention: false, isAgainst: false },
+                    { name: 'no', isAbstention: false, isAgainst: false },
+                ],
                 pollName: 'Test Name',
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,

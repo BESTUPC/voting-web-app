@@ -3,15 +3,20 @@ function sendVoteRequestListener() {
         try {
             var response = JSON.parse(this.responseText);
             if (response) {
-                showModal('Success', 'Vote updated', false);
+                showModal('Success', 'Vote updated', false, '');
             } else {
-                showModal('Success', 'Vote option was already set', false);
+                showModal('Success', 'Vote option was already set', false, '');
             }
-        } catch {
-            showModal('Error', 'There was some issue sending the vote', false);
+        } catch (e) {
+            showModal(
+                'Error',
+                'There was some issue sending the vote',
+                false,
+                '',
+            );
         }
     } else {
-        showModal('Error', 'There was some issue sending the vote', false);
+        showModal('Error', 'There was some issue sending the vote', false, '');
     }
 }
 
@@ -56,61 +61,85 @@ function getDelegationsRequestListener() {
                                 }
                                 $('#title').text(poll.pollName);
                                 $('#description').text(poll.description);
+                                $('#abstention').css({
+                                    display: poll.abstentionIsValid
+                                        ? 'unset'
+                                        : 'none',
+                                });
                                 $('#private').css({
                                     display: poll.isPrivate ? 'unset' : 'none',
                                 });
                                 $('#priority').css({
                                     display: poll.isPriority ? 'unset' : 'none',
                                 });
+                                $(`#${poll.approvalRatio}`).css({
+                                    display: 'unset',
+                                });
                                 globalVarsPoll.isPriority = poll.isPriority;
-                                var optionsSorted =
-                                    poll.isPriority && optionSelected.length > 0
-                                        ? optionSelected
-                                        : poll.pollOptions;
+
+                                if (
+                                    poll.isPriority &&
+                                    optionSelected.length > 0
+                                ) {
+                                    poll.pollOptions.sort(function (a, b) {
+                                        return (
+                                            optionSelected.indexOf(a.name) -
+                                            optionSelected.indexOf(b.name)
+                                        );
+                                    });
+                                }
+                                var optionsSorted = poll.pollOptions;
                                 for (var option of optionsSorted) {
                                     var html = '';
-                                    if (option === optionSelected) {
-                                        html = `<div data-id="${option}" style="margin-bottom: 20px"><input
+                                    if (option.name === optionSelected) {
+                                        html = `<div class="col"><input
                                                     type="radio"
                                                     class="btn-check"
                                                     name="options"
-                                                    id="${option}"
-                                                    value=${option}
+                                                    id="${option.name}"
+                                                    value=${option.name}
                                                     autocomplete="off"
                                                     checked
                                                 />
-                                                <label class="btn btn-outline-primary" for="${option}"
-                                                    >${option}</label
+                                                <label class="btn btn-outline-primary" for="${option.name}"
+                                                    >${option.name}</label
                                                 ></div>`;
                                     } else if (poll.isPriority) {
-                                        html = `<div data-id="${option}" style="margin-bottom: 20px" ><input
+                                        html = `<div class="col" data-id="${option.name}"  ><input
                                                     type="radio"
                                                     class="btn-check"
                                                     name="options"
-                                                    id="${option}"
-                                                    value=${option}
+                                                    id="${option.name}"
+                                                    value=${option.name}
                                                     autocomplete="off"
                                                     disabled
                                                 />
-                                                <label class="btn btn-outline-primary" for="${option}"
-                                                    >${option}</label
+                                                <label class="btn btn-outline-primary" for="${option.name}"
+                                                    >${option.name}</label
                                                 ></div>`;
                                     } else {
-                                        html = `<div data-id="${option}" style="margin-bottom: 20px"><input
+                                        html = `<div class="col" data-id="${option.name}"><input
                                                     type="radio"
                                                     class="btn-check"
                                                     name="options"
-                                                    id="${option}"
-                                                    data-id="${option}"
-                                                    value=${option}
+                                                    id="${option.name}"
+                                                    data-id="${option.name}"
+                                                    value=${option.name}
                                                     autocomplete="off"
                                                 />
-                                                <label class="btn btn-outline-primary" for="${option}"
-                                                    >${option}</label
+                                                <label class="btn btn-outline-primary" for="${option.name}"
+                                                    >${option.name}</label
                                                 ></div>`;
                                     }
+                                    if (option.isAgainst) {
+                                        html += `<div class="col d-flex align-items-center"><span class="badge bg-primary">Blanc</span></div>`;
+                                    } else if (option.isAbstention) {
+                                        html += `<div class="col d-flex align-items-center"><span class="badge bg-primary">Abstenció</span></div>`;
+                                    }
 
-                                    $('#options').append(html);
+                                    $('#options').append(
+                                        `<div class="row" data-id="${option.name}" style="margin-bottom: 20px">${html}</div>`,
+                                    );
                                 }
                                 if (poll.isPriority) {
                                     var optionsDraggable = document.getElementById(
@@ -150,6 +179,7 @@ function getDelegationsRequestListener() {
                                     'Error',
                                     "We couldn't get the vote",
                                     false,
+                                    '',
                                 );
                             }
                         });
@@ -161,30 +191,22 @@ function getDelegationsRequestListener() {
                     } else {
                         showModal(
                             'Error',
-                            "We couldn't update the memberships",
+                            "We couldn't get the poll",
                             false,
+                            '/index.html',
                         );
                     }
                 });
                 getPollRequest.open('GET', `/api/polls/${globalVarsPoll.id}`);
                 getPollRequest.send();
             } else {
-                showModal('Error', "We couldn't get the users", false);
+                showModal('Error', "We couldn't get the users", false, '');
             }
         });
         getUsersDelegatedRequest.open('GET', '/api/users');
         getUsersDelegatedRequest.send();
     } else {
-        showModal('Error', "We couldn't get the delegations", false);
-    }
-}
-
-function applyRequestListener() {
-    if (this.readyState === 4 && this.status === 200) {
-        var response = JSON.parse(this.responseText);
-        if (response) showModal('Info', 'Memberships updated', false);
-    } else {
-        showModal('Error', "We couldn't update the memberships", false);
+        showModal('Error', "We couldn't get the delegations", false, '');
     }
 }
 
@@ -236,7 +258,7 @@ function getUsersDelegatedRequestListener() {
             ).name;
         }
     } else {
-        showModal('Error', "We couldn't get the users", false);
+        showModal('Error', "We couldn't get the users", false, '');
     }
 }
 
@@ -257,24 +279,66 @@ $(document).ready(function () {
             if (this.readyState === 4 && this.status === 200) {
                 var response = JSON.parse(this.responseText);
                 if (response) {
-                    showModal('Success', 'We updated the state', false);
+                    showModal(
+                        'Success',
+                        'We updated the state',
+                        false,
+                        '/index.html',
+                    );
                 } else {
-                    showModal('Error', "We couldn't update the state", false);
+                    showModal(
+                        'Error',
+                        "We couldn't update the state",
+                        false,
+                        '',
+                    );
                 }
             } else {
-                showModal('Error', "We couldn't update the state", false);
+                showModal('Error', "We couldn't update the state", false, '');
             }
         });
-        updatePollRequest.open('PATCH', '/api/polls/state/' + id);
+        updatePollRequest.open(
+            'PATCH',
+            '/api/polls/state/' + globalVarsPoll.id,
+        );
         updatePollRequest.setRequestHeader('Content-Type', 'application/json');
         updatePollRequest.send();
+    });
+
+    $('#delete').click(function () {
+        var deletePollRequest = new XMLHttpRequest();
+        deletePollRequest.addEventListener('load', function () {
+            if (this.readyState === 4 && this.status === 200) {
+                var response = JSON.parse(this.responseText);
+                if (response) {
+                    showModal(
+                        'Success',
+                        'We deleted the poll',
+                        false,
+                        '/index.html',
+                    );
+                } else {
+                    showModal(
+                        'Error',
+                        "We couldn't delete the poll",
+                        false,
+                        '',
+                    );
+                }
+            } else {
+                showModal('Error', "We couldn't delete the poll", false, '');
+            }
+        });
+        deletePollRequest.open('DELETE', '/api/polls/' + globalVarsPoll.id);
+        deletePollRequest.setRequestHeader('Content-Type', 'application/json');
+        deletePollRequest.send();
     });
 
     $('#send').click(function () {
         if (!globalVarsPoll.isPriority) {
             var selectedOption = $("input[name='options']:checked").val();
             if (selectedOption === undefined) {
-                showModal('Error', 'An option should be selected', false);
+                showModal('Error', 'An option should be selected', false, '');
                 return;
             }
             selectedOption = [selectedOption];
@@ -283,7 +347,7 @@ $(document).ready(function () {
         }
         var voter = $('#voter').selectpicker('val');
         if (voter === undefined) {
-            showModal('Error', 'A voter should be selected', false);
+            showModal('Error', 'A voter should be selected', false, '');
             return;
         }
         var body = {
@@ -338,7 +402,7 @@ $(document).ready(function () {
                         check.checked = false;
                     }
                 } else {
-                    showModal('Error', "We couldn't get the vote", false);
+                    showModal('Error', "We couldn't get the vote", false, '');
                 }
             });
             getVoteRequest.open(
@@ -350,4 +414,10 @@ $(document).ready(function () {
             getVoteRequest.send();
         },
     );
+    var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]'),
+    );
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 });

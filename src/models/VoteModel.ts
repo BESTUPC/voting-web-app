@@ -1,4 +1,4 @@
-import { Collection } from 'mongodb';
+import { Collection, UpdateWriteOpResult } from 'mongodb';
 import { IVote } from '../interfaces/IVote';
 import { Database } from '../providers/Database';
 
@@ -36,14 +36,17 @@ export class VoteModel {
         pollId,
         option,
     }: IVote): Promise<boolean> {
-        const updateCount: number = (
-            await VoteModel._getCollection().updateOne(
-                { userId, pollId },
-                { $set: { option } },
-                { upsert: true },
-            )
-        ).modifiedCount;
-        return updateCount == 1;
+        const updateResult: UpdateWriteOpResult = await VoteModel._getCollection().updateOne(
+            { userId, pollId },
+            { $set: { option } },
+            { upsert: true },
+        );
+        console.log(updateResult);
+        return (
+            updateResult.modifiedCount == 1 ||
+            updateResult.upsertedCount == 1 ||
+            updateResult.matchedCount == 1
+        );
     }
 
     /**

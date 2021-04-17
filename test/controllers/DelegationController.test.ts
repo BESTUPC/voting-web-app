@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import { describe } from 'mocha';

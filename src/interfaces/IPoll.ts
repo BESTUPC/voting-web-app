@@ -13,14 +13,20 @@ export interface IPoll {
     pollDeadline: number;
     state: EPollState;
     targetGroup: EMembership;
-    pollOptions: Array<string>;
+    pollOptions: Array<IPollOption>;
     pollName: string;
     approvalRatio: EPollApprovalRatio;
     abstentionIsValid: boolean;
 }
 
+export interface IPollOption {
+    name: string;
+    isAbstention: boolean;
+    isAgainst: boolean;
+}
+
 /**
- * Enum for the different poll abrobation ratios
+ * Enum for the different poll approval ratios
  *
  */
 export enum EPollApprovalRatio {

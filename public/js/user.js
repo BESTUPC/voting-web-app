@@ -19,19 +19,25 @@ function userRequestListener() {
                 'Error',
                 "We couldn't parse the user's information",
                 false,
+                '/users.html',
             );
         }
     } else {
-        showModal('Error', "We couldn't access the user's information", false);
+        showModal(
+            'Error',
+            "We couldn't access the user's information",
+            false,
+            '/users.html',
+        );
     }
 }
 
 function applyRequestListener() {
     if (this.readyState === 4 && this.status === 200) {
         var response = JSON.parse(this.responseText);
-        if (response) showModal('Info', 'Memberships updated', false);
+        if (response) showModal('Info', 'Memberships updated', false, '');
     } else {
-        showModal('Error', "We couldn't update the memberships", false);
+        showModal('Error', "We couldn't update the memberships", false, '');
     }
 }
 

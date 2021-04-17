@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { VoteAddDTO } from '../dtos/VoteAddDTO';
-import { EPollState, IPoll } from '../interfaces/IPoll';
+import { EPollState, IPoll, IPollOption } from '../interfaces/IPoll';
 import { IVote } from '../interfaces/IVote';
 import { PollModel } from '../models/PollModel';
 import { VoteModel } from '../models/VoteModel';
@@ -114,29 +114,29 @@ export class VoteController {
 
     private static async getNormalResults(
         pollId: string,
-        options: string[],
-    ): Promise<Array<[string, number]>> {
+        options: IPollOption[],
+    ): Promise<Array<[IPollOption, number]>> {
         const votes: IVote[] = await VoteModel.getFromPollId(pollId);
-        const results: Array<[string, number]> = [];
+        const results: Array<[IPollOption, number]> = [];
         for (const option of options) {
             const votesOption = votes.filter(
-                (vote) => vote.option[0] === option,
+                (vote) => vote.option[0] === option.name,
             );
-            const result: [string, number] = [option, votesOption.length];
+            const result: [IPollOption, number] = [option, votesOption.length];
             results.push(result);
         }
         return results.sort((r1, r2) => r1[1] - r2[1]);
     }
     private static async getPriorityResults(
         _pollId: string,
-    ): Promise<Array<[string, number]>> {
+    ): Promise<Array<[IPollOption, number]>> {
         return [];
     }
 
     public static async getResults(
         userId: string,
         pollId: string,
-    ): Promise<Array<[string, number]>> {
+    ): Promise<Array<[IPollOption, number]>> {
         const poll: IPoll = await PollModel.get(new ObjectId(pollId));
         if (poll) {
             throw new ErrorHandler(404, 'Poll not found');

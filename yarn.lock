@@ -357,6 +357,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sinonjs/fake-timers@npm:^7.0.4":
+  version: 7.0.5
+  resolution: "@sinonjs/fake-timers@npm:7.0.5"
+  dependencies:
+    "@sinonjs/commons": ^1.7.0
+  checksum: 5cc43301d3d46affdace077854ecffd299b80ab3a438bf34f21b6d6d27e0be636ba475397d12fd5b8561bd30679d0597f9d7e8b5e0c82ad57a6c9b49e366e9b4
+  languageName: node
+  linkType: hard
+
 "@sinonjs/samsam@npm:^5.3.1":
   version: 5.3.1
   resolution: "@sinonjs/samsam@npm:5.3.1"
@@ -531,10 +540,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^14.14.37":
-  version: 14.14.37
-  resolution: "@types/node@npm:14.14.37"
-  checksum: 5e2d9baf7594ebacaf016716515f30de0765169412787f981481c2fb8b468923149bb9e2e3219ee672399811672ceddc339a7372a61cf15bc656836a5494d991
+"@types/node@npm:^14.14.41":
+  version: 14.14.41
+  resolution: "@types/node@npm:14.14.41"
+  checksum: 37dfb639644c8ee9b9846106834983f590d494b855e74645a4f169ea24199f7559366d25f6e72e83ba940b59eb6370e002bd53963d098d6d9fdf935a37011417
   languageName: node
   linkType: hard
 
@@ -590,19 +599,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sinon@npm:^9.0.11":
-  version: 9.0.11
-  resolution: "@types/sinon@npm:9.0.11"
+"@types/sinon@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "@types/sinon@npm:10.0.0"
   dependencies:
-    "@types/sinonjs__fake-timers": "*"
-  checksum: c84ccbd5ac05d8eb45151a9c0790cf9b9fc78bdfc2f3feecb8866dab530bed82301ba0340cfb73de7148f08a40c9c1b1b7a920e4c9efd79195b60a52ab3e577d
-  languageName: node
-  linkType: hard
-
-"@types/sinonjs__fake-timers@npm:*":
-  version: 6.0.2
-  resolution: "@types/sinonjs__fake-timers@npm:6.0.2"
-  checksum: 1dd1b391904c2a2972318b753026f615784c14a827c12ba21f67707ca6565f3cea195790a1c64178f2208e330eec4ab9c78823c99019384b9a01b02cc6987071
+    "@sinonjs/fake-timers": ^7.0.4
+  checksum: 4263b63f316b549724d0ae77b68e5155d0859a67fc61facfd64954bb183b27d0d5306a31471d4270e417e276537f68259e497e940354f4d5a381e6821673913a
   languageName: node
   linkType: hard
 
@@ -1909,9 +1911,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "eslint-plugin-prettier@npm:3.3.1"
+"eslint-plugin-prettier@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "eslint-plugin-prettier@npm:3.4.0"
   dependencies:
     prettier-linter-helpers: ^1.0.0
   peerDependencies:
@@ -1920,7 +1922,7 @@ __metadata:
   peerDependenciesMeta:
     eslint-config-prettier:
       optional: true
-  checksum: cf35b0f0e9ef30782fe82913db92f6874181723d77f0c4613f9d69c87069f73d0dc420ef850ebc844613c00a8e87eb9762a36b7d028334c5c7b091763118347b
+  checksum: 322be1af8c7a6b7f1c718d912090722b65da072fda05bbc0a9d94523e6c3dfda49a7f62fd411126f1909c12bbc63e827ee6459163b2ce3458adb292541decf66
   languageName: node
   linkType: hard
 
@@ -4401,6 +4403,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"reflect-metadata@npm:^0.1.13":
+  version: 0.1.13
+  resolution: "reflect-metadata@npm:0.1.13"
+  checksum: 629101e6c8b7e0d3166fa51953f908f45b5c73dbaf1375c4f8c3ed62221b870c951343b9b031d0c49957e7262a88020f41be25731ee85b5d779f12c7cec66005
+  languageName: node
+  linkType: hard
+
 "regexpp@npm:^3.0.0, regexpp@npm:^3.1.0":
   version: 3.1.0
   resolution: "regexpp@npm:3.1.0"
@@ -5468,10 +5477,10 @@ typescript@^4.2.4:
     "@types/mocha": ^8.2.2
     "@types/mongodb": ^3.6.12
     "@types/morgan": ^1.9.2
-    "@types/node": ^14.14.37
+    "@types/node": ^14.14.41
     "@types/passport": ^1.0.6
     "@types/passport-google-oauth": ^1.0.41
-    "@types/sinon": ^9.0.11
+    "@types/sinon": ^10.0.0
     "@typescript-eslint/eslint-plugin": ^4.22.0
     "@typescript-eslint/parser": ^4.22.0
     chai: ^4.3.4
@@ -5483,7 +5492,7 @@ typescript@^4.2.4:
     dotenv: ^8.2.0
     eslint: ^7.24.0
     eslint-config-prettier: ^8.2.0
-    eslint-plugin-prettier: ^3.3.1
+    eslint-plugin-prettier: ^3.4.0
     express: ^4.17.1
     helmet: ^4.4.1
     https: ^1.0.0
@@ -5498,6 +5507,7 @@ typescript@^4.2.4:
     passport-google-oauth: ^2.0.0
     path: ^0.12.7
     prettier: ^2.2.1
+    reflect-metadata: ^0.1.13
     sinon: ^10.0.0
     ts-node: ^9.1.1
     typedoc: ^0.20.35

@@ -1,36 +1,36 @@
 function deleteAllRequestListener() {
     if (this.readyState === 4 && this.status === 200) {
         var response = JSON.parse(this.responseText);
-        if (response) showModal('Info', 'Delegations deleted', false);
+        if (response) showModal('Info', 'Delegations deleted', false, '');
         else {
-            showModal('Error', "We couldn't delete the delegations", false);
+            showModal('Error', "We couldn't delete the delegations", false, '');
         }
     } else {
-        showModal('Error', "We couldn't delete the delegations", false);
+        showModal('Error', "We couldn't delete the delegations", false, '');
     }
 }
 
 function createRequestListener() {
     if (this.readyState === 4 && this.status === 200) {
         var response = JSON.parse(this.responseText);
-        if (response) showModal('Info', 'Delegation created', false);
+        if (response) showModal('Info', 'Delegation created', false, '');
         else {
-            showModal('Error', "We couldn't create the delegation", false);
+            showModal('Error', "We couldn't create the delegation", false, '');
         }
     } else {
-        showModal('Error', "We couldn't create the delegation", false);
+        showModal('Error', "We couldn't create the delegation", false, '');
     }
 }
 
 function deleteRequestListener() {
     if (this.readyState === 4 && this.status === 200) {
         var response = JSON.parse(this.responseText);
-        if (response) showModal('Info', 'Delegation deleted', false);
+        if (response) showModal('Info', 'Delegation deleted', false, '');
         else {
-            showModal('Error', "We couldn't delete the delegation", false);
+            showModal('Error', "We couldn't delete the delegation", false, '');
         }
     } else {
-        showModal('Error', "We couldn't delete the delegation", false);
+        showModal('Error', "We couldn't delete the delegation", false, '');
     }
 }
 
@@ -55,7 +55,7 @@ function getUsersRequestListener() {
         }
         $('.selectpicker').selectpicker('refresh');
     } else {
-        showModal('Error', "We couldn't get the users", false);
+        showModal('Error', "We couldn't get the users", false, '');
     }
 }
 
@@ -71,7 +71,7 @@ function getUsersDelegatedRequestListener() {
                 ).name;
         }
     } else {
-        showModal('Error', "We couldn't get the users", false);
+        showModal('Error', "We couldn't get the users", false, '');
     }
 }
 
