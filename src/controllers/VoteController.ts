@@ -124,10 +124,11 @@ export class VoteController {
         options: IPollOption[],
         isPrivate: boolean,
         _approvalRatio: EPollApprovalRatio,
-        _abstentionIsValid: boolean,
+        abstentionIsValid: boolean,
     ): Promise<{
         votes: Array<[string, number]>;
         voters: Array<[string, string[]]>;
+        winner: string;
     }> {
         const votesFound: IVote[] = await VoteModel.getFromPollId(pollId);
         const users: IUser[] = await UserModel.getAll();
@@ -149,6 +150,20 @@ export class VoteController {
             votes.push(vote);
             voters.push(voter);
         }
+        //const againstOptions = options.filter((opt) => opt.isAgainst);
+        const abstentionOptions = options.filter((opt) => opt.isAbstention);
+
+        const nValidVotes =
+            votes.length - (abstentionIsValid ? 0 : abstentionOptions.length);
+
+        let winner = '';
+
+        for (const vote of votes) {
+            if (vote[1] / nValidVotes > 0.5) {
+                winner = vote[0];
+            }
+        }
+
         if (isPrivate) {
             voters = [
                 [
@@ -159,7 +174,7 @@ export class VoteController {
                 ],
             ];
         }
-        return { votes, voters };
+        return { votes, voters, winner };
     }
     private static async getPriorityResults(
         _pollId: string,
@@ -168,8 +183,9 @@ export class VoteController {
     ): Promise<{
         votes: Array<[string, number]>;
         voters: Array<[string, string[]]>;
+        winner: string;
     }> {
-        return { votes: [], voters: [] };
+        return { votes: [], voters: [], winner: '' };
     }
 
     public static async getResults(
@@ -178,6 +194,7 @@ export class VoteController {
     ): Promise<{
         votes: Array<[string, number]>;
         voters: Array<[string, string[]]>;
+        winner: string;
     }> {
         const poll: IPoll = await PollModel.get(new ObjectId(pollId));
         if (poll) {
