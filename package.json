@@ -16,6 +16,7 @@
     "postinstall": "husky install",
     "server:dev": "yarn workspace server dev",
     "server:build": "yarn workspace server build",
+    "frontend:start": "yarn workspace frontend start",
     "test": "yarn workspace server test",
     "lint": "yarn workspace server lint",
     "lint:fix": "yarn workspace server lint:fix",

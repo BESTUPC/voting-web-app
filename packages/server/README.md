@@ -1,2 +1,1 @@
 # Voting web app
-
