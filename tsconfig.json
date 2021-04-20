@@ -2,24 +2,10 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "commonjs",
-    "outDir": "dist",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "lib": [
-      "ESNext",
-      "dom"
-    ],
+    "lib": ["ESNext", "dom"],
     "esModuleInterop": true,
     "experimentalDecorators": true
-  },
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "public",
-    "dist",
-    "doc",
-  ]
+  }
 }
