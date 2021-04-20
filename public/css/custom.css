@@ -23,3 +23,15 @@ a:hover {
 .title {
     color: gray;
 }
+
+.ct-series-a .ct-bar {
+    /* Colour of your bars */
+    stroke: red;
+    /* The width of your bars */
+    stroke-width: 40px;
+}
+
+.ct-label {
+    font-size: 15px;
+    color: black;
+}
