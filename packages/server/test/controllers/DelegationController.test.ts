@@ -180,6 +180,7 @@ describe('DelegationController', () => {
                     membership: [EMembership.ALL],
                     name: 'name',
                     email: 'email',
+                    picture: 'picture',
                 },
             ];
             const getAllUsersStub = sandbox.stub(UserModel, 'getAll').resolves(users);

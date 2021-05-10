@@ -91,7 +91,7 @@ export class VoteController {
         }
 
         const poll = await PollController.getPoll(auxUserId, vote.pollId);
-        if (poll.state !== 'open') {
+        if (poll.state !== EPollState.OPEN) {
             throw new ErrorHandler(401, 'Poll is now closed');
         }
 

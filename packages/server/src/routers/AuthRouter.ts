@@ -1,9 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import { IUser } from 'interfaces';
-import { UserController } from '../controllers/UserController';
-import { validateUser } from '../utils/AuthMiddleware';
+import { AuthController } from '../controllers/AuthController';
 import { AccessTokenInterface, CookieHandler } from '../utils/CookieHandler';
-import { OAuth2Client } from 'google-auth-library';
 
 export class AuthRouter {
     /**
@@ -14,7 +11,7 @@ export class AuthRouter {
     /**
      * Controller to use in this router.
      */
-    private _controller = UserController;
+    private _controller = AuthController;
 
     /**
      * Get function for the express router.
@@ -36,37 +33,33 @@ export class AuthRouter {
     private _configure() {
         this._router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
             try {
-                validateUser(req, res, next);
-                const accessToken: AccessTokenInterface = {
-                    userId: res.locals['user'].userId,
-                };
-                CookieHandler.set(res, accessToken);
-                res.sendStatus(200);
+                if (!!res.locals['user']) {
+                    const accessToken: AccessTokenInterface = {
+                        userId: res.locals['user'].userId,
+                    };
+                    CookieHandler.set(res, accessToken);
+                    res.sendStatus(200);
+                    return next();
+                } else {
+                    const userId = await this._controller.signIn(req.body);
+                    const accessToken: AccessTokenInterface = {
+                        userId: userId,
+                    };
+                    CookieHandler.set(res, accessToken);
+                    res.sendStatus(200);
+                    return next();
+                }
             } catch (error) {
-                const client = new OAuth2Client(process.env.CLIENT_ID);
-                const ticket = await client.verifyIdToken({
-                    idToken: token,
-                    audience: process.env.CLIENT_ID,
-                });
-                const { name, email, picture } = ticket.getPayload();
-                const user = await db.user.upsert({
-                    where: { email: email },
-                    update: { name, picture },
-                    create: { name, email, picture },
-                });
-                this._controller.addUser();
-                const accessToken: AccessTokenInterface = {
-                    userId: res.locals['user'].userId,
-                };
-                CookieHandler.set(res, accessToken);
+                return next(error);
             }
         });
         this._router.post('/logout', async (req: Request, res: Response, next: NextFunction) => {
             try {
                 CookieHandler.removeFrom(res);
                 res.status(200);
+                return next();
             } catch (error) {
-                next(error);
+                return next(error);
             }
         });
     }

@@ -568,6 +568,7 @@ describe('PollController', () => {
                 name: 'name1',
                 email: 'email1',
                 membership: [EMembership.ALL],
+                picture: 'picture',
             };
             const getUserStub = sandbox.stub(UserController, 'getUser').resolves(user);
             const userId = 'ID';
@@ -623,6 +624,7 @@ describe('PollController', () => {
                 name: 'name',
                 email: 'email',
                 membership: [EMembership.ALL],
+                picture: 'picture',
             };
             const poll: IPoll = {
                 description: 'Test description',
@@ -657,6 +659,7 @@ describe('PollController', () => {
                 name: 'name',
                 email: 'email',
                 membership: [EMembership.ALL],
+                picture: 'picture',
             };
             const getUserStub = sandbox.stub(UserController, 'getUser').resolves(user);
             const getPollStub = sandbox.stub(PollModel, 'get').resolves(null);
@@ -677,6 +680,7 @@ describe('PollController', () => {
                 name: 'name',
                 email: 'email',
                 membership: [EMembership.ALL],
+                picture: 'picture',
             };
             const poll: IPoll = {
                 description: 'Test description',

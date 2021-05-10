@@ -26,6 +26,7 @@ describe('UserController', () => {
                 name: 'name',
                 email: 'email',
                 membership: [EMembership.ALL, EMembership.ADMIN],
+                picture: 'picture',
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const updateMembershipStub = sandbox.stub(UserModel, 'updateMembership').resolves(true);
@@ -120,70 +121,6 @@ describe('UserController', () => {
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
     });
-    describe('test addUser', () => {
-        beforeEach(() => {
-            sandbox = sinon.createSandbox();
-        });
-        afterEach(() => {
-            sandbox.restore();
-        });
-        it("should call the model's add function", async () => {
-            const addUserStub = sandbox.stub(UserModel, 'add').resolves(true);
-            const body: {
-                id: string;
-                displayName: string;
-                emails: Array<{ value: string; verified: boolean }>;
-            } = {
-                id: 'ID',
-                emails: [{ value: 'email@test.com', verified: true }],
-                displayName: 'test',
-            };
-            const newUser: IUser = {
-                userId: body.id,
-                email: body.emails[0].value,
-                name: body.displayName,
-                membership: [EMembership.ALL],
-            };
-            const ret: boolean = await UserController.addUser(body);
-            expect(ret).to.be.true;
-            expect(addUserStub.calledOnce).to.be.true;
-            expect(addUserStub.firstCall.args[0]).to.deep.equal(newUser);
-        });
-        it("should call the model's add function even though the email is not available", async () => {
-            const addUserStub = sandbox.stub(UserModel, 'add').resolves(true);
-            const body: {
-                id: string;
-                displayName: string;
-                emails: Array<{ value: string; verified: boolean }>;
-            } = {
-                id: 'ID',
-                emails: [],
-                displayName: 'test',
-            };
-            const newUser: IUser = {
-                userId: body.id,
-                email: 'notAvailable',
-                name: body.displayName,
-                membership: [EMembership.ALL],
-            };
-            const ret: boolean = await UserController.addUser(body);
-            expect(ret).to.be.true;
-            expect(addUserStub.calledOnce).to.be.true;
-            expect(addUserStub.firstCall.args[0]).to.deep.equal(newUser);
-        });
-        it('should return a bad request error', async () => {
-            const body: {
-                id: string;
-                emails: Array<{ value: string; verified: boolean }>;
-            } = {
-                id: 'ID',
-                emails: [{ value: 'email@test.com', verified: true }],
-            };
-            await expect(UserController.addUser(body)).to.be.rejectedWith(
-                'An instance of UserCreateDTO',
-            );
-        });
-    });
     describe('test getUsers', () => {
         beforeEach(() => {
             sandbox = sinon.createSandbox();
@@ -199,12 +136,14 @@ describe('UserController', () => {
                 name: 'name1',
                 email: 'email1',
                 membership: [EMembership.ALL],
+                picture: 'picture',
             };
             const user2: IUser = {
                 userId: 'ID2',
                 name: 'name2',
                 email: 'email2',
                 membership: [EMembership.ALL],
+                picture: 'picture',
             };
             const getAllStub = sandbox.stub(UserModel, 'getAll').resolves([user1, user2]);
             const ret: Array<IUser> = await UserController.getUsers(userId);
@@ -237,6 +176,7 @@ describe('UserController', () => {
                 name: 'name',
                 email: 'email',
                 membership: [EMembership.ALL],
+                picture: 'picture',
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const userId1 = 'ID1';
@@ -255,6 +195,7 @@ describe('UserController', () => {
                 name: 'name',
                 email: 'email',
                 membership: [EMembership.ALL],
+                picture: 'picture',
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const userId = 'ID';
@@ -302,6 +243,7 @@ describe('UserController', () => {
                 name: 'name',
                 email: 'email',
                 membership: [EMembership.ALL, EMembership.ADMIN],
+                picture: 'picture',
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const userId = 'ID';
@@ -316,6 +258,7 @@ describe('UserController', () => {
                 name: 'name',
                 email: 'email',
                 membership: [EMembership.ALL],
+                picture: 'picture',
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
             const userId = 'ID';

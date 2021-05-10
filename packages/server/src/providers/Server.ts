@@ -28,10 +28,17 @@ export class Server {
     /**
      * Mounts the body parser and custom error handler middlewares.
      */
-    public mountMiddlewares(): boolean {
+    private _mountMiddlewares(): boolean {
         try {
             this.server.use(helmet());
-            this.server.use(cors());
+
+            this.server.use(
+                cors({
+                    origin: 'https://localhost:4200',
+                    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+                    credentials: true,
+                }),
+            );
             this.server.use(cookieParser(process.env.COOKIE_KEY1));
             this.server.use(morgan('tiny'));
             this.server.use(express.json());
@@ -55,7 +62,7 @@ export class Server {
     /**
      * Configures the file serving and the api route.
      */
-    public mountRoutes(): boolean {
+    private _mountRoutes(): boolean {
         try {
             this.server.use('/api', new MasterRouter().router);
             return true;
@@ -90,20 +97,19 @@ export class Server {
         return this.server;
     }
 
-    // /**
-    //  * Call the mount functions.
-    //  */
-    // public configure(): boolean {
-    //     try {
-    //         //this.server.use('/', express.static(path.join(process.env.ROOT_DIR, 'public')));
-    //         this._mountMiddlewares();
-    //         this._mountRoutes();
-    //         return true;
-    //     } catch {
-    //         console.error("Couldn't configure server routes and middlewares");
-    //         return false;
-    //     }
-    // }
+    /**
+     * Call the mount functions.
+     */
+    public configure(): boolean {
+        try {
+            this._mountMiddlewares();
+            this._mountRoutes();
+            return true;
+        } catch {
+            console.error("Couldn't configure server routes and middlewares");
+            return false;
+        }
+    }
 
     /**
      * Start the server. If possible it will run both a HTTP and HTTPS port.

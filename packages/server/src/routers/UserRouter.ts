@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { UserController } from '../controllers/UserController';
-import { IGoogleUser, IUser } from 'interfaces';
+import { IUser } from 'interfaces';
 
 export class UserRouter {
     /**
@@ -59,11 +59,7 @@ export class UserRouter {
         this._router.get('/current', async (req: Request, res: Response, next: NextFunction) => {
             try {
                 const user: IUser = res.locals['user'];
-                const result: { web: IUser; google: IGoogleUser } = {
-                    web: await this._controller.getUser(user.userId, user.userId),
-                    google: req.user as IGoogleUser,
-                };
-
+                const result: IUser = await this._controller.getUser(user.userId, user.userId);
                 res.status(200).json(result);
             } catch (error) {
                 next(error);

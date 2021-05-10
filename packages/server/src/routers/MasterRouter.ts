@@ -63,10 +63,10 @@ export class MasterRouter {
      * Connect routes to their matching routers.
      */
     private _configure() {
-        this._router.use('/users', [validateUser], this._userRouter.router);
-        this._router.use('/polls', [validateUser], this._pollRouter.router);
-        this._router.use('/votes', [validateUser], this._voteRouter.router);
-        this._router.use('/delegations', [validateUser], this._delegationRouter.router);
-        this._router.use('/auth', this._authRouter.router);
+        this._router.use('/users', [validateUser()], this._userRouter.router);
+        this._router.use('/polls', [validateUser()], this._pollRouter.router);
+        this._router.use('/votes', [validateUser()], this._voteRouter.router);
+        this._router.use('/delegations', [validateUser()], this._delegationRouter.router);
+        this._router.use('/auth', [validateUser(false)], this._authRouter.router);
     }
 }
