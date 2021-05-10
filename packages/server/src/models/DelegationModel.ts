@@ -1,5 +1,5 @@
 import { Collection, ObjectId } from 'mongodb';
-import { IDelegation } from '../interfaces/IDelegation';
+import { IDelegation } from 'interfaces';
 import { Database } from '../providers/Database';
 
 /**

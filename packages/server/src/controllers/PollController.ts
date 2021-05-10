@@ -1,12 +1,11 @@
 import { ObjectId } from 'mongodb';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { PollCreateDTO } from '../dtos/PollCreateDTO';
-import { EPollState, getNextState, IPoll } from '../interfaces/IPoll';
-import { IUser } from '../interfaces/IUser';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import { PollModel } from '../models/PollModel';
 import { UserController } from './UserController';
 import { VoteController } from './VoteController';
+import { EPollState, IPoll, IUser } from 'interfaces';
 
 /**
  * Controller for the poll-related calls. It handles all the logic between routing and the database access.
@@ -56,7 +55,7 @@ export class PollController {
         if (await UserController.isAdmin(userId)) {
             const poll: IPoll = await PollModel.get(new ObjectId(_id));
             if (!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
-            const newState = getNextState(poll.state);
+            const newState = this.getNextState(poll.state);
             if (newState === undefined) {
                 throw new ErrorHandler(404, 'Poll can not have any other states');
             }
@@ -65,6 +64,17 @@ export class PollController {
             throw new ErrorHandler(401, 'Only admins are authorized');
         }
     }
+
+    private static getNextState = (state: EPollState): EPollState | undefined => {
+        switch (state) {
+            case EPollState.OPEN:
+                return EPollState.CLOSED_HIDDEN;
+            case EPollState.CLOSED_HIDDEN:
+                return EPollState.CLOSED;
+            case EPollState.CLOSED:
+                return undefined;
+        }
+    };
 
     /**
      * If the user is admin it adds the given poll to the database.

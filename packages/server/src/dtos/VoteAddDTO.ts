@@ -1,17 +1,12 @@
 import { Expose } from 'class-transformer';
-import { IsArray, IsString } from 'class-validator';
-import { IVote } from '../interfaces/IVote';
+import { IsString } from 'class-validator';
+import { LoginBody } from 'interfaces';
 
 /**
  * Data transfer object for vote adding
  */
-export class VoteAddDTO implements Omit<IVote, '_id' | 'userId'> {
+export class LoginBodyDTO implements LoginBody {
     @Expose()
     @IsString()
-    pollId: string;
-
-    @Expose()
-    @IsArray()
-    @IsString({ each: true })
-    option: string[];
+    token: string;
 }

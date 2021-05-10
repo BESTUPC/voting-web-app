@@ -1,12 +1,13 @@
+import cors from 'cors';
 import express, { Express, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import helmet from 'helmet';
 import https from 'https';
-import path from 'path';
+import { ICertificates } from 'interfaces';
 import morgan from 'morgan';
-import { ICertificates } from '../interfaces/ICertificates';
 import { MasterRouter } from '../routers/MasterRouter';
 import { ErrorHandler } from '../utils/ErrorHandler';
+import cookieParser from 'cookie-parser';
 
 /**
  * Custom server application class.
@@ -27,43 +28,41 @@ export class Server {
     /**
      * Mounts the body parser and custom error handler middlewares.
      */
-    private _mountMiddlewares(): void {
-        this.server.use(helmet());
-        this.server.use(
-            helmet.contentSecurityPolicy({
-                directives: {
-                    defaultSrc: ["'self'"],
-                    scriptSrc: ["'self'", 'cdn.jsdelivr.net'],
-                    styleSrc: ["'self'", 'cdn.jsdelivr.net'],
-                    fontSrc: ["'self'", 'cdn.jsdelivr.net'],
+    public mountMiddlewares(): boolean {
+        try {
+            this.server.use(helmet());
+            this.server.use(cors());
+            this.server.use(cookieParser(process.env.COOKIE_KEY1));
+            this.server.use(morgan('tiny'));
+            this.server.use(express.json());
+            this.server.use(express.urlencoded({ extended: true }));
+            this.server.use(
+                (err: ErrorHandler, _req: Request, res: Response, _next: NextFunction) => {
+                    res.status(err.statusCode || 500).json({
+                        status: 'error',
+                        statusCode: err.statusCode,
+                        message: err.message,
+                    });
                 },
-            }),
-        );
-        this.server.use(function (_req, res, next) {
-            res.header('Access-Control-Allow-Origin', '*');
-            res.header(
-                'Access-Control-Allow-Headers',
-                'Origin, X-Requested-With, Content-Type, Accept',
             );
-            next();
-        });
-        this.server.use(morgan('tiny'));
-        this.server.use(express.json());
-        this.server.use(express.urlencoded({ extended: true }));
-        this.server.use((err: ErrorHandler, _req: Request, res: Response, _next: NextFunction) => {
-            res.status(err.statusCode || 500).json({
-                status: 'error',
-                statusCode: err.statusCode,
-                message: err.message,
-            });
-        });
+            return true;
+        } catch (e) {
+            console.error('Unable to mount middlewares');
+            return false;
+        }
     }
 
     /**
      * Configures the file serving and the api route.
      */
-    private _mountRoutes(): void {
-        this.server.use('/api', new MasterRouter().router);
+    public mountRoutes(): boolean {
+        try {
+            this.server.use('/api', new MasterRouter().router);
+            return true;
+        } catch (e) {
+            console.error('Unable to mount routes');
+            return false;
+        }
     }
 
     /**        console.log(path.join(process.env.ROOT_DIR, 'public'));
@@ -91,20 +90,20 @@ export class Server {
         return this.server;
     }
 
-    /**
-     * Call the mount functions.
-     */
-    public configure(): boolean {
-        try {
-            this.server.use('/', express.static(path.join(process.env.ROOT_DIR, 'public')));
-            this._mountMiddlewares();
-            this._mountRoutes();
-            return true;
-        } catch {
-            console.error("Couldn't configure server routes and middlewares");
-            return false;
-        }
-    }
+    // /**
+    //  * Call the mount functions.
+    //  */
+    // public configure(): boolean {
+    //     try {
+    //         //this.server.use('/', express.static(path.join(process.env.ROOT_DIR, 'public')));
+    //         this._mountMiddlewares();
+    //         this._mountRoutes();
+    //         return true;
+    //     } catch {
+    //         console.error("Couldn't configure server routes and middlewares");
+    //         return false;
+    //     }
+    // }
 
     /**
      * Start the server. If possible it will run both a HTTP and HTTPS port.

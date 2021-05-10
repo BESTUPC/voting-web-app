@@ -11,8 +11,7 @@ import {
     ValidateNested,
     ValidationArguments,
 } from 'class-validator';
-import { EPollApprovalRatio, IPoll, IPollOption } from '../interfaces/IPoll';
-import { EMembership } from '../interfaces/IUser';
+import { IPoll, EPollApprovalRatio, EMembership, IPollOption } from 'interfaces';
 
 /**
  * Data transfer object for poll creation

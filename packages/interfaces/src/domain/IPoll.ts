@@ -43,14 +43,3 @@ export enum EPollState {
     CLOSED = 'closed',
     CLOSED_HIDDEN = 'closed_hidden',
 }
-
-export const getNextState = (state: EPollState): EPollState | undefined => {
-    switch (state) {
-        case EPollState.OPEN:
-            return EPollState.CLOSED_HIDDEN;
-        case EPollState.CLOSED_HIDDEN:
-            return EPollState.CLOSED;
-        case EPollState.CLOSED:
-            return undefined;
-    }
-};

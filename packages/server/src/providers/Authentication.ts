@@ -1,11 +1,10 @@
+import cookieSession from 'cookie-session';
+import dotenv from 'dotenv';
 import { Express, NextFunction, Request, Response } from 'express';
+import fs from 'fs';
+import { ICredentials } from 'interfaces';
 import passport from 'passport';
 import { OAuth2Strategy, Profile } from 'passport-google-oauth';
-import cookieSession from 'cookie-session';
-import fs from 'fs';
-import dotenv from 'dotenv';
-
-import { ICredentials } from '../interfaces/ICredentials';
 import { UserController } from '../controllers/UserController';
 
 dotenv.config({
@@ -21,7 +20,7 @@ export abstract class Authentication {
      */
     private static _mountAuthEndpoints(app: Express): void {
         app.get(
-            '/auth',
+            '/api/auth',
             passport.authenticate('google', {
                 scope: ['profile', 'email'],
             }),
@@ -29,13 +28,13 @@ export abstract class Authentication {
         app.get(
             '/auth/redirect',
             passport.authenticate('google', {
-                failureRedirect: '/login.html',
+                failureRedirect: '/login',
             }),
             function (_req, res) {
-                res.redirect('/');
+                res.redirect('https://localhost:4200/');
             },
         );
-        app.get('/auth/logout', async (req, res) => {
+        app.get('/api/auth/logout', async (req, res) => {
             req.session = null;
             req.logout();
             res.redirect('/login.html');
@@ -121,11 +120,10 @@ export abstract class Authentication {
      * @param next function to execute next.
      */
     private static _isLoggedIn(req: Request, res: Response, next: NextFunction): void {
-        const auxRef: string = (req.headers.referer ? req.headers.referer : '') + req.path;
-        if (req.isAuthenticated() || auxRef.includes('/login.html')) {
+        if (req.isAuthenticated() || req.url.includes('auth')) {
             next();
         } else {
-            res.redirect('/login.html');
+            res.sendStatus(401);
         }
     }
 }

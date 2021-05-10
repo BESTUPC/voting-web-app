@@ -31,8 +31,9 @@ class App {
         if (
             !(
                 (await Database.connect()) &&
-                (await Authentication.configure(this.server.getServer())) &&
-                this.server.configure() &&
+                this.server.mountMiddlewares() &&
+                //(await Authentication.configure(this.server.getServer())) &&
+                this.server.mountRoutes() &&
                 (await this.server.listen())
             )
         ) {

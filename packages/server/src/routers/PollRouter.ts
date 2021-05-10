@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { PollController } from '../controllers/PollController';
-import { IPoll } from '../interfaces/IPoll';
+import { IPoll, IUser } from 'interfaces';
 
 export class PollRouter {
     /**
@@ -30,7 +30,8 @@ export class PollRouter {
     private _configure() {
         this._router.get('/', async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const result: Array<IPoll> = await this._controller.getPolls(req.user['id']);
+                const user: IUser = res.locals['user'];
+                const result: Array<IPoll> = await this._controller.getPolls(user.userId);
                 res.status(200).json(result);
             } catch (error) {
                 next(error);
@@ -40,8 +41,9 @@ export class PollRouter {
             '/state/:id',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
+                    const user: IUser = res.locals['user'];
                     const result: boolean = await this._controller.updateState(
-                        req.user['id'],
+                        user.userId,
                         req.params.id,
                     );
                     res.status(200).json(result);
@@ -52,7 +54,8 @@ export class PollRouter {
         );
         this._router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const result: IPoll = await this._controller.getPoll(req.user['id'], req.params.id);
+                const user: IUser = res.locals['user'];
+                const result: IPoll = await this._controller.getPoll(user.userId, req.params.id);
                 res.status(200).json(result);
             } catch (error) {
                 next(error);
@@ -60,8 +63,9 @@ export class PollRouter {
         });
         this._router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
             try {
+                const user: IUser = res.locals['user'];
                 const result: boolean = await this._controller.deletePoll(
-                    req.user['id'],
+                    user.userId,
                     req.params.id,
                 );
                 res.status(200).json(result);
@@ -71,7 +75,8 @@ export class PollRouter {
         });
         this._router.post('/', async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const result: boolean = await this._controller.addPoll(req.user['id'], req.body);
+                const user: IUser = res.locals['user'];
+                const result: boolean = await this._controller.addPoll(user.userId, req.body);
                 res.status(200).json(result);
             } catch (error) {
                 next(error);

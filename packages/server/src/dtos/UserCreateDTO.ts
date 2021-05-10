@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 import { IsArray, IsOptional, IsString } from 'class-validator';
-import { IGoogleUser } from '../interfaces/IUser';
+import { IGoogleUser } from 'interfaces';
 
 /**
  * Data transfer object for user creation

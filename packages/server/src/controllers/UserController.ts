@@ -1,7 +1,9 @@
+import { OAuth2Client } from 'google-auth-library';
+import { EMembership, IGoogleUser, IUser, LoginBody } from 'interfaces';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { UserCreateDTO } from '../dtos/UserCreateDTO';
 import { UserUpdateMembershipDTO } from '../dtos/UserUpdateMembershipDTO';
-import { EMembership, IGoogleUser, IUser } from '../interfaces/IUser';
+import { LoginBodyDTO } from '../dtos/VoteAddDTO';
 import { UserModel } from '../models/UserModel';
 import { ErrorHandler } from '../utils/ErrorHandler';
 
@@ -34,6 +36,26 @@ export class UserController {
         } else {
             throw new ErrorHandler(401, 'Only admins are authorized');
         }
+    }
+
+    public static async login(body: unknown): Promise<boolean> {
+        const client = new OAuth2Client(process.env.CLIENT_ID);
+        const { token } = await validatorGeneric<LoginBody>(LoginBodyDTO, body);
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.CLIENT_ID,
+        });
+        const { name, email, picture, sub } = ticket.getPayload();
+        const user = await db.user.upsert({
+            where: { email: email },
+            update: { name, picture },
+            create: { name, email, picture },
+        });
+        this._controller.addUser();
+        const accessToken: AccessTokenInterface = {
+            userId: res.locals['user'].userId,
+        };
+        return true;
     }
     /**
      * Tries to add the user to the database.

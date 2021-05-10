@@ -5,7 +5,7 @@ import { describe } from 'mocha';
 import sinon, { SinonSandbox } from 'sinon';
 import { UserController } from '../../src/controllers/UserController';
 import { UserUpdateMembershipDTO } from '../../src/dtos/UserUpdateMembershipDTO';
-import { EMembership, IUser } from '../../src/interfaces/IUser';
+import { EMembership, IUser } from 'interfaces';
 import { UserModel } from '../../src/models/UserModel';
 
 chai.use(chaiAsPromised);
@@ -20,9 +20,7 @@ describe('UserController', () => {
             sandbox.restore();
         });
         it("should call the model's update membership function", async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
             const user: IUser = {
                 userId: 'ID',
                 name: 'name',
@@ -30,19 +28,13 @@ describe('UserController', () => {
                 membership: [EMembership.ALL, EMembership.ADMIN],
             };
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(user);
-            const updateMembershipStub = sandbox
-                .stub(UserModel, 'updateMembership')
-                .resolves(true);
+            const updateMembershipStub = sandbox.stub(UserModel, 'updateMembership').resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
             const body: UserUpdateMembershipDTO = {
                 membership: [EMembership.ALL],
             };
-            const ret: boolean = await UserController.updateMembership(
-                userId1,
-                userId2,
-                body,
-            );
+            const ret: boolean = await UserController.updateMembership(userId1, userId2, body);
             expect(ret).to.be.true;
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
@@ -50,14 +42,10 @@ describe('UserController', () => {
             expect(getUserStub.firstCall.args[0]).to.equal(userId2);
             expect(updateMembershipStub.calledOnce).to.be.true;
             expect(updateMembershipStub.firstCall.args[0]).to.equal(userId2);
-            expect(updateMembershipStub.firstCall.args[1]).to.deep.equal(
-                body.membership,
-            );
+            expect(updateMembershipStub.firstCall.args[1]).to.deep.equal(body.membership);
         });
         it('should return a not found user error', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(null);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
@@ -73,9 +61,7 @@ describe('UserController', () => {
             expect(getUserStub.firstCall.args[0]).to.equal(userId2);
         });
         it('should return a no object in request body error if no body is sent', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
             const body = undefined;
@@ -86,9 +72,7 @@ describe('UserController', () => {
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
         it('should return a no object in request body error if the body is not an object', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
             const body = 'notMembership';
@@ -99,9 +83,7 @@ describe('UserController', () => {
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
         it('should return a DTO validator error if the membership is not the proper enum', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
             const body = { membership: ['notMembership'] };
@@ -114,9 +96,7 @@ describe('UserController', () => {
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
         it('should return a DTO validator error if the membership is not an array', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
             const body = { membership: 'notMembership' };
@@ -129,9 +109,7 @@ describe('UserController', () => {
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
         it('should return an unauthorized error', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(false);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(false);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
             const body: Array<EMembership> = [EMembership.ALL];
@@ -214,9 +192,7 @@ describe('UserController', () => {
             sandbox.restore();
         });
         it("should call the model's get all function", async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
             const userId = 'ID';
             const user1: IUser = {
                 userId: 'ID1',
@@ -230,9 +206,7 @@ describe('UserController', () => {
                 email: 'email2',
                 membership: [EMembership.ALL],
             };
-            const getAllStub = sandbox
-                .stub(UserModel, 'getAll')
-                .resolves([user1, user2]);
+            const getAllStub = sandbox.stub(UserModel, 'getAll').resolves([user1, user2]);
             const ret: Array<IUser> = await UserController.getUsers(userId);
             expect(ret).to.deep.equal([user1, user2]);
             expect(isAdminStub.calledOnce).to.be.true;
@@ -240,9 +214,7 @@ describe('UserController', () => {
             expect(getAllStub.calledOnce).to.be.true;
         });
         it('should return an unauthorized error', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(false);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(false);
             const userId = 'ID';
             await expect(UserController.getUsers(userId)).to.be.rejectedWith(
                 'Only admins are authorized',
@@ -259,9 +231,7 @@ describe('UserController', () => {
             sandbox.restore();
         });
         it("should call the model's get function", async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
             const user: IUser = {
                 userId: 'ID2',
                 name: 'name',
@@ -279,9 +249,7 @@ describe('UserController', () => {
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
         it("should call the model's get function", async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(false);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(false);
             const user: IUser = {
                 userId: 'ID',
                 name: 'name',
@@ -298,27 +266,23 @@ describe('UserController', () => {
             expect(isAdminStub.firstCall.args[0]).to.equal(userId);
         });
         it('should throw an unauthorized error', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(false);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(false);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
-            await expect(
-                UserController.getUser(userId1, userId2),
-            ).to.be.rejectedWith('Only admins or same users are authorized');
+            await expect(UserController.getUser(userId1, userId2)).to.be.rejectedWith(
+                'Only admins or same users are authorized',
+            );
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
         });
         it('should throw a not found error', async () => {
-            const isAdminStub = sandbox
-                .stub(UserController, 'isAdmin')
-                .resolves(true);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
             const getUserStub = sandbox.stub(UserModel, 'get').resolves(null);
             const userId1 = 'ID1';
             const userId2 = 'ID2';
-            await expect(
-                UserController.getUser(userId1, userId2),
-            ).to.be.rejectedWith(`User ${userId2} not found.`);
+            await expect(UserController.getUser(userId1, userId2)).to.be.rejectedWith(
+                `User ${userId2} not found.`,
+            );
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(userId1);
             expect(getUserStub.calledOnce).to.be.true;

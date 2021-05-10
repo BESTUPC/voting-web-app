@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
+import { IDelegation, IUser } from 'interfaces';
 import { DelegationController } from '../controllers/DelegationController';
-import { IDelegation } from '../interfaces/IDelegation';
-import { IUser } from '../interfaces/IUser';
 
 export class DelegationRouter {
     /**
@@ -31,8 +30,9 @@ export class DelegationRouter {
     private _configure() {
         this._router.get('/', async (req: Request, res: Response, next: NextFunction) => {
             try {
+                const user: IUser = res.locals['user'];
                 const result: Array<IDelegation> = await this._controller.getDelegations(
-                    req.user['id'],
+                    user.userId,
                 );
                 res.status(200).json(result);
             } catch (error) {
@@ -41,8 +41,9 @@ export class DelegationRouter {
         });
         this._router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
             try {
+                const user: IUser = res.locals['user'];
                 const result: Array<IUser> = await this._controller.getDelegation(
-                    req.user['id'],
+                    user.userId,
                     req.params.id,
                 );
                 res.status(200).json(result);
@@ -52,7 +53,8 @@ export class DelegationRouter {
         });
         this._router.delete('/', async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const result: boolean = await this._controller.deleteDelegations(req.user['id']);
+                const user: IUser = res.locals['user'];
+                const result: boolean = await this._controller.deleteDelegations(user.userId);
                 res.status(200).json(result);
             } catch (error) {
                 next(error);
@@ -60,8 +62,10 @@ export class DelegationRouter {
         });
         this._router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
             try {
+                const user: IUser = res.locals['user'];
+
                 const result: boolean = await this._controller.deleteDelegation(
-                    req.user['id'],
+                    user.userId,
                     req.params.id,
                 );
                 res.status(200).json(result);
@@ -71,8 +75,10 @@ export class DelegationRouter {
         });
         this._router.post('/:id1/:id2', async (req: Request, res: Response, next: NextFunction) => {
             try {
+                const user: IUser = res.locals['user'];
+
                 const result: boolean = await this._controller.giveDelegation(
-                    req.user['id'],
+                    user.userId,
                     req.params.id1,
                     req.params.id2,
                 );

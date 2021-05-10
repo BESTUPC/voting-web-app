@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { UserController } from '../controllers/UserController';
-import { IUser } from '../interfaces/IUser';
+import { IGoogleUser, IUser } from 'interfaces';
 
 export class UserRouter {
     /**
@@ -33,7 +33,8 @@ export class UserRouter {
     private _configure() {
         this._router.get('/', async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const result: Array<IUser> = await this._controller.getUsers(req.user['id']);
+                const user: IUser = res.locals['user'];
+                const result: Array<IUser> = await this._controller.getUsers(user.userId);
                 res.status(200).json(result);
             } catch (error) {
                 next(error);
@@ -43,8 +44,9 @@ export class UserRouter {
             '/membership/:id',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
+                    const user: IUser = res.locals['user'];
                     const result = await this._controller.updateMembership(
-                        req.user['id'],
+                        user.userId,
                         req.params.id,
                         req.body,
                     );
@@ -56,13 +58,12 @@ export class UserRouter {
         );
         this._router.get('/current', async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const result: {
-                    google: Express.User;
-                    web: IUser;
-                } = {
-                    google: req.user,
-                    web: await this._controller.getUser(req.user['id'], req.user['id']),
+                const user: IUser = res.locals['user'];
+                const result: { web: IUser; google: IGoogleUser } = {
+                    web: await this._controller.getUser(user.userId, user.userId),
+                    google: req.user as IGoogleUser,
                 };
+
                 res.status(200).json(result);
             } catch (error) {
                 next(error);
@@ -70,7 +71,8 @@ export class UserRouter {
         });
         this._router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const result = await this._controller.getUser(req.user['id'], req.params.id);
+                const user: IUser = res.locals['user'];
+                const result = await this._controller.getUser(user.userId, req.params.id);
                 res.status(200).json(result);
             } catch (error) {
                 next(error);

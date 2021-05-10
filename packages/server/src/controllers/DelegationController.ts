@@ -1,10 +1,9 @@
 import { ObjectId } from 'mongodb';
-import { IDelegation } from '../interfaces/IDelegation';
-import { IUser } from '../interfaces/IUser';
 import { DelegationModel } from '../models/DelegationModel';
 import { UserModel } from '../models/UserModel';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import { UserController } from './UserController';
+import { IDelegation, IUser } from 'interfaces';
 
 /**
  * Controller for the delegation-related calls. It handles all the logic between routing and the database access.

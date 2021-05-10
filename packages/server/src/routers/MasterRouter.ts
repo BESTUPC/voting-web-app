@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import { UserRouter } from './UserRouter';
-import { PollRouter } from './PollRouter';
-import { VoteRouter } from './VoteRouter';
+import { validateUser } from '../utils/AuthMiddleware';
+import { AuthRouter } from './AuthRouter';
 import { DelegationRouter } from './DelegationRouter';
+import { PollRouter } from './PollRouter';
+import { UserRouter } from './UserRouter';
+import { VoteRouter } from './VoteRouter';
 
 /**
  * Class to unite all the routers.
@@ -34,6 +36,11 @@ export class MasterRouter {
     private _delegationRouter: DelegationRouter;
 
     /**
+     * Auth router instance.
+     */
+    private _authRouter: AuthRouter;
+
+    /**
      * Get function for the express router.
      */
     get router(): Router {
@@ -48,6 +55,7 @@ export class MasterRouter {
         this._pollRouter = new PollRouter();
         this._voteRouter = new VoteRouter();
         this._delegationRouter = new DelegationRouter();
+        this._authRouter = new AuthRouter();
         this._configure();
     }
 
@@ -55,9 +63,10 @@ export class MasterRouter {
      * Connect routes to their matching routers.
      */
     private _configure() {
-        this._router.use('/users', this._userRouter.router);
-        this._router.use('/polls', this._pollRouter.router);
-        this._router.use('/votes', this._voteRouter.router);
-        this._router.use('/delegations', this._delegationRouter.router);
+        this._router.use('/users', [validateUser], this._userRouter.router);
+        this._router.use('/polls', [validateUser], this._pollRouter.router);
+        this._router.use('/votes', [validateUser], this._voteRouter.router);
+        this._router.use('/delegations', [validateUser], this._delegationRouter.router);
+        this._router.use('/auth', this._authRouter.router);
     }
 }

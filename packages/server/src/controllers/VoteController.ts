@@ -1,9 +1,7 @@
+import { EPollApprovalRatio, EPollState, IPoll, IPollOption, IUser, IVote } from 'interfaces';
 import { ObjectId } from 'mongodb';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { VoteAddDTO } from '../dtos/VoteAddDTO';
-import { EPollApprovalRatio, EPollState, IPoll, IPollOption } from '../interfaces/IPoll';
-import { IUser } from '../interfaces/IUser';
-import { IVote } from '../interfaces/IVote';
 import { PollModel } from '../models/PollModel';
 import { UserModel } from '../models/UserModel';
 import { VoteModel } from '../models/VoteModel';

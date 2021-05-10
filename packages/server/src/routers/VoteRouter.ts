@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { VoteController } from '../controllers/VoteController';
-import { IVote } from '../interfaces/IVote';
+import { IUser, IVote } from 'interfaces';
 
 export class VoteRouter {
     /**
@@ -32,8 +32,9 @@ export class VoteRouter {
             '/:userId/:pollId',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
+                    const user: IUser = res.locals['user'];
                     const result: IVote = await this._controller.getVote(
-                        req.user['id'],
+                        user.userId,
                         req.params.userId,
                         req.params.pollId,
                     );
@@ -45,8 +46,9 @@ export class VoteRouter {
         );
         this._router.post('/', async (req: Request, res: Response, next: NextFunction) => {
             try {
+                const user: IUser = res.locals['user'];
                 const result: boolean = await this._controller.addorUpdateVote(
-                    req.user['id'],
+                    user.userId,
                     req.body,
                 );
                 res.status(200).json(result);
@@ -58,8 +60,9 @@ export class VoteRouter {
             '/:givenDelegationId',
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
+                    const user: IUser = res.locals['user'];
                     const result: boolean = await this._controller.addorUpdateVote(
-                        req.user['id'],
+                        user.userId,
                         req.body,
                         req.params.givenDelegationId,
                     );

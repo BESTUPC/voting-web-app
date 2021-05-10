@@ -6,3 +6,7 @@
 !.yarn/sdks
 !.yarn/versions
 node_modules
+cert.pem
+chain.pem
+privkey.pem
+googlecredentials.pswd

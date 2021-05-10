@@ -1,5 +1,5 @@
+import { IVote } from 'interfaces';
 import { Collection, UpdateWriteOpResult } from 'mongodb';
-import { IVote } from '../interfaces/IVote';
 import { Database } from '../providers/Database';
 
 /**

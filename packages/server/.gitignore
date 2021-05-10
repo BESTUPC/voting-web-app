@@ -3,7 +3,3 @@ dist
 coverage
 logs
 .nyc_output
-cert.pem
-chain.pem
-googlecredentials.pswd
-privkey.pem

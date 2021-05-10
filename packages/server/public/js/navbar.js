@@ -51,21 +51,16 @@ var globalVarsNav = {
 function showModal(title, message, logOut, redirect) {
     document.getElementById('infoModalTitle').innerHTML = title;
     document.getElementById('infoModalBody').innerHTML = message;
-    var modalBootstrap = new bootstrap.Modal(
-        document.getElementById('infoModal'),
-        {
-            keyboard: false,
-        },
-    );
-    document
-        .getElementById('infoModal')
-        .addEventListener('hidden.bs.modal', function (event) {
-            if (logOut) {
-                window.location.href = '/auth/logout';
-            } else {
-                window.location.reload();
-            }
-        });
+    var modalBootstrap = new bootstrap.Modal(document.getElementById('infoModal'), {
+        keyboard: false,
+    });
+    document.getElementById('infoModal').addEventListener('hidden.bs.modal', function (event) {
+        if (logOut) {
+            window.location.href = '/auth/logout';
+        } else {
+            window.location.reload();
+        }
+    });
     if (redirect !== '') {
         window.location.href = redirect;
     }
@@ -75,10 +70,7 @@ function showModal(title, message, logOut, redirect) {
 
 $(document).ready(function () {
     var currentProfileRequest = new XMLHttpRequest();
-    currentProfileRequest.addEventListener(
-        'load',
-        currentProfileRequestListener,
-    );
+    currentProfileRequest.addEventListener('load', currentProfileRequestListener);
     currentProfileRequest.open('GET', '/api/users/current');
     currentProfileRequest.setRequestHeader('Content-Type', 'application/json');
     currentProfileRequest.send();

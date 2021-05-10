@@ -1,5 +1,5 @@
 import { Collection } from 'mongodb';
-import { EMembership, IUser } from '../interfaces/IUser';
+import { EMembership, IUser } from 'interfaces';
 import { Database } from '../providers/Database';
 
 /**

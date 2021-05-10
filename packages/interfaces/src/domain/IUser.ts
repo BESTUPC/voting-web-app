@@ -15,9 +15,10 @@ export interface IUser {
  * Interface for the user we get through the authentication middleware.
  */
 export interface IGoogleUser {
-    id: string;
-    displayName: string;
-    emails?: Array<{ value: string }>;
+    sub: string;
+    name: string;
+    email: string;
+    picture: string;
 }
 
 /**

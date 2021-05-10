@@ -1,6 +1,5 @@
+import { EMembership, EPollState, IPoll } from 'interfaces';
 import { Collection, ObjectId } from 'mongodb';
-import { EMembership } from '../interfaces/IUser';
-import { IPoll, EPollState } from '../interfaces/IPoll';
 import { Database } from '../providers/Database';
 
 /**
