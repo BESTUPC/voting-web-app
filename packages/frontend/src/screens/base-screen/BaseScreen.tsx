@@ -11,25 +11,26 @@ export const BaseScreen: FunctionComponent = () => {
     );
     const [membershipArray, setMembershipArray] = useState<EMembership[]>([]);
 
-    const [isAuth, setIsAuth] = useState<boolean>(false);
+    const [isAuth, setIsAuth] = useState<boolean>(true);
 
     useEffect(() => {
         apiService
             .getCurrentUser()
             .then((response: GetCurrentUserResponse) => {
+                console.log(response);
                 setIsAuth(true);
-                const webUser = response.web;
-                const googleUser = response.google;
-                setName(webUser.name);
-                if (!!googleUser?.photos?.length) {
-                    setImageUrl(googleUser?.photos?.[0].value);
-                }
-                setMembershipArray(webUser.membership);
+                setName(response.name);
+                setImageUrl(response.picture);
+                setMembershipArray(response.membership);
             })
             .catch((err) => {
                 setIsAuth(false);
             });
     }, []);
 
-    return isAuth ? <NavigationBar name={name} imageUrl={imageUrl} membershipArray={membershipArray} /> : <Redirect to='/login' />;
+    return isAuth ? (
+        <NavigationBar name={name} imageUrl={imageUrl} membershipArray={membershipArray} />
+    ) : (
+        <Redirect to="/login" />
+    );
 };

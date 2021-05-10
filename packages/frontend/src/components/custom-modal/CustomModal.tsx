@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
 export interface CustomModalProps {

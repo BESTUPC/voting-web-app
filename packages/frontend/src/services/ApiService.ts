@@ -1,11 +1,12 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { GetCurrentUserResponse } from 'interfaces';
+import { GetCurrentUserResponse, LoginBody } from 'interfaces';
 
 class ApiService {
     private axiosInstance: AxiosInstance;
-    constructor(baseURL = 'https://localhost:3000/api/') {
+    constructor(baseURL = 'https://localhost:3000/api') {
         this.axiosInstance = axios.create({
             baseURL,
+            withCredentials: true
         });
     }
 
@@ -31,11 +32,11 @@ class ApiService {
     }
 
     public getCurrentUser(): Promise<GetCurrentUserResponse> {
-        return this.get<GetCurrentUserResponse>('users/current');
+        return this.get<GetCurrentUserResponse>('/users/current');
     }
 
-    public login(): Promise<void> {
-        return this.get<void>('auth')
+    public login(body: LoginBody): Promise<void> {
+        return this.post<void>('/auth/login', body);
     }
 }
 

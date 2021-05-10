@@ -1,5 +1,7 @@
-import { IGoogleUser, IUser } from '../domain/IUser';
+import { IUser } from '../domain';
 
-export type GetCurrentUserResponse = { web: IUser; google: IGoogleUser };
+export interface LoginBody {
+    token: string;
+}
 
-export type LoginBody = { token: string };
+export type GetCurrentUserResponse = IUser;

@@ -9,15 +9,6 @@ export interface IUser {
     membership: Array<EMembership>;
     name: string;
     email: string;
-}
-
-/**
- * Interface for the user we get through the authentication middleware.
- */
-export interface IGoogleUser {
-    sub: string;
-    name: string;
-    email: string;
     picture: string;
 }
 
@@ -25,8 +16,8 @@ export interface IGoogleUser {
  * Custom enum for the different memberships a user can have.
  */
 export enum EMembership {
-    ALL = 'all',
-    MEMBER = 'member',
-    FULL = 'full',
-    ADMIN = 'admin',
+    ALL = 'ALL',
+    MEMBER = 'MEMBER',
+    FULL = 'FULL',
+    ADMIN = 'ADMIN',
 }

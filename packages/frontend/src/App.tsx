@@ -14,7 +14,7 @@ function App() {
                         <LoginScreen></LoginScreen>
                     </Route>
                     <Route path="/">
-                        <BaseScreen>caca</BaseScreen>
+                        <BaseScreen/>
                     </Route>
                 </Switch>
             </Router>

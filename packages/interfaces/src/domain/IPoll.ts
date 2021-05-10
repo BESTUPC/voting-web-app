@@ -39,7 +39,7 @@ export enum EPollApprovalRatio {
  * Custom enum for the different states the poll can have.
  */
 export enum EPollState {
-    OPEN = 'open',
-    CLOSED = 'closed',
-    CLOSED_HIDDEN = 'closed_hidden',
+    OPEN = 'OPEN',
+    CLOSED = 'CLOSED',
+    CLOSED_HIDDEN = 'CLOSED_HIDDEN',
 }

@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
-import GoogleLogin from 'react-google-login';
+import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
 import { Redirect } from 'react-router-dom';
 import logo from '../../assets/BEST_LOGO.svg';
 import { CustomModal } from '../../components/custom-modal/CustomModal';
+import { apiService } from '../../services/ApiService';
 import './LoginScreen.css';
 
 export const LoginScreen: FunctionComponent = () => {
@@ -21,9 +22,14 @@ export const LoginScreen: FunctionComponent = () => {
                 <GoogleLogin
                     clientId={process.env.REACT_APP_CLIENT_ID!}
                     buttonText="Log in with Google"
-                    onSuccess={(response) => {
-                        console.log(response);
-                        setLoggedIn(true);
+                    onSuccess={async (response) => {
+                        try {
+                            const token = (response as GoogleLoginResponse).tokenId;
+                            await apiService.login({ token });
+                            setLoggedIn(true);
+                        } catch (e) {
+                            handleModal();
+                        }
                     }}
                     onFailure={(e) => {
                         handleModal();
