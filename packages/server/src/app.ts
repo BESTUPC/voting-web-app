@@ -3,6 +3,7 @@ import 'reflect-metadata';
 
 import { Server } from './providers/Server';
 import { Database } from './providers/Database';
+import { logger } from './utils/CustomLogger';
 
 dotenv.config({
     path: '.env',
@@ -30,7 +31,7 @@ class App {
         if (
             !((await Database.connect()) && this.server.configure() && (await this.server.listen()))
         ) {
-            console.info('Shutting down app.');
+            logger.info('Shutting down app.');
             process.exit(22);
         }
     }

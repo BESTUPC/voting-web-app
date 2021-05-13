@@ -8,6 +8,7 @@ import morgan from 'morgan';
 import { MasterRouter } from '../routers/MasterRouter';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import cookieParser from 'cookie-parser';
+import { expressLogger, logger } from '../utils/CustomLogger';
 
 /**
  * Custom server application class.
@@ -39,6 +40,7 @@ export class Server {
                     credentials: true,
                 }),
             );
+            this.server.use(expressLogger);
             this.server.use(cookieParser(process.env.COOKIE_KEY1));
             this.server.use(morgan('tiny'));
             this.server.use(express.json());
@@ -54,7 +56,7 @@ export class Server {
             );
             return true;
         } catch (e) {
-            console.error('Unable to mount middlewares');
+            logger.error('Unable to mount middlewares');
             return false;
         }
     }
@@ -67,13 +69,12 @@ export class Server {
             this.server.use('/api', new MasterRouter().router);
             return true;
         } catch (e) {
-            console.error('Unable to mount routes');
+            logger.error('Unable to mount routes');
             return false;
         }
     }
 
-    /**        console.log(path.join(process.env.ROOT_DIR, 'public'));
-
+    /**
      * Gets the SSL certificates.
      * @returns the SSL certificates if found or null otherwise.
      */
@@ -106,7 +107,7 @@ export class Server {
             this._mountRoutes();
             return true;
         } catch {
-            console.error("Couldn't configure server routes and middlewares");
+            logger.error("Couldn't configure server routes and middlewares");
             return false;
         }
     }
@@ -119,11 +120,11 @@ export class Server {
         if (certificate) {
             const httpsServer: https.Server = https.createServer(certificate, this.server);
             httpsServer.listen(process.env.PORT1, () => {
-                console.info('HTTPS Server running on port ' + process.env.PORT1);
+                logger.info('HTTPS Server running on port ' + process.env.PORT1);
             });
             return true;
         } else {
-            console.error("Couldn't run server, no certificates found");
+            logger.error("Couldn't run server, no certificates found");
             return false;
         }
     }

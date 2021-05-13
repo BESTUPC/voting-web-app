@@ -3,6 +3,7 @@ import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import { describe } from 'mocha';
 import sinon, { SinonSandbox } from 'sinon';
+import { logger } from '../../src/utils/CustomLogger';
 
 chai.use(chaiAsPromised);
 
@@ -17,7 +18,7 @@ describe('VoteController', () => {
         });
 
         xit('should not be executed', async () => {
-            console.log('Empty');
+            logger.info('Empty');
         });
     });
 });

@@ -32,7 +32,6 @@ export class AuthController {
             await UserModel.add(user);
             return sub;
         } catch (e) {
-            console.log(e);
             throw new ErrorHandler(404, 'Token format invalid');
         }
     }
