@@ -31,6 +31,20 @@ export class AuthRouter {
      * Connect routes to their matching controller endpoints.
      */
     private _configure() {
+        this._router.get('/ping', async (req: Request, res: Response, next: NextFunction) => {
+            try {
+                if (!res.locals['user']) {
+                    res.sendStatus(401);
+                    return next();
+                } else {
+                    console.log(res.locals['user']);
+                    res.sendStatus(200);
+                    return next();
+                }
+            } catch (error) {
+                return next(error);
+            }
+        });
         this._router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
             try {
                 if (!!res.locals['user']) {
@@ -53,7 +67,7 @@ export class AuthRouter {
                 return next(error);
             }
         });
-        this._router.post('/logout', async (req: Request, res: Response, next: NextFunction) => {
+        this._router.post('/logout', async (_req: Request, res: Response, next: NextFunction) => {
             try {
                 CookieHandler.removeFrom(res);
                 res.status(200);

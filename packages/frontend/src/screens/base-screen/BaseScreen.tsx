@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { NavigationBar } from '../../components/navigation-bar/NavigationBar';
 import { apiService } from '../../services/ApiService';
 
-export const BaseScreen: FunctionComponent = () => {
+export const BaseScreen: FunctionComponent = ({ children }) => {
     const [name, setName] = useState<string>('');
     const [imageUrl, setImageUrl] = useState<string>(
         'https://www.getdigital.eu/web/getdigital/gfx/products/__generated__resized/1100x1100/Aufkleber_Trollface.jpg',
@@ -17,7 +17,6 @@ export const BaseScreen: FunctionComponent = () => {
         apiService
             .getCurrentUser()
             .then((response: GetCurrentUserResponse) => {
-                console.log(response);
                 setIsAuth(true);
                 setName(response.name);
                 setImageUrl(response.picture);
@@ -28,8 +27,27 @@ export const BaseScreen: FunctionComponent = () => {
             });
     }, []);
 
+    const logoutFunction = () => {
+        apiService
+            .logout()
+            .then(() => {
+                setIsAuth(false);
+            })
+            .catch((err) => {
+                setIsAuth(false);
+            });
+    };
+
     return isAuth ? (
-        <NavigationBar name={name} imageUrl={imageUrl} membershipArray={membershipArray} />
+        <>
+            <NavigationBar
+                name={name}
+                imageUrl={imageUrl}
+                membershipArray={membershipArray}
+                logoutFunction={logoutFunction}
+            />
+            {children}
+        </>
     ) : (
         <Redirect to="/login" />
     );

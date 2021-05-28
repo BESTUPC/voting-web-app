@@ -18,11 +18,11 @@ class ApiService {
         const response = await this.axiosInstance.get<T>(url);
         return ApiService.responseBody<T>(response);
     }
-    private async post<T>(url: string, body: unknown): Promise<T> {
+    private async post<T>(url: string, body?: unknown): Promise<T> {
         const response = await this.axiosInstance.post<T>(url, body);
         return ApiService.responseBody<T>(response);
     }
-    private async put<T>(url: string, body: unknown): Promise<T> {
+    private async put<T>(url: string, body?: unknown): Promise<T> {
         const response = await this.axiosInstance.put<T>(url, body);
         return ApiService.responseBody<T>(response);
     }
@@ -37,6 +37,14 @@ class ApiService {
 
     public login(body: LoginBody): Promise<void> {
         return this.post<void>('/auth/login', body);
+    }
+
+    public ping(): Promise<void> {
+        return this.get<void>('/auth/ping');
+    }
+
+    public logout(): Promise<void> {
+        return this.post<void>('/auth/logout');
     }
 }
 

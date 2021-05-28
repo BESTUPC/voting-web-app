@@ -2,7 +2,6 @@
   "name": "webapp",
   "version": "2.0.0",
   "description": "The new voting webapp for BEST Barcelona",
-  "main": "index.js",
   "private": true,
   "engines": {
     "node": ">=14.15.4",
@@ -16,6 +15,8 @@
     "postinstall": "husky install",
     "server:dev": "yarn workspace server dev",
     "server:build": "yarn workspace server build",
+    "interfaces:build": "yarn workspace interfaces build",
+    "all:build": "yarn server:build && yarn interfaces:build",
     "frontend:start": "yarn workspace frontend start",
     "test": "yarn workspace server test",
     "lint": "yarn workspace server lint",

@@ -17,8 +17,8 @@ export const validateUser =
             res.locals['user'] = user;
             return next();
         } catch (e) {
-            if (failOnNotFound) {
-                throw new ErrorHandler(401, 'Error getting user from cookie');
+            if (failOnNotFound || !(e instanceof ErrorHandler)) {
+                next(e);
             } else {
                 return next();
             }
