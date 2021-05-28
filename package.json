@@ -20,7 +20,8 @@
     "test": "yarn workspace server test",
     "lint": "yarn workspace server lint",
     "lint:fix": "yarn workspace server lint:fix",
-    "docs": "yarn workspace server docs"
+    "docs": "yarn workspace server docs",
+    "deploy": "docker-compose up --build"
   },
   "keywords": [
     "webapp",
