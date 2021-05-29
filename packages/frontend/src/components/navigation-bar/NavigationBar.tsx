@@ -18,7 +18,7 @@ export const NavigationBar: FunctionComponent<NavigationBarProps> = ({
     logoutFunction,
 }) => {
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar variant="dark" bg="primary" expand="lg">
             <Navbar.Brand href="#home" className="mr-sm-5">
                 <img alt="" src={logo} width="40" height="40" className="d-inline-block" /> WebApp
                 Votacions
@@ -27,22 +27,24 @@ export const NavigationBar: FunctionComponent<NavigationBarProps> = ({
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
                 {membershipArray.includes(EMembership.ADMIN) && (
                     <Nav className="mr-auto">
-                        <Nav.Link href="#users">
+                        <Nav.Link href="users">
                             <i className="fa fa-user fa-fw mr-sm-1"></i>
                             See/edit members
                         </Nav.Link>
-                        <Nav.Link href="#delegations">
+                        <Nav.Link href="delegations">
                             <i className="fa fa-envelope-open fa-fw mr-sm-1"></i>
                             See/edit delegations
                         </Nav.Link>
-                        <Nav.Link href="#createPoll">
+                        <Nav.Link href="createPoll">
                             <i className="fa fa-edit fa-fw mr-sm-1"></i>Create poll
                         </Nav.Link>
                     </Nav>
                 )}
                 <hr></hr>
                 <Nav className="flex-row">
-                    <b id="nameB">{name}</b>
+                    <Nav.Link id="name" href="#" disabled>
+                        {name}
+                    </Nav.Link>
                     <img
                         alt=""
                         id="profileImage"

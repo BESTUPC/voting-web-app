@@ -119,8 +119,8 @@ export class Server {
         const certificate: ICertificates | null = await Server._getCertificates();
         if (certificate) {
             const httpsServer: https.Server = https.createServer(certificate, this.server);
-            httpsServer.listen(process.env.PORT1, () => {
-                logger.info('HTTPS Server running on port ' + process.env.PORT1);
+            httpsServer.listen(process.env.PORT, () => {
+                logger.info('HTTPS Server running on port ' + process.env.PORT);
             });
             return true;
         } else {

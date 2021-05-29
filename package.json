@@ -13,16 +13,18 @@
   ],
   "scripts": {
     "postinstall": "husky install",
-    "server:dev": "yarn workspace server dev",
+    "server:start:dev": "yarn workspace server start:dev",
+    "server:start": "yarn workspace server start",
     "server:build": "yarn workspace server build",
     "interfaces:build": "yarn workspace interfaces build",
-    "all:build": "yarn server:build && yarn interfaces:build",
     "frontend:start": "yarn workspace frontend start",
-    "test": "yarn workspace server test",
+    "frontend:build": "yarn workspace frontend build",
+    "all:build": "yarn workspaces foreach run build",
+    "test": "yarn workspaces foreach run test",
     "lint": "yarn workspace server lint",
     "lint:fix": "yarn workspace server lint:fix",
     "docs": "yarn workspace server docs",
-    "deploy": "docker-compose up --build"
+    "deploy": "docker-compose up"
   },
   "keywords": [
     "webapp",

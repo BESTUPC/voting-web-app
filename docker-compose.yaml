@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 services:
   server:
     build:
@@ -14,22 +14,20 @@ services:
       - mongo
     environment:
       - FORCE_COLOR=1
-      - PORT1=3000
-      - PORT2=3003
+      - PORT=3000
       - MONGO_URI=mongodb://mongo:27017/
       - MONGO_DBNAME=votacions
       - MONGO_USER=bestbarcelona
       - MONGO_PASSWORD=password
       - MONGO_TIMEOUT=5000
-      - CERT_PATH=./
-      - CRED_PATH=./googlecredentials.pswd
+      - CERT_PATH=../../
       - COOKIE_KEY1=key1
       - COOKIE_KEY2=key2
       - ROOT_DIR=./
       - NODE_ENV=prod
       - CLIENT_ID=260328757466-cmmgec2o5sfm626bl33o5h1dekrmvfir.apps.googleusercontent.com
   mongo:
-    image: percona/percona-server-mongodb:4.4
+    image: mongo
     networks:
       - voting-webapp
     volumes:

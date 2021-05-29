@@ -1,5 +1,6 @@
 import { EMembership, GetCurrentUserResponse } from 'interfaces';
 import React, { FunctionComponent, useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import { NavigationBar } from '../../components/navigation-bar/NavigationBar';
 import { apiService } from '../../services/ApiService';
@@ -46,7 +47,7 @@ export const BaseScreen: FunctionComponent = ({ children }) => {
                 membershipArray={membershipArray}
                 logoutFunction={logoutFunction}
             />
-            {children}
+            <Container>{children}</Container>
         </>
     ) : (
         <Redirect to="/login" />

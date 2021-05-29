@@ -48,6 +48,7 @@ export class Database {
             await this.createIndexes();
             return true;
         } catch (e) {
+            logger.error(e);
             logger.error("Couldn't start MongoDB connection");
             return false;
         }
