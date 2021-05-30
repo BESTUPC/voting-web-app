@@ -19,7 +19,7 @@ export const NavigationBar: FunctionComponent<NavigationBarProps> = ({
 }) => {
     return (
         <Navbar variant="dark" bg="primary" expand="lg">
-            <Navbar.Brand href="#home" className="mr-sm-5">
+            <Navbar.Brand href="home" className="mr-sm-5">
                 <img alt="" src={logo} width="40" height="40" className="d-inline-block" /> WebApp
                 Votacions
             </Navbar.Brand>

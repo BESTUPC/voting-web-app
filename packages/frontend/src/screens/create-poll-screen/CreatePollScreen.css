@@ -1,0 +1,9 @@
+.example-custom-input,
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    line-height: 2;
+    display: block;
+    width: 100%;
+    text-align: center;
+}

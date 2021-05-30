@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { GetCurrentUserResponse, LoginBody } from 'interfaces';
+import { CreatePollBody, GetCurrentUserResponse, LoginBody } from 'interfaces';
 
 class ApiService {
     private axiosInstance: AxiosInstance;
@@ -45,6 +45,10 @@ class ApiService {
 
     public logout(): Promise<void> {
         return this.post<void>('/auth/logout');
+    }
+
+    public createPoll(body: CreatePollBody): Promise<void> {
+        return this.post<void>('/auth/login', body);
     }
 }
 

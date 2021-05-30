@@ -73,6 +73,7 @@
     "@types/pino": "^6.3.8",
     "@types/pino-http": "^5.4.1",
     "@types/prettyjson": "^0.0.29",
+    "@types/react-calendar": "^3",
     "@types/sinon": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
