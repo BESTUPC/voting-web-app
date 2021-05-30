@@ -174,6 +174,7 @@ export const CreatePollScreen: FunctionComponent = () => {
                                             handleWrite={(e) => handleWrite(e, idx)}
                                             idx={idx}
                                             fixed={false}
+                                            selected={false}
                                         ></PollOption>
                                     </Form.Group>
                                 ))}

@@ -1,6 +1,13 @@
 import 'animate.css';
 import React, { FunctionComponent } from 'react';
-import { Button, ButtonGroup, FormControl, InputGroup, ToggleButton } from 'react-bootstrap';
+import {
+    Button,
+    ButtonGroup,
+    FormControl,
+    InputGroup,
+    ToggleButton,
+    ToggleButtonGroup,
+} from 'react-bootstrap';
 import { BsPlusCircle, BsXCircle } from 'react-icons/bs';
 import { animate } from '../../utils/Animate';
 import './PollOption.css';
@@ -16,6 +23,7 @@ interface PollOptionProps {
     handleWrite: (e: React.ChangeEvent<any>) => void;
     idx: number;
     fixed: boolean;
+    selected: boolean;
 }
 
 export const PollOption: FunctionComponent<PollOptionProps> = ({
@@ -28,6 +36,7 @@ export const PollOption: FunctionComponent<PollOptionProps> = ({
     handleWrite,
     idx,
     fixed,
+    selected,
 }) => {
     const handleButtonAux = (e: React.MouseEvent<HTMLElement>): void => {
         if (!name) {
@@ -38,17 +47,18 @@ export const PollOption: FunctionComponent<PollOptionProps> = ({
     };
     return (
         <InputGroup className={`my-element-${idx}`}>
-            <InputGroup.Prepend>
-                <Button
-                    variant="outline-secondary"
-                    onClick={(e) => handleButtonAux(e)}
-                    style={{ zIndex: 1 }}
-                    disabled={fixed}
-                >
-                    {disabled ? <BsXCircle></BsXCircle> : <BsPlusCircle></BsPlusCircle>}
-                </Button>
-            </InputGroup.Prepend>
-
+            {!fixed && (
+                <InputGroup.Prepend>
+                    <Button
+                        variant="outline-secondary"
+                        onClick={(e) => handleButtonAux(e)}
+                        style={{ zIndex: 1 }}
+                        disabled={fixed}
+                    >
+                        {disabled ? <BsXCircle></BsXCircle> : <BsPlusCircle></BsPlusCircle>}
+                    </Button>
+                </InputGroup.Prepend>
+            )}
             <FormControl disabled={disabled} value={name} onChange={(e) => handleWrite(e)} />
             <InputGroup.Append>
                 <ButtonGroup toggle>
@@ -60,7 +70,12 @@ export const PollOption: FunctionComponent<PollOptionProps> = ({
                             value={'Blanc'}
                             checked={isAgainst}
                             onClick={(e) => handleClick(e, 'Blanc')}
-                            style={{ borderRadius: '0px', zIndex: 1 }}
+                            style={{
+                                borderTopLeftRadius: '0px',
+                                borderBottomLeftRadius: '0px',
+                                zIndex: 1,
+                                color: selected ? 'white' : undefined,
+                            }}
                             disabled={fixed}
                         >
                             Blanc
@@ -74,7 +89,12 @@ export const PollOption: FunctionComponent<PollOptionProps> = ({
                             value={'Abstenció'}
                             checked={isAbstention}
                             onClick={(e) => handleClick(e, 'Abstenció')}
-                            style={{ zIndex: 1 }}
+                            style={{
+                                borderTopLeftRadius: '0px',
+                                borderBottomLeftRadius: '0px',
+                                zIndex: 1,
+                                color: selected ? 'white' : undefined,
+                            }}
                             disabled={fixed}
                         >
                             Abstenció

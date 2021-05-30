@@ -27,15 +27,15 @@ export const NavigationBar: FunctionComponent<NavigationBarProps> = ({
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
                 {membershipArray.includes(EMembership.ADMIN) && (
                     <Nav className="mr-auto">
-                        <Nav.Link href="users">
+                        <Nav.Link href="/users">
                             <i className="fa fa-user fa-fw mr-sm-1"></i>
                             See/edit members
                         </Nav.Link>
-                        <Nav.Link href="delegations">
+                        <Nav.Link href="/delegations">
                             <i className="fa fa-envelope-open fa-fw mr-sm-1"></i>
                             See/edit delegations
                         </Nav.Link>
-                        <Nav.Link href="createPoll">
+                        <Nav.Link href="/createPoll">
                             <i className="fa fa-edit fa-fw mr-sm-1"></i>Create poll
                         </Nav.Link>
                     </Nav>
