@@ -1,34 +1,18 @@
+import { IPoll } from 'interfaces';
 import React, { FunctionComponent } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
-import DataTable from 'react-data-table-component';
+import DataTable, {
+    IDataTableColumn,
+    IDataTableConditionalRowStyles,
+} from 'react-data-table-component';
 
-const data = [
-    { id: 1, name: 'Conan the Barbarian 1', deadline: '1981' },
-    { id: 2, name: 'Conan the Barbarian 2', deadline: '1982' },
-    { id: 3, name: 'Conan the Barbarian 3', deadline: '1983' },
-    { id: 4, name: 'Conan the Barbarian 4', deadline: '1984' },
-    { id: 5, name: 'Conan the Barbarian 5', deadline: '1985' },
-    { id: 6, name: 'Conan the Barbarian 6', deadline: '1986' },
-    { id: 7, name: 'Conan the Barbarian 7', deadline: '1986' },
-    { id: 8, name: 'Conan the Barbarian 8', deadline: '1987' },
-    { id: 9, name: 'Conan the Barbarian 9', deadline: '1988' },
-    { id: 10, name: 'Conan the Barbarian 10', deadline: '1981' },
-    { id: 11, name: 'Conan the Barbarian 11', deadline: '19822' },
-    { id: 12, name: 'Conan the Barbarian 12', deadline: '1982s' },
-];
-const columns = [
-    {
-        name: 'Name',
-        selector: 'name',
-        sortable: true,
+const fileTableStyles = {
+    headCells: {
+        style: {
+            fontSize: '16px',
+        },
     },
-    {
-        name: 'Deadline',
-        selector: 'deadline',
-        sortable: true,
-        right: true,
-    },
-];
+};
 
 interface FilterComponentProps {
     filterText: string;
@@ -56,13 +40,33 @@ const FilterComponent: FunctionComponent<FilterComponentProps> = ({
         </InputGroup.Append>
     </InputGroup>
 );
-interface CustomTableProps {}
+interface CustomTableProps<T> {
+    data: T[];
+    filterFields: (keyof T)[];
+    columns: IDataTableColumn<T>[];
+    conditions: IDataTableConditionalRowStyles<T>[];
+    rowClicked: (row: T) => void;
+}
 
-export const CustomTable: FunctionComponent<CustomTableProps> = ({}) => {
+export const CustomTable = <T extends object>({
+    data,
+    filterFields,
+    columns,
+    conditions,
+    rowClicked,
+}: CustomTableProps<T>) => {
     const [filterText, setFilterText] = React.useState('');
     const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
     const filteredItems = data.filter(
-        (item: any) => item.name && item.name.toLowerCase().includes(filterText.toLowerCase()),
+        (item: any) => {
+            for (const filterField of filterFields) {
+                if (item[filterField].toLowerCase().includes(filterText.toLowerCase())) {
+                    return true;
+                }
+                return false;
+            }
+        },
+        // item.pollName && item.pollName.toLowerCase().includes(filterText.toLowerCase()),
     );
 
     const subHeaderComponentMemo = React.useMemo(() => {
@@ -91,6 +95,9 @@ export const CustomTable: FunctionComponent<CustomTableProps> = ({}) => {
             pointerOnHover
             pagination
             paginationResetDefaultPage={resetPaginationToggle}
+            conditionalRowStyles={conditions}
+            customStyles={fileTableStyles}
+            onRowClicked={rowClicked}
         />
     );
 };

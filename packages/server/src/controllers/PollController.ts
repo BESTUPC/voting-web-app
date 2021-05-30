@@ -5,7 +5,9 @@ import { ErrorHandler } from '../utils/ErrorHandler';
 import { PollModel } from '../models/PollModel';
 import { UserController } from './UserController';
 import { VoteController } from './VoteController';
-import { EPollState, IPoll, IUser } from 'interfaces';
+import { EPollState, IPoll, IPollWithVotes, IUser, VoteMap } from 'interfaces';
+import { DelegationController } from './DelegationController';
+import { VoteModel } from '../models/VoteModel';
 
 /**
  * Controller for the poll-related calls. It handles all the logic between routing and the database access.
@@ -17,9 +19,26 @@ export class PollController {
      * @returns Returns an array with the polls that the user can access.
      * @throws Error 404 if the user is not found.
      */
-    public static async getPolls(userId: string): Promise<Array<IPoll>> {
+    public static async getPolls(userId: string): Promise<Array<IPollWithVotes>> {
         const user: IUser = await UserController.getUser(userId, userId);
-        return PollModel.getAll(user.membership);
+        const polls = await PollModel.getAll(user.membership);
+        const delegations = await DelegationController.getDelegation(userId, userId);
+        const finalPolls: IPollWithVotes[] = [];
+        for (const poll of polls) {
+            const voteMap: VoteMap = [];
+            voteMap.push({
+                user: 'You',
+                voted: !!(await VoteModel.get(userId, poll._id.toHexString())),
+            });
+            for (const delegation of delegations) {
+                voteMap.push({
+                    user: delegation.name,
+                    voted: !!(await VoteModel.get(delegation.userId, poll._id.toHexString())),
+                });
+            }
+            finalPolls.push({ voteMap, ...poll });
+        }
+        return finalPolls;
     }
 
     /**
@@ -30,12 +49,21 @@ export class PollController {
      * @throws Error 401 if the user is not authorized to get that poll.
      * @throws Error 404 if the user or poll is not found.
      */
-    public static async getPoll(userId: string, _id: string): Promise<IPoll> {
+    public static async getPoll(userId: string, _id: string): Promise<IPollWithVotes> {
         const user: IUser = await UserController.getUser(userId, userId);
         const poll: IPoll = await PollModel.get(new ObjectId(_id));
         if (!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
         if (user.membership.includes(poll.targetGroup)) {
-            return poll;
+            const delegations = await DelegationController.getDelegation(userId, userId);
+            const voteMap: VoteMap = [];
+            voteMap.push({ user: 'You', voted: !!(await VoteModel.get(userId, _id)) });
+            for (const delegation of delegations) {
+                voteMap.push({
+                    user: delegation.name,
+                    voted: !!(await VoteModel.get(delegation.userId, _id)),
+                });
+            }
+            return { voteMap, ...poll };
         } else {
             throw new ErrorHandler(401, 'Not authorized to get this poll');
         }

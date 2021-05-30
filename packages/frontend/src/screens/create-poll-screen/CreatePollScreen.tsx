@@ -1,11 +1,23 @@
-import { EMembership, EPollApprovalRatio, IPollOption } from 'interfaces';
-import React, { forwardRef, FunctionComponent, useState } from 'react';
+import es from 'date-fns/locale/es';
+import {
+    CreatePollBody,
+    EMembership,
+    EPollApprovalRatio,
+    EPollState,
+    IPollOption,
+} from 'interfaces';
+import React, { FunctionComponent, useState } from 'react';
 import { Button, Col, Form, InputGroup, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Redirect } from 'react-router-dom';
+import { CustomModal } from '../../components/custom-modal/CustomModal';
 import { PollOption } from '../../components/poll-option/PollOption';
+import { animate } from '../../utils/Animate';
+import { apiService } from '../../utils/ApiService';
 import { BaseScreen } from '../base-screen/BaseScreen';
 import './CreatePollScreen.css';
+registerLocale('es', es);
 
 export const CreatePollScreen: FunctionComponent = () => {
     const [startDate, setStartDate] = useState(new Date());
@@ -19,19 +31,82 @@ export const CreatePollScreen: FunctionComponent = () => {
         { name: 'Abstenció', isAgainst: false, isAbstention: true, disabled: true },
         { name: '', isAgainst: false, isAbstention: false, disabled: false },
     ] as (IPollOption & { disabled: boolean })[]);
+    const [modalShown, setModalShown] = useState<boolean>(false);
+    const [modalTitle, setModalTitle] = useState<string>('');
+    const [modalText, setModalText] = useState<string>('');
+    const [goHome, setGoHome] = useState<boolean>(false);
+
+    function handleModal() {
+        setModalShown(!modalShown);
+        if (modalTitle === 'Success') {
+            setGoHome(true);
+        }
+    }
+
+    const handleCreate = (): void => {
+        const title = document.querySelector(`#title`) as HTMLInputElement;
+        if (!title?.value) {
+            animate('#title', 'shakeX');
+            return;
+        }
+        const pollName = title.value;
+        const descriptionElem = document.querySelector(`#description`) as HTMLInputElement;
+        if (!descriptionElem?.value) {
+            animate('#description', 'shakeX');
+            return;
+        }
+        const description = descriptionElem.value;
+        if (options.length < 3) {
+            animate('#options', 'shakeX');
+            return;
+        }
+        const body: CreatePollBody = {
+            pollName,
+            description,
+            isPriority,
+            isPrivate,
+            state: EPollState.OPEN,
+            targetGroup: target,
+            pollOptions: options.filter((o) => o.disabled),
+            approvalRatio: approval,
+            abstentionIsValid: validAbstention,
+            pollDeadline: startDate.getMilliseconds(),
+        };
+        apiService
+            .createPoll(body)
+            .then((response: boolean) => {
+                if (response) {
+                    setModalTitle('Success');
+                    setModalText('Poll created');
+                    handleModal();
+                } else {
+                    setModalTitle('Error');
+                    setModalText('Could not create poll.');
+                    handleModal();
+                }
+            })
+            .catch((err) => {
+                setModalTitle('Error');
+                setModalText(JSON.stringify(err));
+                handleModal();
+            });
+    };
 
     const handleClick = (e: React.MouseEvent<HTMLElement>, value: string, idx: number): void => {
         e.preventDefault();
         const optionsUpdated = options;
         const option = optionsUpdated[idx];
-        const radioValue = option.isAbstention ? 'ABSTENCIO' : option.isAgainst ? 'BLANC' : 'NONE';
+        console.log(option);
+        console.log(value);
+        const radioValue = option.isAbstention ? 'Abstenció' : option.isAgainst ? 'Blanc' : 'NONE';
+        console.log(radioValue);
         if (radioValue === value) {
             option.isAbstention = false;
             option.isAgainst = false;
             optionsUpdated[idx] = option;
             setOptions([...optionsUpdated]);
         } else {
-            if (value === 'BLANC') {
+            if (value === 'Blanc') {
                 option.isAgainst = true;
                 option.isAbstention = false;
             } else {
@@ -67,17 +142,24 @@ export const CreatePollScreen: FunctionComponent = () => {
         setOptions([...optionsUpdated]);
     };
 
-    return (
+    return goHome ? (
+        <Redirect to="/" />
+    ) : (
         <BaseScreen>
-            <Form className="mt-5">
+            <Form className="mt-5 mb-5">
                 <Form.Group id="formText">
-                    <Form.Control size="lg" type="title" placeholder="Poll title" />
+                    <Form.Control size="lg" type="title" id="title" placeholder="Poll title" />
                     <br />
-                    <Form.Control as="textarea" rows={3} placeholder="Poll description" />
+                    <Form.Control
+                        as="textarea"
+                        rows={3}
+                        id="description"
+                        placeholder="Poll description"
+                    />
                 </Form.Group>
                 <Form.Group id="formSelections">
                     <Form.Row>
-                        <Col>
+                        <Col className="rounded-borders" id="options">
                             <Form.Group>
                                 {options.map((o, idx) => (
                                     <Form.Group key={idx}>
@@ -91,18 +173,19 @@ export const CreatePollScreen: FunctionComponent = () => {
                                             handleButton={(e) => handleButton(e, idx)}
                                             handleWrite={(e) => handleWrite(e, idx)}
                                             idx={idx}
+                                            fixed={false}
                                         ></PollOption>
                                     </Form.Group>
                                 ))}
                             </Form.Group>
                         </Col>
-                        <Col>
+                        <Col className="rounded-borders">
                             <Form.Group>
                                 <Form.Group>
-                                    <InputGroup>
-                                        <InputGroup.Append>
+                                    <InputGroup id="titleGroup">
+                                        <InputGroup.Prepend>
                                             <InputGroup.Text>Target</InputGroup.Text>
-                                        </InputGroup.Append>
+                                        </InputGroup.Prepend>
                                         <Form.Control
                                             as="select"
                                             onChange={(c) => {
@@ -118,9 +201,9 @@ export const CreatePollScreen: FunctionComponent = () => {
                                     </InputGroup>
                                 </Form.Group>
                                 <InputGroup>
-                                    <InputGroup.Append>
+                                    <InputGroup.Prepend>
                                         <InputGroup.Text>Approval</InputGroup.Text>
-                                    </InputGroup.Append>
+                                    </InputGroup.Prepend>
                                     <Form.Control
                                         as="select"
                                         onChange={(c) => {
@@ -181,16 +264,23 @@ export const CreatePollScreen: FunctionComponent = () => {
                                     selected={startDate}
                                     showTimeSelect
                                     dateFormat="Pp"
+                                    locale="es"
                                     onChange={(date) => !!date && setStartDate(date as Date)}
                                 />
                             </Form.Group>
                         </Col>
                     </Form.Row>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" onClick={handleCreate}>
                     Submit
                 </Button>
             </Form>
+            <CustomModal
+                title={modalTitle}
+                body={modalText}
+                modalHandler={handleModal}
+                show={modalShown}
+            ></CustomModal>
         </BaseScreen>
     );
 };

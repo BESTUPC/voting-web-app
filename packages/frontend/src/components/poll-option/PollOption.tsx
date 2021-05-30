@@ -1,7 +1,8 @@
-import React, { FunctionComponent, useState } from 'react';
+import 'animate.css';
+import React, { FunctionComponent } from 'react';
 import { Button, ButtonGroup, FormControl, InputGroup, ToggleButton } from 'react-bootstrap';
 import { BsPlusCircle, BsXCircle } from 'react-icons/bs';
-import 'animate.css';
+import { animate } from '../../utils/Animate';
 import './PollOption.css';
 
 interface PollOptionProps {
@@ -14,8 +15,8 @@ interface PollOptionProps {
     handleClick: (e: React.MouseEvent<HTMLElement>, value: string) => void;
     handleWrite: (e: React.ChangeEvent<any>) => void;
     idx: number;
+    fixed: boolean;
 }
-export const CheckOptions = ['BLANC', 'ABSTENCIO'];
 
 export const PollOption: FunctionComponent<PollOptionProps> = ({
     name,
@@ -26,38 +27,61 @@ export const PollOption: FunctionComponent<PollOptionProps> = ({
     handleClick,
     handleWrite,
     idx,
+    fixed,
 }) => {
-    const radioValue = isAbstention ? 'ABSTENCIO' : isAgainst ? 'BLANC' : 'NONE';
-
     const handleButtonAux = (e: React.MouseEvent<HTMLElement>): void => {
         if (!name) {
-            const element = document.querySelector(`.my-element-${idx}`);
-            element!.classList.add('animate__animated', 'animate__shakeX');
+            animate(`.my-element-${idx}`, 'shakeX');
             return;
         }
         handleButton(e);
     };
     return (
         <InputGroup className={`my-element-${idx}`}>
-            <Button variant="outline-secondary" onClick={(e) => handleButtonAux(e)}>
-                {disabled ? <BsXCircle></BsXCircle> : <BsPlusCircle></BsPlusCircle>}
-            </Button>
+            <InputGroup.Prepend>
+                <Button
+                    variant="outline-secondary"
+                    onClick={(e) => handleButtonAux(e)}
+                    style={{ zIndex: 1 }}
+                    disabled={fixed}
+                >
+                    {disabled ? <BsXCircle></BsXCircle> : <BsPlusCircle></BsPlusCircle>}
+                </Button>
+            </InputGroup.Prepend>
+
             <FormControl disabled={disabled} value={name} onChange={(e) => handleWrite(e)} />
-            <ButtonGroup toggle>
-                {CheckOptions.map((radio, idx) => (
-                    <ToggleButton
-                        key={idx}
-                        type="radio"
-                        variant="outline-secondary"
-                        id="optionButton"
-                        value={radio}
-                        checked={radioValue === radio}
-                        onClick={(e) => handleClick(e, radio)}
-                    >
-                        {radio}
-                    </ToggleButton>
-                ))}
-            </ButtonGroup>
+            <InputGroup.Append>
+                <ButtonGroup toggle>
+                    {(!fixed || isAgainst) && (
+                        <ToggleButton
+                            type="radio"
+                            variant="outline-secondary"
+                            id="optionButton"
+                            value={'Blanc'}
+                            checked={isAgainst}
+                            onClick={(e) => handleClick(e, 'Blanc')}
+                            style={{ borderRadius: '0px', zIndex: 1 }}
+                            disabled={fixed}
+                        >
+                            Blanc
+                        </ToggleButton>
+                    )}
+                    {(!fixed || isAbstention) && (
+                        <ToggleButton
+                            type="radio"
+                            variant="outline-secondary"
+                            id="optionButton"
+                            value={'Abstenció'}
+                            checked={isAbstention}
+                            onClick={(e) => handleClick(e, 'Abstenció')}
+                            style={{ zIndex: 1 }}
+                            disabled={fixed}
+                        >
+                            Abstenció
+                        </ToggleButton>
+                    )}
+                </ButtonGroup>
+            </InputGroup.Append>
         </InputGroup>
     );
 };

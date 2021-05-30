@@ -3,7 +3,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import { NavigationBar } from '../../components/navigation-bar/NavigationBar';
-import { apiService } from '../../services/ApiService';
+import { apiService } from '../../utils/ApiService';
 
 export const BaseScreen: FunctionComponent = ({ children }) => {
     const [name, setName] = useState<string>('');

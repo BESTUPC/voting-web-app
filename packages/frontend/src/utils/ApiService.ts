@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { CreatePollBody, GetCurrentUserResponse, LoginBody } from 'interfaces';
+import { CreatePollBody, GetCurrentUserResponse, GetPollResponse, GetPollsResponse, LoginBody } from 'interfaces';
 
 class ApiService {
     private axiosInstance: AxiosInstance;
@@ -47,8 +47,16 @@ class ApiService {
         return this.post<void>('/auth/logout');
     }
 
-    public createPoll(body: CreatePollBody): Promise<void> {
-        return this.post<void>('/auth/login', body);
+    public createPoll(body: CreatePollBody): Promise<boolean> {
+        return this.post<boolean>('/polls', body);
+    }
+
+    public getPolls(): Promise<GetPollsResponse> {
+        return this.get<GetPollsResponse>('/polls');
+    }
+
+    public getPoll(pollId: string): Promise<GetPollResponse> {
+        return this.get<GetPollResponse>(`/polls/${pollId}`);
     }
 }
 

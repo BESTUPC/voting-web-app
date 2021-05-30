@@ -6490,7 +6490,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.0.1":
+"date-fns@npm:^2.0.1, date-fns@npm:^2.22.1":
   version: 2.22.1
   resolution: "date-fns@npm:2.22.1"
   checksum: a89dc6cdf3929b3f0d54d129a3c288df995fc3e6c8099dacc215e5404b4950fc8551d11a58968dfd3b8d576d0c5e637072f615e8f9c3e47d82c81e3952007d5b
@@ -8419,6 +8419,7 @@ __metadata:
     axios: ^0.21.1
     babel-eslint: ^10.1.0
     bootstrap: ^4.6.0
+    date-fns: ^2.22.1
     eslint: ^7.26.0
     eslint-config-react-app: ^6.0.0
     eslint-plugin-flowtype: ^5.7.2

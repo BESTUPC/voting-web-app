@@ -3,7 +3,7 @@ import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
 import { Redirect } from 'react-router-dom';
 import logo from '../../assets/BEST_LOGO.svg';
 import { CustomModal } from '../../components/custom-modal/CustomModal';
-import { apiService } from '../../services/ApiService';
+import { apiService } from '../../utils/ApiService';
 import './LoginScreen.css';
 
 export const LoginScreen: FunctionComponent = () => {

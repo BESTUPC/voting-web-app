@@ -12717,6 +12717,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["axios", "npm:0.21.1"],
             ["babel-eslint", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:10.1.0"],
             ["bootstrap", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:4.6.0"],
+            ["date-fns", "npm:2.22.1"],
             ["eslint", "npm:7.26.0"],
             ["eslint-config-react-app", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:6.0.0"],
             ["eslint-plugin-flowtype", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:5.7.2"],
