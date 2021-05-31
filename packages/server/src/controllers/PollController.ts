@@ -26,14 +26,16 @@ export class PollController {
         const finalPolls: IPollWithVotes[] = [];
         for (const poll of polls) {
             const voteMap: VoteMap = [];
+            const vote = await VoteModel.get(userId, poll._id.toHexString());
             voteMap.push({
                 user: 'You',
-                voted: !!(await VoteModel.get(userId, poll._id.toHexString())),
+                voted: !!vote ? vote.option : [],
             });
             for (const delegation of delegations) {
+                const vote = await VoteModel.get(delegation.userId, poll._id.toHexString());
                 voteMap.push({
                     user: delegation.name,
-                    voted: !!(await VoteModel.get(delegation.userId, poll._id.toHexString())),
+                    voted: !!vote ? vote.option : [],
                 });
             }
             finalPolls.push({ voteMap, ...poll });
@@ -56,11 +58,13 @@ export class PollController {
         if (user.membership.includes(poll.targetGroup)) {
             const delegations = await DelegationController.getDelegation(userId, userId);
             const voteMap: VoteMap = [];
-            voteMap.push({ user: 'You', voted: !!(await VoteModel.get(userId, _id)) });
+            const vote = await VoteModel.get(userId, poll._id.toHexString());
+            voteMap.push({ user: 'You', voted: !!vote ? vote.option : [] });
             for (const delegation of delegations) {
+                const vote = await VoteModel.get(delegation.userId, _id);
                 voteMap.push({
                     user: delegation.name,
-                    voted: !!(await VoteModel.get(delegation.userId, _id)),
+                    voted: !!vote ? vote.option : [],
                 });
             }
             return { voteMap, ...poll };

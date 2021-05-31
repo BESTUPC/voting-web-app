@@ -1,6 +1,6 @@
 import { EPollState, IPollWithVotes } from 'interfaces';
 import React, { FunctionComponent } from 'react';
-import { Badge, OverlayTrigger, Tooltip, TooltipProps } from 'react-bootstrap';
+import { Badge, Container, OverlayTrigger, Row, Tooltip, TooltipProps } from 'react-bootstrap';
 import { OverlayInjectedProps } from 'react-bootstrap/esm/Overlay';
 import { IDataTableColumn, IDataTableConditionalRowStyles } from 'react-data-table-component';
 import { BsCheckCircle, BsXCircleFill } from 'react-icons/bs';
@@ -35,7 +35,7 @@ const columns: IDataTableColumn<IPollWithVotes>[] = [
                         delay={{ show: 250, hide: 400 }}
                         overlay={(props) => renderTooltip(props, vm.user)}
                     >
-                        {vm.voted ? (
+                        {vm.voted.length > 0 ? (
                             <BsCheckCircle></BsCheckCircle>
                         ) : (
                             <BsXCircleFill></BsXCircleFill>
@@ -46,16 +46,15 @@ const columns: IDataTableColumn<IPollWithVotes>[] = [
         ),
     },
     {
-        name: 'State',
-        selector: 'state',
-        sortable: true,
-        right: true,
-    },
-    {
         name: 'Deadline',
         selector: 'pollDeadline',
         sortable: true,
         right: true,
+        wrap: true,
+        format: (row) =>
+            new Date(row.pollDeadline).toLocaleDateString() +
+            ' ' +
+            new Date(row.pollDeadline).toLocaleTimeString(),
     },
 ];
 const conditions: IDataTableConditionalRowStyles<IPollWithVotes>[] = [

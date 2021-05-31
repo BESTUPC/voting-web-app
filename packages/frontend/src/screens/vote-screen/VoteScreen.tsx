@@ -1,6 +1,15 @@
 import { IPoll, IPollWithVotes } from 'interfaces';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Button, Col, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import {
+    Button,
+    Col,
+    Container,
+    Form,
+    FormControl,
+    InputGroup,
+    OverlayTrigger,
+    Tooltip,
+} from 'react-bootstrap';
 import { OverlayInjectedProps } from 'react-bootstrap/esm/Overlay';
 import { BsArrowUpDown, BsFillLockFill, BsFillEnvelopeOpenFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
@@ -23,6 +32,7 @@ export const VoteScreen: FunctionComponent = () => {
     const [poll, setPoll] = useState({} as IPollWithVotes);
     const [selected, setSelected] = useState([] as number[]);
     const { pollId } = useParams<{ pollId: string }>();
+    const [voter, setVoter] = useState('You');
 
     useEffect(() => {
         apiService
@@ -45,69 +55,84 @@ export const VoteScreen: FunctionComponent = () => {
         <BaseScreen>
             <Form className="mt-5 mb-5">
                 <Form.Group id="formText">
-                    <Form.Control size="lg" type="title" placeholder={poll.pollName} disabled />
+                    <Form.Control
+                        as={Container}
+                        size="lg"
+                        style={{ display: 'flex', justifyContent: 'space-between' }}
+                    >
+                        {poll.pollName}
+                        <span>
+                            {!poll.isPrivate && (
+                                <OverlayTrigger
+                                    placement="bottom"
+                                    delay={{ show: 250, hide: 400 }}
+                                    overlay={(props) => renderTooltip(props, 'Poll is private.')}
+                                >
+                                    <BsFillLockFill
+                                        size="15"
+                                        style={{ marginRight: '8px' }}
+                                    ></BsFillLockFill>
+                                </OverlayTrigger>
+                            )}
+                            {!poll.isPriority && (
+                                <OverlayTrigger
+                                    placement="bottom"
+                                    delay={{ show: 250, hide: 400 }}
+                                    overlay={(props) =>
+                                        renderTooltip(props, 'Poll is a priority poll.')
+                                    }
+                                >
+                                    <BsArrowUpDown
+                                        size="15"
+                                        style={{ marginRight: '8px' }}
+                                    ></BsArrowUpDown>
+                                </OverlayTrigger>
+                            )}
+                            {!poll.abstentionIsValid && (
+                                <OverlayTrigger
+                                    placement="bottom"
+                                    delay={{ show: 50, hide: 100 }}
+                                    overlay={(props) =>
+                                        renderTooltip(props, 'Abstention is valid.')
+                                    }
+                                >
+                                    <BsFillEnvelopeOpenFill
+                                        size="15"
+                                        style={{ marginRight: '8px' }}
+                                    ></BsFillEnvelopeOpenFill>
+                                </OverlayTrigger>
+                            )}
+                            {!!poll.approvalRatio && (
+                                <BsFillLockFill
+                                    size="15"
+                                    style={{ marginRight: '8px' }}
+                                ></BsFillLockFill>
+                            )}
+                        </span>
+                    </Form.Control>
                     <br />
                     <InputGroup>
                         <Form.Control
                             size="sm"
                             type="title"
-                            placeholder={String(poll.pollDeadline)}
+                            placeholder={
+                                new Date(poll.pollDeadline).toLocaleDateString() +
+                                ' ' +
+                                new Date(poll.pollDeadline).toLocaleTimeString()
+                            }
                             disabled
+                            style={{ backgroundColor: 'white' }}
                         />
                     </InputGroup>
                     <br />
-                    <Form.Group>
-                        {!!poll.isPrivate && (
-                            <OverlayTrigger
-                                placement="bottom"
-                                delay={{ show: 250, hide: 400 }}
-                                overlay={(props) => renderTooltip(props, 'Poll is private.')}
-                            >
-                                <BsFillLockFill
-                                    size="15"
-                                    style={{ marginRight: '8px' }}
-                                ></BsFillLockFill>
-                            </OverlayTrigger>
-                        )}
-                        {!!poll.isPriority && (
-                            <OverlayTrigger
-                                placement="bottom"
-                                delay={{ show: 250, hide: 400 }}
-                                overlay={(props) =>
-                                    renderTooltip(props, 'Poll is a priority poll.')
-                                }
-                            >
-                                <BsArrowUpDown
-                                    size="15"
-                                    style={{ marginRight: '8px' }}
-                                ></BsArrowUpDown>
-                            </OverlayTrigger>
-                        )}
-                        {!!poll.abstentionIsValid && (
-                            <OverlayTrigger
-                                placement="bottom"
-                                delay={{ show: 50, hide: 100 }}
-                                overlay={(props) => renderTooltip(props, 'Abstention is valid.')}
-                            >
-                                <BsFillEnvelopeOpenFill
-                                    size="15"
-                                    style={{ marginRight: '8px' }}
-                                ></BsFillEnvelopeOpenFill>
-                            </OverlayTrigger>
-                        )}
-                        {!!poll.approvalRatio && (
-                            <BsFillLockFill
-                                size="15"
-                                style={{ marginRight: '8px' }}
-                            ></BsFillLockFill>
-                        )}
-                    </Form.Group>
+
                     <Form.Control
                         as="textarea"
                         rows={3}
                         id="description"
                         placeholder={poll.description}
                         disabled
+                        style={{ backgroundColor: 'white' }}
                     />
                 </Form.Group>
                 <Form.Group id="formSelections">
@@ -152,9 +177,18 @@ export const VoteScreen: FunctionComponent = () => {
                         </Col>
                     </Form.Row>
                 </Form.Group>
-                <Button variant="primary" onClick={() => {}}>
-                    Submit
-                </Button>
+                <Form.Row style={{ justifyContent: 'space-between' }}>
+                    <Button variant="primary" onClick={() => {}}>
+                        Submit
+                    </Button>
+                    <Col>
+                        <Form.Control as="select">
+                            {(poll.voteMap || []).map((vm) => (
+                                <option key={vm.user}>{vm.user}</option>
+                            ))}
+                        </Form.Control>
+                    </Col>
+                </Form.Row>
             </Form>
             <CustomModal
                 title={modalTitle}

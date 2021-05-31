@@ -70,8 +70,9 @@ export const CreatePollScreen: FunctionComponent = () => {
             pollOptions: options.filter((o) => o.disabled),
             approvalRatio: approval,
             abstentionIsValid: validAbstention,
-            pollDeadline: startDate.getMilliseconds(),
+            pollDeadline: startDate.getTime(),
         };
+
         apiService
             .createPoll(body)
             .then((response: boolean) => {
@@ -209,7 +210,10 @@ export const CreatePollScreen: FunctionComponent = () => {
                                         as="select"
                                         onChange={(c) => {
                                             setApproval(
-                                                c.currentTarget.value.toUpperCase() as EPollApprovalRatio,
+                                                c.currentTarget.value.toUpperCase().replace(
+                                                    '',
+                                                    '_',
+                                                ) as EPollApprovalRatio,
                                             );
                                         }}
                                     >
@@ -266,6 +270,7 @@ export const CreatePollScreen: FunctionComponent = () => {
                                     showTimeSelect
                                     dateFormat="Pp"
                                     locale="es"
+                                    timeIntervals={5}
                                     onChange={(date) => !!date && setStartDate(date as Date)}
                                 />
                             </Form.Group>
