@@ -4,14 +4,13 @@ import {
     EMembership,
     EPollApprovalRatio,
     EPollState,
-    IPollOption,
+    IPollOption
 } from 'interfaces';
 import React, { FunctionComponent, useState } from 'react';
 import { Button, Col, Form, InputGroup, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Redirect } from 'react-router-dom';
-import { CustomModal } from '../../components/custom-modal/CustomModal';
 import { PollOption } from '../../components/poll-option/PollOption';
 import { animate } from '../../utils/Animate';
 import { apiService } from '../../utils/ApiService';
@@ -88,7 +87,7 @@ export const CreatePollScreen: FunctionComponent = () => {
             })
             .catch((err) => {
                 setModalTitle('Error');
-                setModalText(JSON.stringify(err));
+                setModalText('Could not create poll.');
                 handleModal();
             });
     };
@@ -146,7 +145,12 @@ export const CreatePollScreen: FunctionComponent = () => {
     return goHome ? (
         <Redirect to="/" />
     ) : (
-        <BaseScreen>
+        <BaseScreen
+            modalTitle={modalTitle}
+            modalText={modalText}
+            modalHandler={handleModal}
+            modalShown={modalShown}
+        >
             <Form className="mt-5 mb-5">
                 <Form.Group id="formText">
                     <Form.Control size="lg" type="title" id="title" placeholder="Poll title" />
@@ -210,10 +214,9 @@ export const CreatePollScreen: FunctionComponent = () => {
                                         as="select"
                                         onChange={(c) => {
                                             setApproval(
-                                                c.currentTarget.value.toUpperCase().replace(
-                                                    '',
-                                                    '_',
-                                                ) as EPollApprovalRatio,
+                                                c.currentTarget.value
+                                                    .toUpperCase()
+                                                    .replace('', '_') as EPollApprovalRatio,
                                             );
                                         }}
                                     >
@@ -281,12 +284,6 @@ export const CreatePollScreen: FunctionComponent = () => {
                     Submit
                 </Button>
             </Form>
-            <CustomModal
-                title={modalTitle}
-                body={modalText}
-                modalHandler={handleModal}
-                show={modalShown}
-            ></CustomModal>
         </BaseScreen>
     );
 };

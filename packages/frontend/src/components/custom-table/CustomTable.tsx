@@ -1,4 +1,3 @@
-import { IPoll } from 'interfaces';
 import React, { FunctionComponent } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import DataTable, {
@@ -44,7 +43,7 @@ interface CustomTableProps<T> {
     data: T[];
     filterFields: (keyof T)[];
     columns: IDataTableColumn<T>[];
-    conditions: IDataTableConditionalRowStyles<T>[];
+    conditions?: IDataTableConditionalRowStyles<T>[];
     rowClicked: (row: T) => void;
 }
 
@@ -57,17 +56,14 @@ export const CustomTable = <T extends object>({
 }: CustomTableProps<T>) => {
     const [filterText, setFilterText] = React.useState('');
     const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
-    const filteredItems = data.filter(
-        (item: any) => {
-            for (const filterField of filterFields) {
-                if (item[filterField].toLowerCase().includes(filterText.toLowerCase())) {
-                    return true;
-                }
-                return false;
+    const filteredItems = data.filter((item: any) => {
+        for (const filterField of filterFields) {
+            if (item[filterField].toLowerCase().includes(filterText.toLowerCase())) {
+                return true;
             }
-        },
-        // item.pollName && item.pollName.toLowerCase().includes(filterText.toLowerCase()),
-    );
+        }
+        return false;
+    });
 
     const subHeaderComponentMemo = React.useMemo(() => {
         const handleClear = () => {

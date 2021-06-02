@@ -12704,6 +12704,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:26.0.23"],
             ["@types/jquery", "npm:3.5.5"],
             ["@types/node", "npm:14.14.45"],
+            ["@types/prop-types", "npm:15.7.3"],
             ["@types/react", "npm:17.0.5"],
             ["@types/react-datepicker", "npm:3.1.8"],
             ["@types/react-dom", "npm:17.0.5"],
@@ -12728,6 +12729,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["interfaces", "workspace:packages/interfaces"],
             ["jquery", "npm:3.6.0"],
             ["popper.js", "npm:1.16.1"],
+            ["prop-types", "npm:15.7.2"],
             ["react", "npm:17.0.2"],
             ["react-bootstrap", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:1.6.0"],
             ["react-data-table-component", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:6.11.7"],
@@ -12738,6 +12740,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-is", "npm:17.0.2"],
             ["react-router-dom", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:5.2.0"],
             ["react-scripts", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:4.0.3"],
+            ["react-select-search", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:3.0.7"],
             ["styled-components", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:5.3.0"],
             ["typescript", "patch:typescript@npm%3A4.2.4#builtin<compat/typescript>::version=4.2.4&hash=a45b0e"],
             ["web-vitals", "npm:1.1.2"]
@@ -12843,6 +12846,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/functional-red-black-tree-npm-1.0.1-ccfe924dcd-477ecaf62d.zip/node_modules/functional-red-black-tree/",
           "packageDependencies": [
             ["functional-red-black-tree", "npm:1.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["fuse.js", [
+        ["npm:3.6.1", {
+          "packageLocation": "./.yarn/cache/fuse.js-npm-3.6.1-d9c14471d8-2eebc6f8f7.zip/node_modules/fuse.js/",
+          "packageDependencies": [
+            ["fuse.js", "npm:3.6.1"]
           ],
           "linkType": "HARD",
         }]
@@ -20135,6 +20147,37 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/typescript",
             "react",
             "typescript"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["react-select-search", [
+        ["npm:3.0.7", {
+          "packageLocation": "./.yarn/cache/react-select-search-npm-3.0.7-c94c6d2283-57b2c4cb53.zip/node_modules/react-select-search/",
+          "packageDependencies": [
+            ["react-select-search", "npm:3.0.7"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:3.0.7", {
+          "packageLocation": "./.yarn/$$virtual/react-select-search-virtual-08cf1ad735/0/cache/react-select-search-npm-3.0.7-c94c6d2283-57b2c4cb53.zip/node_modules/react-select-search/",
+          "packageDependencies": [
+            ["react-select-search", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:3.0.7"],
+            ["@types/prop-types", "npm:15.7.3"],
+            ["@types/react", "npm:17.0.5"],
+            ["@types/react-dom", "npm:17.0.5"],
+            ["fuse.js", "npm:3.6.1"],
+            ["prop-types", "npm:15.7.2"],
+            ["react", "npm:17.0.2"],
+            ["react-dom", "virtual:a315446cd0626d69c81bb371962241fad2e843699b8251d1a49a3231d7821af7bdb2285677102303361c3219ca15ceeabaa438b7b5ead02c2587180fe2eace6b#npm:17.0.2"]
+          ],
+          "packagePeers": [
+            "@types/prop-types",
+            "@types/react-dom",
+            "@types/react",
+            "prop-types",
+            "react-dom",
+            "react"
           ],
           "linkType": "HARD",
         }]

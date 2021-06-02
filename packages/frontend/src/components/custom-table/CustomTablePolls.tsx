@@ -1,6 +1,6 @@
 import { EPollState, IPollWithVotes } from 'interfaces';
 import React, { FunctionComponent } from 'react';
-import { Badge, Container, OverlayTrigger, Row, Tooltip, TooltipProps } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { OverlayInjectedProps } from 'react-bootstrap/esm/Overlay';
 import { IDataTableColumn, IDataTableConditionalRowStyles } from 'react-data-table-component';
 import { BsCheckCircle, BsXCircleFill } from 'react-icons/bs';

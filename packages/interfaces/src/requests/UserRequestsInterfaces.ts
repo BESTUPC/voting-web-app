@@ -5,3 +5,4 @@ export interface LoginBody {
 }
 
 export type GetCurrentUserResponse = IUser;
+export type GetUsersResponse = IUser[];

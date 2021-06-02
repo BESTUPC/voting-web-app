@@ -1,19 +1,9 @@
-import { IPoll, IPollWithVotes } from 'interfaces';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import {
-    Button,
-    Col,
-    Container,
-    Form,
-    FormControl,
-    InputGroup,
-    OverlayTrigger,
-    Tooltip,
-} from 'react-bootstrap';
+import { IPollWithVotes } from 'interfaces';
+import React, { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { Button, Col, Container, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { OverlayInjectedProps } from 'react-bootstrap/esm/Overlay';
-import { BsArrowUpDown, BsFillLockFill, BsFillEnvelopeOpenFill } from 'react-icons/bs';
+import { BsArrowUpDown, BsFillEnvelopeOpenFill, BsFillLockFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
-import { CustomModal } from '../../components/custom-modal/CustomModal';
 import { PollOption } from '../../components/poll-option/PollOption';
 import { apiService } from '../../utils/ApiService';
 import { BaseScreen } from '../base-screen/BaseScreen';
@@ -32,7 +22,10 @@ export const VoteScreen: FunctionComponent = () => {
     const [poll, setPoll] = useState({} as IPollWithVotes);
     const [selected, setSelected] = useState([] as number[]);
     const { pollId } = useParams<{ pollId: string }>();
-    const [voter, setVoter] = useState('You');
+    //const [voter, setVoter] = useState('You');
+    const handleModal = useCallback(() => {
+        setModalShown(!modalShown);
+    }, [modalShown]);
 
     useEffect(() => {
         apiService
@@ -45,14 +38,15 @@ export const VoteScreen: FunctionComponent = () => {
                 setModalTitle('Error');
                 handleModal();
             });
-    }, []);
-
-    function handleModal() {
-        setModalShown(!modalShown);
-    }
+    }, [handleModal, pollId]);
 
     return (
-        <BaseScreen>
+        <BaseScreen
+            modalShown={modalShown}
+            modalText={modalText}
+            modalTitle={modalTitle}
+            modalHandler={handleModal}
+        >
             <Form className="mt-5 mb-5">
                 <Form.Group id="formText">
                     <Form.Control
@@ -190,12 +184,6 @@ export const VoteScreen: FunctionComponent = () => {
                     </Col>
                 </Form.Row>
             </Form>
-            <CustomModal
-                title={modalTitle}
-                body={modalText}
-                modalHandler={handleModal}
-                show={modalShown}
-            ></CustomModal>
         </BaseScreen>
     );
 };

@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { CreatePollBody, GetCurrentUserResponse, GetPollResponse, GetPollsResponse, LoginBody } from 'interfaces';
+import { CreatePollBody, GetCurrentUserResponse, GetDelegationsResponse, GetPollResponse, GetPollsResponse, GetUsersResponse, LoginBody } from 'interfaces';
+import { IDelegationData } from '../components/custom-table/CustomTableDelegations';
 
 class ApiService {
     private axiosInstance: AxiosInstance;
@@ -57,6 +58,28 @@ class ApiService {
 
     public getPoll(pollId: string): Promise<GetPollResponse> {
         return this.get<GetPollResponse>(`/polls/${pollId}`);
+    }
+
+    public getUsers(): Promise<GetUsersResponse> {
+        return this.get<GetUsersResponse>(`/users`);
+    }
+
+    public async getDelegationsWithUsers(): Promise<IDelegationData[]> {
+        const delegations = await this.get<GetDelegationsResponse>('/delegations');
+        const users = await this.getUsers()
+        const userMap: { [index: string]: string } = users.reduce((map, obj) => {
+            map[obj.userId] = obj.name;
+            return map;
+        }, {} as { [index: string]: string });
+        return delegations.map((d) => ({ delegator: userMap[d.userIdDelegator], receiver: userMap[d.userIdReceiver], id: d._id! as unknown as string }));
+    }
+
+    public giveDelegation(id1: string, id2: string): Promise<boolean> {
+        return this.post<boolean>(`/delegations/${id1}/${id2}`);
+    }
+
+    public deleteDelegation(id: string): Promise<boolean> {
+        return this.delete<boolean>(`/delegations/${id}`);
     }
 }
 

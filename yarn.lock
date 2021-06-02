@@ -3056,7 +3056,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*, @types/prop-types@npm:^15.7.3":
+"@types/prop-types@npm:*, @types/prop-types@npm:^15, @types/prop-types@npm:^15.7.3":
   version: 15.7.3
   resolution: "@types/prop-types@npm:15.7.3"
   checksum: bd0eab69d5120ad3784d0c9985f902653d5924707a7f2b3702a330e762dfd61b6494954cb54ad0c52b918ffd6f1e7e27c9270e4442bc15250de348596f2f60cb
@@ -8406,6 +8406,7 @@ __metadata:
     "@types/jest": ^26.0.22
     "@types/jquery": ^3
     "@types/node": ^14.14.41
+    "@types/prop-types": ^15
     "@types/react": ^17.0.3
     "@types/react-datepicker": ^3.1.8
     "@types/react-dom": ^17.0.3
@@ -8430,6 +8431,7 @@ __metadata:
     interfaces: "workspace:packages/interfaces"
     jquery: ^3.6.0
     popper.js: ^1.16.1
+    prop-types: ^15.7.2
     react: ^17.0.2
     react-bootstrap: ^1.5.2
     react-data-table-component: ^6.11.7
@@ -8440,6 +8442,7 @@ __metadata:
     react-is: ^17.0.2
     react-router-dom: ^5.2.0
     react-scripts: 4.0.3
+    react-select-search: ^3.0.7
     styled-components: ^5.3.0
     typescript: ^4.2.4
     web-vitals: ^1.0.1
@@ -8557,6 +8560,13 @@ fsevents@^1.2.7:
   version: 1.0.1
   resolution: "functional-red-black-tree@npm:1.0.1"
   checksum: 477ecaf62d4f8d788876099b35ed4b97586b331e729d2d28d0df96b598863d21c18b8a45a6cbecb6c2bf7f5e5ef1e82a053570583ef9a0ff8336683ab42b8d14
+  languageName: node
+  linkType: hard
+
+"fuse.js@npm:^3.4.5":
+  version: 3.6.1
+  resolution: "fuse.js@npm:3.6.1"
+  checksum: 2eebc6f8f74abdbf65557f2fe81679ddfb20890482343892bfef43742ad3b7146cc9b89f5b12a40b35ecdfb1d8401848d567fc727261fa90fa87e899e8ec6112
   languageName: node
   linkType: hard
 
@@ -14916,6 +14926,22 @@ fsevents@^1.2.7:
   bin:
     react-scripts: ./bin/react-scripts.js
   checksum: ee13d6fa1eef6c8ad0b5e4e5c26bdf59b136dfa24910e9ebb2d9f42a8fe7e77ed7ce221b87342e4f597954c42293d6d181ff1315d3b2bd3103362eb192a71d22
+  languageName: node
+  linkType: hard
+
+"react-select-search@npm:^3.0.7":
+  version: 3.0.7
+  resolution: "react-select-search@npm:3.0.7"
+  dependencies:
+    fuse.js: ^3.4.5
+  peerDependencies:
+    prop-types: ^15.7.2
+    react: ^17.0.1
+    react-dom: ^17.0.1
+  dependenciesMeta:
+    fuse.js:
+      optional: true
+  checksum: 57b2c4cb53207122c9d7ac9208f28b8702abadbafa71293146d720aef746379fb0db333e190dd5f67b45b1af5bc3fcac1aedba9c16ee127b3a7f314493fd6c70
   languageName: node
   linkType: hard
 

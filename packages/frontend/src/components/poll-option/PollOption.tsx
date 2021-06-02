@@ -5,8 +5,7 @@ import {
     ButtonGroup,
     FormControl,
     InputGroup,
-    ToggleButton,
-    ToggleButtonGroup,
+    ToggleButton
 } from 'react-bootstrap';
 import { BsPlusCircle, BsXCircle } from 'react-icons/bs';
 import { animate } from '../../utils/Animate';

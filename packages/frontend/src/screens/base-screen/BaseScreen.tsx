@@ -2,10 +2,28 @@ import { EMembership, GetCurrentUserResponse } from 'interfaces';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import { CustomModal } from '../../components/custom-modal/CustomModal';
 import { NavigationBar } from '../../components/navigation-bar/NavigationBar';
 import { apiService } from '../../utils/ApiService';
 
-export const BaseScreen: FunctionComponent = ({ children }) => {
+interface BaseScreenProps {
+    modalShown?: boolean;
+    modalTitle?: string;
+    modalText?: string;
+    modalHandler?: () => void;
+}
+
+export const BaseScreen: FunctionComponent<BaseScreenProps> = ({
+    modalShown,
+    modalTitle,
+    modalText,
+    children,
+    modalHandler,
+}) => {
+    const showModal = modalShown || false;
+    const titleModal = modalTitle || '';
+    const textModal = modalText || '';
+    const handleModal = modalHandler || (() => {});
     const [name, setName] = useState<string>('');
     const [imageUrl, setImageUrl] = useState<string>(
         'https://www.getdigital.eu/web/getdigital/gfx/products/__generated__resized/1100x1100/Aufkleber_Trollface.jpg',
@@ -48,6 +66,12 @@ export const BaseScreen: FunctionComponent = ({ children }) => {
                 logoutFunction={logoutFunction}
             />
             <Container>{children}</Container>
+            <CustomModal
+                title={titleModal}
+                show={showModal}
+                modalHandler={handleModal}
+                body={textModal}
+            ></CustomModal>
         </>
     ) : (
         <Redirect to="/login" />
