@@ -5,6 +5,7 @@ import { CreatePollScreen } from './screens/create-poll-screen/CreatePollScreen'
 import { DelegationScreen } from './screens/delegation-screen/DelegationScreen';
 import { HomeScreen } from './screens/home-screen/HomeScreen';
 import { LoginScreen } from './screens/login-screen/LoginScreen';
+import { UsersScreen } from './screens/users-screen/UsersScreen';
 import { VoteScreen } from './screens/vote-screen/VoteScreen';
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
                 </Route>
                 <Route path="/delegations">
                     <DelegationScreen></DelegationScreen>
+                </Route>
+                <Route path="/users">
+                    <UsersScreen></UsersScreen>
                 </Route>
                 <Route path="/">
                     <HomeScreen></HomeScreen>

@@ -111,16 +111,16 @@ const printLog = (log: Record<string, unknown>, messages: string[]): void => {
     }
 
     if (messages.length > 0) {
-        process.stdout.write(messages.map((f) => (f += '\n')).join(''));
+        console.log(messages.map((f) => (f += '\n')).join(''));
     } else {
-        process.stdout.write('\n');
+        console.log('\n');
     }
 };
 
 const printChunk = (chunk: string): void => {
     try {
         const log = JSON.parse(chunk);
-        process.stdout.write(formatDate(log.time) + ' ' + formatLevel(log.level) + ' ');
+        console.log(formatDate(log.time) + ' ' + formatLevel(log.level) + ' ');
 
         delete log.v;
         delete log.hostname;
@@ -128,7 +128,7 @@ const printChunk = (chunk: string): void => {
 
         switch (log.module) {
             case 'express':
-                process.stdout.write(
+                console.log(
                     [
                         formatMethod(log.req.method),
                         formatResponse(log.res),
@@ -144,15 +144,11 @@ const printChunk = (chunk: string): void => {
                 break;
 
             default:
-                process.stdout.write(formatModule(log.module + ' '));
+                console.log(formatModule(log.module + ' '));
                 printLog(log, messages);
                 break;
         }
-    } catch (err) {
-        process.stdout.write(formatDate(Date.now()));
-        process.stdout.write(' ');
-        process.stdout.write(chunk.toString() + '\n');
-    }
+    } catch (err) {}
 };
 
 const processLine = (chunk: string): void => {

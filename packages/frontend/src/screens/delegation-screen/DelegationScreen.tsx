@@ -4,7 +4,7 @@ import { Button, Col, Container, Form } from 'react-bootstrap';
 import SelectSearch, { fuzzySearch } from 'react-select-search';
 import {
     CustomTableDelegations,
-    IDelegationData
+    IDelegationData,
 } from '../../components/custom-table/CustomTableDelegations';
 import { apiService } from '../../utils/ApiService';
 import { BaseScreen } from '../base-screen/BaseScreen';
@@ -18,7 +18,11 @@ export const DelegationScreen: FunctionComponent = () => {
     const [users, setUsers] = useState([] as IUser[]);
     const [delegator, setDelegator] = useState('');
     const [receiver, setReceiver] = useState('');
+    const [refresh, setRefresh] = useState(false);
 
+    const refreshNav = () => {
+        setRefresh(!refresh);
+    };
     const options = users.map((u) => ({ name: u.name, value: u.userId }));
 
     const handleModal = useCallback(() => {
@@ -32,7 +36,6 @@ export const DelegationScreen: FunctionComponent = () => {
                 setData([...response]);
             })
             .catch((err) => {
-                console.log(err);
                 setModalTitle('Error');
                 setModalText('Could not fetch delegtions');
                 handleModal();
@@ -43,15 +46,13 @@ export const DelegationScreen: FunctionComponent = () => {
         apiService
             .giveDelegation(delegator, receiver)
             .then((response: boolean) => {
-                if (response) {
-                    setModalTitle('Success!');
-                    setModalText('Delegation created');
-                } else {
+                if (!response) {
                     setModalTitle('Error');
                     setModalText('Could not create delegation');
+                    handleModal();
                 }
-                handleModal();
                 getDelegations();
+                refreshNav();
             })
             .catch((err) => {
                 setModalTitle('Error');
@@ -64,7 +65,13 @@ export const DelegationScreen: FunctionComponent = () => {
         apiService
             .deleteDelegation(delegation.id)
             .then((response: boolean) => {
+                if (!response) {
+                    setModalTitle('Error');
+                    setModalText('Could not delete delegation');
+                    handleModal();
+                }
                 getDelegations();
+                refreshNav();
             })
             .catch((err) => {
                 setModalTitle('Error');
@@ -93,8 +100,12 @@ export const DelegationScreen: FunctionComponent = () => {
             modalText={modalText}
             modalTitle={modalTitle}
             modalHandler={handleModal}
+            refresh={refresh}
         >
-            <CustomTableDelegations data={data} rowClicked={deleteDelegation}></CustomTableDelegations>
+            <CustomTableDelegations
+                data={data}
+                rowClicked={deleteDelegation}
+            ></CustomTableDelegations>
             <Container>
                 <Form>
                     <Form.Row>

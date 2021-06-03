@@ -216,7 +216,7 @@ export const CreatePollScreen: FunctionComponent = () => {
                                             setApproval(
                                                 c.currentTarget.value
                                                     .toUpperCase()
-                                                    .replace('', '_') as EPollApprovalRatio,
+                                                    .replace(' ', '_') as EPollApprovalRatio,
                                             );
                                         }}
                                     >

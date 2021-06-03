@@ -22,7 +22,6 @@ export const VoteScreen: FunctionComponent = () => {
     const [poll, setPoll] = useState({} as IPollWithVotes);
     const [selected, setSelected] = useState([] as number[]);
     const { pollId } = useParams<{ pollId: string }>();
-    //const [voter, setVoter] = useState('You');
     const handleModal = useCallback(() => {
         setModalShown(!modalShown);
     }, [modalShown]);
@@ -31,6 +30,7 @@ export const VoteScreen: FunctionComponent = () => {
         apiService
             .getPoll(pollId)
             .then((response: IPollWithVotes) => {
+                console.log(response);
                 setPoll({ ...response });
             })
             .catch((err) => {
@@ -178,7 +178,7 @@ export const VoteScreen: FunctionComponent = () => {
                     <Col>
                         <Form.Control as="select">
                             {(poll.voteMap || []).map((vm) => (
-                                <option key={vm.user}>{vm.user}</option>
+                                <option key={vm.user.name}>{vm.user.name}</option>
                             ))}
                         </Form.Control>
                     </Col>

@@ -1,5 +1,5 @@
-import { EMembership, GetCurrentUserResponse } from 'interfaces';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { EMembership, GetCurrentUserResponse, IUser } from 'interfaces';
+import React, { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import { CustomModal } from '../../components/custom-modal/CustomModal';
@@ -11,6 +11,7 @@ interface BaseScreenProps {
     modalTitle?: string;
     modalText?: string;
     modalHandler?: () => void;
+    refresh?: boolean;
 }
 
 export const BaseScreen: FunctionComponent<BaseScreenProps> = ({
@@ -19,7 +20,9 @@ export const BaseScreen: FunctionComponent<BaseScreenProps> = ({
     modalText,
     children,
     modalHandler,
+    refresh,
 }) => {
+    const [lastRefresh, setLastRefresh] = useState(false);
     const showModal = modalShown || false;
     const titleModal = modalTitle || '';
     const textModal = modalText || '';
@@ -32,7 +35,29 @@ export const BaseScreen: FunctionComponent<BaseScreenProps> = ({
 
     const [isAuth, setIsAuth] = useState<boolean>(true);
 
-    useEffect(() => {
+    const [receivedDels, setReceivedDels] = useState<IUser[]>([]);
+    const [givenDels, setGivenDels] = useState<IUser[]>([]);
+
+    const getDels = useCallback((id: string) => {
+        apiService
+            .getReceivedDelegations(id)
+            .then((response: IUser[]) => {
+                setReceivedDels([...response]);
+            })
+            .catch((err) => {
+                setIsAuth(false);
+            });
+        apiService
+            .getGivenDelegations(id)
+            .then((response: IUser[]) => {
+                setGivenDels([...response]);
+            })
+            .catch((err) => {
+                setIsAuth(false);
+            });
+    }, []);
+
+    const getInfo = useCallback(() => {
         apiService
             .getCurrentUser()
             .then((response: GetCurrentUserResponse) => {
@@ -40,11 +65,16 @@ export const BaseScreen: FunctionComponent<BaseScreenProps> = ({
                 setName(response.name);
                 setImageUrl(response.picture);
                 setMembershipArray(response.membership);
+                getDels(response.userId);
             })
             .catch((err) => {
                 setIsAuth(false);
             });
-    }, []);
+    }, [getDels]);
+
+    useEffect(() => {
+        getInfo();
+    }, [getInfo]);
 
     const logoutFunction = () => {
         apiService
@@ -57,6 +87,11 @@ export const BaseScreen: FunctionComponent<BaseScreenProps> = ({
             });
     };
 
+    if (refresh !== undefined && lastRefresh !== refresh) {
+        setLastRefresh(refresh);
+        getInfo();
+    }
+
     return isAuth ? (
         <>
             <NavigationBar
@@ -64,6 +99,8 @@ export const BaseScreen: FunctionComponent<BaseScreenProps> = ({
                 imageUrl={imageUrl}
                 membershipArray={membershipArray}
                 logoutFunction={logoutFunction}
+                givenDelegations={givenDels}
+                receivedDelegations={receivedDels}
             />
             <Container>{children}</Container>
             <CustomModal

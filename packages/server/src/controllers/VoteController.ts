@@ -24,25 +24,18 @@ export class VoteController {
      * @param pollId id of the poll.
      * @returns Returns the vote requested or null.
      * @throws Error 401 if the user is not authorized to get that vote or poll.
-     * @throws Error 404 if the user or poll or vote is not found.
      */
     public static async getVote(userId1: string, userId2: string, pollId: string): Promise<IVote> {
         const poll: IPoll = await PollController.getPoll(userId1, pollId);
-        const delegationIds = (await DelegationController.getDelegation(userId1, userId1)).map(
-            (user) => user.userId,
-        );
+        const existsDelegation = await DelegationController.check(userId1, userId2);
         if (
-            (poll.isPrivate && userId1 !== userId2 && !delegationIds.includes(userId2)) ||
-            (poll.isPrivate && userId1 !== userId2 && poll.state !== EPollState.OPEN)
+            poll.isPrivate &&
+            userId1 !== userId2 &&
+            (!existsDelegation || (existsDelegation && poll.state !== EPollState.OPEN))
         ) {
             throw new ErrorHandler(401, 'Not authorized to get this vote');
         } else {
             const vote = await VoteModel.get(userId2, pollId);
-            if (!vote)
-                throw new ErrorHandler(
-                    404,
-                    `Vote from user ${userId2} on poll ${pollId} not found.`,
-                );
             return vote;
         }
     }

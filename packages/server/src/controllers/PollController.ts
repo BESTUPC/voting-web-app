@@ -1,13 +1,13 @@
+import { EPollState, IPoll, IPollWithVotes, IUser, VoteMap } from 'interfaces';
 import { ObjectId } from 'mongodb';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { PollCreateDTO } from '../dtos/PollCreateDTO';
-import { ErrorHandler } from '../utils/ErrorHandler';
 import { PollModel } from '../models/PollModel';
+import { VoteModel } from '../models/VoteModel';
+import { ErrorHandler } from '../utils/ErrorHandler';
+import { DelegationController } from './DelegationController';
 import { UserController } from './UserController';
 import { VoteController } from './VoteController';
-import { EPollState, IPoll, IPollWithVotes, IUser, VoteMap } from 'interfaces';
-import { DelegationController } from './DelegationController';
-import { VoteModel } from '../models/VoteModel';
 
 /**
  * Controller for the poll-related calls. It handles all the logic between routing and the database access.
@@ -22,21 +22,27 @@ export class PollController {
     public static async getPolls(userId: string): Promise<Array<IPollWithVotes>> {
         const user: IUser = await UserController.getUser(userId, userId);
         const polls = await PollModel.getAll(user.membership);
-        const delegations = await DelegationController.getDelegation(userId, userId);
+        const delegations = await DelegationController.getDelegationReceiver(userId, userId);
         const finalPolls: IPollWithVotes[] = [];
         for (const poll of polls) {
             const voteMap: VoteMap = [];
             const vote = await VoteModel.get(userId, poll._id.toHexString());
             voteMap.push({
-                user: 'You',
+                user: user,
                 voted: !!vote ? vote.option : [],
             });
             for (const delegation of delegations) {
-                const vote = await VoteModel.get(delegation.userId, poll._id.toHexString());
-                voteMap.push({
-                    user: delegation.name,
-                    voted: !!vote ? vote.option : [],
-                });
+                try {
+                    const vote = await VoteController.getVote(
+                        delegation.userId,
+                        delegation.userId,
+                        poll._id.toHexString(),
+                    );
+                    voteMap.push({
+                        user: delegation,
+                        voted: !!vote ? vote.option : [],
+                    });
+                } catch (e) {}
             }
             finalPolls.push({ voteMap, ...poll });
         }
@@ -56,16 +62,22 @@ export class PollController {
         const poll: IPoll = await PollModel.get(new ObjectId(_id));
         if (!poll) throw new ErrorHandler(404, `Poll ${_id} not found.`);
         if (user.membership.includes(poll.targetGroup)) {
-            const delegations = await DelegationController.getDelegation(userId, userId);
+            const delegations = await DelegationController.getDelegationReceiver(userId, userId);
             const voteMap: VoteMap = [];
             const vote = await VoteModel.get(userId, poll._id.toHexString());
-            voteMap.push({ user: 'You', voted: !!vote ? vote.option : [] });
+            voteMap.push({ user: user, voted: !!vote ? vote.option : [] });
             for (const delegation of delegations) {
-                const vote = await VoteModel.get(delegation.userId, _id);
-                voteMap.push({
-                    user: delegation.name,
-                    voted: !!vote ? vote.option : [],
-                });
+                try {
+                    const vote = await VoteController.getVote(
+                        delegation.userId,
+                        delegation.userId,
+                        poll._id.toHexString(),
+                    );
+                    voteMap.push({
+                        user: delegation,
+                        voted: !!vote ? vote.option : [],
+                    });
+                } catch (e) {}
             }
             return { voteMap, ...poll };
         } else {

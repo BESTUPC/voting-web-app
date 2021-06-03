@@ -18,8 +18,17 @@ export class DelegationModel {
      * @param userIdReceiver googleId of the user.
      * @returns Returns the delegations a user has.
      */
-    public static async get(userIdReceiver: string): Promise<Array<IDelegation>> {
+    public static async getReceiver(userIdReceiver: string): Promise<Array<IDelegation>> {
         return DelegationModel._getCollection().find({ userIdReceiver }).toArray();
+    }
+
+    /**
+     * Get the delegations a user has given.
+     * @param userIdDelegator googleId of the user.
+     * @returns Returns the delegations a user has.
+     */
+    public static async getDelegator(userIdDelegator: string): Promise<Array<IDelegation>> {
+        return DelegationModel._getCollection().find({ userIdDelegator }).toArray();
     }
 
     /**

@@ -1,4 +1,4 @@
-import { EMembership } from 'interfaces';
+import { EMembership, IUser } from 'interfaces';
 import React, { FunctionComponent } from 'react';
 import { Button, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import logo from '../../assets/BEST_LOGO.svg';
@@ -9,6 +9,8 @@ type NavigationBarProps = {
     imageUrl: string;
     membershipArray: EMembership[];
     logoutFunction: () => void;
+    receivedDelegations: IUser[];
+    givenDelegations: IUser[];
 };
 
 export const NavigationBar: FunctionComponent<NavigationBarProps> = ({
@@ -16,6 +18,8 @@ export const NavigationBar: FunctionComponent<NavigationBarProps> = ({
     imageUrl,
     membershipArray,
     logoutFunction,
+    receivedDelegations,
+    givenDelegations,
 }) => {
     return (
         <Navbar variant="dark" bg="primary" expand="lg">
@@ -59,6 +63,14 @@ export const NavigationBar: FunctionComponent<NavigationBarProps> = ({
                                 {membership.toLowerCase()}
                             </NavDropdown.ItemText>
                         ))}
+                        <NavDropdown.Divider />
+                        <NavDropdown.ItemText>
+                            {`${givenDelegations.length} given delegation(s)`}
+                        </NavDropdown.ItemText>
+                        <NavDropdown.Divider />
+                        <NavDropdown.ItemText>
+                            {`${receivedDelegations.length} received delegation(s)`}
+                        </NavDropdown.ItemText>
                         <NavDropdown.Divider />
                         <NavDropdown.ItemText>
                             <Button variant="danger" onClick={logoutFunction}>

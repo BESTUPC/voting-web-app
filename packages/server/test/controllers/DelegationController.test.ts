@@ -162,7 +162,7 @@ describe('DelegationController', () => {
             const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(false);
             const id1 = 'id1';
             const id2 = 'id2';
-            await expect(DelegationController.getDelegation(id1, id2)).to.be.rejectedWith(
+            await expect(DelegationController.getDelegationDelegator(id1, id2)).to.be.rejectedWith(
                 'Not authorized to get the delegation',
             );
             expect(isAdminStub.calledOnce).to.be.true;
@@ -172,7 +172,7 @@ describe('DelegationController', () => {
             const delegations: IDelegation[] = [
                 { userIdReceiver: 'id2', userIdDelegator: 'idOther' },
             ];
-            const getStub = sandbox.stub(DelegationModel, 'get').resolves(delegations);
+            const getStub = sandbox.stub(DelegationModel, 'getDelegator').resolves(delegations);
             const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
             const users: IUser[] = [
                 {
@@ -186,7 +186,7 @@ describe('DelegationController', () => {
             const getAllUsersStub = sandbox.stub(UserModel, 'getAll').resolves(users);
             const id1 = 'id1';
             const id2 = 'idReq';
-            const response = await DelegationController.getDelegation(id1, id2);
+            const response = await DelegationController.getDelegationDelegator(id1, id2);
             expect(response).to.deep.equal(users);
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(id1);

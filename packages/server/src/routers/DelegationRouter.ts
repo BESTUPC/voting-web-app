@@ -39,18 +39,36 @@ export class DelegationRouter {
                 next(error);
             }
         });
-        this._router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
-            try {
-                const user: IUser = res.locals['user'];
-                const result: Array<IUser> = await this._controller.getDelegation(
-                    user.userId,
-                    req.params.id,
-                );
-                res.status(200).json(result);
-            } catch (error) {
-                next(error);
-            }
-        });
+        this._router.get(
+            '/received/:id',
+            async (req: Request, res: Response, next: NextFunction) => {
+                try {
+                    const user: IUser = res.locals['user'];
+                    const result: Array<IUser> = await this._controller.getDelegationReceiver(
+                        user.userId,
+                        req.params.id,
+                    );
+                    res.status(200).json(result);
+                } catch (error) {
+                    next(error);
+                }
+            },
+        );
+        this._router.get(
+            '/delegated/:id',
+            async (req: Request, res: Response, next: NextFunction) => {
+                try {
+                    const user: IUser = res.locals['user'];
+                    const result: Array<IUser> = await this._controller.getDelegationDelegator(
+                        user.userId,
+                        req.params.id,
+                    );
+                    res.status(200).json(result);
+                } catch (error) {
+                    next(error);
+                }
+            },
+        );
         this._router.delete('/', async (req: Request, res: Response, next: NextFunction) => {
             try {
                 const user: IUser = res.locals['user'];

@@ -27,6 +27,9 @@ export class UserController {
             const membership: Array<EMembership> = (
                 await validatorGeneric<UserUpdateMembershipDTO>(UserUpdateMembershipDTO, body)
             ).membership;
+            if (userId1 === userId2 && !membership.includes(EMembership.ADMIN)) {
+                throw new ErrorHandler(400, `An admin can't remove his own admin membership.`);
+            }
             const user = await UserModel.get(userId2);
             if (!user) throw new ErrorHandler(404, `User ${userId2} not found.`);
             return UserModel.updateMembership(userId2, membership);

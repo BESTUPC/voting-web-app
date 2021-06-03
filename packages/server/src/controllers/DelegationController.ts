@@ -62,17 +62,42 @@ export class DelegationController {
         }
     }
     /**
-     * If the user is admin or trying to access it's own delegations, it returns the delegations.
+     * If the user is admin or trying to access his own delegation, it returns the delegations.
      * @param userId1 id of the user making the request.
      * @param userId2 id of the user whose delegation we want.
      * @returns Returns the users for which the user identified by userId2 has delegations.
      * @throws Error 401 if the user is not authorized to get the delegation.
      * @throws Error 404 if the user1 is not found.
      */
-    public static async getDelegation(userId1: string, userId2: string): Promise<Array<IUser>> {
+    public static async getDelegationReceiver(
+        userId1: string,
+        userId2: string,
+    ): Promise<Array<IUser>> {
         if (userId1 === userId2 || (await UserController.isAdmin(userId1))) {
-            const delegations = (await DelegationModel.get(userId2)).map(
+            const delegations = (await DelegationModel.getReceiver(userId2)).map(
                 (delegation) => delegation.userIdDelegator,
+            );
+            return (await UserModel.getAll()).filter((user) => delegations.includes(user.userId));
+        } else {
+            throw new ErrorHandler(401, 'Not authorized to get the delegation');
+        }
+    }
+
+    /**
+     * If the user is admin or trying to access it's own received delegations, it returns the delegations.
+     * @param userId1 id of the user making the request.
+     * @param userId2 id of the user whose delegation we want.
+     * @returns Returns the users for which the user identified by userId2 has delegations.
+     * @throws Error 401 if the user is not authorized to get the delegation.
+     * @throws Error 404 if the user1 is not found.
+     */
+    public static async getDelegationDelegator(
+        userId1: string,
+        userId2: string,
+    ): Promise<Array<IUser>> {
+        if (userId1 === userId2 || (await UserController.isAdmin(userId1))) {
+            const delegations = (await DelegationModel.getDelegator(userId2)).map(
+                (delegation) => delegation.userIdReceiver,
             );
             return (await UserModel.getAll()).filter((user) => delegations.includes(user.userId));
         } else {

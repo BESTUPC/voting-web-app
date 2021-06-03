@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { CreatePollBody, GetCurrentUserResponse, GetDelegationsResponse, GetPollResponse, GetPollsResponse, GetUsersResponse, LoginBody } from 'interfaces';
+import { CreatePollBody, EMembership, GetCurrentUserResponse, GetDelegationsResponse, GetGivenDelegationsResponse, GetPollResponse, GetPollsResponse, GetUsersResponse, LoginBody } from 'interfaces';
 import { IDelegationData } from '../components/custom-table/CustomTableDelegations';
 
 class ApiService {
@@ -23,8 +23,8 @@ class ApiService {
         const response = await this.axiosInstance.post<T>(url, body);
         return ApiService.responseBody<T>(response);
     }
-    private async put<T>(url: string, body?: unknown): Promise<T> {
-        const response = await this.axiosInstance.put<T>(url, body);
+    private async patch<T>(url: string, body?: unknown): Promise<T> {
+        const response = await this.axiosInstance.patch<T>(url, body);
         return ApiService.responseBody<T>(response);
     }
     private async delete<T>(url: string): Promise<T> {
@@ -64,6 +64,10 @@ class ApiService {
         return this.get<GetUsersResponse>(`/users`);
     }
 
+    public updateMembership(membership: EMembership[], userId: string): Promise<boolean> {
+        return this.patch<boolean>(`/users/membership/${userId}`, { membership });
+    }
+
     public async getDelegationsWithUsers(): Promise<IDelegationData[]> {
         const delegations = await this.get<GetDelegationsResponse>('/delegations');
         const users = await this.getUsers()
@@ -80,6 +84,13 @@ class ApiService {
 
     public deleteDelegation(id: string): Promise<boolean> {
         return this.delete<boolean>(`/delegations/${id}`);
+    }
+
+    public async getGivenDelegations(id: string): Promise<GetGivenDelegationsResponse> {
+        return this.get<GetGivenDelegationsResponse>(`/delegations/delegated/${id}`);
+    }
+    public async getReceivedDelegations(id: string): Promise<GetGivenDelegationsResponse> {
+        return this.get<GetGivenDelegationsResponse>(`/delegations/received/${id}`);
     }
 }
 

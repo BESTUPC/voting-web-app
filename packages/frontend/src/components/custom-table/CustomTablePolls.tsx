@@ -33,12 +33,12 @@ const columns: IDataTableColumn<IPollWithVotes>[] = [
                         key={idx}
                         placement="bottom"
                         delay={{ show: 250, hide: 400 }}
-                        overlay={(props) => renderTooltip(props, vm.user)}
+                        overlay={(props) => renderTooltip(props, vm.user.name)}
                     >
                         {vm.voted.length > 0 ? (
-                            <BsCheckCircle></BsCheckCircle>
+                            <BsCheckCircle style={{ marginRight: 2 }}></BsCheckCircle>
                         ) : (
-                            <BsXCircleFill></BsXCircleFill>
+                            <BsXCircleFill style={{ marginRight: 2 }}></BsXCircleFill>
                         )}
                     </OverlayTrigger>
                 ))}

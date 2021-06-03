@@ -11,15 +11,13 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/src/app.js",
+    "start": "node dist/src/app.js |& node dist/src/utils/PrettifyLogs.js",
     "start:dev": "ts-node-dev --respawn --transpile-only ./src/app.ts |& ts-node-dev --respawn --transpile-only ./src/utils/PrettifyLogs.ts",
     "test": "nyc --reporter=text mocha -r ts-node/register ./test/**/*.test.ts",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
     "docs": "rm -r docs && typedoc ./src",
-    "all": "mocha -r ts-node/register src/test/**/*.test.ts && eslint ./src && rm -r docs && typedoc ./src",
-    "db:encryption:dev": "ts-node --transpile-only ./scripts/generate-key.ts",
-    "db:encryption": "node --transpile-only dist/scripts/generate-key.js"
+    "all": "mocha -r ts-node/register src/test/**/*.test.ts && eslint ./src && rm -r docs && typedoc ./src"
   },
   "keywords": [
     "webapp",
