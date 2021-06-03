@@ -61,6 +61,25 @@ export const DelegationScreen: FunctionComponent = () => {
             });
     }
 
+    function deleteDelegations() {
+        apiService
+            .deleteDelegations()
+            .then((response: boolean) => {
+                if (!response) {
+                    setModalTitle('Error');
+                    setModalText('Could not delete delegation');
+                    handleModal();
+                }
+                getDelegations();
+                refreshNav();
+            })
+            .catch((err) => {
+                setModalTitle('Error');
+                setModalText('Could not create delegation');
+                handleModal();
+            });
+    }
+
     function deleteDelegation(delegation: IDelegationData) {
         apiService
             .deleteDelegation(delegation.id)
@@ -134,7 +153,12 @@ export const DelegationScreen: FunctionComponent = () => {
                                 onChange={(s) => setReceiver(s as unknown as string)}
                             />
                             <br />
-                            <Button onClick={createDelegation}>Create Delegation</Button>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <Button onClick={createDelegation}>Create Delegation</Button>
+                                <Button variant="danger" onClick={deleteDelegations}>
+                                    Delete All
+                                </Button>
+                            </div>
                         </Col>
                     </Form.Row>
                 </Form>

@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { CreatePollBody, EMembership, GetCurrentUserResponse, GetDelegationsResponse, GetGivenDelegationsResponse, GetPollResponse, GetPollsResponse, GetUsersResponse, LoginBody } from 'interfaces';
+import { CreateVoteRequestInterface } from 'interfaces/src/requests';
 import { IDelegationData } from '../components/custom-table/CustomTableDelegations';
 
 class ApiService {
@@ -60,6 +61,12 @@ class ApiService {
         return this.get<GetPollResponse>(`/polls/${pollId}`);
     }
 
+    public deletePoll(pollId: string): Promise<boolean> {
+        return this.delete<boolean>(`/polls/${pollId}`);
+    }
+    public updatePollState(pollId: string): Promise<boolean> {
+        return this.patch<boolean>(`/polls/state/${pollId}`);
+    }
     public getUsers(): Promise<GetUsersResponse> {
         return this.get<GetUsersResponse>(`/users`);
     }
@@ -86,11 +93,23 @@ class ApiService {
         return this.delete<boolean>(`/delegations/${id}`);
     }
 
+    public deleteDelegations(): Promise<boolean> {
+        return this.delete<boolean>(`/delegations`);
+    }
+
     public async getGivenDelegations(id: string): Promise<GetGivenDelegationsResponse> {
         return this.get<GetGivenDelegationsResponse>(`/delegations/delegated/${id}`);
     }
     public async getReceivedDelegations(id: string): Promise<GetGivenDelegationsResponse> {
         return this.get<GetGivenDelegationsResponse>(`/delegations/received/${id}`);
+    }
+
+    public async addVote(vote: CreateVoteRequestInterface): Promise<boolean> {
+        return this.post<boolean>(`/votes`, vote);
+    }
+
+    public async addDelegatedVote(id: string, vote: CreateVoteRequestInterface): Promise<boolean> {
+        return this.post<boolean>(`/votes/${id}`, vote);
     }
 }
 

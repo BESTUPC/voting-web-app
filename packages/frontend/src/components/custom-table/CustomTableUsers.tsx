@@ -73,6 +73,8 @@ const conditions: IDataTableConditionalRowStyles<IUser>[] = [
             borderRadius: '5px',
             marginBottom: '2px',
             cursor: 'unset!important',
+            borderBottomColor: 'rgba(0,0,0,.12)!important',
+            '&hover': {},
         },
     } as IDataTableConditionalRowStyles<IUser>,
 ];

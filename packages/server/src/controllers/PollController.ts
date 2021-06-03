@@ -30,6 +30,7 @@ export class PollController {
             voteMap.push({
                 user: user,
                 voted: !!vote ? vote.option : [],
+                delegated: false,
             });
             for (const delegation of delegations) {
                 try {
@@ -41,6 +42,7 @@ export class PollController {
                     voteMap.push({
                         user: delegation,
                         voted: !!vote ? vote.option : [],
+                        delegated: true,
                     });
                 } catch (e) {}
             }
@@ -65,7 +67,7 @@ export class PollController {
             const delegations = await DelegationController.getDelegationReceiver(userId, userId);
             const voteMap: VoteMap = [];
             const vote = await VoteModel.get(userId, poll._id.toHexString());
-            voteMap.push({ user: user, voted: !!vote ? vote.option : [] });
+            voteMap.push({ user: user, voted: !!vote ? vote.option : [], delegated: false });
             for (const delegation of delegations) {
                 try {
                     const vote = await VoteController.getVote(
@@ -76,6 +78,7 @@ export class PollController {
                     voteMap.push({
                         user: delegation,
                         voted: !!vote ? vote.option : [],
+                        delegated: true,
                     });
                 } catch (e) {}
             }
