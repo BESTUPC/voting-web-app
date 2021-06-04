@@ -1,4 +1,4 @@
-import { IPollWithVotes } from 'interfaces';
+import { EPollApprovalRatio, IPollWithVotes } from 'interfaces';
 import React, { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import {
     Accordion,
@@ -12,7 +12,14 @@ import {
     Tooltip,
 } from 'react-bootstrap';
 import { OverlayInjectedProps } from 'react-bootstrap/esm/Overlay';
-import { BsArrowUpDown, BsFillEnvelopeOpenFill, BsFillLockFill } from 'react-icons/bs';
+import {
+    BsArrowUpDown,
+    BsFillBarChartFill,
+    BsFillEnvelopeOpenFill,
+    BsFillLockFill,
+    BsFillPieChartFill,
+} from 'react-icons/bs';
+import { GiPodiumWinner } from 'react-icons/gi';
 import { Redirect, useParams } from 'react-router-dom';
 import { PollOption } from '../../components/poll-option/PollOption';
 import { apiService } from '../../utils/ApiService';
@@ -162,8 +169,6 @@ export const VoteScreen: FunctionComponent = () => {
         getPoll();
     }, [getPoll]);
 
-    console.log(goHome);
-
     return goHome ? (
         <Redirect to="/" />
     ) : (
@@ -182,7 +187,7 @@ export const VoteScreen: FunctionComponent = () => {
                     >
                         {poll.pollName}
                         <span>
-                            {!poll.isPrivate && (
+                            {!!poll.isPrivate && (
                                 <OverlayTrigger
                                     placement="bottom"
                                     delay={{ show: 250, hide: 400 }}
@@ -194,7 +199,7 @@ export const VoteScreen: FunctionComponent = () => {
                                     ></BsFillLockFill>
                                 </OverlayTrigger>
                             )}
-                            {!poll.isPriority && (
+                            {!!poll.isPriority && (
                                 <OverlayTrigger
                                     placement="bottom"
                                     delay={{ show: 250, hide: 400 }}
@@ -208,7 +213,7 @@ export const VoteScreen: FunctionComponent = () => {
                                     ></BsArrowUpDown>
                                 </OverlayTrigger>
                             )}
-                            {!poll.abstentionIsValid && (
+                            {!!poll.abstentionIsValid && (
                                 <OverlayTrigger
                                     placement="bottom"
                                     delay={{ show: 50, hide: 100 }}
@@ -222,11 +227,43 @@ export const VoteScreen: FunctionComponent = () => {
                                     ></BsFillEnvelopeOpenFill>
                                 </OverlayTrigger>
                             )}
-                            {!!poll.approvalRatio && (
-                                <BsFillLockFill
-                                    size="15"
-                                    style={{ marginRight: '8px' }}
-                                ></BsFillLockFill>
+                            {poll.approvalRatio === EPollApprovalRatio.SIMPLE ? (
+                                <OverlayTrigger
+                                    placement="bottom"
+                                    delay={{ show: 50, hide: 100 }}
+                                    overlay={(props) => renderTooltip(props, 'Approval is simple.')}
+                                >
+                                    <GiPodiumWinner
+                                        size="15"
+                                        style={{ marginRight: '8px' }}
+                                    ></GiPodiumWinner>
+                                </OverlayTrigger>
+                            ) : poll.approvalRatio === EPollApprovalRatio.ABSOLUTE ? (
+                                <OverlayTrigger
+                                    placement="bottom"
+                                    delay={{ show: 50, hide: 100 }}
+                                    overlay={(props) =>
+                                        renderTooltip(props, 'Approval is absolute.')
+                                    }
+                                >
+                                    <BsFillBarChartFill
+                                        size="15"
+                                        style={{ marginRight: '8px' }}
+                                    ></BsFillBarChartFill>
+                                </OverlayTrigger>
+                            ) : (
+                                <OverlayTrigger
+                                    placement="bottom"
+                                    delay={{ show: 50, hide: 100 }}
+                                    overlay={(props) =>
+                                        renderTooltip(props, 'Approval is two thirds.')
+                                    }
+                                >
+                                    <BsFillPieChartFill
+                                        size="15"
+                                        style={{ marginRight: '8px' }}
+                                    ></BsFillPieChartFill>
+                                </OverlayTrigger>
                             )}
                         </span>
                     </Form.Control>
@@ -259,40 +296,74 @@ export const VoteScreen: FunctionComponent = () => {
                     <Form.Row>
                         <Col id="options">
                             <Form.Group>
-                                {(poll.pollOptions || []).map((o, idx) => {
-                                    const selectedAssert = o.name === selected[0];
-                                    const style = selectedAssert
-                                        ? {
-                                              borderColor: '#007bff',
-                                              backgroundColor: '#007bff',
-                                              padding: '2px',
-                                              borderRadius: '5px',
-                                          }
-                                        : {};
-                                    return (
-                                        <Form.Group
-                                            key={idx}
-                                            style={style}
-                                            onClick={() => {
-                                                setSelected([o.name]);
-                                            }}
-                                        >
-                                            <PollOption
+                                {poll.isPriority ? (
+                                    <Form.Group>
+                                        {(poll.pollOptions || []).map((o, idx) => {
+                                            const style = {
+                                                borderColor: '#007bff',
+                                                backgroundColor: '#007bff',
+                                                padding: '2px',
+                                                borderRadius: '5px',
+                                            };
+                                            return (
+                                                <Form.Group
+                                                    key={idx}
+                                                    style={style}
+                                                    onClick={() => {}}
+                                                >
+                                                    <PollOption
+                                                        key={idx}
+                                                        name={o.name}
+                                                        disabled={true}
+                                                        isAbstention={o.isAbstention}
+                                                        isAgainst={o.isAgainst}
+                                                        handleClick={() => {}}
+                                                        handleButton={() => {}}
+                                                        handleWrite={() => {}}
+                                                        idx={idx}
+                                                        fixed={true}
+                                                        selected={true}
+                                                    ></PollOption>
+                                                </Form.Group>
+                                            );
+                                        })}
+                                    </Form.Group>
+                                ) : (
+                                    (poll.pollOptions || []).map((o, idx) => {
+                                        const selectedAssert = o.name === selected[0];
+                                        const style = selectedAssert
+                                            ? {
+                                                  borderColor: '#007bff',
+                                                  backgroundColor: '#007bff',
+                                                  padding: '2px',
+                                                  borderRadius: '5px',
+                                              }
+                                            : {};
+                                        return (
+                                            <Form.Group
                                                 key={idx}
-                                                name={o.name}
-                                                disabled={true}
-                                                isAbstention={o.isAbstention}
-                                                isAgainst={o.isAgainst}
-                                                handleClick={() => {}}
-                                                handleButton={() => {}}
-                                                handleWrite={() => {}}
-                                                idx={idx}
-                                                fixed={true}
-                                                selected={selectedAssert}
-                                            ></PollOption>
-                                        </Form.Group>
-                                    );
-                                })}
+                                                style={style}
+                                                onClick={() => {
+                                                    setSelected([o.name]);
+                                                }}
+                                            >
+                                                <PollOption
+                                                    key={idx}
+                                                    name={o.name}
+                                                    disabled={true}
+                                                    isAbstention={o.isAbstention}
+                                                    isAgainst={o.isAgainst}
+                                                    handleClick={() => {}}
+                                                    handleButton={() => {}}
+                                                    handleWrite={() => {}}
+                                                    idx={idx}
+                                                    fixed={true}
+                                                    selected={selectedAssert}
+                                                ></PollOption>
+                                            </Form.Group>
+                                        );
+                                    })
+                                )}
                             </Form.Group>
                         </Col>
                     </Form.Row>
