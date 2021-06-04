@@ -4,7 +4,7 @@ import {
     EMembership,
     EPollApprovalRatio,
     EPollState,
-    IPollOption
+    IPollOption,
 } from 'interfaces';
 import React, { FunctionComponent, useState } from 'react';
 import { Button, Col, Form, InputGroup, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
@@ -58,6 +58,10 @@ export const CreatePollScreen: FunctionComponent = () => {
         if (options.length < 3) {
             animate('#options', 'shakeX');
             return;
+        }
+        const distinctOptions = [...new Set(options)];
+        if (distinctOptions.length !== options.length) {
+            animate('#options', 'shakeX');
         }
         const body: CreatePollBody = {
             pollName,

@@ -32,19 +32,21 @@ export class PollController {
                 voted: !!vote ? vote.option : [],
                 delegated: false,
             });
-            for (const delegation of delegations) {
-                try {
-                    const vote = await VoteController.getVote(
-                        delegation.userId,
-                        delegation.userId,
-                        poll._id.toHexString(),
-                    );
-                    voteMap.push({
-                        user: delegation,
-                        voted: !!vote ? vote.option : [],
-                        delegated: true,
-                    });
-                } catch (e) {}
+            if (poll.state === EPollState.OPEN) {
+                for (const delegation of delegations) {
+                    try {
+                        const vote = await VoteController.getVote(
+                            delegation.userId,
+                            delegation.userId,
+                            poll._id.toHexString(),
+                        );
+                        voteMap.push({
+                            user: delegation,
+                            voted: !!vote ? vote.option : [],
+                            delegated: true,
+                        });
+                    } catch (e) {}
+                }
             }
             finalPolls.push({ voteMap, ...poll });
         }

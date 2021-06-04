@@ -1,12 +1,6 @@
 import 'animate.css';
-import React, { FunctionComponent } from 'react';
-import {
-    Button,
-    ButtonGroup,
-    FormControl,
-    InputGroup,
-    ToggleButton
-} from 'react-bootstrap';
+import React, { CSSProperties, FunctionComponent } from 'react';
+import { Button, ButtonGroup, FormControl, InputGroup, ToggleButton } from 'react-bootstrap';
 import { BsPlusCircle, BsXCircle } from 'react-icons/bs';
 import { animate } from '../../utils/Animate';
 import './PollOption.css';
@@ -23,6 +17,7 @@ interface PollOptionProps {
     idx: number;
     fixed: boolean;
     selected: boolean;
+    style?: CSSProperties;
 }
 
 export const PollOption: FunctionComponent<PollOptionProps> = ({
@@ -36,6 +31,7 @@ export const PollOption: FunctionComponent<PollOptionProps> = ({
     idx,
     fixed,
     selected,
+    style
 }) => {
     const handleButtonAux = (e: React.MouseEvent<HTMLElement>): void => {
         if (!name) {
@@ -45,7 +41,7 @@ export const PollOption: FunctionComponent<PollOptionProps> = ({
         handleButton(e);
     };
     return (
-        <InputGroup className={`my-element-${idx}`}>
+        <InputGroup className={`my-element-${idx}`} style={style}>
             {!fixed && (
                 <InputGroup.Prepend>
                     <Button

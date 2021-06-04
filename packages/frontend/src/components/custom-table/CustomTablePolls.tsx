@@ -26,6 +26,11 @@ const columns: IDataTableColumn<IPollWithVotes>[] = [
     {
         name: 'Voted',
         sortable: true,
+        selector: (row, index) => {
+            const ratio =
+                row.voteMap.filter((vm) => vm.voted.length !== 0).length / row.voteMap.length;
+            return ratio;
+        },
         cell: (row) => (
             <>
                 {row.voteMap.map((vm, idx) => (
