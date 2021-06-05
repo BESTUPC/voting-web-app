@@ -3,7 +3,6 @@ import { ObjectId } from 'mongodb';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { PollCreateDTO } from '../dtos/PollCreateDTO';
 import { PollModel } from '../models/PollModel';
-import { VoteModel } from '../models/VoteModel';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import { DelegationController } from './DelegationController';
 import { UserController } from './UserController';
