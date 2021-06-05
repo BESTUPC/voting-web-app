@@ -26,7 +26,7 @@ export class PollController {
         const finalPolls: IPollWithVotes[] = [];
         for (const poll of polls) {
             const voteMap: VoteMap = [];
-            const vote = await VoteModel.get(userId, poll._id.toHexString());
+            const vote = await VoteController.getVote(userId, userId, poll._id.toHexString());
             voteMap.push({
                 user: user,
                 voted: !!vote ? vote.option : [],
@@ -68,7 +68,7 @@ export class PollController {
         if (user.membership.includes(poll.targetGroup)) {
             const delegations = await DelegationController.getDelegationReceiver(userId, userId);
             const voteMap: VoteMap = [];
-            const vote = await VoteModel.get(userId, poll._id.toHexString());
+            const vote = await VoteController.getVote(userId, userId, poll._id.toHexString());
             voteMap.push({ user: user, voted: !!vote ? vote.option : [], delegated: false });
             for (const delegation of delegations) {
                 try {

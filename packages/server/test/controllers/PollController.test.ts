@@ -1,12 +1,21 @@
 import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import { EMembership, EPollApprovalRatio, EPollState, IPoll, IUser } from 'interfaces';
+import {
+    EMembership,
+    EPollApprovalRatio,
+    EPollState,
+    IPoll,
+    IPollWithVotes,
+    IUser,
+} from 'interfaces';
 import { describe } from 'mocha';
 import { ObjectId } from 'mongodb';
 import 'reflect-metadata';
 import sinon, { SinonSandbox } from 'sinon';
+import { DelegationController } from '../../src/controllers/DelegationController';
 import { PollController } from '../../src/controllers/PollController';
 import { UserController } from '../../src/controllers/UserController';
+import { VoteController } from '../../src/controllers/VoteController';
 import { PollModel } from '../../src/models/PollModel';
 
 chai.use(chaiAsPromised);
@@ -570,9 +579,26 @@ describe('PollController', () => {
                 membership: [EMembership.ALL],
                 picture: 'picture',
             };
+            const delegations: IUser[] = [
+                {
+                    userId: 'IDDel1',
+                    name: 'nameDel1',
+                    email: 'emailDel1',
+                    membership: [EMembership.ALL],
+                    picture: 'picture',
+                },
+                {
+                    userId: 'IDDel2',
+                    name: 'nameDel2',
+                    email: 'emailDel2',
+                    membership: [EMembership.ALL],
+                    picture: 'picture',
+                },
+            ];
             const getUserStub = sandbox.stub(UserController, 'getUser').resolves(user);
             const userId = 'ID';
             const poll1: IPoll = {
+                _id: new ObjectId('0123456789AB'),
                 description: 'Test description',
                 isPriority: false,
                 isPrivate: true,
@@ -588,6 +614,7 @@ describe('PollController', () => {
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
             const poll2: IPoll = {
+                _id: new ObjectId('0123456789AB'),
                 description: 'Test description',
                 isPriority: false,
                 isPrivate: true,
@@ -602,9 +629,39 @@ describe('PollController', () => {
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
+            const vote = { userId: 'nye', pollId: 'nye', option: ['test'] };
             const getAllStub = sandbox.stub(PollModel, 'getAll').resolves([poll1, poll2]);
-            const ret: Array<IPoll> = await PollController.getPolls(userId);
-            expect(ret).to.deep.equal([poll1, poll2]);
+            const getDelegationsStub = sandbox
+                .stub(DelegationController, 'getDelegationReceiver')
+                .resolves(delegations);
+            const getVoteStub = sandbox.stub(VoteController, 'getVote').resolves(vote);
+            const ret: Array<IPollWithVotes> = await PollController.getPolls(userId);
+            const voteMap = [
+                {
+                    user: user,
+                    voted: ['test'],
+                    delegated: false,
+                },
+                {
+                    user: delegations[0],
+                    voted: ['test'],
+                    delegated: true,
+                },
+                {
+                    user: delegations[1],
+                    voted: ['test'],
+                    delegated: true,
+                },
+            ];
+            expect(ret).to.deep.equal([
+                { ...poll1, voteMap },
+                { ...poll2, voteMap },
+            ]);
+            expect(getDelegationsStub.calledOnce).to.be.true;
+            expect(getDelegationsStub.firstCall.args[0]).to.equal(userId);
+            expect(getDelegationsStub.firstCall.args[1]).to.equal(userId);
+            expect(getVoteStub.firstCall.args[0]).to.equal(userId);
+            expect(getVoteStub.firstCall.args[1]).to.equal(userId);
             expect(getUserStub.calledOnce).to.be.true;
             expect(getUserStub.firstCall.args[0]).to.equal(userId);
             expect(getUserStub.firstCall.args[1]).to.equal(userId);
@@ -619,6 +676,22 @@ describe('PollController', () => {
             sandbox.restore();
         });
         it("should call the model's get function and return the poll", async () => {
+            const delegations: IUser[] = [
+                {
+                    userId: 'IDDel1',
+                    name: 'nameDel1',
+                    email: 'emailDel1',
+                    membership: [EMembership.ALL],
+                    picture: 'picture',
+                },
+                {
+                    userId: 'IDDel2',
+                    name: 'nameDel2',
+                    email: 'emailDel2',
+                    membership: [EMembership.ALL],
+                    picture: 'picture',
+                },
+            ];
             const user: IUser = {
                 userId: 'ID',
                 name: 'name',
@@ -627,6 +700,7 @@ describe('PollController', () => {
                 picture: 'picture',
             };
             const poll: IPoll = {
+                _id: new ObjectId('0123456789AB'),
                 description: 'Test description',
                 isPriority: false,
                 isPrivate: true,
@@ -641,17 +715,44 @@ describe('PollController', () => {
                 abstentionIsValid: false,
                 approvalRatio: EPollApprovalRatio.ABSOLUTE,
             };
+            const voteMap = [
+                {
+                    user: user,
+                    voted: ['test'],
+                    delegated: false,
+                },
+                {
+                    user: delegations[0],
+                    voted: ['test'],
+                    delegated: true,
+                },
+                {
+                    user: delegations[1],
+                    voted: ['test'],
+                    delegated: true,
+                },
+            ];
             const getUserStub = sandbox.stub(UserController, 'getUser').resolves(user);
             const getPollStub = sandbox.stub(PollModel, 'get').resolves(poll);
             const userId = 'ID';
             const _id = '0123456789AB';
+            const getDelegationsStub = sandbox
+                .stub(DelegationController, 'getDelegationReceiver')
+                .resolves(delegations);
+            const vote = { userId: 'nye', pollId: 'nye', option: ['test'] };
+            const getVoteStub = sandbox.stub(VoteController, 'getVote').resolves(vote);
             const ret: IPoll = await PollController.getPoll(userId, _id);
-            expect(ret).to.deep.equal(poll);
+            expect(ret).to.deep.equal({ ...poll, voteMap });
             expect(getUserStub.calledOnce).to.be.true;
             expect(getUserStub.firstCall.args[0]).to.equal(userId);
             expect(getUserStub.firstCall.args[1]).to.equal(userId);
             expect(getPollStub.calledOnce).to.be.true;
             expect(getPollStub.firstCall.args[0]).to.deep.equal(new ObjectId(_id));
+            expect(getDelegationsStub.calledOnce).to.be.true;
+            expect(getDelegationsStub.firstCall.args[0]).to.equal(userId);
+            expect(getDelegationsStub.firstCall.args[1]).to.equal(userId);
+            expect(getVoteStub.firstCall.args[0]).to.equal(userId);
+            expect(getVoteStub.firstCall.args[1]).to.equal(userId);
         });
         it("should call the model's get function and return a not found error", async () => {
             const user: IUser = {

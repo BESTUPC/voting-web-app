@@ -1,6 +1,6 @@
 import { EMembership, IUser } from 'interfaces';
 import React, { FunctionComponent } from 'react';
-import { Button, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Accordion, Button, Card, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import logo from '../../assets/BEST_LOGO.svg';
 import './NavigationBar.css';
 
@@ -63,15 +63,68 @@ export const NavigationBar: FunctionComponent<NavigationBarProps> = ({
                                 {membership.toLowerCase()}
                             </NavDropdown.ItemText>
                         ))}
-                        <NavDropdown.Divider />
-                        <NavDropdown.ItemText>
-                            {`${givenDelegations.length} given delegation(s)`}
-                        </NavDropdown.ItemText>
-                        <NavDropdown.Divider />
-                        <NavDropdown.ItemText>
-                            {`${receivedDelegations.length} received delegation(s)`}
-                        </NavDropdown.ItemText>
-                        <NavDropdown.Divider />
+                        <Accordion>
+                            <Card>
+                                <Card.Header>
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                        {`${givenDelegations.length} given delegation(s)`}
+                                    </Accordion.Toggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="0">
+                                    <Card.Body
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                        }}
+                                    >
+                                        {givenDelegations.map((gD) => (
+                                            <div key={gD.name}>
+                                                <img
+                                                    alt=""
+                                                    id="profileImage"
+                                                    src={gD.picture}
+                                                    width="40"
+                                                    height="40"
+                                                    className="d-inline-block align-top ml-sm-1"
+                                                />
+                                                {gD.name}
+                                            </div>
+                                        ))}
+                                    </Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                        </Accordion>
+                        <Accordion>
+                            <Card>
+                                <Card.Header>
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                        {`${receivedDelegations.length} given delegation(s)`}
+                                    </Accordion.Toggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="0">
+                                    <Card.Body
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                        }}
+                                    >
+                                        {receivedDelegations.map((rD) => (
+                                            <div key={rD.name} style={{ display: 'flex' }}>
+                                                <img
+                                                    alt=""
+                                                    id="profileImage"
+                                                    src={rD.picture}
+                                                    width="20"
+                                                    height="20"
+                                                    className="d-inline-block align-top ml-sm-1"
+                                                />
+                                                {rD.name}
+                                            </div>
+                                        ))}
+                                    </Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                        </Accordion>
                         <NavDropdown.ItemText>
                             <Button variant="danger" onClick={logoutFunction}>
                                 Log out

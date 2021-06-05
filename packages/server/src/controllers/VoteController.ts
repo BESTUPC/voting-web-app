@@ -95,7 +95,7 @@ export class VoteController {
         pollId: string,
         options: IPollOption[],
         isPrivate: boolean,
-        _approvalRatio: EPollApprovalRatio,
+        approvalRatio: EPollApprovalRatio,
         abstentionIsValid: boolean,
     ): Promise<{
         votes: Array<[string, number]>;
@@ -115,16 +115,39 @@ export class VoteController {
             votes.push(vote);
             voters.push(voter);
         }
-        //const againstOptions = options.filter((opt) => opt.isAgainst);
         const abstentionOptions = options.filter((opt) => opt.isAbstention);
 
         const nValidVotes = votes.length - (abstentionIsValid ? 0 : abstentionOptions.length);
 
         let winner = '';
 
-        for (const vote of votes) {
-            if (vote[1] / nValidVotes > 0.5) {
-                winner = vote[0];
+        if (approvalRatio === EPollApprovalRatio.SIMPLE) {
+            const votesSorted = votes
+                .sort((a, b) => a[1] - b[1])
+                .filter((v) => {
+                    const found = options.find((opt) => opt.name === v[0]);
+                    return abstentionIsValid || !found.isAbstention;
+                });
+            winner = votesSorted[0][0] || '';
+        } else if (approvalRatio === EPollApprovalRatio.ABSOLUTE) {
+            const votesSorted = votes
+                .sort((a, b) => a[1] - b[1])
+                .filter((v) => {
+                    const found = options.find((opt) => opt.name === v[0]);
+                    return abstentionIsValid || !found.isAbstention;
+                });
+            if (votesSorted.length > 0) {
+                winner = votesSorted[0][1] / nValidVotes > 0.5 ? votesSorted[0][0] : '';
+            }
+        } else {
+            const votesSorted = votes
+                .sort((a, b) => a[1] - b[1])
+                .filter((v) => {
+                    const found = options.find((opt) => opt.name === v[0]);
+                    return abstentionIsValid || !found.isAbstention;
+                });
+            if (votesSorted.length > 0) {
+                winner = votesSorted[0][1] / nValidVotes > 2 / 3 ? votesSorted[0][0] : '';
             }
         }
 

@@ -151,7 +151,7 @@ describe('DelegationController', () => {
             expect(addStub.firstCall.args[1]).to.equal(id2);
         });
     });
-    describe('getDelegation', () => {
+    describe('getDelegationDelegator', () => {
         beforeEach(() => {
             sandbox = sinon.createSandbox();
         });
@@ -170,7 +170,7 @@ describe('DelegationController', () => {
         });
         it('should call the get functions', async () => {
             const delegations: IDelegation[] = [
-                { userIdReceiver: 'id2', userIdDelegator: 'idOther' },
+                { userIdReceiver: 'idOther', userIdDelegator: 'idReq' },
             ];
             const getStub = sandbox.stub(DelegationModel, 'getDelegator').resolves(delegations);
             const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
@@ -187,6 +187,50 @@ describe('DelegationController', () => {
             const id1 = 'id1';
             const id2 = 'idReq';
             const response = await DelegationController.getDelegationDelegator(id1, id2);
+            expect(response).to.deep.equal(users);
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(id1);
+            expect(getStub.calledOnce).to.be.true;
+            expect(getStub.firstCall.args[0]).to.equal(id2);
+            expect(getAllUsersStub.calledOnce).to.be.true;
+        });
+    });
+    describe('getDelegationReceiver', () => {
+        beforeEach(() => {
+            sandbox = sinon.createSandbox();
+        });
+        afterEach(() => {
+            sandbox.restore();
+        });
+        it('should return an unauthorized error because not admin', async () => {
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(false);
+            const id1 = 'id1';
+            const id2 = 'id2';
+            await expect(DelegationController.getDelegationReceiver(id1, id2)).to.be.rejectedWith(
+                'Not authorized to get the delegation',
+            );
+            expect(isAdminStub.calledOnce).to.be.true;
+            expect(isAdminStub.firstCall.args[0]).to.equal(id1);
+        });
+        it('should call the get functions', async () => {
+            const delegations: IDelegation[] = [
+                { userIdReceiver: 'idReq', userIdDelegator: 'idOther' },
+            ];
+            const getStub = sandbox.stub(DelegationModel, 'getReceiver').resolves(delegations);
+            const isAdminStub = sandbox.stub(UserController, 'isAdmin').resolves(true);
+            const users: IUser[] = [
+                {
+                    userId: 'idOther',
+                    membership: [EMembership.ALL],
+                    name: 'name',
+                    email: 'email',
+                    picture: 'picture',
+                },
+            ];
+            const getAllUsersStub = sandbox.stub(UserModel, 'getAll').resolves(users);
+            const id1 = 'id1';
+            const id2 = 'idReq';
+            const response = await DelegationController.getDelegationReceiver(id1, id2);
             expect(response).to.deep.equal(users);
             expect(isAdminStub.calledOnce).to.be.true;
             expect(isAdminStub.firstCall.args[0]).to.equal(id1);
