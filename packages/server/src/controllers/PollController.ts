@@ -3,6 +3,7 @@ import { ObjectId } from 'mongodb';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { PollCreateDTO } from '../dtos/PollCreateDTO';
 import { PollModel } from '../models/PollModel';
+import { logger } from '../utils/CustomLogger';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import { DelegationController } from './DelegationController';
 import { UserController } from './UserController';
@@ -25,7 +26,7 @@ export class PollController {
         const finalPolls: IPollWithVotes[] = [];
         for (const poll of polls) {
             const voteMap: VoteMap = [];
-            const vote = await VoteController.getVote(userId, userId, poll._id.toHexString());
+            const vote = await VoteController.getVote(userId, userId, poll._id.toHexString(), poll);
             voteMap.push({
                 user: user,
                 voted: !!vote ? vote.option : [],
@@ -38,13 +39,16 @@ export class PollController {
                             delegation.userId,
                             delegation.userId,
                             poll._id.toHexString(),
+                            poll,
                         );
                         voteMap.push({
                             user: delegation,
                             voted: !!vote ? vote.option : [],
                             delegated: true,
                         });
-                    } catch (e) {}
+                    } catch (e) {
+                        logger.info(e);
+                    }
                 }
             }
             finalPolls.push({ voteMap, ...poll });
@@ -67,7 +71,7 @@ export class PollController {
         if (user.membership.includes(poll.targetGroup)) {
             const delegations = await DelegationController.getDelegationReceiver(userId, userId);
             const voteMap: VoteMap = [];
-            const vote = await VoteController.getVote(userId, userId, poll._id.toHexString());
+            const vote = await VoteController.getVote(userId, userId, poll._id.toHexString(), poll);
             voteMap.push({ user: user, voted: !!vote ? vote.option : [], delegated: false });
             for (const delegation of delegations) {
                 try {
@@ -75,6 +79,7 @@ export class PollController {
                         delegation.userId,
                         delegation.userId,
                         poll._id.toHexString(),
+                        poll,
                     );
                     voteMap.push({
                         user: delegation,

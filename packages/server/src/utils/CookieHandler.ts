@@ -24,18 +24,12 @@ export class CookieHandler {
     ): void => {
         const expirationMilliSeconds = expirationSeconds * 1000;
 
-        // We have https so it has to be true
-        const secure = true;
-
-        // So it cannot be set from the frontend
-        const httpOnly = true;
-
         res.cookie(cookieName, data, {
-            // Signed with secret
             signed: true,
-            httpOnly,
+            httpOnly: true,
             maxAge: expirationMilliSeconds,
-            secure,
+            secure: true,
+            sameSite: true,
         });
     };
     public static set(res: Response, data: AccessTokenInterface): void {

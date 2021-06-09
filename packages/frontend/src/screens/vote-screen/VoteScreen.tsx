@@ -1,4 +1,4 @@
-import { EPollApprovalRatio, IPollWithVotes } from 'interfaces';
+import { IPollWithVotes } from 'interfaces';
 import React, { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import {
     DragDropContext,
@@ -6,30 +6,19 @@ import {
     DraggingStyle,
     Droppable,
     DropResult,
-    NotDraggingStyle,
+    NotDraggingStyle
 } from 'react-beautiful-dnd';
 import {
     Accordion,
     Button,
     Card,
     Col,
-    Container,
     Form,
-    InputGroup,
-    OverlayTrigger,
-    Tooltip,
+    InputGroup
 } from 'react-bootstrap';
-import { OverlayInjectedProps } from 'react-bootstrap/esm/Overlay';
-import {
-    BsArrowUpDown,
-    BsFillBarChartFill,
-    BsFillEnvelopeOpenFill,
-    BsFillLockFill,
-    BsFillPieChartFill,
-} from 'react-icons/bs';
-import { GiPodiumWinner } from 'react-icons/gi';
 import { Redirect, useParams } from 'react-router-dom';
 import { CSSProperties } from 'styled-components';
+import { PollInfo } from '../../components/poll-info/PollInfo';
 import { PollOption } from '../../components/poll-option/PollOption';
 import { apiService } from '../../utils/ApiService';
 import { BaseScreen } from '../base-screen/BaseScreen';
@@ -43,11 +32,6 @@ const reorder = (list: string[], startIndex: number, endIndex: number): string[]
     return result;
 };
 
-const renderTooltip = (props: OverlayInjectedProps, name: string) => (
-    <Tooltip id="button-tooltip" {...props}>
-        {name}
-    </Tooltip>
-);
 
 const getItemStyle = (
     isDragging: boolean,
@@ -81,7 +65,6 @@ export const VoteScreen: FunctionComponent = () => {
     const [isDelegated, setDelegated] = useState(false);
 
     function onDragEnd(result: DropResult) {
-        console.log(result);
         if (!result.destination) {
             return;
         }
@@ -128,7 +111,6 @@ export const VoteScreen: FunctionComponent = () => {
                 }
             })
             .catch((err) => {
-                console.log(err);
                 setModalText('Could not fetch the poll');
                 setModalTitle('Error');
                 setModalShown(true);
@@ -222,7 +204,6 @@ export const VoteScreen: FunctionComponent = () => {
                 });
         }
     };
-    console.log(selected);
     useEffect(() => {
         getPoll();
     }, [getPoll]);
@@ -238,123 +219,7 @@ export const VoteScreen: FunctionComponent = () => {
                 modalHandler={handleModal}
             >
                 <Form className="mt-5 mb-5">
-                    <Form.Group id="formText">
-                        <Form.Control
-                            as={Container}
-                            size="lg"
-                            style={{ display: 'flex', justifyContent: 'space-between' }}
-                        >
-                            {poll.pollName}
-                            <span>
-                                {!!poll.isPrivate && (
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        delay={{ show: 250, hide: 400 }}
-                                        overlay={(props) =>
-                                            renderTooltip(props, 'Poll is private.')
-                                        }
-                                    >
-                                        <BsFillLockFill
-                                            size="15"
-                                            style={{ marginRight: '8px' }}
-                                        ></BsFillLockFill>
-                                    </OverlayTrigger>
-                                )}
-                                {!!poll.isPriority && (
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        delay={{ show: 250, hide: 400 }}
-                                        overlay={(props) =>
-                                            renderTooltip(props, 'Poll is a priority poll.')
-                                        }
-                                    >
-                                        <BsArrowUpDown
-                                            size="15"
-                                            style={{ marginRight: '8px' }}
-                                        ></BsArrowUpDown>
-                                    </OverlayTrigger>
-                                )}
-                                {!!poll.abstentionIsValid && (
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        delay={{ show: 50, hide: 100 }}
-                                        overlay={(props) =>
-                                            renderTooltip(props, 'Abstention is valid.')
-                                        }
-                                    >
-                                        <BsFillEnvelopeOpenFill
-                                            size="15"
-                                            style={{ marginRight: '8px' }}
-                                        ></BsFillEnvelopeOpenFill>
-                                    </OverlayTrigger>
-                                )}
-                                {poll.approvalRatio === EPollApprovalRatio.SIMPLE ? (
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        delay={{ show: 50, hide: 100 }}
-                                        overlay={(props) =>
-                                            renderTooltip(props, 'Approval is simple.')
-                                        }
-                                    >
-                                        <GiPodiumWinner
-                                            size="15"
-                                            style={{ marginRight: '8px' }}
-                                        ></GiPodiumWinner>
-                                    </OverlayTrigger>
-                                ) : poll.approvalRatio === EPollApprovalRatio.ABSOLUTE ? (
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        delay={{ show: 50, hide: 100 }}
-                                        overlay={(props) =>
-                                            renderTooltip(props, 'Approval is absolute.')
-                                        }
-                                    >
-                                        <BsFillBarChartFill
-                                            size="15"
-                                            style={{ marginRight: '8px' }}
-                                        ></BsFillBarChartFill>
-                                    </OverlayTrigger>
-                                ) : (
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        delay={{ show: 50, hide: 100 }}
-                                        overlay={(props) =>
-                                            renderTooltip(props, 'Approval is two thirds.')
-                                        }
-                                    >
-                                        <BsFillPieChartFill
-                                            size="15"
-                                            style={{ marginRight: '8px' }}
-                                        ></BsFillPieChartFill>
-                                    </OverlayTrigger>
-                                )}
-                            </span>
-                        </Form.Control>
-                        <br />
-                        <InputGroup>
-                            <Form.Control
-                                size="sm"
-                                type="title"
-                                placeholder={
-                                    new Date(poll.pollDeadline).toLocaleDateString() +
-                                    ' ' +
-                                    new Date(poll.pollDeadline).toLocaleTimeString()
-                                }
-                                disabled
-                                style={{ backgroundColor: 'white' }}
-                            />
-                        </InputGroup>
-                        <br />
-
-                        <Form.Control
-                            as="textarea"
-                            rows={3}
-                            id="description"
-                            placeholder={poll.description}
-                            disabled
-                            style={{ backgroundColor: 'white' }}
-                        />
-                    </Form.Group>
+                    <PollInfo poll={poll}></PollInfo>
                     <Form.Group id="formSelections">
                         <Form.Row>
                             <Col id="options">
@@ -501,7 +366,7 @@ export const VoteScreen: FunctionComponent = () => {
                     <br></br>
                     <Form.Row>
                         <Col>
-                            <Accordion >
+                            <Accordion>
                                 <Card>
                                     <Card.Header>
                                         <Accordion.Toggle as={Button} variant="link" eventKey="0">

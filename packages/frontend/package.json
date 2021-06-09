@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nivo/bar": "^0.70.1",
+    "@nivo/core": "^0.70.1",
+    "@nivo/tooltip": "^0.70.1",
     "@testing-library/dom": "^7.31.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

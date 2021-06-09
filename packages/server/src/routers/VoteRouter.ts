@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { VoteController } from '../controllers/VoteController';
 import { IUser, IVote } from 'interfaces';
+import { ResultsInterface } from 'interfaces';
 
 export class VoteRouter {
     /**
@@ -28,6 +29,21 @@ export class VoteRouter {
      * Connect routes to their matching controller endpoints.
      */
     private _configure() {
+        this._router.get(
+            '/results/:pollId',
+            async (req: Request, res: Response, next: NextFunction) => {
+                try {
+                    const user: IUser = res.locals['user'];
+                    const result: ResultsInterface[] = await this._controller.getResults(
+                        user.userId,
+                        req.params.pollId,
+                    );
+                    res.status(200).json(result);
+                } catch (error) {
+                    next(error);
+                }
+            },
+        );
         this._router.get(
             '/:userId/:pollId',
             async (req: Request, res: Response, next: NextFunction) => {

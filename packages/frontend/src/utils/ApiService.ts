@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { CreatePollBody, EMembership, GetCurrentUserResponse, GetDelegationsResponse, GetGivenDelegationsResponse, GetPollResponse, GetPollsResponse, GetUsersResponse, LoginBody } from 'interfaces';
+import { CreatePollBody, EMembership, GetCurrentUserResponse, GetDelegationsResponse, GetGivenDelegationsResponse, GetPollResponse, GetPollsResponse, GetUsersResponse, LoginBody, ResultsInterface } from 'interfaces';
 import { CreateVoteRequestInterface } from 'interfaces/src/requests';
 import { IDelegationData } from '../components/custom-table/CustomTableDelegations';
 
@@ -110,6 +110,10 @@ class ApiService {
 
     public async addDelegatedVote(id: string, vote: CreateVoteRequestInterface): Promise<boolean> {
         return this.post<boolean>(`/votes/${id}`, vote);
+    }
+
+    public async getResults(id: string): Promise<ResultsInterface[]> {
+        return this.get<ResultsInterface[]>(`/votes/results/${id}`);
     }
 }
 

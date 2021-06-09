@@ -1,4 +1,12 @@
-import { EPollApprovalRatio, EPollState, IPoll, IPollOption, IUser, IVote } from 'interfaces';
+import {
+    EPollApprovalRatio,
+    EPollState,
+    IPoll,
+    IPollOption,
+    IUser,
+    IVote,
+    ResultsInterface,
+} from 'interfaces';
 import { ObjectId } from 'mongodb';
 import { validatorGeneric } from '../dtos/GenericDTOValidator';
 import { VoteAddDTO } from '../dtos/VoteAddDTO';
@@ -22,11 +30,22 @@ export class VoteController {
      * @param userId1 id of the user making the request.
      * @param userId2 id of the vote's user to get.
      * @param pollId id of the poll.
+     * @param pollInternal if we already have the poll we pass it here. Used for getPoll and getPolls.
      * @returns Returns the vote requested or null.
      * @throws Error 401 if the user is not authorized to get that vote or poll.
      */
-    public static async getVote(userId1: string, userId2: string, pollId: string): Promise<IVote> {
-        const poll: IPoll = await PollController.getPoll(userId1, pollId);
+    public static async getVote(
+        userId1: string,
+        userId2: string,
+        pollId: string,
+        pollInternal?: IPoll,
+    ): Promise<IVote> {
+        let poll: IPoll;
+        if (!!pollInternal) {
+            poll = pollInternal;
+        } else {
+            poll = await PollController.getPoll(userId1, pollId);
+        }
         const existsDelegation = await DelegationController.check(userId1, userId2);
         if (
             poll.isPrivate &&
@@ -97,21 +116,20 @@ export class VoteController {
         isPrivate: boolean,
         approvalRatio: EPollApprovalRatio,
         abstentionIsValid: boolean,
-    ): Promise<{
-        votes: Array<[string, number]>;
-        voters: Array<[string, string[]]>;
-        winner: string;
-    }> {
+    ): Promise<ResultsInterface> {
         const votesFound: IVote[] = await VoteModel.getFromPollId(pollId);
         const users: IUser[] = await UserModel.getAll();
-        const votes: Array<[string, number]> = [];
+        const votes: Array<{ option: string; votes: number }> = [];
         let voters: Array<[string, string[]]> = [];
         for (const option of options) {
             const votesOption = votesFound.filter((vote) => vote.option[0] === option.name);
             const userIdsOption = votesOption.map((opt) => opt.userId);
             const usersOption = users.filter((user) => userIdsOption.includes(user.userId));
             const voter: [string, string[]] = [option.name, usersOption.map((user) => user.name)];
-            const vote: [string, number] = [option.name, votesOption.length];
+            const vote: { option: string; votes: number } = {
+                option: option.name,
+                votes: votesOption.length,
+            };
             votes.push(vote);
             voters.push(voter);
         }
@@ -123,31 +141,31 @@ export class VoteController {
 
         if (approvalRatio === EPollApprovalRatio.SIMPLE) {
             const votesSorted = votes
-                .sort((a, b) => a[1] - b[1])
+                .sort((a, b) => a.votes - b.votes)
                 .filter((v) => {
-                    const found = options.find((opt) => opt.name === v[0]);
+                    const found = options.find((opt) => opt.name === v.option);
                     return abstentionIsValid || !found.isAbstention;
                 });
             winner = votesSorted[0][0] || '';
         } else if (approvalRatio === EPollApprovalRatio.ABSOLUTE) {
             const votesSorted = votes
-                .sort((a, b) => a[1] - b[1])
+                .sort((a, b) => a.votes - b.votes)
                 .filter((v) => {
-                    const found = options.find((opt) => opt.name === v[0]);
+                    const found = options.find((opt) => opt.name === v.option);
                     return abstentionIsValid || !found.isAbstention;
                 });
             if (votesSorted.length > 0) {
-                winner = votesSorted[0][1] / nValidVotes > 0.5 ? votesSorted[0][0] : '';
+                winner = votesSorted[0].votes / nValidVotes > 0.5 ? votesSorted[0].option : '';
             }
         } else {
             const votesSorted = votes
                 .sort((a, b) => a[1] - b[1])
                 .filter((v) => {
-                    const found = options.find((opt) => opt.name === v[0]);
+                    const found = options.find((opt) => opt.name === v.option);
                     return abstentionIsValid || !found.isAbstention;
                 });
             if (votesSorted.length > 0) {
-                winner = votesSorted[0][1] / nValidVotes > 2 / 3 ? votesSorted[0][0] : '';
+                winner = votesSorted[0].votes / nValidVotes > 2 / 3 ? votesSorted[0].option : '';
             }
         }
 
@@ -167,24 +185,13 @@ export class VoteController {
         _pollId: string,
         _options: IPollOption[],
         _isPrivate: boolean,
-    ): Promise<{
-        votes: Array<[string, number]>;
-        voters: Array<[string, string[]]>;
-        winner: string;
-    }> {
-        return { votes: [], voters: [], winner: '' };
+    ): Promise<ResultsInterface[]> {
+        return [{ votes: [], voters: [], winner: '' }];
     }
 
-    public static async getResults(
-        userId: string,
-        pollId: string,
-    ): Promise<{
-        votes: Array<[string, number]>;
-        voters: Array<[string, string[]]>;
-        winner: string;
-    }> {
+    public static async getResults(userId: string, pollId: string): Promise<ResultsInterface[]> {
         const poll: IPoll = await PollModel.get(new ObjectId(pollId));
-        if (poll) {
+        if (!poll) {
             throw new ErrorHandler(404, 'Poll not found');
         }
         if (
@@ -196,12 +203,14 @@ export class VoteController {
         if (poll.isPriority) {
             return this.getPriorityResults(pollId, poll.pollOptions, poll.isPrivate);
         }
-        return this.getNormalResults(
-            pollId,
-            poll.pollOptions,
-            poll.isPrivate,
-            poll.approvalRatio,
-            poll.abstentionIsValid,
-        );
+        return [
+            await this.getNormalResults(
+                pollId,
+                poll.pollOptions,
+                poll.isPrivate,
+                poll.approvalRatio,
+                poll.abstentionIsValid,
+            ),
+        ];
     }
 }
