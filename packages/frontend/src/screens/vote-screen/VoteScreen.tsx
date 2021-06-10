@@ -6,18 +6,12 @@ import {
     DraggingStyle,
     Droppable,
     DropResult,
-    NotDraggingStyle
+    NotDraggingStyle,
 } from 'react-beautiful-dnd';
-import {
-    Accordion,
-    Button,
-    Card,
-    Col,
-    Form,
-    InputGroup
-} from 'react-bootstrap';
+import { Button, Col, Form, InputGroup } from 'react-bootstrap';
 import { Redirect, useParams } from 'react-router-dom';
 import { CSSProperties } from 'styled-components';
+import { AdminTools } from '../../components/admin-tools/AdminTools';
 import { PollInfo } from '../../components/poll-info/PollInfo';
 import { PollOption } from '../../components/poll-option/PollOption';
 import { apiService } from '../../utils/ApiService';
@@ -31,7 +25,6 @@ const reorder = (list: string[], startIndex: number, endIndex: number): string[]
 
     return result;
 };
-
 
 const getItemStyle = (
     isDragging: boolean,
@@ -347,6 +340,7 @@ export const VoteScreen: FunctionComponent = () => {
                                 variant="primary"
                                 onClick={sendVote}
                                 style={{ borderBottomRightRadius: 0, borderTopRightRadius: 0 }}
+                                disabled={selected.length === 0}
                             >
                                 Submit
                             </Button>
@@ -363,33 +357,9 @@ export const VoteScreen: FunctionComponent = () => {
                             </Form.Control>
                         </InputGroup>
                     </Form.Group>
-                    <br></br>
                     <Form.Row>
                         <Col>
-                            <Accordion>
-                                <Card>
-                                    <Card.Header>
-                                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                            Admin Tools
-                                        </Accordion.Toggle>
-                                    </Card.Header>
-                                    <Accordion.Collapse eventKey="0">
-                                        <Card.Body
-                                            style={{
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                            }}
-                                        >
-                                            <Button variant="warning" onClick={closePoll}>
-                                                Close
-                                            </Button>
-                                            <Button variant="danger" onClick={deletePoll}>
-                                                Delete
-                                            </Button>
-                                        </Card.Body>
-                                    </Accordion.Collapse>
-                                </Card>
-                            </Accordion>
+                            <AdminTools poll={poll} closePoll={closePoll} deletePoll={deletePoll} />
                         </Col>
                     </Form.Row>
                 </Form>

@@ -1,8 +1,9 @@
 import { ResponsiveBar } from '@nivo/bar';
-import { EPollState, GetPollResponse, IPoll, ResultsInterface } from 'interfaces';
+import { GetPollResponse, IPoll, ResultsInterface } from 'interfaces';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Accordion, Button, Card, Col, Form, FormText } from 'react-bootstrap';
+import { Col, Form, FormText, ListGroup } from 'react-bootstrap';
 import { Redirect, useParams } from 'react-router-dom';
+import { AdminTools } from '../../components/admin-tools/AdminTools';
 import { PollInfo } from '../../components/poll-info/PollInfo';
 import { apiService } from '../../utils/ApiService';
 import { BaseScreen } from '../base-screen/BaseScreen';
@@ -15,8 +16,16 @@ export const ResultsScreen: FunctionComponent = () => {
     const [modalTitle, setModalTitle] = useState('');
     const [modalText, setModalText] = useState('');
     const [redirect, setRedirect] = useState(false);
+    const [page, setPage] = useState(0);
+
     const handleModal = () => {
         setModalShown(!showModal);
+        if (
+            modalText === 'Poll deleted successfully.' ||
+            modalText === 'Poll updated successfully.'
+        ) {
+            setRedirect(true);
+        }
     };
 
     const deletePoll = () => {
@@ -86,59 +95,50 @@ export const ResultsScreen: FunctionComponent = () => {
         >
             <Form className="mt-5 mb-5">
                 <PollInfo poll={poll}></PollInfo>
-                <Form.Row
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginBottom: '30px',
-                        width: '100%',
-                        height: '500px',
-                    }}
-                >
-                    {results.length > 0 && results[0].votes.length > 0 ? (
-                        <ResponsiveBar
-                            data={results[0].votes}
-                            keys={['votes']}
-                            indexBy="option"
-                            margin={{ top: 60, right: 80, bottom: 60, left: 80 }}
-                            colors={{ scheme: 'category10' }}
-                            padding={0.5}
-                            axisLeft={{
-                                format: (e) => Math.floor(e) === e && e,
+                {results.length > 0 && results[page].votes.length > 0 ? (
+                    <>
+                        <Form.Row
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                marginBottom: '30px',
+                                width: '100%',
+                                height: '500px',
                             }}
-                        />
-                    ) : (
-                        <FormText> No votes for this poll.</FormText>
-                    )}
-                </Form.Row>
+                        >
+                            <ResponsiveBar
+                                animate={true}
+                                data={results[0].votes}
+                                keys={['votes']}
+                                indexBy="option"
+                                margin={{ top: 60, right: 80, bottom: 60, left: 80 }}
+                                colors={{ scheme: 'category10' }}
+                                padding={0.5}
+                                axisLeft={{
+                                    format: (e) => Math.floor(e) === e && e,
+                                }}
+                                gridYValues={results[page].votes.map((v) => v.votes)}
+                            />
+                        </Form.Row>
+                        <Form.Row style={{ marginBottom: '30px' }}>
+                            {results[page].voters.map((v) => (
+                                <Col>
+                                    <Form.Label>{v[0]}</Form.Label>
+                                    <ListGroup>
+                                        {v[1].map((u) => (
+                                            <ListGroup.Item>{u}</ListGroup.Item>
+                                        ))}
+                                    </ListGroup>
+                                </Col>
+                            ))}
+                        </Form.Row>
+                    </>
+                ) : (
+                    <FormText style={{ marginBottom: '30px' }}> No votes for this poll.</FormText>
+                )}
                 <Form.Row>
                     <Col>
-                        <Accordion>
-                            <Card>
-                                <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                        Admin Tools
-                                    </Accordion.Toggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="0">
-                                    <Card.Body
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                        }}
-                                    >
-                                        {poll.state === EPollState.CLOSED_HIDDEN && (
-                                            <Button variant="warning" onClick={closePoll}>
-                                                Close
-                                            </Button>
-                                        )}
-                                        <Button variant="danger" onClick={deletePoll}>
-                                            Delete
-                                        </Button>
-                                    </Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
-                        </Accordion>
+                        <AdminTools poll={poll} closePoll={closePoll} deletePoll={deletePoll} />
                     </Col>
                 </Form.Row>
             </Form>
