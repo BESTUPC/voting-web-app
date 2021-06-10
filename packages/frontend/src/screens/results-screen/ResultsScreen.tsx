@@ -9,7 +9,6 @@ import { PollInfo } from '../../components/poll-info/PollInfo';
 import { apiService } from '../../utils/ApiService';
 import { BaseScreen } from '../base-screen/BaseScreen';
 
-
 export const ResultsScreen: FunctionComponent = () => {
     const { pollId } = useParams<{ pollId: string }>();
     const [poll, setData] = useState({} as IPoll);
@@ -109,27 +108,14 @@ export const ResultsScreen: FunctionComponent = () => {
                             }}
                         >
                             <BarChart data={results[page].votes}></BarChart>
-                            {/* <ResponsiveBar
-                                animate={true}
-                                data={results[0].votes}
-                                keys={['votes']}
-                                indexBy="option"
-                                margin={{ top: 60, right: 80, bottom: 60, left: 80 }}
-                                colors={{ scheme: 'category10' }}
-                                padding={0.5}
-                                axisLeft={{
-                                    format: (e) => Math.floor(e) === e && e,
-                                }}
-                                gridYValues={results[page].votes.map((v) => v.votes)}
-                            /> */}
                         </Form.Row>
                         <Form.Row style={{ marginBottom: '30px' }}>
-                            {results[page].voters.map((v) => (
-                                <Col>
+                            {results[page].voters.map((v, i) => (
+                                <Col key={i}>
                                     <Form.Label>{v[0]}</Form.Label>
                                     <ListGroup>
-                                        {v[1].map((u) => (
-                                            <ListGroup.Item>{u}</ListGroup.Item>
+                                        {v[1].map((u, j) => (
+                                            <ListGroup.Item key={j}>{u}</ListGroup.Item>
                                         ))}
                                     </ListGroup>
                                 </Col>

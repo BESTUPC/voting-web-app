@@ -1,4 +1,3 @@
-import 'animate.css';
 import { EPollApprovalRatio, IPoll } from 'interfaces';
 import React, { FunctionComponent } from 'react';
 import { Container, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
