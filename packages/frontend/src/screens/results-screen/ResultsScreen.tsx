@@ -1,12 +1,14 @@
-import { ResponsiveBar } from '@nivo/bar';
+// import { ResponsiveBar } from '@nivo/bar';
 import { GetPollResponse, IPoll, ResultsInterface } from 'interfaces';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Col, Form, FormText, ListGroup } from 'react-bootstrap';
 import { Redirect, useParams } from 'react-router-dom';
 import { AdminTools } from '../../components/admin-tools/AdminTools';
+import { BarChart } from '../../components/bar-chart/BarChart';
 import { PollInfo } from '../../components/poll-info/PollInfo';
 import { apiService } from '../../utils/ApiService';
 import { BaseScreen } from '../base-screen/BaseScreen';
+
 
 export const ResultsScreen: FunctionComponent = () => {
     const { pollId } = useParams<{ pollId: string }>();
@@ -106,7 +108,8 @@ export const ResultsScreen: FunctionComponent = () => {
                                 height: '500px',
                             }}
                         >
-                            <ResponsiveBar
+                            <BarChart data={results[page].votes}></BarChart>
+                            {/* <ResponsiveBar
                                 animate={true}
                                 data={results[0].votes}
                                 keys={['votes']}
@@ -118,7 +121,7 @@ export const ResultsScreen: FunctionComponent = () => {
                                     format: (e) => Math.floor(e) === e && e,
                                 }}
                                 gridYValues={results[page].votes.map((v) => v.votes)}
-                            />
+                            /> */}
                         </Form.Row>
                         <Form.Row style={{ marginBottom: '30px' }}>
                             {results[page].voters.map((v) => (
