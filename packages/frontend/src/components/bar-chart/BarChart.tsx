@@ -1,4 +1,4 @@
-import { Animation, EventTracker, ScaleObject } from '@devexpress/dx-react-chart';
+import { DomainItems, EventTracker, ValueScale } from '@devexpress/dx-react-chart';
 import {
     ArgumentAxis,
     BarSeries,
@@ -17,19 +17,62 @@ export const BarChart: FunctionComponent<BarChartProps> = ({ data }) => {
     return (
         <div style={{ width: '100%' }}>
             <Chart data={data}>
-                <ArgumentAxis showTicks={false} />
+                <ArgumentAxis
+                    showTicks={false}
+                    labelComponent={(props) => {
+                        if (props.text !== '__Dummy__1' && props.text !== '__Dummy__2') {
+                            return <ArgumentAxis.Label {...props}></ArgumentAxis.Label>;
+                        } else return <></>;
+                    }}
+                />
                 <ValueAxis
-                    tickFormat={(_scale: ScaleObject) => (tick: string) => {
+                    tickFormat={() => (tick: string) => {
                         if (parseFloat(tick) === parseInt(tick)) {
                             return tick;
                         } else return '';
                     }}
                 />
-                <BarSeries valueField="votes" argumentField="option" barWidth={0.5} />
+                <ValueScale modifyDomain={(d: DomainItems) => [...d, 10]}></ValueScale>
+                <BarSeries
+                    valueField="votes"
+                    argumentField="option"
+                    barWidth={0.3}
+                    pointComponent={(props) => {
+                        if (props.argument !== '__Dummy__1' && props.argument !== '__Dummy__2') {
+                            return <BarSeries.Point {...props}></BarSeries.Point>;
+                        } else return <></>;
+                    }}
+                />
+
                 <Title text="" />
-                <Animation duration={3000} easing={(t) => t} />
                 <EventTracker />
-                <Tooltip />
+                <Tooltip
+                    contentComponent={(props) => {
+                        if (
+                            props.targetItem.point !== 0 &&
+                            props.targetItem.point !== data.length - 1
+                        ) {
+                            return (
+                                <Tooltip.Content
+                                    {...props}
+                                    text={Math.round(parseFloat(props.text)).toString()}
+                                ></Tooltip.Content>
+                            );
+                        } else return <></>;
+                    }}
+                    arrowComponent={() => {
+                        return <></>;
+                    }}
+                    sheetComponent={(props) => {
+                        const propsAux = (props.children as { props: Tooltip.ContentProps }).props;
+                        if (
+                            propsAux.targetItem.point !== 0 &&
+                            propsAux.targetItem.point !== data.length - 1
+                        ) {
+                            return <Tooltip.Sheet {...props}></Tooltip.Sheet>;
+                        } else return <></>;
+                    }}
+                />
             </Chart>
         </div>
     );

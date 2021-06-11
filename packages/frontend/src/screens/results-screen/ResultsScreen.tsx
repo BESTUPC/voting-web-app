@@ -1,4 +1,3 @@
-// import { ResponsiveBar } from '@nivo/bar';
 import { GetPollResponse, IPoll, ResultsInterface } from 'interfaces';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Col, Form, FormText, ListGroup } from 'react-bootstrap';
@@ -13,6 +12,7 @@ export const ResultsScreen: FunctionComponent = () => {
     const { pollId } = useParams<{ pollId: string }>();
     const [poll, setData] = useState({} as IPoll);
     const [results, setResults] = useState([] as ResultsInterface[]);
+    const [showingVotes, setShowingVotes] = useState([] as { option: string; votes: number }[]);
     const [showModal, setModalShown] = useState(false);
     const [modalTitle, setModalTitle] = useState('');
     const [modalText, setModalText] = useState('');
@@ -70,6 +70,30 @@ export const ResultsScreen: FunctionComponent = () => {
     };
 
     useEffect(() => {
+        const timeout = setTimeout(() => {
+            let updated = false;
+            const newArray = [...showingVotes];
+            for (const i in newArray) {
+                if (newArray[i].option !== '__Dummy__1' && newArray[i].option !== '__Dummy__2') {
+                    const actualVotes = results[page].votes.find(
+                        (v) => v.option === newArray[i].option,
+                    );
+                    if (newArray[i].votes < actualVotes!.votes) {
+                        newArray[i].votes = newArray[i].votes + 0.01;
+                        updated = true;
+                    }
+                }
+            }
+            if (updated) {
+                setShowingVotes(newArray);
+            }
+        }, 1);
+        return () => {
+            clearTimeout(timeout);
+        };
+    }, [showingVotes, page, results]);
+
+    useEffect(() => {
         apiService
             .getPoll(pollId)
             .then((response: GetPollResponse) => {
@@ -82,11 +106,21 @@ export const ResultsScreen: FunctionComponent = () => {
             .getResults(pollId)
             .then((response: ResultsInterface[]) => {
                 setResults(response);
+                setPage(0);
+                if (response.length > 0 && response[0].votes.length > 0) {
+                    const maxVotes = Math.max(...response[0].votes.map((v) => v.votes));
+                    setShowingVotes([
+                        { option: '__Dummy__1', votes: Math.floor(maxVotes + maxVotes / 2) },
+                        ...response[0].votes.map((v) => ({ option: v.option, votes: 0 })),
+                        { option: '__Dummy__2', votes: Math.floor(maxVotes + maxVotes / 2) },
+                    ]);
+                }
             })
             .catch((err) => {
                 setRedirect(true);
             });
     }, [pollId]);
+
     return !redirect ? (
         <BaseScreen
             modalShown={showModal}
@@ -107,7 +141,7 @@ export const ResultsScreen: FunctionComponent = () => {
                                 height: '500px',
                             }}
                         >
-                            <BarChart data={results[page].votes}></BarChart>
+                            <BarChart data={showingVotes}></BarChart>
                         </Form.Row>
                         <Form.Row style={{ marginBottom: '30px' }}>
                             {results[page].voters.map((v, i) => (
