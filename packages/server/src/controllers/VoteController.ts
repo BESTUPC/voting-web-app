@@ -146,7 +146,9 @@ export class VoteController {
                     const found = options.find((opt) => opt.name === v.option);
                     return abstentionIsValid || !found.isAbstention;
                 });
-            winner = votesSorted[0][0] || '';
+            winner = !!votesSorted[0][0]
+                ? `The winner of the poll is ${votesSorted[0][0]}`
+                : 'There has been a draw!';
         } else if (approvalRatio === EPollApprovalRatio.ABSOLUTE) {
             const votesSorted = votes
                 .sort((a, b) => a.votes - b.votes)
@@ -155,7 +157,10 @@ export class VoteController {
                     return abstentionIsValid || !found.isAbstention;
                 });
             if (votesSorted.length > 0) {
-                winner = votesSorted[0].votes / nValidVotes > 0.5 ? votesSorted[0].option : '';
+                winner =
+                    votesSorted[0].votes / nValidVotes > 0.5
+                        ? `The winner of the poll is ${votesSorted[0].option}`
+                        : 'There has been a draw!';
             }
         } else {
             const votesSorted = votes
@@ -165,7 +170,10 @@ export class VoteController {
                     return abstentionIsValid || !found.isAbstention;
                 });
             if (votesSorted.length > 0) {
-                winner = votesSorted[0].votes / nValidVotes > 2 / 3 ? votesSorted[0].option : '';
+                winner =
+                    votesSorted[0].votes / nValidVotes > 2 / 3
+                        ? `The winner of the poll is ${votesSorted[0].option}!`
+                        : `There has been a draw!`;
             }
         }
 

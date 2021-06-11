@@ -6,7 +6,7 @@ import {
     BsArrowUpDown,
     BsFillEnvelopeOpenFill,
     BsFillLockFill,
-    BsFillPieChartFill
+    BsFillPieChartFill,
 } from 'react-icons/bs';
 
 const renderTooltip = (props: OverlayInjectedProps, name: string) => (

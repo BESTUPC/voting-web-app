@@ -1,6 +1,6 @@
 import { GetPollResponse, IPoll, ResultsInterface } from 'interfaces';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Col, Form, FormText, ListGroup } from 'react-bootstrap';
+import { Col, Form, FormText, ListGroup, Pagination } from 'react-bootstrap';
 import { Redirect, useParams } from 'react-router-dom';
 import { AdminTools } from '../../components/admin-tools/AdminTools';
 import { BarChart } from '../../components/bar-chart/BarChart';
@@ -18,6 +18,8 @@ export const ResultsScreen: FunctionComponent = () => {
     const [modalText, setModalText] = useState('');
     const [redirect, setRedirect] = useState(false);
     const [page, setPage] = useState(0);
+    const [winner, setWinner] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const handleModal = () => {
         setModalShown(!showModal);
@@ -27,6 +29,18 @@ export const ResultsScreen: FunctionComponent = () => {
         ) {
             setRedirect(true);
         }
+    };
+
+    const changePage = (i: number) => {
+        setPage(i);
+        setWinner('');
+        setLoading(true);
+        const maxVotes = Math.max(...results[i].votes.map((v) => v.votes));
+        setShowingVotes([
+            { option: '__Dummy__1', votes: Math.floor(maxVotes + maxVotes / 2) },
+            ...results[0].votes.map((v) => ({ option: v.option, votes: 0 })),
+            { option: '__Dummy__2', votes: Math.floor(maxVotes + maxVotes / 2) },
+        ]);
     };
 
     const deletePoll = () => {
@@ -86,6 +100,12 @@ export const ResultsScreen: FunctionComponent = () => {
             }
             if (updated) {
                 setShowingVotes(newArray);
+            } else if (newArray.length > 0) {
+                setModalText(results[page].winner);
+                setModalTitle('Results');
+                setModalShown(true);
+                setLoading(false);
+                setWinner(results[page].winner);
             }
         }, 1);
         return () => {
@@ -105,6 +125,7 @@ export const ResultsScreen: FunctionComponent = () => {
         apiService
             .getResults(pollId)
             .then((response: ResultsInterface[]) => {
+                setLoading(true);
                 setResults(response);
                 setPage(0);
                 if (response.length > 0 && response[0].votes.length > 0) {
@@ -141,7 +162,7 @@ export const ResultsScreen: FunctionComponent = () => {
                                 height: '500px',
                             }}
                         >
-                            <BarChart data={showingVotes}></BarChart>
+                            <BarChart data={showingVotes} winner={winner}></BarChart>
                         </Form.Row>
                         <Form.Row style={{ marginBottom: '30px' }}>
                             {results[page].voters.map((v, i) => (
@@ -158,6 +179,21 @@ export const ResultsScreen: FunctionComponent = () => {
                     </>
                 ) : (
                     <FormText style={{ marginBottom: '30px' }}> No votes for this poll.</FormText>
+                )}
+                {!loading && results.length > 1 && (
+                    <Form.Row>
+                        <Pagination>
+                            {results.map((v, i) => (
+                                <Pagination.Item
+                                    key={i}
+                                    active={i === page}
+                                    onClick={() => changePage(i)}
+                                >
+                                    {i}
+                                </Pagination.Item>
+                            ))}
+                        </Pagination>
+                    </Form.Row>
                 )}
                 <Form.Row>
                     <Col>

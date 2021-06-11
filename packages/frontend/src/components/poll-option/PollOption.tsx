@@ -31,10 +31,10 @@ export const PollOption: FunctionComponent<PollOptionProps> = ({
     idx,
     fixed,
     selected,
-    style
+    style,
 }) => {
     const handleButtonAux = (e: React.MouseEvent<HTMLElement>): void => {
-        if (!name) {
+        if (!name || name === '__Dummy__1' || name === '__Dummy__2') {
             animate(`.my-element-${idx}`, 'shakeX');
             return;
         }
