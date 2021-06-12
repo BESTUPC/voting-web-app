@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://vote.bestbarcelona.org",
   "dependencies": {
     "@devexpress/dx-chart-core": "^2.7.5",
     "@devexpress/dx-core": "^2.7.5",
