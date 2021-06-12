@@ -3,6 +3,7 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import helmet from 'helmet';
 import https from 'https';
+import http from 'http';
 import { ICertificates } from 'interfaces';
 import morgan from 'morgan';
 import { MasterRouter } from '../routers/MasterRouter';
@@ -124,8 +125,12 @@ export class Server {
             });
             return true;
         } else {
-            logger.error("Couldn't run server, no certificates found");
-            return false;
+            const httpServer: http.Server = https.createServer(certificate, this.server);
+
+            httpServer.listen(process.env.PORT, () => {
+                logger.info('HTTP Server running on port ' + process.env.PORT);
+            });
+            return true;
         }
     }
 }
