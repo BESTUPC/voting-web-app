@@ -19,7 +19,7 @@
     "interfaces:build": "yarn workspace interfaces build",
     "frontend:start": "yarn workspace frontend start",
     "frontend:build": "yarn workspace frontend build",
-    "all:build": "yarn workspaces foreach run build",
+    "all:build": "yarn workspaces foreach -pt run build",
     "test": "yarn workspaces foreach run test",
     "lint": "yarn workspace server lint",
     "lint:fix": "yarn workspace server lint:fix",
