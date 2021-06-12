@@ -111,13 +111,12 @@ export class VoteController {
     }
 
     private static async getNormalResults(
-        pollId: string,
+        votesFound: IVote[],
         options: IPollOption[],
         isPrivate: boolean,
         approvalRatio: EPollApprovalRatio,
         abstentionIsValid: boolean,
     ): Promise<ResultsInterface> {
-        const votesFound: IVote[] = await VoteModel.getFromPollId(pollId);
         const users: IUser[] = await UserModel.getAll();
         const votes: Array<{ option: string; votes: number }> = [];
         let voters: Array<[string, string[]]> = [];
@@ -138,42 +137,31 @@ export class VoteController {
         const nValidVotes = votes.length - (abstentionIsValid ? 0 : abstentionOptions.length);
 
         let winner = '';
+        const votesSorted = votes
+            .sort((a, b) => b.votes - a.votes)
+            .filter((v) => {
+                const found = options.find((opt) => opt.name === v.option);
+                return abstentionIsValid || !found.isAbstention;
+            });
 
-        if (approvalRatio === EPollApprovalRatio.SIMPLE) {
-            const votesSorted = votes
-                .sort((a, b) => a.votes - b.votes)
-                .filter((v) => {
-                    const found = options.find((opt) => opt.name === v.option);
-                    return abstentionIsValid || !found.isAbstention;
-                });
-            winner = !!votesSorted[0][0]
-                ? `The winner of the poll is ${votesSorted[0][0]}`
-                : 'There has been a draw!';
-        } else if (approvalRatio === EPollApprovalRatio.ABSOLUTE) {
-            const votesSorted = votes
-                .sort((a, b) => a.votes - b.votes)
-                .filter((v) => {
-                    const found = options.find((opt) => opt.name === v.option);
-                    return abstentionIsValid || !found.isAbstention;
-                });
-            if (votesSorted.length > 0) {
+        if (votesSorted.length === 0) {
+            winner = 'There is no winner';
+        } else {
+            if (approvalRatio === EPollApprovalRatio.SIMPLE) {
+                winner =
+                    votesSorted.length === 1 || votesSorted[0].votes !== votesSorted[1].votes
+                        ? `The winner of the poll is ${votesSorted[0].option}`
+                        : 'There is no winner';
+            } else if (approvalRatio === EPollApprovalRatio.ABSOLUTE) {
                 winner =
                     votesSorted[0].votes / nValidVotes > 0.5
                         ? `The winner of the poll is ${votesSorted[0].option}`
-                        : 'There has been a draw!';
-            }
-        } else {
-            const votesSorted = votes
-                .sort((a, b) => a[1] - b[1])
-                .filter((v) => {
-                    const found = options.find((opt) => opt.name === v.option);
-                    return abstentionIsValid || !found.isAbstention;
-                });
-            if (votesSorted.length > 0) {
+                        : 'There is no winner';
+            } else {
                 winner =
                     votesSorted[0].votes / nValidVotes > 2 / 3
                         ? `The winner of the poll is ${votesSorted[0].option}!`
-                        : `There has been a draw!`;
+                        : `There is no winner`;
             }
         }
 
@@ -187,14 +175,57 @@ export class VoteController {
                 ],
             ];
         }
-        return { votes, voters, winner };
+        return { votes, voters, winner, removed: [] };
     }
     private static async getPriorityResults(
-        _pollId: string,
-        _options: IPollOption[],
-        _isPrivate: boolean,
+        votesFound: IVote[],
+        options: IPollOption[],
+        isPrivate: boolean,
+        approvalRatio: EPollApprovalRatio,
+        abstentionIsValid: boolean,
     ): Promise<ResultsInterface[]> {
-        return [{ votes: [], voters: [], winner: '' }];
+        const results: ResultsInterface[] = [];
+        const done = false;
+        let votesCurrent: IVote[] = votesFound;
+        let optionsCurrent: IPollOption[] = options;
+        while (!done) {
+            const round = await this.getNormalResults(
+                votesCurrent,
+                optionsCurrent,
+                isPrivate,
+                approvalRatio,
+                abstentionIsValid,
+            );
+            if (round.winner.includes('The winner of the poll is')) {
+                results.push(round);
+                return results;
+            }
+            const loosingSortedVotes = round.votes
+                .sort((a, b) => a.votes - b.votes)
+                .filter((o) => {
+                    const option = options.find((oAux) => oAux.name === o.option);
+                    return !option.isAgainst && !option.isAbstention;
+                });
+            if (loosingSortedVotes.length === round.votes.length) {
+                results.push(round);
+                return results;
+            }
+            const minVotes = loosingSortedVotes[loosingSortedVotes.length - 1].votes;
+
+            const removeVotes = loosingSortedVotes
+                .filter((v) => v.votes === minVotes)
+                .map((v) => v.option);
+
+            optionsCurrent = optionsCurrent.filter((o) => !removeVotes.includes(o.name));
+            votesCurrent = votesCurrent.map((vc) => ({
+                ...vc,
+                option: vc.option.filter((o) => !removeVotes.includes(o)),
+            }));
+            round.removed = removeVotes;
+            results.push(round);
+        }
+
+        return results;
     }
 
     public static async getResults(userId: string, pollId: string): Promise<ResultsInterface[]> {
@@ -208,12 +239,19 @@ export class VoteController {
         ) {
             throw new ErrorHandler(401, 'Not authorized to access results in the current state');
         }
+        const votesFound: IVote[] = await VoteModel.getFromPollId(pollId);
         if (poll.isPriority) {
-            return this.getPriorityResults(pollId, poll.pollOptions, poll.isPrivate);
+            return this.getPriorityResults(
+                votesFound,
+                poll.pollOptions,
+                poll.isPrivate,
+                poll.approvalRatio,
+                poll.abstentionIsValid,
+            );
         }
         return [
             await this.getNormalResults(
-                pollId,
+                votesFound,
                 poll.pollOptions,
                 poll.isPrivate,
                 poll.approvalRatio,

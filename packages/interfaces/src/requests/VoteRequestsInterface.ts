@@ -6,4 +6,5 @@ export interface ResultsInterface {
     votes: Array<{ option: string; votes: number }>;
     voters: Array<[string, string[]]>;
     winner: string;
+    removed: string[];
 }

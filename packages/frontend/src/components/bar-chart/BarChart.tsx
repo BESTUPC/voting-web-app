@@ -12,9 +12,10 @@ import React, { FunctionComponent } from 'react';
 interface BarChartProps {
     data: { option: string; votes: number }[];
     winner: string;
+    removed: string[];
 }
 
-export const BarChart: FunctionComponent<BarChartProps> = ({ data, winner }) => {
+export const BarChart: FunctionComponent<BarChartProps> = ({ data, winner, removed }) => {
     return (
         <div style={{ width: '100%' }}>
             <Chart data={data}>
@@ -40,12 +41,12 @@ export const BarChart: FunctionComponent<BarChartProps> = ({ data, winner }) => 
                     barWidth={0.3}
                     pointComponent={(props) => {
                         if (props.argument !== '__Dummy__1' && props.argument !== '__Dummy__2') {
-                            return (
-                                <BarSeries.Point
-                                    {...props}
-                                    {...(props.argument === winner ? { color: '#00ff84' } : {})}
-                                ></BarSeries.Point>
-                            );
+                            const color = removed.includes(props.argument)
+                                ? { color: '#ff0600' }
+                                : props.argument === winner
+                                ? { color: '#00ff84' }
+                                : {};
+                            return <BarSeries.Point {...props} {...color}></BarSeries.Point>;
                         } else return <></>;
                     }}
                 />

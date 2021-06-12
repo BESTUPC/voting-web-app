@@ -19,6 +19,7 @@ export const ResultsScreen: FunctionComponent = () => {
     const [redirect, setRedirect] = useState(false);
     const [page, setPage] = useState(0);
     const [winner, setWinner] = useState('');
+    const [removed, setRemoved] = useState([] as string[]);
     const [loading, setLoading] = useState(true);
 
     const handleModal = () => {
@@ -34,12 +35,13 @@ export const ResultsScreen: FunctionComponent = () => {
     const changePage = (i: number) => {
         setPage(i);
         setWinner('');
+        setRemoved([]);
         setLoading(true);
         const maxVotes = Math.max(...results[i].votes.map((v) => v.votes));
         setShowingVotes([
-            { option: '__Dummy__1', votes: Math.floor(maxVotes + maxVotes / 2) },
-            ...results[0].votes.map((v) => ({ option: v.option, votes: 0 })),
-            { option: '__Dummy__2', votes: Math.floor(maxVotes + maxVotes / 2) },
+            { option: '__Dummy__1', votes: Math.ceil(maxVotes + maxVotes / 2) },
+            ...results[i].votes.map((v) => ({ option: v.option, votes: 0 })),
+            { option: '__Dummy__2', votes: Math.ceil(maxVotes + maxVotes / 2) },
         ]);
     };
 
@@ -93,7 +95,11 @@ export const ResultsScreen: FunctionComponent = () => {
                         (v) => v.option === newArray[i].option,
                     );
                     if (newArray[i].votes < actualVotes!.votes) {
-                        newArray[i].votes = newArray[i].votes + 0.01;
+                        newArray[i].votes = newArray[i].votes + 0.05;
+                        updated = true;
+                    }
+                    if (newArray[i].votes > actualVotes!.votes) {
+                        newArray[i].votes = actualVotes!.votes;
                         updated = true;
                     }
                 }
@@ -105,9 +111,13 @@ export const ResultsScreen: FunctionComponent = () => {
                 setModalTitle('Results');
                 setModalShown(true);
                 setLoading(false);
-                setWinner(results[page].winner);
+                setRemoved(results[page].removed);
+                const winnerOption = results[page].winner.split(' ');
+                if (winnerOption[winnerOption.length - 1] !== 'winner') {
+                    setWinner(winnerOption[winnerOption.length - 1]);
+                }
             }
-        }, 1);
+        }, 50);
         return () => {
             clearTimeout(timeout);
         };
@@ -131,9 +141,9 @@ export const ResultsScreen: FunctionComponent = () => {
                 if (response.length > 0 && response[0].votes.length > 0) {
                     const maxVotes = Math.max(...response[0].votes.map((v) => v.votes));
                     setShowingVotes([
-                        { option: '__Dummy__1', votes: Math.floor(maxVotes + maxVotes / 2) },
+                        { option: '__Dummy__1', votes: Math.ceil(maxVotes + maxVotes / 2) },
                         ...response[0].votes.map((v) => ({ option: v.option, votes: 0 })),
-                        { option: '__Dummy__2', votes: Math.floor(maxVotes + maxVotes / 2) },
+                        { option: '__Dummy__2', votes: Math.ceil(maxVotes + maxVotes / 2) },
                     ]);
                 }
             })
@@ -162,15 +172,36 @@ export const ResultsScreen: FunctionComponent = () => {
                                 height: '500px',
                             }}
                         >
-                            <BarChart data={showingVotes} winner={winner}></BarChart>
+                            <BarChart
+                                data={showingVotes}
+                                winner={winner}
+                                removed={removed}
+                            ></BarChart>
                         </Form.Row>
                         <Form.Row style={{ marginBottom: '30px' }}>
                             {results[page].voters.map((v, i) => (
-                                <Col key={i}>
-                                    <Form.Label>{v[0]}</Form.Label>
+                                <Col
+                                    key={i}
+                                    style={{
+                                        borderColor: 'lightgray',
+                                        borderWidth: '1px',
+                                        borderStyle: 'solid',
+                                        marginRight: '3px',
+                                        marginBottom: '3px',
+                                        minWidth: '200px',
+                                    }}
+                                >
+                                    <Form.Label style={{ marginTop: '5px', marginLeft: '5px' }}>
+                                        {v[0]}
+                                    </Form.Label>
                                     <ListGroup>
                                         {v[1].map((u, j) => (
-                                            <ListGroup.Item key={j}>{u}</ListGroup.Item>
+                                            <ListGroup.Item
+                                                key={j}
+                                                style={{ borderColor: 'transparent' }}
+                                            >
+                                                {`- ${u}`}
+                                            </ListGroup.Item>
                                         ))}
                                     </ListGroup>
                                 </Col>
@@ -180,21 +211,21 @@ export const ResultsScreen: FunctionComponent = () => {
                 ) : (
                     <FormText style={{ marginBottom: '30px' }}> No votes for this poll.</FormText>
                 )}
-                {!loading && results.length > 1 && (
-                    <Form.Row>
-                        <Pagination>
-                            {results.map((v, i) => (
-                                <Pagination.Item
-                                    key={i}
-                                    active={i === page}
-                                    onClick={() => changePage(i)}
-                                >
-                                    {i}
-                                </Pagination.Item>
-                            ))}
-                        </Pagination>
-                    </Form.Row>
-                )}
+                <Form.Row style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Pagination>
+                        {results.map((_v, i) => (
+                            <Pagination.Item
+                                key={i}
+                                active={i === page}
+                                onClick={() => changePage(i)}
+                                disabled={loading || results.length === 0}
+                            >
+                                {i}
+                            </Pagination.Item>
+                        ))}
+                    </Pagination>
+                </Form.Row>
+
                 <Form.Row>
                     <Col>
                         <AdminTools poll={poll} closePoll={closePoll} deletePoll={deletePoll} />
