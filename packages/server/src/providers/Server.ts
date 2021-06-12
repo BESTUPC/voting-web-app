@@ -67,7 +67,7 @@ export class Server {
      */
     private _mountRoutes(): boolean {
         try {
-            this.server.use('/api', new MasterRouter().router);
+            this.server.use('/', new MasterRouter().router);
             return true;
         } catch (e) {
             logger.error('Unable to mount routes');

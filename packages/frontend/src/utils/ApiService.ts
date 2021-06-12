@@ -5,7 +5,7 @@ import { IDelegationData } from '../components/custom-table/CustomTableDelegatio
 
 class ApiService {
     private axiosInstance: AxiosInstance;
-    constructor(baseURL = 'https://vote.api.bestbarcelona.org/api') {
+    constructor(baseURL = 'https://vote.api.bestbarcelona.org') {
         this.axiosInstance = axios.create({
             baseURL,
             withCredentials: true
