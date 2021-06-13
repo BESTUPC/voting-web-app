@@ -32,19 +32,19 @@ export class Server {
      */
     private _mountMiddlewares(): boolean {
         try {
-            this.server.use(function (eq, res, next) {
-                logger.info('WOWOWOW');
-                return next();
-            });
-            this.server.use(helmet());
-            this.server.enable('trust proxy');
-            this.server.use(
-                cors({
-                    origin: '*',
-                    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-                    credentials: true,
-                }),
-            );
+            // this.server.use(function (eq, res, next) {
+            //     logger.info('WOWOWOW');
+            //     return next();
+            // });
+            // this.server.use(helmet());
+            // this.server.enable('trust proxy');
+            // this.server.use(
+            //     cors({
+            //         origin: '*',
+            //         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+            //         credentials: true,
+            //     }),
+            // );
             this.server.use(expressLogger);
             this.server.use(cookieParser(process.env.COOKIE_KEY1));
             this.server.use(morgan('tiny'));
