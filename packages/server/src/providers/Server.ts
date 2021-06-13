@@ -36,7 +36,7 @@ export class Server {
             this.server.enable('trust proxy');
             this.server.use(
                 cors({
-                    origin: 'https://vote.bestbarcelona.org',
+                    origin: '*',
                     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
                     credentials: true,
                 }),
