@@ -32,6 +32,10 @@ export class Server {
      */
     private _mountMiddlewares(): boolean {
         try {
+            this.server.use(function (eq, res, next) {
+                logger.info('WOWOWOW');
+                return next();
+            });
             this.server.use(helmet());
             this.server.enable('trust proxy');
             this.server.use(
