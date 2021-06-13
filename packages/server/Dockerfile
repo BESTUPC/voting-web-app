@@ -8,7 +8,7 @@ RUN yarn workspaces focus server \
     && yarn workspace server workspaces foreach -R -p -v -t run build \
     && yarn workspace server build
 
-RUN rsync -aR package.json yarn.lock .yarnrc.yml .yarn chain.pem privkey.pem cert.pem \
+RUN rsync -aR package.json yarn.lock .yarnrc.yml .yarn \
     ./packages/interfaces/package.json ./packages/interfaces/dist \
     ./packages/server/package.json ./packages/server/dist \
     ./tmp 
