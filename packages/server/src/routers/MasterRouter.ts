@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { validateUser } from '../utils/AuthMiddleware';
 import { AuthRouter } from './AuthRouter';
 import { DelegationRouter } from './DelegationRouter';
+import { MetaRouter } from './MetaRouter';
 import { PollRouter } from './PollRouter';
 import { UserRouter } from './UserRouter';
 import { VoteRouter } from './VoteRouter';
@@ -41,6 +42,11 @@ export class MasterRouter {
     private _authRouter: AuthRouter;
 
     /**
+     * Meta router instance.
+     */
+    private _metaRouter: MetaRouter;
+
+    /**
      * Get function for the express router.
      */
     get router(): Router {
@@ -56,6 +62,7 @@ export class MasterRouter {
         this._voteRouter = new VoteRouter();
         this._delegationRouter = new DelegationRouter();
         this._authRouter = new AuthRouter();
+        this._metaRouter = new MetaRouter();
         this._configure();
     }
 
@@ -68,5 +75,6 @@ export class MasterRouter {
         this._router.use('/votes', [validateUser()], this._voteRouter.router);
         this._router.use('/delegations', [validateUser()], this._delegationRouter.router);
         this._router.use('/auth', [validateUser(false)], this._authRouter.router);
+        this.router.use('/', [], this._metaRouter.router);
     }
 }

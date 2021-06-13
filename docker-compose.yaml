@@ -9,12 +9,12 @@ services:
     volumes:
       - logs-volume:/src/logs
     ports:
-      - 3000:3000
+      - 3003:3003
     depends_on:
       - mongo
     environment:
       - FORCE_COLOR=1
-      - PORT=3000
+      - PORT=3003
       - MONGO_URI=mongodb://mongo:27017/
       - MONGO_DBNAME=votacions
       - MONGO_USER=bestbarcelona
