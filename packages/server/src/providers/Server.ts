@@ -33,7 +33,7 @@ export class Server {
     private _mountMiddlewares(): boolean {
         try {
             this.server.use(helmet());
-
+            this.server.enable('trust proxy');
             this.server.use(
                 cors({
                     origin: 'https://vote.bestbarcelona.org',
