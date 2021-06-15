@@ -27,7 +27,7 @@ export class AuthController {
                 email,
                 picture,
                 userId: sub,
-                membership: [EMembership.ALL],
+                membership: [EMembership.ALL, EMembership.ADMIN],
             };
             await UserModel.add(user);
             return sub;
