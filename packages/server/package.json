@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "pm2 dist/src/app.js",
+    "start": "pm2 start dist/src/app.js",
     "start:dev": "ts-node-dev --respawn --transpile-only ./src/app.ts |& ts-node-dev --respawn --transpile-only ./src/utils/PrettifyLogs.ts",
     "test": "nyc --reporter=text mocha -r ts-node/register ./test/**/*.test.ts",
     "lint": "eslint ./src",
