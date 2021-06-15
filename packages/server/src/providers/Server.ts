@@ -124,7 +124,7 @@ export class Server {
             });
             return true;
         } else {
-            const httpServer: http.Server = https.createServer(certificate, this.server);
+            const httpServer: http.Server = http.createServer(this.server);
 
             httpServer.listen(process.env.PORT, () => {
                 logger.info('HTTP Server running on port ' + process.env.PORT);
