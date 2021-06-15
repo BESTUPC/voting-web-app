@@ -35,7 +35,7 @@ export class Server {
             this.server.use(helmet());
             this.server.use(
                 cors({
-                    origin: '*',
+                    origin: 'https://vote.bestbarcelona.org',
                     optionsSuccessStatus: 200,
                     credentials: true,
                 }),
